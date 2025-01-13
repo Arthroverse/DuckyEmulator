@@ -5,4 +5,4 @@ Universal testing emulator for all users 😃
 P/S: I'm so sorry about my incompetance ☠️
 
 **IDEA BRAINSTORM** (Last updated: Jan 14, 2025)
-![](https://github.com/MaiDinhVinh/DuckyEmulator/DevelopmentDocs/v0.1/FeatureBrainstorm/DuckyEmulator_FeatureBrainstormMap(v0.1.1).png)
+![](https://github.com/MaiDinhVinh/DuckyEmulator/blob/main/DevelopmentDocs/v0.1/FeatureBrainstorm/DuckyEmulator_FeatureBrainstormMap(v0.1.1).png)
