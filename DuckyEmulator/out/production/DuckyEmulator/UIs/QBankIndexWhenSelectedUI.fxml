@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <left>
+      <VBox alignment="CENTER" spacing="20.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Menu">
+               <font>
+                  <Font name="Proxima Nova Bold" size="25.0" />
+               </font>
+            </Label>
+            <Button mnemonicParsing="false" text="Home">
+               <font>
+                  <Font name="Proxima Nova" size="25.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" text="Question Banks">
+               <font>
+                  <Font name="Proxima Nova" size="25.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" text="Topics/Classifications">
+               <font>
+                  <Font name="Proxima Nova" size="25.0" />
+               </font>
+            </Button>
+            <Line endX="100.0" rotate="90.0" scaleX="2.0" startX="-100.0" translateX="145.0" translateY="-140.0" />
+         </children>
+         <padding>
+            <Insets left="20.0" right="20.0" />
+         </padding>
+      </VBox>
+   </left>
+   <top>
+      <HBox alignment="CENTER" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="DuckyEmulator Admin Console">
+               <font>
+                  <Font name="Proxima Nova Bold" size="36.0" />
+               </font>
+            </Label>
+            <Line endX="100.0" scaleX="3.0" scaleY="5.0" startX="-100.0" translateX="-350.0" translateY="30.0" />
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="30.0" left="200.0" top="30.0" />
+         </BorderPane.margin>
+      </HBox>
+   </top>
+   <center>
+      <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <bottom>
+            <Pane prefHeight="50.0" prefWidth="50.0" BorderPane.alignment="CENTER" />
+         </bottom>
+         <top>
+            <HBox alignment="CENTER_LEFT" spacing="20.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button mnemonicParsing="false" text="Add">
+                     <font>
+                        <Font name="Proxima Nova" size="20.0" />
+                     </font>
+                  </Button>
+                  <Button mnemonicParsing="false" text="Delete">
+                     <font>
+                        <Font name="Proxima Nova" size="20.0" />
+                     </font>
+                  </Button>
+               </children>
+               <padding>
+                  <Insets left="30.0" />
+               </padding>
+               <BorderPane.margin>
+                  <Insets bottom="30.0" />
+               </BorderPane.margin>
+            </HBox>
+         </top>
+         <center>
+            <TableView BorderPane.alignment="CENTER">
+              <columns>
+                <TableColumn prefWidth="433.66668701171875" text="Question Statement" />
+                <TableColumn minWidth="0.0" prefWidth="133.0" text="Choice 1" />
+                  <TableColumn prefWidth="99.3333740234375" text="Choice 2" />
+                  <TableColumn prefWidth="101.6666259765625" text="Choice 3" />
+                  <TableColumn prefWidth="91.3333740234375" text="Choice 4" />
+                  <TableColumn prefWidth="134.0" text="Correct Answer" />
+              </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+         </center>
+      </BorderPane>
+   </center>
+   <right>
+      <ScrollPane prefViewportHeight="1149.0" prefViewportWidth="427.0">
+         <content>
+            <VBox prefHeight="1133.0" prefWidth="427.0" spacing="20.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label text="Topic">
+                     <font>
+                        <Font name="Proxima Nova Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <ChoiceBox prefHeight="27.0" prefWidth="412.0" />
+                  <Label text="Classification">
+                     <font>
+                        <Font name="Proxima Nova Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <ChoiceBox prefHeight="27.0" prefWidth="412.0" />
+                  <Label text="Question Statement">
+                     <font>
+                        <Font name="Proxima Nova Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <TextArea prefHeight="148.0" prefWidth="427.0" promptText="Enter question here">
+                     <font>
+                        <Font name="Proxima Nova Bold" size="18.0" />
+                     </font>
+                  </TextArea>
+                  <Label text="Choice 1">
+                     <font>
+                        <Font name="Proxima Nova Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <TextArea prefHeight="86.0" prefWidth="427.0" promptText="Enter text for choice 1">
+                     <font>
+                        <Font name="Proxima Nova Bold" size="18.0" />
+                     </font>
+                  </TextArea>
+                  <Label text="Choice 2">
+                     <font>
+                        <Font name="Proxima Nova Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <TextArea prefHeight="86.0" prefWidth="427.0" promptText="Enter text for choice 2">
+                     <font>
+                        <Font name="Proxima Nova Bold" size="18.0" />
+                     </font>
+                  </TextArea>
+                  <Label text="Choice 3">
+                     <font>
+                        <Font name="Proxima Nova Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <TextArea prefHeight="86.0" prefWidth="427.0" promptText="Enter text for choice 3">
+                     <font>
+                        <Font name="Proxima Nova Bold" size="18.0" />
+                     </font>
+                  </TextArea>
+                  <Label text="Choice 4">
+                     <font>
+                        <Font name="Proxima Nova Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <TextArea prefHeight="86.0" prefWidth="398.0" promptText="Enter text for choice 4">
+                     <font>
+                        <Font name="Proxima Nova Bold" size="18.0" />
+                     </font>
+                  </TextArea>
+                  <Label text="Correct answer">
+                     <font>
+                        <Font name="Proxima Nova Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <ChoiceBox prefHeight="27.0" prefWidth="412.0" />
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="140.0">
+                     <children>
+                        <Button mnemonicParsing="false" text="Update">
+                           <font>
+                              <Font name="Proxima Nova" size="20.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" text="Reset">
+                           <font>
+                              <Font name="Proxima Nova" size="20.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+               <BorderPane.margin>
+                  <Insets top="20.0" />
+               </BorderPane.margin>
+            </VBox>
+         </content>
+      </ScrollPane>
+   </right>
+</BorderPane>
