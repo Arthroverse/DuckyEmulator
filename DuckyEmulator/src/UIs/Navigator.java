@@ -10,13 +10,17 @@ import java.io.IOException;
 public class Navigator {
     private static final String HOME_FXML = "HomePageUI.fxml";
 
-    private static final String QBANK_NOT_SELECTED = "QBankIndexWhenNotSelectedUI.fxml";
+    private static final String QBANK_NOT_SELECTED = "QBankIndexNotSelectedUI.fxml";
 
-    private static final String QBANK_SELECTED = "QBankIndexWhenSelectedUI.fxml";
+    private static final String QBANK_SELECTED = "QBankIndexSelectedUI.fxml";
 
-    private static final String TOPICS_CLASS_NOT_SELECTED = "TopicsAndClassificationIndex_NotSelectedUI.fxml";
+    private static final String TOPICS_CLASS_NOT_SELECTED = "TopicsClassIndexNotSelectedUI.fxml";
 
-    private static final String TOPICS_CLASS_SELECTED = "TopicsAndClassificationIndex_SelectedUI.fxml";
+    private static final String TOPICS_CLASS_SELECTED = "TopicsClassIndexSelectedUI.fxml";
+
+    private static final String QBANK_ADD = "QBankIndexAddUI.fxml";
+
+    private static final String TOPICS_CLASS_ADD = "TopicsClassIndexAddUI.fxml";
 
     private Stage stage;
 
@@ -66,7 +70,12 @@ public class Navigator {
         this.goTo(Navigator.TOPICS_CLASS_NOT_SELECTED);
     }
 
+    public void goToAddQuestion() throws IOException{
+        this.goTo(Navigator.QBANK_ADD);
+    }
 
-
+    public void goToAddTopicsAndClassification() throws IOException{
+        this.goTo(Navigator.TOPICS_CLASS_ADD);
+    }
 
 }
