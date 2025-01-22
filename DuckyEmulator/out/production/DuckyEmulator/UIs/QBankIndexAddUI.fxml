@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UIControllers.QBankIndexAddUIController">
+   <left>
+      <VBox alignment="CENTER" prefHeight="1151.0" prefWidth="74.0" spacing="20.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Menu">
+               <font>
+                  <Font name="Proxima Nova Bold" size="25.0" />
+               </font>
+            </Label>
+            <Button fx:id="btnMenuHome" mnemonicParsing="false" onAction="#btnMenuHomeClick" text="Home">
+               <font>
+                  <Font name="Proxima Nova" size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnMenuBank" mnemonicParsing="false" onAction="#btnMenuBankClick" text="Question Banks">
+               <font>
+                  <Font name="Proxima Nova" size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnMenuTopicClass" mnemonicParsing="false" onAction="#btnMenuTopicClassClick" text="Topics/Classifications">
+               <font>
+                  <Font name="Proxima Nova" size="18.0" />
+               </font>
+            </Button>
+            <Line endX="100.0" rotate="90.0" scaleX="2.0" scaleY="5.0" startX="-100.0" translateX="110.0" translateY="-140.0" />
+         </children>
+         <padding>
+            <Insets right="20.0" />
+         </padding>
+      </VBox>
+   </left>
+   <top>
+      <HBox alignment="CENTER" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="DuckyEmulator Admin Console">
+               <font>
+                  <Font name="Proxima Nova Bold" size="36.0" />
+               </font>
+            </Label>
+            <Line endX="100.0" scaleX="3.0" scaleY="5.0" startX="-100.0" translateX="-350.0" translateY="30.0" />
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="30.0" left="200.0" top="30.0" />
+         </BorderPane.margin>
+      </HBox>
+   </top>
+   <center>
+      <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <bottom>
+            <Pane prefHeight="50.0" prefWidth="50.0" BorderPane.alignment="CENTER" />
+         </bottom>
+         <top>
+            <HBox alignment="CENTER_LEFT" spacing="20.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="btnTableAdd" mnemonicParsing="false" onAction="#btnTableAddClick" text="Add">
+                     <font>
+                        <Font name="Proxima Nova" size="20.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnTableDelete" mnemonicParsing="false" onAction="#btnTableDeleteClick" text="Delete">
+                     <font>
+                        <Font name="Proxima Nova" size="20.0" />
+                     </font>
+                  </Button>
+               </children>
+               <padding>
+                  <Insets left="30.0" />
+               </padding>
+               <BorderPane.margin>
+                  <Insets bottom="30.0" />
+               </BorderPane.margin>
+            </HBox>
+         </top>
+         <center>
+            <TableView fx:id="tableBankView" BorderPane.alignment="CENTER">
+              <columns>
+                  <TableColumn fx:id="tableBankTopicCol" prefWidth="75.0" text="Topic" />
+                  <TableColumn fx:id="tableBankClassCol" prefWidth="75.0" text="Classification" />
+                <TableColumn fx:id="tableBankQuestStateCol" prefWidth="433.66668701171875" text="Question Statement" />
+                <TableColumn fx:id="tableBankChoice1Col" minWidth="0.0" prefWidth="133.0" text="Choice 1" />
+                  <TableColumn fx:id="tableBankChoice2Col" prefWidth="99.3333740234375" text="Choice 2" />
+                  <TableColumn fx:id="tableBankChoice3Col" prefWidth="101.6666259765625" text="Choice 3" />
+                  <TableColumn fx:id="tableBankChoice4Col" prefWidth="91.3333740234375" text="Choice 4" />
+                  <TableColumn fx:id="tableBankCorrectAnsCol" prefWidth="134.0" text="Correct Answer" />
+              </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+         </center>
+      </BorderPane>
+   </center>
+   <right>
+      <ScrollPane prefViewportHeight="1149.0" prefViewportWidth="427.0">
+         <content>
+            <VBox prefHeight="1133.0" prefWidth="427.0" spacing="20.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label text="Topic">
+                     <font>
+                        <Font name="Proxima Nova Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <ChoiceBox fx:id="choiceBoxTopic" prefHeight="27.0" prefWidth="412.0" />
+                  <Label text="Classification">
+                     <font>
+                        <Font name="Proxima Nova Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <ChoiceBox fx:id="choiceBoxClass" prefHeight="27.0" prefWidth="412.0" />
+                  <Label text="Question Statement">
+                     <font>
+                        <Font name="Proxima Nova Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <TextArea fx:id="txtAreaQuestState" prefHeight="148.0" prefWidth="427.0" promptText="Enter question here">
+                     <font>
+                        <Font name="Proxima Nova Bold" size="18.0" />
+                     </font>
+                  </TextArea>
+                  <Label text="Choice 1">
+                     <font>
+                        <Font name="Proxima Nova Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <TextArea fx:id="txtAreaChoice1" prefHeight="86.0" prefWidth="427.0" promptText="Enter text for choice 1">
+                     <font>
+                        <Font name="Proxima Nova Bold" size="18.0" />
+                     </font>
+                  </TextArea>
+                  <Label text="Choice 2">
+                     <font>
+                        <Font name="Proxima Nova Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <TextArea fx:id="txtAreChoice2" prefHeight="86.0" prefWidth="427.0" promptText="Enter text for choice 2">
+                     <font>
+                        <Font name="Proxima Nova Bold" size="18.0" />
+                     </font>
+                  </TextArea>
+                  <Label text="Choice 3">
+                     <font>
+                        <Font name="Proxima Nova Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <TextArea fx:id="txtxAreaChoice3" prefHeight="86.0" prefWidth="427.0" promptText="Enter text for choice 3">
+                     <font>
+                        <Font name="Proxima Nova Bold" size="18.0" />
+                     </font>
+                  </TextArea>
+                  <Label text="Choice 4">
+                     <font>
+                        <Font name="Proxima Nova Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <TextArea fx:id="txtAreaChoice4" prefHeight="86.0" prefWidth="398.0" promptText="Enter text for choice 4">
+                     <font>
+                        <Font name="Proxima Nova Bold" size="18.0" />
+                     </font>
+                  </TextArea>
+                  <Label text="Correct answer">
+                     <font>
+                        <Font name="Proxima Nova Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <ChoiceBox fx:id="choiceBoxCorrectAns" prefHeight="27.0" prefWidth="412.0" />
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="140.0">
+                     <children>
+                        <Button fx:id="btnScrollUpdate" mnemonicParsing="false" onAction="#btnScrollUpdateClick" text="Add">
+                           <font>
+                              <Font name="Proxima Nova" size="20.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="btnScrollReset" mnemonicParsing="false" onAction="#btnScrollResetClick" text="Reset">
+                           <font>
+                              <Font name="Proxima Nova" size="20.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+               <BorderPane.margin>
+                  <Insets top="20.0" />
+               </BorderPane.margin>
+            </VBox>
+         </content>
+      </ScrollPane>
+   </right>
+</BorderPane>
