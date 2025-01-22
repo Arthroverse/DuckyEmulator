@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal" created-in="DB-243.23654.19">
+    <data-source name="@localhost" uuid="1fcf0925-cbe4-4b88-939f-f7753ab7be5d">
+      <database-info product="MySQL" version="8.4.3" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-java-8.0.16 (Revision: 34cbc6bc61f72836e26327537a432d6db7c77de6)" dbms="MYSQL" exact-version="8.4.3" exact-driver-version="8.0">
+        <extra-name-characters>#@</extra-name-characters>
+        <identifier-quote-string>`</identifier-quote-string>
+        <jdbc-catalog-is-schema>true</jdbc-catalog-is-schema>
+      </database-info>
+      <case-sensitivity plain-identifiers="mixed" quoted-identifiers="mixed" />
+      <secret-storage>master_key</secret-storage>
+      <user-name>root</user-name>
+      <schema-mapping>
+        <introspection-scope>
+          <node kind="schema" negative="1" />
+        </introspection-scope>
+      </schema-mapping>
+    </data-source>
+  </component>
+</project>
