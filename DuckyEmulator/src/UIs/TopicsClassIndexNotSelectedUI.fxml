@@ -9,7 +9,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UIControllers.TopicsClassIndexNotSelectedUIController">
    <top>
       <HBox alignment="TOP_CENTER" BorderPane.alignment="CENTER">
          <children>
@@ -33,25 +33,25 @@
                   <Font name="Proxima Nova Bold" size="25.0" />
                </font>
             </Label>
-            <Button mnemonicParsing="false" text="Home">
+            <Button fx:id="btnMenuHome" mnemonicParsing="false" onAction="#btnMenuHomeClick" text="Home">
                <font>
-                  <Font name="Proxima Nova" size="25.0" />
+                  <Font name="Proxima Nova" size="18.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" text="Question Banks">
+            <Button fx:id="btnMenuQuestBank" mnemonicParsing="false" onAction="#btnMenuQuestBankClick" text="Question Banks">
                <font>
-                  <Font name="Proxima Nova" size="25.0" />
+                  <Font name="Proxima Nova" size="18.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" text="Topics/Classifications">
+            <Button fx:id="btnMenuTopicClass" mnemonicParsing="false" onAction="#btnMenuTopicClassClick" text="Topics/Classifications">
                <font>
-                  <Font name="Proxima Nova" size="25.0" />
+                  <Font name="Proxima Nova" size="18.0" />
                </font>
             </Button>
-            <Line endX="100.0" rotate="90.0" scaleX="2.0" scaleY="5.0" startX="-100.0" translateX="145.0" translateY="-140.0" />
+            <Line endX="100.0" rotate="90.0" scaleX="2.0" scaleY="5.0" startX="-100.0" translateX="110.0" translateY="-140.0" />
          </children>
          <BorderPane.margin>
-            <Insets left="20.0" right="20.0" />
+            <Insets left="5.0" right="20.0" />
          </BorderPane.margin>
       </VBox>
    </left>
@@ -67,12 +67,12 @@
                               <Font name="Proxima Nova Bold" size="25.0" />
                            </font>
                         </Label>
-                        <Button mnemonicParsing="false" text="Add">
+                        <Button fx:id="btnTopicAdd" mnemonicParsing="false" onAction="#btnTopicAddClick" text="Add">
                            <font>
                               <Font name="Proxima Nova" size="20.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" text="Delete">
+                        <Button fx:id="btnTopicDelete" mnemonicParsing="false" onAction="#btnTopicDeleteClick" text="Delete">
                            <font>
                               <Font name="Proxima Nova" size="20.0" />
                            </font>
@@ -114,12 +114,12 @@
                               <Font name="Proxima Nova Bold" size="25.0" />
                            </font>
                         </Label>
-                        <Button mnemonicParsing="false" text="Add">
+                        <Button fx:id="btnClassAdd" mnemonicParsing="false" onAction="#btnClassAddClick" text="Add">
                            <font>
                               <Font name="Proxima Nova" size="20.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" text="Delete">
+                        <Button fx:id="btnClassDelete" mnemonicParsing="false" onAction="#btnClassDeleteClick" text="Delete">
                            <font>
                               <Font name="Proxima Nova" size="20.0" />
                            </font>
