@@ -9,7 +9,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UIControllers.TopicsClassIndexSelectedUIController">
    <top>
       <HBox alignment="TOP_CENTER" BorderPane.alignment="CENTER">
          <children>
@@ -26,32 +26,32 @@
       </HBox>
    </top>
    <left>
-      <VBox alignment="CENTER" spacing="30.0" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" prefHeight="1052.0" prefWidth="210.0" spacing="30.0" BorderPane.alignment="CENTER">
          <children>
             <Label text="Menu">
                <font>
                   <Font name="Proxima Nova Bold" size="25.0" />
                </font>
             </Label>
-            <Button mnemonicParsing="false" text="Home">
+            <Button fx:id="btnMenuHome" mnemonicParsing="false" onAction="#btnMenuHomeClick" text="Home">
                <font>
-                  <Font name="Proxima Nova" size="25.0" />
+                  <Font name="Proxima Nova" size="18.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" text="Question Banks">
+            <Button fx:id="btnMenuQuestBank" mnemonicParsing="false" onAction="#btnMenuQuestBankClick" text="Question Banks">
                <font>
-                  <Font name="Proxima Nova" size="25.0" />
+                  <Font name="Proxima Nova" size="18.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" text="Topics/Classifications">
+            <Button fx:id="btnMenuTopicClass" mnemonicParsing="false" onAction="#btnMenuTopicClassClick" text="Topics/Classifications">
                <font>
-                  <Font name="Proxima Nova" size="25.0" />
+                  <Font name="Proxima Nova" size="18.0" />
                </font>
             </Button>
-            <Line endX="100.0" rotate="90.0" scaleX="2.0" scaleY="5.0" startX="-100.0" translateX="145.0" translateY="-140.0" />
+            <Line endX="100.0" rotate="90.0" scaleX="2.0" scaleY="5.0" startX="-100.0" translateX="110.0" translateY="-140.0" />
          </children>
          <BorderPane.margin>
-            <Insets left="20.0" right="20.0" />
+            <Insets right="20.0" />
          </BorderPane.margin>
       </VBox>
    </left>
@@ -67,12 +67,12 @@
                               <Font name="Proxima Nova Bold" size="25.0" />
                            </font>
                         </Label>
-                        <Button mnemonicParsing="false" text="Add">
+                        <Button fx:id="btnTopicViewAdd" mnemonicParsing="false" onAction="#btnTopicViewAddClick" text="Add">
                            <font>
                               <Font name="Proxima Nova" size="20.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" text="Delete">
+                        <Button fx:id="btnTopicViewDelete" mnemonicParsing="false" onAction="#btnTopicViewDeleteClick" text="Delete">
                            <font>
                               <Font name="Proxima Nova" size="20.0" />
                            </font>
@@ -89,14 +89,14 @@
                <center>
                   <BorderPane BorderPane.alignment="CENTER">
                      <center>
-                        <TableView BorderPane.alignment="CENTER">
+                        <TableView fx:id="tableTopicView" BorderPane.alignment="CENTER">
                           <columns>
-                            <TableColumn prefWidth="491.0" text="Topic name" />
+                            <TableColumn fx:id="tableTopicNameCol" prefWidth="491.0" text="Topic name" />
                           </columns>
                         </TableView>
                      </center>
                      <right>
-                        <ScrollPane prefHeight="400.0" prefWidth="518.0" BorderPane.alignment="CENTER">
+                        <ScrollPane prefHeight="400.0" prefWidth="475.0" BorderPane.alignment="CENTER">
                            <content>
                               <VBox>
                                  <children>
@@ -105,19 +105,19 @@
                                           <Font name="Proxima Nova Bold" size="25.0" />
                                        </font>
                                     </Label>
-                                    <TextField prefHeight="32.0" prefWidth="456.0" promptText="Enter topic name here">
+                                    <TextField fx:id="txtFieldTopicName" prefHeight="32.0" prefWidth="456.0" promptText="Enter topic name here">
                                        <font>
                                           <Font name="Proxima Nova Bold" size="18.0" />
                                        </font>
                                     </TextField>
                                     <HBox alignment="CENTER" spacing="100.0">
                                        <children>
-                                          <Button mnemonicParsing="false" text="Update">
+                                          <Button fx:id="btnScrollTopicUpdate" mnemonicParsing="false" onAction="#btnScrollTopicUpdate" text="Update">
                                              <font>
                                                 <Font name="Proxima Nova" size="20.0" />
                                              </font>
                                           </Button>
-                                          <Button mnemonicParsing="false" text="Reset">
+                                          <Button fx:id="btnScrollTopicReset" mnemonicParsing="false" onAction="#btnScrollTopicResetClick" text="Reset">
                                              <font>
                                                 <Font name="Proxima Nova" size="20.0" />
                                              </font>
@@ -144,12 +144,12 @@
                               <Font name="Proxima Nova Bold" size="25.0" />
                            </font>
                         </Label>
-                        <Button mnemonicParsing="false" text="Add">
+                        <Button fx:id="tableClassViewAdd" mnemonicParsing="false" onAction="#tableClassViewAddClick" text="Add">
                            <font>
                               <Font name="Proxima Nova" size="20.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" text="Delete">
+                        <Button fx:id="tableClassViewDelete" mnemonicParsing="false" onAction="#tableClassViewDeleteClick" text="Delete">
                            <font>
                               <Font name="Proxima Nova" size="20.0" />
                            </font>
@@ -169,14 +169,14 @@
                <center>
                   <BorderPane BorderPane.alignment="CENTER">
                      <center>
-                        <TableView BorderPane.alignment="CENTER">
+                        <TableView fx:id="tableClassView" BorderPane.alignment="CENTER">
                           <columns>
-                            <TableColumn prefWidth="489.0" text="Classification" />
+                            <TableColumn fx:id="tableClassificationCol" prefWidth="489.0" text="Classification" />
                           </columns>
                         </TableView>
                      </center>
                      <right>
-                        <ScrollPane prefHeight="400.0" prefWidth="522.0" BorderPane.alignment="CENTER">
+                        <ScrollPane prefHeight="400.0" prefWidth="476.0" BorderPane.alignment="CENTER">
                            <content>
                               <VBox>
                                  <children>
@@ -185,7 +185,7 @@
                                           <Font name="Proxima Nova Bold" size="25.0" />
                                        </font>
                                     </Label>
-                                    <TextField prefHeight="32.0" prefWidth="456.0" promptText="Enter classification here">
+                                    <TextField fx:id="txtFieldClassification" prefHeight="32.0" prefWidth="456.0" promptText="Enter classification here">
                                        <font>
                                           <Font name="Proxima Nova Bold" size="18.0" />
                                        </font>
@@ -195,12 +195,12 @@
                                           <Insets top="70.0" />
                                        </VBox.margin>
                                        <children>
-                                          <Button mnemonicParsing="false" text="Update">
+                                          <Button fx:id="btnScrollClassUpdate" mnemonicParsing="false" onAction="#btnScrollClassUpdateClick" text="Update">
                                              <font>
                                                 <Font name="Proxima Nova" size="20.0" />
                                              </font>
                                           </Button>
-                                          <Button mnemonicParsing="false" text="Reset">
+                                          <Button fx:id="btnScrollClassReset" mnemonicParsing="false" onAction="#btnScrollClassResetClick" text="Reset">
                                              <font>
                                                 <Font name="Proxima Nova" size="20.0" />
                                              </font>
