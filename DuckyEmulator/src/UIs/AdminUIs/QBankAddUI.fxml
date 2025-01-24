@@ -13,12 +13,12 @@
    <top>
       <VBox alignment="TOP_CENTER" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Add new topic">
+            <Label text="Add new questions">
                <font>
                   <Font name="Proxima Nova Bold" size="30.0" />
                </font>
             </Label>
-            <Line endX="100.0" scaleY="5.0" startX="-100.0" />
+            <Line endX="100.0" scaleX="1.4" scaleY="5.0" startX="-100.0" translateX="-2.5" translateY="4.0" />
          </children>
          <padding>
             <Insets bottom="20.0" top="20.0" />
