@@ -10,7 +10,7 @@ import javafx.scene.control.TextField;
 
 import java.io.IOException;
 
-public class TopicsClassIndexAddUIController {
+public class TopicsClassIndexUIController {
 
     @FXML
     private TableColumn<?, ?> tableTopicNameCol;
@@ -81,12 +81,12 @@ public class TopicsClassIndexAddUIController {
 
     @FXML
     void btnTopicViewAddClick(ActionEvent event) throws IOException {
-        Navigator.getInstance().goToTopicClassIndexAdd();
+        Navigator.getInstance().goToTopicIndexAdd();
     }
 
     @FXML
     void btnTopicViewUpdateClick(ActionEvent event) throws IOException {
-        Navigator.getInstance().goToTopicClassIndexUpdate();
+        Navigator.getInstance().goToTopicIndexUpdate();
     }
 
     @FXML
@@ -106,12 +106,12 @@ public class TopicsClassIndexAddUIController {
 
     @FXML
     void tableClassViewAddClick(ActionEvent event) throws IOException {
-        Navigator.getInstance().goToTopicClassIndexAdd();
+        Navigator.getInstance().goToClassIndexAdd();
     }
 
     @FXML
-    void tableClassViewAddUpdateClick(ActionEvent event) throws IOException {
-        Navigator.getInstance().goToTopicClassIndexUpdate();
+    void tableClassViewUpdateClick(ActionEvent event) throws IOException {
+        Navigator.getInstance().goToClassIndexUpdate();
     }
 
     @FXML
@@ -131,7 +131,7 @@ public class TopicsClassIndexAddUIController {
 
     @FXML
     void btnMenuTopicClassClick(ActionEvent event) throws IOException {
-        Navigator.getInstance().goToTopicClassIndexAdd();
+        Navigator.getInstance().goToTopicClassIndex();
     }
 
 }

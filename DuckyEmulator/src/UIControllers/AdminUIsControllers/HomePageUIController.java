@@ -31,7 +31,7 @@ public class HomePageUIController {
 
     @FXML
     void btnHomeTopicClassClick(ActionEvent event) throws IOException {
-        Navigator.getInstance().goToTopicClassIndexAdd();
+        Navigator.getInstance().goToTopicClassIndex();
     }
 
     @FXML
@@ -46,6 +46,6 @@ public class HomePageUIController {
 
     @FXML
     void btnMenuTopicClassClick(ActionEvent event) throws IOException {
-        Navigator.getInstance().goToTopicClassIndexAdd();
+        Navigator.getInstance().goToTopicClassIndex();
     }
 }

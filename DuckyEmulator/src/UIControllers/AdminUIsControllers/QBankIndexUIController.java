@@ -83,7 +83,7 @@ public class QBankIndexUIController {
 
     @FXML
     void btnMenuTopicClassClick(ActionEvent event) throws IOException {
-        Navigator.getInstance().goToTopicClassIndexAdd();
+        Navigator.getInstance().goToTopicClassIndex();
     }
 
 }

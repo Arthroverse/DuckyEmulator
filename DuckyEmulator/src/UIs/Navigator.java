@@ -23,9 +23,15 @@ public class Navigator {
 
     private static final String QBANK_UPDATE = "AdminUIs/QBankUpdateUI.fxml";
 
-    private static final String TOPICS_CLASS_INDEX_ADD = "AdminUIs/TopicsClassIndexAddUI.fxml";
+    private static final String TOPICS_CLASS_INDEX = "AdminUIs/TopicsClassIndexUI.fxml";
 
-    private static final String TOPICS_CLASS_INDEX_UPDATE = "AdminUIs/TopicsClassIndexUpdateUI.fxml";
+    private static final String TOPICS_INDEX_ADD = "AdminUIs/TopicsAddUI.fxml";
+
+    private static final String TOPICS_INDEX_UPDATE = "AdminUIs/TopicsUpdateUI.fxml";
+
+    private static final String CLASS_INDEX_ADD = "AdminUIs/ClassificationsAddUI.fxml";
+
+    private static final String CLASS_INDEX_UPDATE = "AdminUIs/ClassificationsUpdateUI.fxml";
 
     private Stage stage;
 
@@ -54,61 +60,74 @@ public class Navigator {
    public void setStage(Stage stage){
         this.stage = stage;
    }
-
-   /**
-    * <pre>{@code
-    * Rectangle2D screenBound = Screen.getPrimary().getVisualBounds();
-    * this.stage.setX(screenBound.getMinX());
-    * this.stage.setY(screenBound.getMinY());
-    * this.stage.setWidth(screenBound.getWidth());
-    * this.stage.setHeight(screenBound.getHeight());}</pre><p>
-    * The first line is used to get the general shape of your screen (also gather your screen's resolution)<p>
-    * The next 2 lines is to set the initial position of the stage at the minimum positon<p>
-    * The last 2 lines is to set the stage size using the resolution extracted from the shape gathed in the first line<p>
-    * <p>
-    * <pre>
-    * {@code
-    * qBank.initModality(Modality.WINDOW_MODAL);
-    * qBank.initOwner(this.stage);
-    * if(qBank != null) qBank.requestFocus();}
-    * </pre><p>
-    * In order to generate 2 windows at once, we will need 2 separate stages<p>
-    * The first step is just basic, create separate stage, scene for our UIs.<p>
-    * However, in order for the second windows to work perfectly and also block any interactions<p>
-    * with our main windows, we will neeed additional 3 lines:<p>
-    * {@code qBank.initModality(Modality.WINDOW_MOAL);} these line indicate that we will block all<p>
-    * interactions with the primary windows (which we will set which one in the next line)<p>
-    * {@code qBank.initOwner(this.stage);} this line means that we will set the primary windows is the main windows<p>
-    * we are using right now (in this case either TopicClassIndex or QuestionBank index)<p>
-    * {@code if(qBank != null) qBank.requestFocus();} this line will determine whether our secondary window has shown in the screen or not.<p>
-    * If not, we will ask it to bring it to the front of the screen*/
    private void goTo(String fxml) throws IOException {
         this.loader = new FXMLLoader();
         loader.setLocation((getClass().getResource(fxml)));
         Parent root = loader.load();
         Scene scene = new Scene(root);
-        if(!fxml.equals(QBANK_ADD) & !fxml.equals(QBANK_UPDATE)){
-            Rectangle2D screenBound = Screen.getPrimary().getVisualBounds();
-            this.stage.setX(screenBound.getMinX());
-            this.stage.setY(screenBound.getMinY());
-            this.stage.setWidth(screenBound.getWidth());
-            this.stage.setHeight(screenBound.getHeight());
-            this.stage.setScene(scene);
-        }else{
-            Stage qBank = new Stage();
-            Parent secondRoot = null;
-            if(fxml.equals(QBANK_ADD))
-                secondRoot = FXMLLoader.load(getClass().getResource(QBANK_ADD));
-            else
-                secondRoot = FXMLLoader.load(getClass().getResource(QBANK_UPDATE));
-            Scene qBankAddScene = new Scene(secondRoot);
-            qBank.setScene(qBankAddScene);
-            qBank.initModality(Modality.WINDOW_MODAL);
-            qBank.initOwner(this.stage);
-            if(qBank != null) qBank.requestFocus();
-            qBank.show();
-        }
+        this.generateNewWindow(fxml, scene);
+   }
 
+    /**
+     * <pre>{@code
+     * Rectangle2D screenBound = Screen.getPrimary().getVisualBounds();
+     * this.stage.setX(screenBound.getMinX());
+     * this.stage.setY(screenBound.getMinY());
+     * this.stage.setWidth(screenBound.getWidth());
+     * this.stage.setHeight(screenBound.getHeight());}</pre><p>
+     * The first line is used to get the general shape of your screen (also gather your screen's resolution)<p>
+     * The next 2 lines is to set the initial position of the stage at the minimum positon<p>
+     * The last 2 lines is to set the stage size using the resolution extracted from the shape gathed in the first line<p>
+     * <p>
+     * <pre>
+     * {@code
+     * qBank.initModality(Modality.WINDOW_MODAL);
+     * qBank.initOwner(this.stage);
+     * if(qBank != null) qBank.requestFocus();}
+     * </pre><p>
+     * In order to generate 2 windows at once, we will need 2 separate stages<p>
+     * The first step is just basic, create separate stage, scene for our UIs.<p>
+     * However, in order for the second windows to work perfectly and also block any interactions<p>
+     * with our main windows, we will neeed additional 3 lines:<p>
+     * {@code qBank.initModality(Modality.WINDOW_MOAL);} these line indicate that we will block all<p>
+     * interactions with the primary windows (which we will set which one in the next line)<p>
+     * {@code qBank.initOwner(this.stage);} this line means that we will set the primary windows is the main windows<p>
+     * we are using right now (in this case either TopicClassIndex or QuestionBank index)<p>
+     * {@code if(qBank != null) qBank.requestFocus();} this line will determine whether our secondary window has shown in the screen or not.<p>
+     * If not, we will ask it to bring it to the front of the screen*/
+
+    private void generateNewWindow(String fxml, Scene currentScene) throws IOException {
+       if(!fxml.equals(QBANK_ADD) & !fxml.equals(QBANK_UPDATE)
+               & !fxml.equals(TOPICS_INDEX_ADD) & !fxml.equals(TOPICS_INDEX_UPDATE)
+               & !fxml.equals(CLASS_INDEX_ADD) & !fxml.equals(CLASS_INDEX_UPDATE)){
+           Rectangle2D screenBound = Screen.getPrimary().getVisualBounds();
+           this.stage.setX(screenBound.getMinX());
+           this.stage.setY(screenBound.getMinY());
+           this.stage.setWidth(screenBound.getWidth());
+           this.stage.setHeight(screenBound.getHeight());
+           this.stage.setScene(currentScene);
+       }else{
+           Stage qBank = new Stage();
+           Parent secondRoot = null;
+           if(fxml.equals(QBANK_ADD))
+               secondRoot = FXMLLoader.load(getClass().getResource(QBANK_ADD));
+           else if(fxml.equals(QBANK_UPDATE))
+               secondRoot = FXMLLoader.load(getClass().getResource(QBANK_UPDATE));
+           else if(fxml.equals(TOPICS_INDEX_ADD))
+               secondRoot = FXMLLoader.load(getClass().getResource(TOPICS_INDEX_ADD));
+           else if(fxml.equals(TOPICS_INDEX_UPDATE))
+               secondRoot = FXMLLoader.load(getClass().getResource(TOPICS_INDEX_UPDATE));
+           else if(fxml.equals(CLASS_INDEX_ADD))
+               secondRoot = FXMLLoader.load(getClass().getResource(CLASS_INDEX_ADD));
+           else
+               secondRoot = FXMLLoader.load(getClass().getResource(CLASS_INDEX_UPDATE));
+           Scene qBankAddScene = new Scene(secondRoot);
+           qBank.setScene(qBankAddScene);
+           qBank.initModality(Modality.WINDOW_MODAL);
+           qBank.initOwner(this.stage);
+           if(qBank != null) qBank.requestFocus();
+           qBank.show();
+       }
    }
 
    public void goToHome() throws IOException {
@@ -127,11 +146,23 @@ public class Navigator {
         this.goTo(QBANK_UPDATE);
    }
 
-   public void goToTopicClassIndexAdd() throws IOException {
-        this.goTo(TOPICS_CLASS_INDEX_ADD);
+   public void goToTopicClassIndex() throws IOException {
+        this.goTo(TOPICS_CLASS_INDEX);
    }
 
-   public void goToTopicClassIndexUpdate() throws IOException {
-        this.goTo(TOPICS_CLASS_INDEX_UPDATE);
+   public void goToTopicIndexAdd() throws IOException{
+       this.goTo(TOPICS_INDEX_ADD);
    }
+
+   public void goToTopicIndexUpdate() throws IOException {
+        this.goTo(TOPICS_INDEX_UPDATE);
+   }
+
+   public void goToClassIndexAdd() throws IOException{
+       this.goTo(CLASS_INDEX_ADD);
+   }
+
+    public void goToClassIndexUpdate() throws IOException{
+        this.goTo(CLASS_INDEX_UPDATE);
+    }
 }
