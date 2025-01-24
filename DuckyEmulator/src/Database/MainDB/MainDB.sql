@@ -33,3 +33,5 @@ CREATE TABLE QTRelationship(
     FOREIGN KEY (TopicID) REFERENCES Topics(TopicID),
     PRIMARY KEY(QuestionID, TopicID)
 );
+
+-- DROP DATABASE DuckyEmulator_QuestionDB;
