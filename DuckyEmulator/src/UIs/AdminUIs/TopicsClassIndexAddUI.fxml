@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UIControllers.AdminUIsControllers.TopicsClassIndexAddUIController">
+   <top>
+      <HBox alignment="TOP_CENTER" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="DuckyEmulator Admin Console">
+               <font>
+                  <Font name="Proxima Nova Bold" size="36.0" />
+               </font>
+            </Label>
+            <Line endX="100.0" scaleX="3.0" scaleY="5.0" startX="-100.0" translateX="-350.0" translateY="50.0" />
+         </children>
+         <BorderPane.margin>
+            <Insets left="245.0" right="50.0" top="10.0" />
+         </BorderPane.margin>
+      </HBox>
+   </top>
+   <left>
+      <VBox alignment="CENTER" prefHeight="1052.0" prefWidth="210.0" spacing="30.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Menu">
+               <font>
+                  <Font name="Proxima Nova Bold" size="25.0" />
+               </font>
+            </Label>
+            <Button fx:id="btnMenuHome" mnemonicParsing="false" onAction="#btnMenuHomeClick" text="Home">
+               <font>
+                  <Font name="Proxima Nova" size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnMenuQuestBank" mnemonicParsing="false" onAction="#btnMenuQuestBankClick" text="Question Banks">
+               <font>
+                  <Font name="Proxima Nova" size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnMenuTopicClass" mnemonicParsing="false" onAction="#btnMenuTopicClassClick" text="Topics/Classifications">
+               <font>
+                  <Font name="Proxima Nova" size="18.0" />
+               </font>
+            </Button>
+            <Line endX="100.0" rotate="90.0" scaleX="2.0" scaleY="5.0" startX="-100.0" translateX="110.0" translateY="-140.0" />
+         </children>
+         <BorderPane.margin>
+            <Insets right="20.0" />
+         </BorderPane.margin>
+      </VBox>
+   </left>
+   <center>
+      <VBox BorderPane.alignment="CENTER">
+         <children>
+            <BorderPane>
+               <top>
+                  <HBox alignment="CENTER_LEFT" spacing="30.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <Label text="Topics view">
+                           <font>
+                              <Font name="Proxima Nova Bold" size="25.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="btnTopicViewAdd" mnemonicParsing="false" onAction="#btnTopicViewAddClick" text="Add">
+                           <font>
+                              <Font name="Proxima Nova" size="20.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="btnTopicViewUpdate" mnemonicParsing="false" onAction="#btnTopicViewUpdateClick" text="Update">
+                           <font>
+                              <Font name="Proxima Nova" size="20.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="btnTopicViewDelete" mnemonicParsing="false" onAction="#btnTopicViewDeleteClick" text="Delete">
+                           <font>
+                              <Font name="Proxima Nova" size="20.0" />
+                           </font>
+                        </Button>
+                     </children>
+                     <padding>
+                        <Insets left="30.0" />
+                     </padding>
+                     <BorderPane.margin>
+                        <Insets bottom="20.0" top="30.0" />
+                     </BorderPane.margin>
+                  </HBox>
+               </top>
+               <center>
+                  <BorderPane BorderPane.alignment="CENTER">
+                     <center>
+                        <TableView fx:id="tableTopicView" BorderPane.alignment="CENTER">
+                          <columns>
+                            <TableColumn fx:id="tableTopicNameCol" prefWidth="491.0" text="Topic name" />
+                          </columns>
+                        </TableView>
+                     </center>
+                     <right>
+                        <ScrollPane prefHeight="400.0" prefWidth="365.0" BorderPane.alignment="CENTER">
+                           <content>
+                              <VBox alignment="TOP_CENTER" spacing="20.0">
+                                 <children>
+                                    <Label text="Add new topic">
+                                       <font>
+                                          <Font name="Proxima Nova Bold" size="25.0" />
+                                       </font>
+                                    </Label>
+                                    <Line endX="100.0" scaleY="5.0" startX="-100.0" translateY="-15.0" />
+                                    <Label text="Topic name">
+                                       <font>
+                                          <Font name="Proxima Nova Bold" size="25.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="txtFieldTopicName" prefHeight="32.0" prefWidth="363.0" promptText="Enter topic name here">
+                                       <font>
+                                          <Font name="Proxima Nova Bold" size="18.0" />
+                                       </font>
+                                    </TextField>
+                                    <HBox alignment="CENTER" spacing="100.0">
+                                       <children>
+                                          <Button fx:id="btnScrollTopicAdd" mnemonicParsing="false" onAction="#btnScrollTopicAddClick" text="Add">
+                                             <font>
+                                                <Font name="Proxima Nova" size="20.0" />
+                                             </font>
+                                          </Button>
+                                          <Button fx:id="btnScrollTopicReset" mnemonicParsing="false" onAction="#btnScrollTopicResetClick" text="Reset">
+                                             <font>
+                                                <Font name="Proxima Nova" size="20.0" />
+                                             </font>
+                                          </Button>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets top="10.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                 </children>
+                                 <padding>
+                                    <Insets top="5.0" />
+                                 </padding>
+                              </VBox>
+                           </content>
+                        </ScrollPane>
+                     </right>
+                  </BorderPane>
+               </center>
+            </BorderPane>
+            <BorderPane>
+               <top>
+                  <HBox alignment="CENTER_LEFT" spacing="30.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <Label text="Classifications view">
+                           <font>
+                              <Font name="Proxima Nova Bold" size="25.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="tableClassViewAdd" mnemonicParsing="false" onAction="#tableClassViewAddClick" text="Add">
+                           <font>
+                              <Font name="Proxima Nova" size="20.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="tableClassViewUpdate" mnemonicParsing="false" onAction="#tableClassViewAddUpdateClick" text="Update">
+                           <font>
+                              <Font name="Proxima Nova" size="20.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="tableClassViewDelete" mnemonicParsing="false" onAction="#tableClassViewDeleteClick" text="Delete">
+                           <font>
+                              <Font name="Proxima Nova" size="20.0" />
+                           </font>
+                        </Button>
+                     </children>
+                     <padding>
+                        <Insets left="30.0" />
+                     </padding>
+                     <BorderPane.margin>
+                        <Insets bottom="20.0" top="20.0" />
+                     </BorderPane.margin>
+                  </HBox>
+               </top>
+               <bottom>
+                  <Pane prefHeight="90.0" prefWidth="1504.0" BorderPane.alignment="CENTER" />
+               </bottom>
+               <center>
+                  <BorderPane BorderPane.alignment="CENTER">
+                     <center>
+                        <TableView fx:id="tableClassView" BorderPane.alignment="CENTER">
+                          <columns>
+                            <TableColumn fx:id="tableClassificationCol" prefWidth="489.0" text="Classification" />
+                          </columns>
+                        </TableView>
+                     </center>
+                     <right>
+                        <ScrollPane prefHeight="400.0" prefWidth="366.0" BorderPane.alignment="CENTER">
+                           <content>
+                              <VBox alignment="TOP_CENTER" spacing="20.0">
+                                 <children>
+                                    <Label text="Add new classification">
+                                       <font>
+                                          <Font name="Proxima Nova Bold" size="25.0" />
+                                       </font>
+                                    </Label>
+                                    <Line endX="100.0" scaleX="1.4" scaleY="5.0" startX="-100.0" translateY="-15.0" />
+                                    <Label text="Classification">
+                                       <font>
+                                          <Font name="Proxima Nova Bold" size="25.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="txtFieldClassification" prefHeight="32.0" prefWidth="363.0" promptText="Enter classification here">
+                                       <font>
+                                          <Font name="Proxima Nova Bold" size="18.0" />
+                                       </font>
+                                    </TextField>
+                                    <HBox alignment="CENTER" spacing="100.0">
+                                       <VBox.margin>
+                                          <Insets top="10.0" />
+                                       </VBox.margin>
+                                       <children>
+                                          <Button fx:id="btnScrollClassAdd" mnemonicParsing="false" onAction="#btnScrollClassAdd" text="Add">
+                                             <font>
+                                                <Font name="Proxima Nova" size="20.0" />
+                                             </font>
+                                          </Button>
+                                          <Button fx:id="btnScrollClassReset" mnemonicParsing="false" onAction="#btnScrollClassResetClick" text="Reset">
+                                             <font>
+                                                <Font name="Proxima Nova" size="20.0" />
+                                             </font>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                                 <padding>
+                                    <Insets top="5.0" />
+                                 </padding>
+                              </VBox>
+                           </content>
+                        </ScrollPane>
+                     </right>
+                  </BorderPane>
+               </center>
+            </BorderPane>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>
