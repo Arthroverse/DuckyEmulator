@@ -1,4 +1,4 @@
-package UIControllers;
+package UIControllers.AdminUIsControllers;
 
 import UIs.Navigator;
 import javafx.event.ActionEvent;
@@ -9,7 +9,7 @@ import javafx.scene.control.TableView;
 
 import java.io.IOException;
 
-public class QBankIndexNotSelectedUIController {
+public class QBankIndexUIController {
 
     @FXML
     private TableColumn<?, ?> tableClassCol;
@@ -54,13 +54,21 @@ public class QBankIndexNotSelectedUIController {
     private TableColumn<?, ?> tableTopicCol;
 
     @FXML
+    private Button btnTableUpdate;
+
+    @FXML
     void btnTableAddClick(ActionEvent event) throws IOException {
-        Navigator.getInstance().goToAddQuestion();
+        Navigator.getInstance().goToQBankAdd();
     }
 
     @FXML
     void btnTableDeleteClick(ActionEvent event) {
 
+    }
+
+    @FXML
+    void btnTableUpdateClick(ActionEvent event) throws IOException {
+        Navigator.getInstance().goToQBankUpdate();
     }
 
     @FXML
@@ -70,12 +78,12 @@ public class QBankIndexNotSelectedUIController {
 
     @FXML
     void btnMenuQuestionClick(ActionEvent event) throws IOException {
-        Navigator.getInstance().goToQuestionBank();
+        Navigator.getInstance().goToQBankIndex();
     }
 
     @FXML
     void btnMenuTopicClassClick(ActionEvent event) throws IOException {
-        Navigator.getInstance().goToTopicAndClassification();
+        Navigator.getInstance().goToTopicClassIndexAdd();
     }
 
 }

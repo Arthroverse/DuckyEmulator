@@ -1,4 +1,4 @@
-package UIControllers;
+package UIControllers.AdminUIsControllers;
 
 import UIs.Navigator;
 import javafx.event.ActionEvent;
@@ -10,13 +10,22 @@ import javafx.scene.control.TextField;
 
 import java.io.IOException;
 
-public class TopicsClassIndexAddUIController {
+public class TopicsClassIndexUpdateUIController {
 
     @FXML
     private TableColumn<?, ?> tableTopicNameCol;
 
     @FXML
+    private Button btnTopicViewUpdate;
+
+    @FXML
+    private Button tableClassViewUpdate;
+
+    @FXML
     private Button btnScrollTopicUpdate;
+
+    @FXML
+    private Button btnScrollClassAdd;
 
     @FXML
     private Button btnMenuHome;
@@ -40,9 +49,6 @@ public class TopicsClassIndexAddUIController {
     private TextField txtFieldClassification;
 
     @FXML
-    private Button btnScrollClassUpdate;
-
-    @FXML
     private TableView<?> tableTopicView;
 
     @FXML
@@ -64,7 +70,7 @@ public class TopicsClassIndexAddUIController {
     private Button tableClassViewDelete;
 
     @FXML
-    void btnScrollTopicUpdate(ActionEvent event) {
+    void btnScrollTopicAddUpdate(ActionEvent event) {
 
     }
 
@@ -75,7 +81,12 @@ public class TopicsClassIndexAddUIController {
 
     @FXML
     void btnTopicViewAddClick(ActionEvent event) throws IOException {
-        Navigator.getInstance().goToAddTopicsAndClassification();
+        Navigator.getInstance().goToTopicClassIndexAdd();
+    }
+
+    @FXML
+    void btnTopicViewUpdateClick(ActionEvent event) throws IOException {
+        Navigator.getInstance().goToTopicClassIndexUpdate();
     }
 
     @FXML
@@ -84,7 +95,7 @@ public class TopicsClassIndexAddUIController {
     }
 
     @FXML
-    void btnScrollClassUpdateClick(ActionEvent event) {
+    void btnScrollClassAdd(ActionEvent event) {
 
     }
 
@@ -95,7 +106,12 @@ public class TopicsClassIndexAddUIController {
 
     @FXML
     void tableClassViewAddClick(ActionEvent event) throws IOException {
-        Navigator.getInstance().goToAddTopicsAndClassification();
+        Navigator.getInstance().goToTopicClassIndexAdd();
+    }
+
+    @FXML
+    void tableClassViewAddUpdateClick(ActionEvent event) throws IOException {
+        Navigator.getInstance().goToTopicClassIndexUpdate();
     }
 
     @FXML
@@ -110,12 +126,12 @@ public class TopicsClassIndexAddUIController {
 
     @FXML
     void btnMenuQuestBankClick(ActionEvent event) throws IOException {
-        Navigator.getInstance().goToQuestionBank();
+        Navigator.getInstance().goToQBankIndex();
     }
 
     @FXML
     void btnMenuTopicClassClick(ActionEvent event) throws IOException {
-        Navigator.getInstance().goToTopicAndClassification();
+        Navigator.getInstance().goToTopicClassIndexAdd();
     }
 
 }

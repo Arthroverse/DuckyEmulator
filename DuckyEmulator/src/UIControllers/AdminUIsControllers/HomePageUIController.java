@@ -1,4 +1,4 @@
-package UIControllers;
+package UIControllers.AdminUIsControllers;
 
 import UIs.Navigator;
 import javafx.event.ActionEvent;
@@ -26,12 +26,12 @@ public class HomePageUIController {
 
     @FXML
     void btnHomeQuestionClick(ActionEvent event) throws IOException {
-        Navigator.getInstance().goToQuestionBank();
+        Navigator.getInstance().goToQBankIndex();
     }
 
     @FXML
     void btnHomeTopicClassClick(ActionEvent event) throws IOException {
-        Navigator.getInstance().goToTopicAndClassification();
+        Navigator.getInstance().goToTopicClassIndexAdd();
     }
 
     @FXML
@@ -41,12 +41,11 @@ public class HomePageUIController {
 
     @FXML
     void btnMenuQuestionClick(ActionEvent event) throws IOException {
-        Navigator.getInstance().goToQuestionBank();
+        Navigator.getInstance().goToQBankIndex();
     }
 
     @FXML
     void btnMenuTopicClassClick(ActionEvent event) throws IOException {
-        Navigator.getInstance().goToTopicAndClassification();
+        Navigator.getInstance().goToTopicClassIndexAdd();
     }
-
 }

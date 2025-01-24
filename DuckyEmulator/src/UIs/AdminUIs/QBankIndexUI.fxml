@@ -9,7 +9,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UIControllers.QBankIndexNotSelectedUIController">
+<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UIControllers.AdminUIsControllers.QBankIndexUIController">
    <left>
       <VBox alignment="CENTER" spacing="20.0" BorderPane.alignment="CENTER">
          <children>
@@ -67,6 +67,11 @@
             <HBox alignment="CENTER_LEFT" spacing="20.0" BorderPane.alignment="CENTER">
                <children>
                   <Button fx:id="btnTableAdd" mnemonicParsing="false" onAction="#btnTableAddClick" text="Add">
+                     <font>
+                        <Font name="Proxima Nova" size="20.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnTableUpdate" mnemonicParsing="false" onAction="#btnTableUpdateClick" text="Update">
                      <font>
                         <Font name="Proxima Nova" size="20.0" />
                      </font>
