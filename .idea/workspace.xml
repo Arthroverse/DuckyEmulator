@@ -5,9 +5,42 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="876640ba-2309-4eec-9124-d451bb765e14" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/DuckyEmulator/src/Database/MainDB/MainDB.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckyEmulator/out/production/DuckyEmulator/UIs/HomePageUI.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/DuckyEmulator/out/production/DuckyEmulator/UIs/HomePageUI.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DuckyEmulator/src/UIControllers/AdminUIsControllers/QBankAddUIController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DuckyEmulator/src/UIControllers/AdminUIsControllers/QBankUpdateUIController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DuckyEmulator/src/UIs/AdminUIs/QBankAddUI.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DuckyEmulator/src/UIs/AdminUIs/QBankUpdateUI.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DuckyEmulator/out/production/DuckyEmulator/UIControllers/HomePageUIController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DuckyEmulator/out/production/DuckyEmulator/UIControllers/QBankIndexAddUIController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DuckyEmulator/out/production/DuckyEmulator/UIControllers/QBankIndexNotSelectedUIController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DuckyEmulator/out/production/DuckyEmulator/UIControllers/QBankIndexSelectedUIController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DuckyEmulator/out/production/DuckyEmulator/UIControllers/TopicsClassIndexAddUIController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DuckyEmulator/out/production/DuckyEmulator/UIControllers/TopicsClassIndexNotSelectedUIController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DuckyEmulator/out/production/DuckyEmulator/UIControllers/TopicsClassIndexSelectedUIController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DuckyEmulator/out/production/DuckyEmulator/UIs/HomePageUI.fxml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/DuckyEmulator/out/production/DuckyEmulator/UIs/Navigator.class" beforeDir="false" afterPath="$PROJECT_DIR$/DuckyEmulator/out/production/DuckyEmulator/UIs/Navigator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DuckyEmulator/out/production/DuckyEmulator/UIs/QBankIndexAddUI.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DuckyEmulator/out/production/DuckyEmulator/UIs/QBankIndexNotSelectedUI.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DuckyEmulator/out/production/DuckyEmulator/UIs/QBankIndexSelectedUI.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DuckyEmulator/out/production/DuckyEmulator/UIs/TopicsClassIndexAddUI.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DuckyEmulator/out/production/DuckyEmulator/UIs/TopicsClassIndexNotSelectedUI.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DuckyEmulator/out/production/DuckyEmulator/UIs/TopicsClassIndexSelectedUI.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DuckyEmulator/src/UIControllers/HomePageUIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/DuckyEmulator/src/UIControllers/AdminUIsControllers/HomePageUIController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DuckyEmulator/src/UIControllers/QBankIndexAddUIController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DuckyEmulator/src/UIControllers/QBankIndexNotSelectedUIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/DuckyEmulator/src/UIControllers/AdminUIsControllers/QBankIndexUIController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DuckyEmulator/src/UIControllers/QBankIndexSelectedUIController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DuckyEmulator/src/UIControllers/TopicsClassIndexAddUIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/DuckyEmulator/src/UIControllers/AdminUIsControllers/TopicsClassIndexAddUIController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DuckyEmulator/src/UIControllers/TopicsClassIndexNotSelectedUIController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DuckyEmulator/src/UIControllers/TopicsClassIndexSelectedUIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/DuckyEmulator/src/UIControllers/AdminUIsControllers/TopicsClassIndexUpdateUIController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DuckyEmulator/src/UIs/HomePageUI.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/DuckyEmulator/src/UIs/AdminUIs/HomePageUI.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DuckyEmulator/src/UIs/Navigator.java" beforeDir="false" afterPath="$PROJECT_DIR$/DuckyEmulator/src/UIs/Navigator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DuckyEmulator/src/UIs/QBankIndexAddUI.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DuckyEmulator/src/UIs/QBankIndexNotSelectedUI.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/DuckyEmulator/src/UIs/AdminUIs/QBankIndexUI.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DuckyEmulator/src/UIs/QBankIndexSelectedUI.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DuckyEmulator/src/UIs/TopicsClassIndexAddUI.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/DuckyEmulator/src/UIs/AdminUIs/TopicsClassIndexAddUI.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DuckyEmulator/src/UIs/TopicsClassIndexNotSelectedUI.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DuckyEmulator/src/UIs/TopicsClassIndexSelectedUI.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/DuckyEmulator/src/UIs/AdminUIs/TopicsClassIndexUpdateUI.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,29 +50,33 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 7
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
   <component name="ProjectId" id="2rzDSVVesuZbbZn9Nay66FD7E4T" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "RunOnceActivity.OpenDatabaseViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "1-22-2025-(2)",
-    "last_opened_file_path": "/Users/ducksabervn/DATA/hoc hanh/hoc them/comp sci/DuckyEmulator",
-    "settings.editor.selected.configurable": "preferences.lookFeel"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenDatabaseViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;1-24-2025&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/ducksabervn/DATA/hoc hanh/hoc them/comp sci/DuckyEmulator&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.ide.settings.uml&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
 </project>
