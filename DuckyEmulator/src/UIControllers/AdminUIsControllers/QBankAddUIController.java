@@ -1,19 +1,34 @@
 package UIControllers.AdminUIsControllers;
 
+import Database.MainDB.Beans.Classifications;
+import Database.MainDB.Beans.Questions;
+import Database.MainDB.Beans.Topics;
+import UIs.Navigator;
+import Utilities.PromptAlert.AlertUtil;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
-public class QBankAddUIController {
+import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
+
+import static Database.MainDB.Beans.Topics.topicsQuestionView;
+import static Database.MainDB.Beans.Classifications.classQuestionView;
+
+public class QBankAddUIController implements Initializable {
 
     @FXML
-    private ChoiceBox<?> choiceBoxSelectTopic;
+    private ChoiceBox<String> choiceBoxSelectTopic;
 
     @FXML
-    private ChoiceBox<?> choiceBoxCorrectAns;
+    private ChoiceBox<String> choiceBoxCorrectAns;
 
     @FXML
     private Button btnChooseImagePath;
@@ -22,7 +37,7 @@ public class QBankAddUIController {
     private TextField txtFieldImagePath;
 
     @FXML
-    private ChoiceBox<?> choiceBoxSelectClass;
+    private ChoiceBox<String> choiceBoxSelectClass;
 
     @FXML
     private TextArea txtxAreaQChoice2;
@@ -31,7 +46,7 @@ public class QBankAddUIController {
     private TextArea txtxAreaQChoice1;
 
     @FXML
-    private Button btnAddNewTopic;
+    private Button btnAddNewQuestion;
 
     @FXML
     private TextArea txtAreaQStatement;
@@ -45,14 +60,39 @@ public class QBankAddUIController {
     @FXML
     private Button btnResetField;
 
+    private ArrayList<String> topicName = new ArrayList<>();
+
+    private ArrayList<String> className = new ArrayList<>();
+
+    private StringBuilder errorMessage = new StringBuilder();
+
     @FXML
     void btnChooseImagePathClick(ActionEvent event) {
 
     }
 
     @FXML
-    void btnAddNewTopicClick(ActionEvent event) {
-
+    void btnAddNewQuestionClick(ActionEvent event) throws IOException {
+        Questions quest = new Questions();
+        quest.setForeignKeyTopicId(topicName.indexOf(
+                choiceBoxSelectTopic.getValue()
+        ));
+        quest.setForeignKeyClassificationId(
+                className.indexOf(choiceBoxSelectClass.getValue())
+        );
+        quest.setQuestionStatement(txtAreaQStatement.getText());
+        quest.setChoice1(txtxAreaQChoice1.getText());
+        quest.setChoice2(txtxAreaQChoice2.getText());
+        quest.setChoice3(txtxAreaQChoice3.getText());
+        quest.setChoice4(txtxAreaQChoice4.getText());
+        quest.setCorrectAnswer(choiceBoxCorrectAns.getValue());
+        if(inputValidation())
+            Questions.insert(quest);
+        if(errorMessage.toString().isEmpty()){
+            Navigator.getInstance().closeSecondStage();
+            Navigator.getInstance().goToQBankIndex();
+        }
+        errorMessage = new StringBuilder();
     }
 
     @FXML
@@ -60,4 +100,43 @@ public class QBankAddUIController {
 
     }
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        for(Topics t : topicsQuestionView){
+            topicName.add(t.getTopicName());
+        }
+        topicName.add(0, "");
+        ArrayList<String> topicNameUi = new ArrayList<>(topicName);
+        topicNameUi.remove(0);
+        choiceBoxSelectTopic.setItems(FXCollections.observableArrayList(topicNameUi));
+
+        for(Classifications clazz: classQuestionView){
+            className.add(clazz.getClassification());
+        }
+        className.add(0, "");
+        ArrayList<String> classNameUi = new ArrayList<>(className);
+        classNameUi.remove(0);
+        choiceBoxSelectClass.setItems(FXCollections.observableArrayList(classNameUi));
+
+        choiceBoxCorrectAns.setItems(FXCollections.observableArrayList(
+                "Choice 1", "Choice 2", "Choice 3", "Choice 4"
+        ));
+    }
+
+    private boolean inputValidation(){
+        if(choiceBoxSelectTopic.getValue() == null) errorMessage.append("A question must be associated with a topic !\n");
+        if(choiceBoxSelectClass.getValue() == null) errorMessage.append("A question must be associated with a classification !\n");
+        if(txtAreaQStatement.getText() == null) errorMessage.append("A question must have a question statement !\n");
+        if(txtxAreaQChoice1.getText().isEmpty()
+        || txtxAreaQChoice2.getText().isEmpty()|| txtxAreaQChoice3.getText().isEmpty()
+        || txtxAreaQChoice4.getText().isEmpty()) errorMessage.append("A question must have 4 answers !\n");
+        if(choiceBoxCorrectAns.getValue()== null) errorMessage.append("You must select 1 correct answer !\n");
+
+        if(!errorMessage.toString().isEmpty()){
+            AlertUtil.generateErrorWindow("Add new question failed", "Add new question",
+                    errorMessage.toString());
+            return false;
+        }
+        return true;
+    }
 }

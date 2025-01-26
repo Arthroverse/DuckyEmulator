@@ -35,6 +35,8 @@ public class Navigator {
 
     private Stage stage;
 
+    private Stage secondStage = new Stage();
+
     private static Navigator nav = null;
 
     private FXMLLoader loader;
@@ -61,11 +63,7 @@ public class Navigator {
         this.stage = stage;
    }
    private void goTo(String fxml) throws IOException {
-        this.loader = new FXMLLoader();
-        loader.setLocation((getClass().getResource(fxml)));
-        Parent root = loader.load();
-        Scene scene = new Scene(root);
-        this.generateNewWindow(fxml, scene);
+        this.generateWindow(fxml);
    }
 
     /**
@@ -96,10 +94,14 @@ public class Navigator {
      * {@code if(qBank != null) qBank.requestFocus();} this line will determine whether our secondary window has shown in the screen or not.<p>
      * If not, we will ask it to bring it to the front of the screen*/
 
-    private void generateNewWindow(String fxml, Scene currentScene) throws IOException {
+    private void generateWindow(String fxml) throws IOException {
        if(!fxml.equals(QBANK_ADD) & !fxml.equals(QBANK_UPDATE)
                & !fxml.equals(TOPICS_INDEX_ADD) & !fxml.equals(TOPICS_INDEX_UPDATE)
                & !fxml.equals(CLASS_INDEX_ADD) & !fxml.equals(CLASS_INDEX_UPDATE)){
+           this.loader = new FXMLLoader();
+           loader.setLocation((getClass().getResource(fxml)));
+           Parent root = loader.load();
+           Scene currentScene = new Scene(root);
            Rectangle2D screenBound = Screen.getPrimary().getVisualBounds();
            this.stage.setX(screenBound.getMinX());
            this.stage.setY(screenBound.getMinY());
@@ -107,7 +109,7 @@ public class Navigator {
            this.stage.setHeight(screenBound.getHeight());
            this.stage.setScene(currentScene);
        }else{
-           Stage qBank = new Stage();
+           this.secondStage = new Stage();
            Parent secondRoot = null;
            if(fxml.equals(QBANK_ADD))
                secondRoot = FXMLLoader.load(getClass().getResource(QBANK_ADD));
@@ -122,12 +124,21 @@ public class Navigator {
            else
                secondRoot = FXMLLoader.load(getClass().getResource(CLASS_INDEX_UPDATE));
            Scene qBankAddScene = new Scene(secondRoot);
-           qBank.setScene(qBankAddScene);
-           qBank.initModality(Modality.WINDOW_MODAL);
-           qBank.initOwner(this.stage);
-           if(qBank != null) qBank.requestFocus();
-           qBank.show();
+           secondStage.setScene(qBankAddScene);
+           secondStage.initModality(Modality.WINDOW_MODAL);
+           secondStage.initOwner(this.stage);
+           if(secondStage != null) secondStage.requestFocus();
+           secondStage.show();
        }
+   }
+
+   /**
+    * After a successful add or update of Topic/Classification, we need to close the window.
+    * To do that, we need to close the stage that contains the secondary scene and to do that,
+    * we will use {@code secondStage.close()}*/
+   public void closeSecondStage(){
+        this.secondStage.close();
+        this.secondStage = null;
    }
 
    public void goToHome() throws IOException {

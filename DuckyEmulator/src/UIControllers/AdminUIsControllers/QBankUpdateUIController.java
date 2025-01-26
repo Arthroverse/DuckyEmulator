@@ -43,7 +43,7 @@ public class QBankUpdateUIController {
     private Button btnResetField;
 
     @FXML
-    private Button btnUpdateCurrentTopic;
+    private Button btnUpdateCurrentQuestion;
 
     @FXML
     void btnChooseImagePathClick(ActionEvent event) {
@@ -51,7 +51,7 @@ public class QBankUpdateUIController {
     }
 
     @FXML
-    void btnUpdateCurrentTopicClick(ActionEvent event) {
+    void btnUpdateCurrentQuestionClick(ActionEvent event) {
 
     }
 

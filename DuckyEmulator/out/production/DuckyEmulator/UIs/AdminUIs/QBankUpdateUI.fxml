@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.geometry.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="600.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UIControllers.AdminUIsControllers.QBankUpdateUIController">
+<BorderPane prefHeight="600.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UIControllers.AdminUIsControllers.QBankUpdateUIController">
    <top>
       <VBox alignment="TOP_CENTER" BorderPane.alignment="CENTER">
          <children>
@@ -37,7 +41,7 @@
                               <Font name="Proxima Nova Bold" size="20.0" />
                            </font>
                         </Label>
-                        <ChoiceBox fx:id="choiceBoxSelectTopic" prefHeight="27.0" prefWidth="428.0" />
+                        <ChoiceBox fx:id="choiceBoxSelectTopic" prefHeight="25.0" prefWidth="423.0" />
                      </children>
                      <padding>
                         <Insets left="20.0" />
@@ -180,7 +184,7 @@
                   </HBox>
                   <HBox alignment="CENTER" spacing="200.0">
                      <children>
-                        <Button fx:id="btnUpdateCurrentTopic" mnemonicParsing="false" onAction="#btnUpdateCurrentTopicClick" text="Update">
+                        <Button fx:id="btnUpdateCurrentQuestion" mnemonicParsing="false" onAction="#btnUpdateCurrentQuestionClick" text="Update">
                            <font>
                               <Font name="Proxima Nova Bold" size="20.0" />
                            </font>
