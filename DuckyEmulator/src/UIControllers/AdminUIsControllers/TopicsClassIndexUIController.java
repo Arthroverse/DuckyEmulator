@@ -1,28 +1,31 @@
 package UIControllers.AdminUIsControllers;
 
+import Database.MainDB.Beans.Classifications;
+import Database.MainDB.Beans.Topics;
 import UIs.Navigator;
+import Utilities.PromptAlert.AlertUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class TopicsClassIndexUIController {
+public class TopicsClassIndexUIController implements Initializable{
 
     @FXML
-    private TableColumn<?, ?> tableTopicNameCol;
+    private TableColumn<Topics, String> tableTopicNameCol;
+
+    @FXML
+    private TableColumn<Topics, String> tableTopicDesc;
 
     @FXML
     private Button btnTopicViewUpdate;
 
     @FXML
     private Button tableClassViewUpdate;
-
-    @FXML
-    private Button btnScrollClassAdd;
 
     @FXML
     private Button btnMenuHome;
@@ -37,47 +40,32 @@ public class TopicsClassIndexUIController {
     private Button tableClassViewAdd;
 
     @FXML
-    private TextField txtFieldTopicName;
+    private TableColumn<Classifications, String> tableClassificationCol;
 
     @FXML
-    private TableColumn<?, ?> tableClassificationCol;
+    private TableView<Topics> tableTopicView;
 
     @FXML
-    private TextField txtFieldClassification;
-
-    @FXML
-    private TableView<?> tableTopicView;
-
-    @FXML
-    private TableView<?> tableClassView;
+    private TableView<Classifications> tableClassView;
 
     @FXML
     private Button btnMenuTopicClass;
 
     @FXML
-    private Button btnScrollTopicReset;
-
-    @FXML
     private Button btnTopicViewAdd;
-
-    @FXML
-    private Button btnScrollClassReset;
-
-    @FXML
-    private Button btnScrollTopicAdd;
 
     @FXML
     private Button tableClassViewDelete;
 
     @FXML
-    void btnScrollTopicAddClick(ActionEvent event) {
-
-    }
+    private Pagination tableVewClassPagination;
 
     @FXML
-    void btnScrollTopicResetClick(ActionEvent event) {
+    private Pagination tableViewTopicPageination;
 
-    }
+    @FXML
+    private TableColumn<Classifications, String> tableClassificationDesc;
+
 
     @FXML
     void btnTopicViewAddClick(ActionEvent event) throws IOException {
@@ -91,17 +79,19 @@ public class TopicsClassIndexUIController {
 
     @FXML
     void btnTopicViewDeleteClick(ActionEvent event) {
-
-    }
-
-    @FXML
-    void btnScrollClassAdd(ActionEvent event) {
-
-    }
-
-    @FXML
-    void btnScrollClassResetClick(ActionEvent event) {
-
+        Topics selectedTop = tableTopicView.getSelectionModel().getSelectedItem();
+        if(selectedTop == null){
+            AlertUtil.generateErrorWindow("Delete topic failed", "Delete",
+                    "A topic must be selected to perform this operation !");
+        }
+        else{
+            if(AlertUtil.generateWarningWindow(
+                    "Delete topic confirmation",
+                    "Are you sure you want to delete the selected topic ?"
+            )){
+                if(Topics.delete(selectedTop)) tableTopicView.getItems().remove(selectedTop);
+            }
+        }
     }
 
     @FXML
@@ -116,7 +106,19 @@ public class TopicsClassIndexUIController {
 
     @FXML
     void tableClassViewDeleteClick(ActionEvent event) {
-
+        Classifications selectedClass = tableClassView.getSelectionModel().getSelectedItem();
+        if(selectedClass == null){
+            AlertUtil.generateErrorWindow("Delete topic failed", "Delete",
+                    "A topic must be selected to perform this operation !");
+        }
+        else{
+            if(AlertUtil.generateWarningWindow(
+                    "Delete topic confirmation",
+                    "Are you sure you want to delete the selected topic ?"
+            )){
+                if(Classifications.delete(selectedClass)) tableClassView.getItems().remove(selectedClass);
+            }
+        }
     }
 
     @FXML
@@ -134,4 +136,33 @@ public class TopicsClassIndexUIController {
         Navigator.getInstance().goToTopicClassIndex();
     }
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        this.topicViewInitialize();
+        this.classViewInitalize();
+    }
+
+    private void topicViewInitialize(){
+        tableTopicView.setItems(Topics.selectAll());
+
+        tableTopicNameCol.setCellValueFactory((topic) -> {
+            return topic.getValue().getTopicNameProperty();
+        });
+
+        tableTopicDesc.setCellValueFactory((topic) -> {
+            return topic.getValue().getTopicDescriptionProperty();
+        });
+    }
+
+    private void classViewInitalize(){
+        tableClassView.setItems(Classifications.selectAll());
+
+        tableClassificationCol.setCellValueFactory((classification) -> {
+            return classification.getValue().getClassificationProperty();
+        });
+
+        tableClassificationDesc.setCellValueFactory((classification) -> {
+            return classification.getValue().getClassificationDescriptionProperty();
+        });
+    }
 }
