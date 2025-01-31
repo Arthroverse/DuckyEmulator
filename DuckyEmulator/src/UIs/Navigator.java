@@ -1,5 +1,11 @@
 package UIs;
 
+import Database.MainDB.Beans.Classifications;
+import Database.MainDB.Beans.Questions;
+import Database.MainDB.Beans.Topics;
+import UIControllers.AdminUIsControllers.ClassificationsUpdateUIController;
+import UIControllers.AdminUIsControllers.QBankUpdateUIController;
+import UIControllers.AdminUIsControllers.TopicsUpdateUIController;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
@@ -110,19 +116,20 @@ public class Navigator {
            this.stage.setScene(currentScene);
        }else{
            this.secondStage = new Stage();
-           Parent secondRoot = null;
+           this.loader = new FXMLLoader();
            if(fxml.equals(QBANK_ADD))
-               secondRoot = FXMLLoader.load(getClass().getResource(QBANK_ADD));
+               this.loader.setLocation(getClass().getResource(QBANK_ADD));
            else if(fxml.equals(QBANK_UPDATE))
-               secondRoot = FXMLLoader.load(getClass().getResource(QBANK_UPDATE));
+               this.loader.setLocation(getClass().getResource(QBANK_UPDATE));
            else if(fxml.equals(TOPICS_INDEX_ADD))
-               secondRoot = FXMLLoader.load(getClass().getResource(TOPICS_INDEX_ADD));
+               this.loader.setLocation(getClass().getResource(TOPICS_INDEX_ADD));
            else if(fxml.equals(TOPICS_INDEX_UPDATE))
-               secondRoot = FXMLLoader.load(getClass().getResource(TOPICS_INDEX_UPDATE));
+               this.loader.setLocation(getClass().getResource(TOPICS_INDEX_UPDATE));
            else if(fxml.equals(CLASS_INDEX_ADD))
-               secondRoot = FXMLLoader.load(getClass().getResource(CLASS_INDEX_ADD));
+               this.loader.setLocation(getClass().getResource(CLASS_INDEX_ADD));
            else
-               secondRoot = FXMLLoader.load(getClass().getResource(CLASS_INDEX_UPDATE));
+               this.loader.setLocation(getClass().getResource(CLASS_INDEX_UPDATE));
+           Parent secondRoot = this.loader.load();
            Scene qBankAddScene = new Scene(secondRoot);
            secondStage.setScene(qBankAddScene);
            secondStage.initModality(Modality.WINDOW_MODAL);
@@ -153,8 +160,10 @@ public class Navigator {
         this.goTo(QBANK_ADD);
    }
 
-   public void goToQBankUpdate() throws IOException {
-        this.goTo(QBANK_UPDATE);
+   public void goToQBankUpdate(Questions q) throws IOException {
+       this.goTo(QBANK_UPDATE);
+       QBankUpdateUIController qbUpdateCtrl = this.loader.getController();
+       qbUpdateCtrl.initialize(q);
    }
 
    public void goToTopicClassIndex() throws IOException {
@@ -165,15 +174,19 @@ public class Navigator {
        this.goTo(TOPICS_INDEX_ADD);
    }
 
-   public void goToTopicIndexUpdate() throws IOException {
-        this.goTo(TOPICS_INDEX_UPDATE);
+   public void goToTopicIndexUpdate(Topics t) throws IOException {
+       this.goTo(TOPICS_INDEX_UPDATE);
+       TopicsUpdateUIController tUpdateCtrl = this.loader.getController();
+       tUpdateCtrl.initialize(t);
    }
 
    public void goToClassIndexAdd() throws IOException{
        this.goTo(CLASS_INDEX_ADD);
    }
 
-    public void goToClassIndexUpdate() throws IOException{
+    public void goToClassIndexUpdate(Classifications c) throws IOException{
         this.goTo(CLASS_INDEX_UPDATE);
+        ClassificationsUpdateUIController cUpdateCtrl = this.loader.getController();
+        cUpdateCtrl.initialize(c);
     }
 }
