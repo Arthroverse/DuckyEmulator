@@ -126,11 +126,11 @@ public class QBankAddUIController implements Initializable {
     private boolean inputValidation(){
         if(choiceBoxSelectTopic.getValue() == null) errorMessage.append("A question must be associated with a topic !\n");
         if(choiceBoxSelectClass.getValue() == null) errorMessage.append("A question must be associated with a classification !\n");
-        if(txtAreaQStatement.getText() == null) errorMessage.append("A question must have a question statement !\n");
+        if(txtAreaQStatement.getText() == null) errorMessage.append("A question must have a question statement !\n"); //TO DO: CHANGE "== NULL" TO .ISEMPTY()
         if(txtxAreaQChoice1.getText().isEmpty()
         || txtxAreaQChoice2.getText().isEmpty()|| txtxAreaQChoice3.getText().isEmpty()
         || txtxAreaQChoice4.getText().isEmpty()) errorMessage.append("A question must have 4 answers !\n");
-        if(choiceBoxCorrectAns.getValue()== null) errorMessage.append("You must select 1 correct answer !\n");
+        if(choiceBoxCorrectAns.getValue()== null) errorMessage.append("You must selectAll 1 correct answer !\n");
 
         if(!errorMessage.toString().isEmpty()){
             AlertUtil.generateErrorWindow("Add new question failed", "Add new question",
