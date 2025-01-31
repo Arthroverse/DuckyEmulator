@@ -66,6 +66,46 @@ public class TopicsClassIndexUIController implements Initializable{
     @FXML
     private TableColumn<Classifications, String> tableClassificationDesc;
 
+    private static int topicsMaxPageNum;
+
+    private static int classessMaxPageNum;
+
+    private static int currentTopicPageIndex;
+
+    private static int currentClassPageIndex;
+
+    private static int topicsOffset;
+
+    private static int classesOffset;
+
+    public static int getTopicsOffset(){
+        return topicsOffset;
+    }
+
+    public static int getTopicsMaxPageNum(){
+        return topicsMaxPageNum;
+    }
+
+    public static void setTopicsOffset(int topicsOffset){
+        TopicsClassIndexUIController.topicsOffset = topicsOffset;
+    }
+
+    public static void setTopicsMaxPageNum(int topicsMaxPageNum){
+        TopicsClassIndexUIController.topicsMaxPageNum = topicsMaxPageNum;
+    }
+
+    public static int getClassesOffset(){
+        return topicsOffset;
+    }
+
+    public static void setClassessOffset(int classesOffset){
+        TopicsClassIndexUIController.classesOffset = classesOffset;
+    }
+
+    public static void setClassessMaxPageNum(int classessMaxPageNum){
+        TopicsClassIndexUIController.classessMaxPageNum = classessMaxPageNum;
+    }
+
 
     @FXML
     void btnTopicViewAddClick(ActionEvent event) throws IOException {
@@ -74,14 +114,22 @@ public class TopicsClassIndexUIController implements Initializable{
 
     @FXML
     void btnTopicViewUpdateClick(ActionEvent event) throws IOException {
-        Navigator.getInstance().goToTopicIndexUpdate();
+        Topics selectedTop = tableTopicView.getSelectionModel().getSelectedItem();
+        if(selectedTop == null){
+            AlertUtil.generateErrorWindow("Update topic failed", "Update topic",
+                    "A topic must be selected to perform this operation !");
+        }
+        else{
+            currentTopicPageIndex = tableViewTopicPageination.getCurrentPageIndex();
+            Navigator.getInstance().goToTopicIndexUpdate(selectedTop);
+        }
     }
 
     @FXML
-    void btnTopicViewDeleteClick(ActionEvent event) {
+    void btnTopicViewDeleteClick(ActionEvent event) throws IOException {
         Topics selectedTop = tableTopicView.getSelectionModel().getSelectedItem();
         if(selectedTop == null){
-            AlertUtil.generateErrorWindow("Delete topic failed", "Delete",
+            AlertUtil.generateErrorWindow("Delete topic failed", "Delete topic",
                     "A topic must be selected to perform this operation !");
         }
         else{
@@ -89,7 +137,11 @@ public class TopicsClassIndexUIController implements Initializable{
                     "Delete topic confirmation",
                     "Are you sure you want to delete the selected topic ?"
             )){
-                if(Topics.delete(selectedTop)) tableTopicView.getItems().remove(selectedTop);
+                if(Topics.delete(selectedTop)){
+                    currentTopicPageIndex = tableViewTopicPageination.getCurrentPageIndex();
+                    tableTopicView.getItems().remove(selectedTop);
+                    Navigator.getInstance().goToTopicClassIndex();
+                }
             }
         }
     }
@@ -101,11 +153,19 @@ public class TopicsClassIndexUIController implements Initializable{
 
     @FXML
     void tableClassViewUpdateClick(ActionEvent event) throws IOException {
-        Navigator.getInstance().goToClassIndexUpdate();
+        Classifications selectedClass = tableClassView.getSelectionModel().getSelectedItem();
+        if(selectedClass == null){
+            AlertUtil.generateErrorWindow("Update classification failed", "Update classification",
+                    "A classification must be selected to perform this operation !");
+        }
+        else{
+            currentClassPageIndex = tableViewTopicPageination.getCurrentPageIndex();
+            Navigator.getInstance().goToClassIndexUpdate(selectedClass);
+        }
     }
 
     @FXML
-    void tableClassViewDeleteClick(ActionEvent event) {
+    void tableClassViewDeleteClick(ActionEvent event) throws IOException {
         Classifications selectedClass = tableClassView.getSelectionModel().getSelectedItem();
         if(selectedClass == null){
             AlertUtil.generateErrorWindow("Delete topic failed", "Delete",
@@ -116,7 +176,11 @@ public class TopicsClassIndexUIController implements Initializable{
                     "Delete topic confirmation",
                     "Are you sure you want to delete the selected topic ?"
             )){
-                if(Classifications.delete(selectedClass)) tableClassView.getItems().remove(selectedClass);
+                if(Classifications.delete(selectedClass)){
+                    currentClassPageIndex = tableViewTopicPageination.getCurrentPageIndex();
+                    tableClassView.getItems().remove(selectedClass);
+                    Navigator.getInstance().goToTopicClassIndex();
+                }
             }
         }
     }
@@ -138,12 +202,32 @@ public class TopicsClassIndexUIController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        this.topicViewInitialize();
-        this.classViewInitalize();
+        Topics.setPage();
+        Classifications.setPage();
+        tableViewTopicPageination.setPageCount(topicsMaxPageNum);
+        tableVewClassPagination.setPageCount(classessMaxPageNum);
+        tableViewTopicPageination.setCurrentPageIndex(currentTopicPageIndex);
+        tableVewClassPagination.setCurrentPageIndex(currentClassPageIndex);
+        this.topicViewInitialize(0);
+        this.classViewInitalize(0);
+        tableViewTopicPageination.currentPageIndexProperty().addListener(
+                (observable, oldIndex, newIndex) -> {
+                    int pageIndex = newIndex.intValue();
+                    this.topicViewInitialize(pageIndex);
+                }
+        );
+        tableVewClassPagination.currentPageIndexProperty().addListener(
+                (observable, oldIndex, newIndex) -> {
+                    int pageIndex = newIndex.intValue();
+                    this.classViewInitalize(pageIndex);
+                }
+        );
     }
 
-    private void topicViewInitialize(){
-        tableTopicView.setItems(Topics.selectAll());
+    private void topicViewInitialize(int pageIndex){
+        if(pageIndex > 0 || pageIndex == 0) topicsOffset = pageIndex * 10;
+        if(pageIndex == topicsMaxPageNum) topicsOffset = (pageIndex - 1) * 10;
+        tableTopicView.setItems(Topics.select(topicsOffset));
 
         tableTopicNameCol.setCellValueFactory((topic) -> {
             return topic.getValue().getTopicNameProperty();
@@ -154,8 +238,10 @@ public class TopicsClassIndexUIController implements Initializable{
         });
     }
 
-    private void classViewInitalize(){
-        tableClassView.setItems(Classifications.selectAll());
+    private void classViewInitalize(int pageIndex){
+        if(pageIndex > 0 || pageIndex == 0) classesOffset = pageIndex * 10;
+        if(pageIndex == classessMaxPageNum) classesOffset = (pageIndex - 1) * 10;
+        tableClassView.setItems(Classifications.select(classesOffset));
 
         tableClassificationCol.setCellValueFactory((classification) -> {
             return classification.getValue().getClassificationProperty();
