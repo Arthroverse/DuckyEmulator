@@ -28,14 +28,19 @@ public class ClassificationsAddUIController implements Initializable {
     @FXML
     private Button btnAddNewClassification;
 
+    private static StringBuilder errorMessage = new StringBuilder();
+
     @FXML
     void btnAddNewClassificationClick(ActionEvent event) throws IOException {
         Classifications clazz = new Classifications();
         clazz.setClassification(txtFieldClassificationName.getText());
         clazz.setClassificationDescription((txtAreaClassificationDescription.getText()));
         if(inputValidation()) Classifications.insert(clazz);
-        Navigator.getInstance().closeSecondStage();
-        Navigator.getInstance().goToTopicClassIndex();
+        if(errorMessage.toString().isEmpty()){
+            Navigator.getInstance().closeSecondStage();
+            Navigator.getInstance().goToTopicClassIndex();
+        }
+        errorMessage = new StringBuilder();
     }
 
     @FXML
@@ -49,7 +54,6 @@ public class ClassificationsAddUIController implements Initializable {
     }
 
     private boolean inputValidation(){
-        StringBuilder errorMessage = new StringBuilder();
         if(txtFieldClassificationName.getText().isEmpty()) errorMessage.append("Classification shouldn't be leave empty !\n");
         if(!errorMessage.toString().isEmpty()){
             AlertUtil.generateErrorWindow("Add new classification failed", "Add new classification",
