@@ -11,8 +11,12 @@ public abstract interface AlertUtil {
         alert.setTitle(warningTitle);
         alert.setHeaderText(warningMessage);
         Optional<ButtonType> confirmationResponse = alert.showAndWait();
-        if(confirmationResponse.get() == ButtonType.OK) return true;
-        else return false;
+        try{
+            if(confirmationResponse.get() == ButtonType.OK) return true;
+            else return false;
+        }catch(Exception e){
+            return false;
+        }
     }
 
     public static void generateErrorWindow(String errorTitle, String operationType, String errorMessage){
