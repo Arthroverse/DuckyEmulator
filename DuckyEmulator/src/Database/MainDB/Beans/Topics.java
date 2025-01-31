@@ -1,6 +1,7 @@
 package Database.MainDB.Beans;
 
 import Database.DBService.MySQLService;
+import UIControllers.AdminUIsControllers.TopicsClassIndexUIController;
 import Utilities.PromptAlert.AlertUtil;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -87,6 +88,57 @@ public class Topics {
         return topics;
     }
 
+    public static ObservableList<Topics> select(int offset) {
+        ObservableList<Topics> topics = FXCollections.observableArrayList();
+        try (
+                Connection conn = MySQLService.getConnection();
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(
+                        "SELECT * FROM Topics LIMIT 10 OFFSET " + offset + ";"
+                )
+        ) {
+            while (rs.next()) {
+                Topics t = new Topics();
+                t.setTopicId(rs.getInt("TopicId"));
+                t.setTopicName(rs.getString("TopicName"));
+                t.setTopicDescription(rs.getString("Description"));
+                topics.add(t);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return topics;
+    }
+
+    public static void setPage() {
+        try (
+                Connection conn = MySQLService.getConnection();
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(
+                        "SELECT TopicId, COUNT(TopicId) " +
+                                "FROM Topics " +
+                                "GROUP BY TopicId;"
+                );
+        ) {
+            int maxNumPage = 0;
+            while (rs.next()) {
+                maxNumPage += rs.getInt(2);
+            }
+            if (maxNumPage % 10 != 0) {
+                TopicsClassIndexUIController.setTopicsMaxPageNum(
+                        maxNumPage / 10 + 1
+                );
+            } else {
+                TopicsClassIndexUIController.setTopicsMaxPageNum(
+                        maxNumPage / 10
+                );
+            }
+            TopicsClassIndexUIController.setTopicsOffset(10);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public static boolean delete(Topics top){
         String sqlTopicDel = "DELETE FROM Topics WHERE TopicId = ?;";
         try(
@@ -114,6 +166,22 @@ public class Topics {
                 ){
             stmt.setString(1, newTopic.getTopicName());
             stmt.setString(2, newTopic.getTopicDescription());
+            stmt.executeUpdate();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public static void update(Topics t){
+        String sqlTopicsUpdate = "UPDATE Topics SET TopicName = ?, Description = ? " +
+                "WHERE TopicId = ?;";
+        try(
+                Connection conn = MySQLService.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sqlTopicsUpdate);
+                ){
+            stmt.setString(1, t.getTopicName());
+            stmt.setString(2, t.getTopicDescription());
+            stmt.setInt(3, t.getTopicId());
             stmt.executeUpdate();
         }catch(Exception e){
             e.printStackTrace();
