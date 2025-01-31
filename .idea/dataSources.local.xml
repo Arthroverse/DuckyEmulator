@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="dataSourceStorageLocal" created-in="IU-243.23654.153">
-    <data-source name="@localhost" uuid="319315f0-fd3c-4df1-b86e-6d367aea34ba">
-      <database-info product="MySQL" version="8.4.3" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-java-8.0.16 (Revision: 34cbc6bc61f72836e26327537a432d6db7c77de6)" dbms="MYSQL" exact-version="8.4.3" exact-driver-version="8.0">
+  <component name="dataSourceStorageLocal" created-in="DB-223.8617.3">
+    <data-source name="@localhost" uuid="2fa96fc8-62ed-4a10-ab4d-596351d96f07">
+      <database-info product="MySQL" version="8.0.41" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-java-8.0.16 (Revision: 34cbc6bc61f72836e26327537a432d6db7c77de6)" dbms="MYSQL" exact-version="8.0.41" exact-driver-version="8.0">
         <extra-name-characters>#@</extra-name-characters>
         <identifier-quote-string>`</identifier-quote-string>
       </database-info>
@@ -11,7 +11,7 @@
       <user-name>root</user-name>
       <schema-mapping>
         <introspection-scope>
-          <node kind="schema" negative="1" />
+          <node kind="schema" name="DuckyEmulator_QuestionDB" negative="1" />
         </introspection-scope>
       </schema-mapping>
     </data-source>
