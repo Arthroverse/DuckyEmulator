@@ -70,13 +70,35 @@ public class QBankIndexUIController implements Initializable {
     @FXML
     private TableColumn<Questions, String> tableImagePath;
 
+    private static int offset;
+
+    private static int maxPageNum;
+
+    private static int currentPageIndex;
+
+    public static int getOffset(){
+        return offset;
+    }
+
+    public static int getMaxPageNum(){
+        return maxPageNum;
+    }
+
+    public static void setOffset(int offset){
+        QBankIndexUIController.offset = offset;
+    }
+
+    public static void setMaxPageNum(int maxPageNum){
+        QBankIndexUIController.maxPageNum = maxPageNum;
+    }
+
     @FXML
     void btnTableAddClick(ActionEvent event) throws IOException {
         Navigator.getInstance().goToQBankAdd();
     }
 
     @FXML
-    void btnTableDeleteClick(ActionEvent event) {
+    void btnTableDeleteClick(ActionEvent event) throws IOException {
         Questions selectedQuest = tableBankView.getSelectionModel().getSelectedItem();
         if(selectedQuest == null){
             AlertUtil.generateErrorWindow("Delete question failed", "Question deletion",
@@ -87,14 +109,26 @@ public class QBankIndexUIController implements Initializable {
                     "Delete question confirmation",
                     "Are you sure you want to delete the selected question ?"
             )){
-                if(Questions.delete(selectedQuest)) tableBankView.getItems().remove(selectedQuest);
+                if(Questions.delete(selectedQuest)){
+                    currentPageIndex = pageinationQBank.getCurrentPageIndex();
+                    tableBankView.getItems().remove(selectedQuest);
+                    Navigator.getInstance().goToQBankIndex();
+                }
             }
         }
     }
 
     @FXML
     void btnTableUpdateClick(ActionEvent event) throws IOException {
-        Navigator.getInstance().goToQBankUpdate();
+        Questions selectedQuest = tableBankView.getSelectionModel().getSelectedItem();
+        if(selectedQuest == null){
+            AlertUtil.generateErrorWindow("Delete question failed", "Question deletion",
+                    "A question must be selected to perform this operation !");
+        }
+        else{
+            currentPageIndex = pageinationQBank.getCurrentPageIndex();
+            Navigator.getInstance().goToQBankUpdate(selectedQuest);
+        }
     }
 
     @FXML
@@ -114,22 +148,33 @@ public class QBankIndexUIController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        tableBankView.setItems(Questions.selectAll());
+        Questions.setPage();
+        pageinationQBank.setPageCount(maxPageNum);
+        pageinationQBank.setCurrentPageIndex(currentPageIndex);
         Classifications.selectAll();
         Topics.selectAll();
+        initialDeployment(currentPageIndex);
+        pageinationQBank.currentPageIndexProperty().addListener(
+                (observable, oldIndex, newIndex) -> {
+                    int pageIndex = newIndex.intValue();
+                    deploy(pageIndex);
+                });
+    }
+
+    private void deploy(int pageIndex){
+        if(pageIndex > 0 || pageIndex == 0) offset = pageIndex * 10;
+        if(pageIndex == maxPageNum) offset = (pageIndex - 1) * 10;
+        tableBankView.setItems(Questions.select(offset));
         tableClassCol.setCellValueFactory((questions) -> {
             return classQuestionView.get(
                     questions.getValue().getForeignKeyClassificationId() - 1
             ).getClassificationProperty();
         });
-
         tableTopicCol.setCellValueFactory((questions) -> {
             return topicsQuestionView.get(
                     questions.getValue().getForeignKeyTopicId() - 1
             ).getTopicNameProperty();
         });
-
-
         tableQuestStateCol.setCellValueFactory((questions) -> {
             return questions.getValue().getQuestionStatementProperty();
         });
@@ -157,5 +202,9 @@ public class QBankIndexUIController implements Initializable {
         tableImagePath.setCellValueFactory((questions) -> {
             return questions.getValue().getImagePathProperty();
         });
+    }
+
+    private void initialDeployment(int currentPageIndex){
+        deploy(currentPageIndex);
     }
 }
