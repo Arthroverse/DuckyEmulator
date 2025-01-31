@@ -28,14 +28,19 @@ public class TopicsAddUIController implements Initializable {
     @FXML
     private TextField txtFieldTopicName;
 
+    private static StringBuilder errorMessage = new StringBuilder();
+
     @FXML
     void btnAddNewTopicClick(ActionEvent event) throws IOException {
         Topics t = new Topics();
         t.setTopicName(txtFieldTopicName.getText());
         t.setTopicDescription(txtAreaTopicDescription.getText());
         if(inputValidation()) Topics.insert(t);
-        Navigator.getInstance().closeSecondStage();
-        Navigator.getInstance().goToTopicClassIndex();
+        if(errorMessage.toString().isEmpty()){
+            Navigator.getInstance().closeSecondStage();
+            Navigator.getInstance().goToTopicClassIndex();
+        }
+        errorMessage = new StringBuilder();
     }
 
     @FXML
@@ -49,7 +54,6 @@ public class TopicsAddUIController implements Initializable {
     }
 
     private boolean inputValidation(){
-        StringBuilder errorMessage = new StringBuilder();
         if(txtFieldTopicName.getText().isEmpty()) errorMessage.append("Topic name shouldn't be leave empty !\n");
         if(!errorMessage.toString().isEmpty()){
             AlertUtil.generateErrorWindow("Add new topic failed", "Add new topic",
