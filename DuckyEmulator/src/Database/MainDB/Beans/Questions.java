@@ -13,11 +13,16 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
+
+import static Database.MainDB.Beans.Topics.topicsQuestionView;
 
 public class Questions {
     private ObjectProperty<Integer> foreignKeyClassificationId;
-    private ObservableList<ObjectProperty<Integer>> foreignKeyTopicId;
+    private ArrayList<Integer> foreignKeyTopicId;
+    private ArrayList<Integer> oldForeignKeyTopicId;
+    private StringProperty foreignKeyTopicIdForDisplay;
     private ObjectProperty<Integer> questionId;
     private StringProperty questionStatement;
     private StringProperty choice1;
@@ -29,6 +34,9 @@ public class Questions {
 
     public Questions() {
         foreignKeyClassificationId = new SimpleObjectProperty<Integer>(null);
+        foreignKeyTopicId = new ArrayList<>();
+        foreignKeyTopicIdForDisplay = new SimpleStringProperty();
+        oldForeignKeyTopicId = new ArrayList<>();
         questionId = new SimpleObjectProperty<Integer>(null);
         questionStatement = new SimpleStringProperty();
         choice1 = new SimpleStringProperty();
@@ -42,9 +50,17 @@ public class Questions {
     public Integer getForeignKeyClassificationId() {
         return this.foreignKeyClassificationId.get();
     }
+  
+    public ArrayList<Integer> getForeignKeyTopicId() {
+        return this.foreignKeyTopicId;
+    }
 
-    public Integer[] getForeignKeyTopicId() {
-        return this.foreignKeyTopicId.toArray(new Integer[0]);
+    public String getForeignKeyTopicIdForDisplay(){
+        return this.foreignKeyTopicIdForDisplay.get();
+    }
+
+    public ArrayList<Integer> getOldForeignKeyTopicId(){
+        return this.oldForeignKeyTopicId;
     }
 
     public Integer getQuestionId() {
@@ -77,6 +93,10 @@ public class Questions {
 
     public String getImagePath() {
         return this.imagePath.get();
+    }
+
+    public StringProperty getForeignKeyTopicIdForDisplayProperty(){
+        return this.foreignKeyTopicIdForDisplay;
     }
 
     public ObjectProperty<Integer> getForeignKeyClassificationIdProperty() {
@@ -119,10 +139,18 @@ public class Questions {
         this.foreignKeyClassificationId.set(id);
     }
 
-    /*public void setForeignKeyTopicId(int id) {
-        this.foreignKeyTopicId.set(id);
-    }*/
+    public void setForeignKeyTopicIdForDisplay(String fk){
+        this.foreignKeyTopicIdForDisplay.set(fk);
+    }
 
+    public void setForeignKeyTopicId(ArrayList<Integer> foreignKeyTopicId) {
+        this.foreignKeyTopicId = new ArrayList<>(foreignKeyTopicId);
+    }
+
+    public void setOldForeignKeyTopicId(ArrayList<Integer> foreignKeyTopicId){
+        this.oldForeignKeyTopicId = new ArrayList<>(foreignKeyTopicId);
+    }
+  
     public void setQuestionId(int id) {
         this.questionId.set(id);
     }
@@ -157,15 +185,17 @@ public class Questions {
 
     public static ObservableList<Questions> select(int offset) {
         ObservableList<Questions> questions = FXCollections.observableArrayList();
-        ArrayList<Integer> topicIds = new ArrayList<>();
-        topicIds.add(0);
+        ArrayList<Integer[]> gatheredQtTable = new ArrayList<>();
         try(
                 Connection conn = MySQLService.getConnection();
                 Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery("SELECT * FROM qtrelationship;");
                 ){
             while(rs.next()){
-                topicIds.add(rs.getInt(2));
+                Integer[] array = new Integer[2];
+                array[0] = rs.getInt(1);
+                array[1] = rs.getInt(2);
+                gatheredQtTable.add(array);
             }
         }catch(Exception e){
             e.printStackTrace();
@@ -179,9 +209,17 @@ public class Questions {
         ) {
             while (rs.next()) {
                 Questions quest = new Questions();
+                ArrayList<Integer> topicIds = new ArrayList<>();
+                ArrayList<String> topicNames = new ArrayList<>();
+                topicNames.add(null);
+                for(Topics t: topicsQuestionView){
+                    topicNames.add(t.getTopicName());
+                }
                 quest.setQuestionId(rs.getInt("QuestionId"));
                 quest.setForeignKeyClassificationId(rs.getInt("ClassificationId"));
-                quest.setForeignKeyTopicId(topicIds.get(quest.getQuestionId()));
+                for(Integer[] arrInt: gatheredQtTable) if(arrInt[0].equals(quest.getQuestionId())) topicIds.add(arrInt[1]);
+                quest.setForeignKeyTopicId(topicIds);
+                quest.setOldForeignKeyTopicId(topicIds);
                 quest.setQuestionStatement(rs.getString("QuestionStatement"));
                 quest.setChoice1(rs.getString("Choice1"));
                 quest.setChoice2(rs.getString("Choice2"));
@@ -190,6 +228,12 @@ public class Questions {
                 quest.setCorrectAnswer(rs.getString("CorrectAnswer"));
                 quest.setImagePath(rs.getString("ImagePath"));
                 questions.add(quest);
+                ArrayList<String> questionTopics = new ArrayList<>();
+                for(Integer i: topicIds){
+                    questionTopics.add(topicNames.get(i));
+                }
+                String questionTopicsDisplay = questionTopics.toString();
+                quest.setForeignKeyTopicIdForDisplay(questionTopicsDisplay.substring(1, questionTopicsDisplay.length() - 1));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -262,13 +306,12 @@ public class Questions {
                 PreparedStatement stmt = conn.prepareStatement(sqlInsertQuestions, Statement.RETURN_GENERATED_KEYS);
         ) {
             stmt.setInt(1, quest.getForeignKeyClassificationId());
-            stmt.setInt(2, quest.getForeignKeyTopicId());
-            stmt.setString(3, quest.getQuestionStatement());
-            stmt.setString(4, quest.getCorrectAnswer());
-            stmt.setString(5, quest.getChoice1());
-            stmt.setString(6, quest.getChoice2());
-            stmt.setString(7, quest.getChoice3());
-            stmt.setString(8, quest.getChoice4());
+            stmt.setString(2, quest.getQuestionStatement());
+            stmt.setString(3, quest.getCorrectAnswer());
+            stmt.setString(4, quest.getChoice1());
+            stmt.setString(5, quest.getChoice2());
+            stmt.setString(6, quest.getChoice3());
+            stmt.setString(7, quest.getChoice4());
             if (stmt.executeUpdate() == 1) {
                 key = stmt.getGeneratedKeys();
                 key.next();
@@ -278,35 +321,54 @@ public class Questions {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         String sqlInsertQtRelationship = "INSERT INTO QtRelationship(QuestionId, TopicId) "
                 + "VALUES(?, ?);";
-        try (
-                Connection conn = MySQLService.getConnection();
-                PreparedStatement stmt = conn.prepareStatement(sqlInsertQtRelationship);
-        ) {
-            stmt.setInt(1, quest.getQuestionId());
-            stmt.setInt(2, quest.getForeignKeyTopicId());
-            stmt.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
+        for(Integer i: quest.getForeignKeyTopicId()){
+            try (
+                    Connection conn = MySQLService.getConnection();
+                    PreparedStatement stmt = conn.prepareStatement(sqlInsertQtRelationship);
+            ) {
+                stmt.setInt(1, quest.getQuestionId());
+                stmt.setInt(2, i);
+                stmt.executeUpdate();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
-
     public static void update(Questions q) {
-        String sqlQtRelationship = "UPDATE QtRelationship SET TopicId = ? WHERE QuestionId = ?;";
-        try (
-                Connection conn = MySQLService.getConnection();
-                PreparedStatement stmt = conn.prepareStatement(sqlQtRelationship);
-        ) {
-            stmt.setInt(1, q.getForeignKeyTopicId());
-            stmt.setInt(2, q.getQuestionId());
-        } catch (Exception e) {
-            e.printStackTrace();
+        for(Integer i: QBankIndexUIController.getOldFKCache()){
+            if(!(q.getForeignKeyTopicId().contains(i))){
+                String sqlQtRelationship = "DELETE FROM qtrelationship WHERE (QuestionId, TopicId) = (?, ?);";
+                try (
+                        Connection conn = MySQLService.getConnection();
+                        PreparedStatement stmt = conn.prepareStatement(sqlQtRelationship);
+                ) {
+                    stmt.setInt(1, i);
+                    stmt.setInt(2, q.getQuestionId());
+                    stmt.executeUpdate();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
         }
-
+        for(Integer i: q.getForeignKeyTopicId()){
+            if(!(QBankIndexUIController.getOldFKCache().contains(i))){
+                String sqlQtRelationship = "INSERT INTO qtrelationship (QuestionId, TopicId) VALUES(?, ?);";
+                try (
+                        Connection conn = MySQLService.getConnection();
+                        PreparedStatement stmt = conn.prepareStatement(sqlQtRelationship);
+                ) {
+                    stmt.setInt(1, q.getQuestionId());
+                    stmt.setInt(2, i);
+                    stmt.executeUpdate();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
         String sqlQuestionUpdate = "UPDATE Questions SET "
-                + "ClassificationId = ?, TopicId = ?, QuestionStatement = ?, CorrectAnswer = ?, "
+                + "ClassificationId = ?, QuestionStatement = ?, CorrectAnswer = ?, "
                 + "Choice1 = ?, Choice2 = ?, Choice3 = ?, Choice4 = ? "
                 + "WHERE QuestionId = ?";
         try (
@@ -314,14 +376,13 @@ public class Questions {
                 PreparedStatement stmt = conn.prepareStatement(sqlQuestionUpdate);
         ) {
             stmt.setInt(1, q.getForeignKeyClassificationId());
-            stmt.setInt(2, q.getForeignKeyTopicId());
-            stmt.setString(3, q.getQuestionStatement());
-            stmt.setString(4, q.getCorrectAnswer());
-            stmt.setString(5, q.getChoice1());
-            stmt.setString(6, q.getChoice2());
-            stmt.setString(7, q.getChoice3());
-            stmt.setString(8, q.getChoice4());
-            stmt.setInt(9, q.getQuestionId());
+            stmt.setString(2, q.getQuestionStatement());
+            stmt.setString(3, q.getCorrectAnswer());
+            stmt.setString(4, q.getChoice1());
+            stmt.setString(5, q.getChoice2());
+            stmt.setString(6, q.getChoice3());
+            stmt.setString(7, q.getChoice4());
+            stmt.setInt(8, q.getQuestionId());
             stmt.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();

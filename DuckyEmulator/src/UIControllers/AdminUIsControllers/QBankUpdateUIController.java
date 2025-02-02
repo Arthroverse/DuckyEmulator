@@ -6,13 +6,11 @@ import Database.MainDB.Beans.Topics;
 import UIs.Navigator;
 import Utilities.PromptAlert.AlertUtil;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import java.io.IOException;
 import java.net.URL;
@@ -60,6 +58,18 @@ public class QBankUpdateUIController implements Initializable {
     @FXML
     private Button btnUpdateCurrentQuestion;
 
+    @FXML
+    private Button btnAddTopic;
+
+    @FXML
+    private Button btnRemoveTopic;
+
+    @FXML
+    private TableView<Topics> tableViewSelectedTopic;
+
+    @FXML
+    private TableColumn<Topics, String> tableColSelectedTopicName;
+
     private static ArrayList<String> topicName = new ArrayList<>();
 
     private static ArrayList<String> className = new ArrayList<>();
@@ -68,6 +78,8 @@ public class QBankUpdateUIController implements Initializable {
 
     private static Questions updateQuestion;
 
+    private static ArrayList<Topics> selectedTopics = new ArrayList<>();
+
     @FXML
     void btnChooseImagePathClick(ActionEvent event) {
 
@@ -75,9 +87,17 @@ public class QBankUpdateUIController implements Initializable {
 
     @FXML
     void btnUpdateCurrentQuestionClick(ActionEvent event) throws IOException {
-        updateQuestion.setForeignKeyTopicId(topicName.indexOf(
-                choiceBoxSelectTopic.getValue()
-        ));
+        ArrayList<Integer> selectedTopicIds = new ArrayList<>();
+        for(Topics t: selectedTopics){
+            selectedTopicIds.add(topicName.indexOf(t.getTopicName()));
+        }
+        updateQuestion.setForeignKeyTopicId(selectedTopicIds);
+        ArrayList<String> selectedTopicNames = new ArrayList<>();
+        for(Topics t: selectedTopics){
+            selectedTopicNames.add(t.getTopicName());
+        }
+        String selectedTopicNamesDisplay = selectedTopicNames.toString();
+        updateQuestion.setForeignKeyTopicIdForDisplay(selectedTopicNamesDisplay.substring(1, selectedTopicNamesDisplay.length() - 1));
         updateQuestion.setForeignKeyClassificationId(
                 className.indexOf(choiceBoxSelectClass.getValue())
         );
@@ -94,6 +114,7 @@ public class QBankUpdateUIController implements Initializable {
             Navigator.getInstance().goToQBankIndex();
         }
         errorMessage = new StringBuilder();
+        selectedTopics = new ArrayList<>();
     }
 
     @FXML
@@ -103,11 +124,14 @@ public class QBankUpdateUIController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        topicName = new ArrayList<>();
+        className = new ArrayList<>();
         for(Topics t: topicsQuestionView){
             topicName.add(t.getTopicName());
         }
         topicName.add(0, "");
         ArrayList<String> topicNameUi = new ArrayList<>(topicName);
+        topicNameUi.remove(0);
         choiceBoxSelectTopic.setItems(FXCollections.observableArrayList(topicNameUi));
 
         for(Classifications c: classQuestionView){
@@ -115,6 +139,7 @@ public class QBankUpdateUIController implements Initializable {
         }
         className.add(0, "");
         ArrayList<String> classNameUi = new ArrayList<>(className);
+        classNameUi.remove(0);
         choiceBoxSelectClass.setItems(FXCollections.observableArrayList(classNameUi));
 
         choiceBoxCorrectAns.setItems(FXCollections.observableArrayList(
@@ -124,10 +149,32 @@ public class QBankUpdateUIController implements Initializable {
 
     public void initialize(Questions q){
         updateQuestion = q;
-        choiceBoxSelectTopic.setValue(topicName.get(
-                q.getForeignKeyTopicId()
-        ));
-
+        ArrayList<Integer> listTopicIds = q.getForeignKeyTopicId();
+        ArrayList<Topics> listAllTopics = new ArrayList<>(topicsQuestionView);
+        listAllTopics.add(0, null);
+        ArrayList<Topics> listTopics = new ArrayList<>();
+        for(Integer i: listTopicIds){
+            listTopics.add(listAllTopics.get(i));
+        }
+        selectedTopics = listTopics;
+        tableViewSelectedTopic.setItems(FXCollections.observableArrayList(listTopics));
+        tableColSelectedTopicName.setCellValueFactory(
+                (topic) -> {
+                    return topic.getValue().getTopicNameProperty();
+                }
+        );
+        btnAddTopic.disableProperty().set(true);
+        btnRemoveTopic.disableProperty().set(true);
+        tableViewSelectedTopic.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldSelection, newSelection) -> {
+                    if(newSelection != null) btnRemoveTopic.disableProperty().set(false);
+                }
+        );
+        choiceBoxSelectTopic.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldSelection, newSelection) -> {
+                    if(newSelection != null) btnAddTopic.disableProperty().set(false);
+                }
+        );
         choiceBoxSelectClass.setValue(className.get(
                 q.getForeignKeyClassificationId()
         ));
@@ -140,7 +187,8 @@ public class QBankUpdateUIController implements Initializable {
     }
 
     private boolean inputValidation(){
-        if(choiceBoxSelectTopic.getValue() == null) errorMessage.append("A question must be associated with a topic !\n");
+        ObservableList<Topics> temp = tableViewSelectedTopic.getItems();
+        if(temp.size() == 0) errorMessage.append("A question must be associated with a topic !\n");
         if(choiceBoxSelectClass.getValue() == null) errorMessage.append("A question must be associated with a classification !\n");
         if(txtAreaQStatement.getText() == null) errorMessage.append("A question must have a question statement !\n"); //TO DO: CHANGE "== NULL" TO .ISEMPTY()
         if(txtxAreaQChoice1.getText().isEmpty()
@@ -154,6 +202,49 @@ public class QBankUpdateUIController implements Initializable {
             return false;
         }
         return true;
+    }
+
+    @FXML
+    void btnAddTopicClick(ActionEvent event) throws IOException {
+        if(!selectedTopics.contains(topicsQuestionView.get(topicName.indexOf(choiceBoxSelectTopic.getValue()) - 1))){
+            selectedTopics.add(topicsQuestionView.get(
+                    topicName.indexOf(choiceBoxSelectTopic.getValue()) - 1
+            ));
+            Navigator.getInstance().closeSecondStage();
+            Navigator.getInstance().goToQBankUpdate(this.generateTempQuestionObject());
+        }else{
+            AlertUtil.generateErrorWindow("Add new topic failed", "Add new topic",
+                    "Topic has been added before !, please choose other topics");
+        }
+    }
+
+    @FXML
+    void btnRemoveTopicClick(ActionEvent event) throws IOException {
+        Topics t = tableViewSelectedTopic.getSelectionModel().getSelectedItem();
+        selectedTopics.remove(t);
+        tableViewSelectedTopic.getItems().remove(t);
+        Navigator.getInstance().closeSecondStage();
+        Navigator.getInstance().goToQBankUpdate(this.generateTempQuestionObject());
+    }
+
+    private Questions generateTempQuestionObject(){
+        Questions quest = new Questions();
+        quest.setQuestionId(updateQuestion.getQuestionId());
+        quest.setForeignKeyClassificationId(
+                className.indexOf(choiceBoxSelectClass.getValue())
+        );
+        quest.setQuestionStatement(txtAreaQStatement.getText());
+        quest.setChoice1(txtxAreaQChoice1.getText());
+        quest.setChoice2(txtxAreaQChoice2.getText());
+        quest.setChoice3(txtxAreaQChoice3.getText());
+        quest.setChoice4(txtxAreaQChoice4.getText());
+        quest.setCorrectAnswer(choiceBoxCorrectAns.getValue());
+        ArrayList<Integer> selectedTopicIds = new ArrayList<>();
+        for(Topics topic: selectedTopics){
+            selectedTopicIds.add(topicName.indexOf(topic.getTopicName()));
+        }
+        quest.setForeignKeyTopicId(selectedTopicIds);
+        return quest;
     }
 
 }

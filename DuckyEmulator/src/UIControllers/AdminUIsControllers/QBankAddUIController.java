@@ -6,6 +6,7 @@ import Database.MainDB.Beans.Topics;
 import UIs.Navigator;
 import Utilities.PromptAlert.AlertUtil;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -99,10 +100,21 @@ public class QBankAddUIController implements Initializable {
     @FXML
     void btnAddNewQuestionClick(ActionEvent event) throws IOException {
         Questions quest = new Questions();
+        ArrayList<Integer> selectedTopicIds = new ArrayList<>();
+        for(Topics t: selectedTopics){
+            selectedTopicIds.add(topicName.indexOf(t.getTopicName()));
+        }
+        ArrayList<String> selectedTopicNames = new ArrayList<>();
+        for(Topics t: selectedTopics){
+            selectedTopicNames.add(t.getTopicName());
+        }
+        String selectedTopicNamesDisplay = selectedTopicNames.toString();
+        quest.setForeignKeyTopicIdForDisplay(selectedTopicNamesDisplay.substring(1, selectedTopicNamesDisplay.length() - 1));
+        System.out.println(selectedTopicIds.toString());
+        quest.setForeignKeyTopicId(selectedTopicIds);
         /*quest.setForeignKeyTopicId(topicName.indexOf(
                 choiceBoxSelectTopic.getValue()
         ));*/
-
         quest.setForeignKeyClassificationId(
                 className.indexOf(choiceBoxSelectClass.getValue())
         );
@@ -119,6 +131,7 @@ public class QBankAddUIController implements Initializable {
             Navigator.getInstance().goToQBankIndex();
         }
         errorMessage = new StringBuilder();
+        selectedTopics = new ArrayList<>();
     }
 
     @FXML
@@ -171,7 +184,8 @@ public class QBankAddUIController implements Initializable {
     }
 
     private boolean inputValidation(){
-        if(choiceBoxSelectTopic.getValue() == null) errorMessage.append("A question must be associated with a topic !\n");
+        ObservableList<Topics> temp = tableViewSelectedTopic.getItems();
+        if(temp.size() == 0) errorMessage.append("A question must be associated with a topic !\n");
         if(choiceBoxSelectClass.getValue() == null) errorMessage.append("A question must be associated with a classification !\n");
         if(txtAreaQStatement.getText() == null) errorMessage.append("A question must have a question statement !\n"); //TO DO: CHANGE "== NULL" TO .ISEMPTY()
         if(txtxAreaQChoice1.getText().isEmpty()
