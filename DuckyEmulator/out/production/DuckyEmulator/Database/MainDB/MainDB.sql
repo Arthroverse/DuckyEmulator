@@ -21,8 +21,6 @@ CREATE TABLE Questions(
     PRIMARY KEY(QuestionId),
     ClassificationId INT NOT NULL,
     FOREIGN KEY (ClassificationId) REFERENCES Classifications(ClassificationId),
-    TopicId INT NOT NULL,
-    FOREIGN KEY (TopicID) REFERENCES Topics(TopicId),
     QuestionStatement VARCHAR(512) NOT NULL,
     CorrectAnswer VARCHAR(512) NOT NULL,
     Choice1 VARCHAR(512) NOT NULL,
@@ -40,9 +38,8 @@ CREATE TABLE QTRelationship(
     PRIMARY KEY(QuestionId, TopicId)
 );
 
-SELECT TopicId, COUNT(TopicId)
-FROM Topics
-GROUP BY TopicId;
+SELECT *
+FROM QTRelationship;
 
 -- FOR TESTING AND DEBUGGING PURPOSES
 -- DROP DATABASE DuckyEmulator_QuestionDB;
