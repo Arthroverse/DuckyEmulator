@@ -58,7 +58,7 @@ public class TopicsClassIndexUIController implements Initializable{
     private Button tableClassViewDelete;
 
     @FXML
-    private Pagination tableVewClassPagination;
+    private Pagination tableViewClassPagination;
 
     @FXML
     private Pagination tableViewTopicPageination;
@@ -177,7 +177,7 @@ public class TopicsClassIndexUIController implements Initializable{
                     "Are you sure you want to delete the selected topic ?"
             )){
                 if(Classifications.delete(selectedClass)){
-                    currentClassPageIndex = tableViewTopicPageination.getCurrentPageIndex();
+                    currentClassPageIndex = tableViewClassPagination.getCurrentPageIndex();
                     tableClassView.getItems().remove(selectedClass);
                     Navigator.getInstance().goToTopicClassIndex();
                 }
@@ -205,21 +205,46 @@ public class TopicsClassIndexUIController implements Initializable{
         Topics.setPage();
         Classifications.setPage();
         tableViewTopicPageination.setPageCount(topicsMaxPageNum);
-        tableVewClassPagination.setPageCount(classessMaxPageNum);
+        tableViewClassPagination.setPageCount(classessMaxPageNum);
         tableViewTopicPageination.setCurrentPageIndex(currentTopicPageIndex);
-        tableVewClassPagination.setCurrentPageIndex(currentClassPageIndex);
-        this.topicViewInitialize(0);
-        this.classViewInitalize(0);
+        tableViewClassPagination.setCurrentPageIndex(currentClassPageIndex);
+        this.topicInitialDeployment(currentTopicPageIndex);
+        this.classInitialDeployment(currentClassPageIndex);
+        btnTopicViewDelete.disableProperty().set(true);
+        btnTopicViewUpdate.disableProperty().set(true);
+        tableClassViewDelete.disableProperty().set(true);
+        tableClassViewUpdate.disableProperty().set(true);
         tableViewTopicPageination.currentPageIndexProperty().addListener(
                 (observable, oldIndex, newIndex) -> {
                     int pageIndex = newIndex.intValue();
+                    currentTopicPageIndex = pageIndex;
                     this.topicViewInitialize(pageIndex);
                 }
         );
-        tableVewClassPagination.currentPageIndexProperty().addListener(
+        tableViewClassPagination.currentPageIndexProperty().addListener(
                 (observable, oldIndex, newIndex) -> {
                     int pageIndex = newIndex.intValue();
+                    currentClassPageIndex = pageIndex;
                     this.classViewInitalize(pageIndex);
+                }
+        );
+
+        tableTopicView.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldSelected, newSelected) -> {
+                    if(newSelected != null){
+                        btnTopicViewDelete.disableProperty().set(false);
+                        btnTopicViewUpdate.disableProperty().set(false);
+
+                    }
+                }
+        );
+
+        tableClassView.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldSelected, newSelected) -> {
+                    if(newSelected != null){
+                        tableClassViewDelete.disableProperty().set(false);
+                        tableClassViewUpdate.disableProperty().set(false);
+                    }
                 }
         );
     }
@@ -250,5 +275,13 @@ public class TopicsClassIndexUIController implements Initializable{
         tableClassificationDesc.setCellValueFactory((classification) -> {
             return classification.getValue().getClassificationDescriptionProperty();
         });
+    }
+
+    private void topicInitialDeployment(int currentPageIndex){
+        this.topicViewInitialize(currentPageIndex);
+    }
+
+    private void classInitialDeployment(int currentPageIndex){
+        this.classViewInitalize(currentPageIndex);
     }
 }
