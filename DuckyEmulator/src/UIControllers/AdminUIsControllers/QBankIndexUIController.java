@@ -11,10 +11,11 @@ import javafx.scene.control.*;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.Arrays;
 
 import static Database.MainDB.Beans.Classifications.classQuestionView;
-import static Database.MainDB.Beans.Topics.topicsQuestionView;
 import Utilities.PromptAlert.AlertUtil;
 
 public class QBankIndexUIController implements Initializable {
@@ -76,6 +77,12 @@ public class QBankIndexUIController implements Initializable {
 
     private static int currentPageIndex;
 
+    private static ArrayList<Integer> oldFKCache;
+
+    public static ArrayList<Integer> getOldFKCache(){
+        return new ArrayList<>(oldFKCache);
+    }
+
     public static int getOffset(){
         return offset;
     }
@@ -121,6 +128,7 @@ public class QBankIndexUIController implements Initializable {
     @FXML
     void btnTableUpdateClick(ActionEvent event) throws IOException {
         Questions selectedQuest = tableBankView.getSelectionModel().getSelectedItem();
+        oldFKCache = selectedQuest.getOldForeignKeyTopicId();
         if(selectedQuest == null){
             AlertUtil.generateErrorWindow("Delete question failed", "Question deletion",
                     "A question must be selected to perform this operation !");
@@ -171,9 +179,7 @@ public class QBankIndexUIController implements Initializable {
             ).getClassificationProperty();
         });
         tableTopicCol.setCellValueFactory((questions) -> {
-            return topicsQuestionView.get(
-                    questions.getValue().getForeignKeyTopicId() - 1
-            ).getTopicNameProperty();
+            return questions.getValue().getForeignKeyTopicIdForDisplayProperty();
         });
         tableQuestStateCol.setCellValueFactory((questions) -> {
             return questions.getValue().getQuestionStatementProperty();
