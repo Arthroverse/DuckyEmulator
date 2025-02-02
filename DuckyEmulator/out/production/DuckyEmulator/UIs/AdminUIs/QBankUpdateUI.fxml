@@ -5,6 +5,8 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
@@ -34,14 +36,44 @@
          <content>
             <VBox spacing="20.0">
                <children>
-                  <HBox alignment="CENTER_LEFT" spacing="20.0">
+                  <HBox alignment="CENTER_LEFT" prefWidth="523.0" spacing="20.0">
                      <children>
                         <Label text="Topic">
                            <font>
                               <Font name="Proxima Nova Bold" size="20.0" />
                            </font>
                         </Label>
-                        <ChoiceBox fx:id="choiceBoxSelectTopic" prefHeight="25.0" prefWidth="423.0" />
+                        <ChoiceBox fx:id="choiceBoxSelectTopic" prefHeight="25.0" prefWidth="264.0" />
+                        <Button fx:id="btnAddTopic" mnemonicParsing="false" onAction="#btnAddTopicClick" text="Add">
+                           <font>
+                              <Font name="Proxima Nova Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="btnRemoveTopic" mnemonicParsing="false" onAction="#btnRemoveTopicClick" text="Remove">
+                           <font>
+                              <Font name="Proxima Nova Bold" size="15.0" />
+                           </font>
+                        </Button>
+                     </children>
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" spacing="20.0">
+                     <children>
+                        <Label text="Selected topics">
+                           <font>
+                              <Font name="Proxima Nova Bold" size="20.0" />
+                           </font>
+                        </Label>
+                        <TableView fx:id="tableViewSelectedTopic" prefHeight="200.0" prefWidth="342.0">
+                          <columns>
+                            <TableColumn fx:id="tableColSelectedTopicName" prefWidth="75.0" text="Topics" />
+                          </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </TableView>
                      </children>
                      <padding>
                         <Insets left="20.0" />

@@ -39,10 +39,13 @@ CREATE TABLE QTRelationship(
     FOREIGN KEY (TopicId) REFERENCES Topics(TopicId),
     PRIMARY KEY(QuestionId, TopicId)
 );
+<<<<<<< Updated upstream
 
 SELECT TopicId, COUNT(TopicId)
 FROM Topics
 GROUP BY TopicId;
 
+=======
+>>>>>>> Stashed changes
 -- FOR TESTING AND DEBUGGING PURPOSES
 -- DROP DATABASE DuckyEmulator_QuestionDB;
