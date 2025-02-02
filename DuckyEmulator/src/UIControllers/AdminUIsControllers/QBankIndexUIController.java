@@ -100,7 +100,7 @@ public class QBankIndexUIController implements Initializable {
     @FXML
     void btnTableDeleteClick(ActionEvent event) throws IOException {
         Questions selectedQuest = tableBankView.getSelectionModel().getSelectedItem();
-        if(selectedQuest == null){
+        /*if(selectedQuest != null){
             AlertUtil.generateErrorWindow("Delete question failed", "Question deletion",
                     "A question must be selected to perform this operation !");
         }
@@ -114,6 +114,16 @@ public class QBankIndexUIController implements Initializable {
                     tableBankView.getItems().remove(selectedQuest);
                     Navigator.getInstance().goToQBankIndex();
                 }
+            }
+        }*/
+        if(AlertUtil.generateWarningWindow(
+                "Delete question confirmation",
+                "Are you sure you want to delete the selected question ?"
+        )){
+            if(Questions.delete(selectedQuest)){
+                currentPageIndex = pageinationQBank.getCurrentPageIndex();
+                tableBankView.getItems().remove(selectedQuest);
+                Navigator.getInstance().goToQBankIndex();
             }
         }
     }
@@ -154,11 +164,21 @@ public class QBankIndexUIController implements Initializable {
         Classifications.selectAll();
         Topics.selectAll();
         initialDeployment(currentPageIndex);
+        btnTableDelete.disableProperty().set(true);
+        btnTableUpdate.disableProperty().set(true);
         pageinationQBank.currentPageIndexProperty().addListener(
                 (observable, oldIndex, newIndex) -> {
                     int pageIndex = newIndex.intValue();
                     deploy(pageIndex);
                 });
+        tableBankView.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldSelection, newSelection) -> {
+                    if(newSelection != null){
+                        btnTableDelete.disableProperty().set(false);
+                        btnTableUpdate.disableProperty().set(false);
+                    }
+                }
+        );
     }
 
     private void deploy(int pageIndex){
