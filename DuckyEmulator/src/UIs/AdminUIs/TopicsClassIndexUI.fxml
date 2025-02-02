@@ -167,7 +167,7 @@
                         </TableView>
                      </center>
                      <bottom>
-                        <Pagination fx:id="tableVewClassPagination" prefHeight="52.0" prefWidth="1506.0" BorderPane.alignment="CENTER" />
+                        <Pagination fx:id="tableViewClassPagination" prefHeight="52.0" prefWidth="1506.0" BorderPane.alignment="CENTER" />
                      </bottom>
                   </BorderPane>
                </center>

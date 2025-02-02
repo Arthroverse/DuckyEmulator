@@ -10,10 +10,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import java.io.IOException;
 import java.net.URL;
@@ -61,11 +58,39 @@ public class QBankAddUIController implements Initializable {
     @FXML
     private Button btnResetField;
 
+    @FXML
+    private Button btnAddTopic;
+
+    @FXML
+    private Button btnRemoveTopic;
+
+    @FXML
+    private TableView<Topics> tableViewSelectedTopic;
+
+    @FXML
+    private TableColumn<Topics, String> tableColSelectedTopicName;
+
     private ArrayList<String> topicName = new ArrayList<>();
 
     private ArrayList<String> className = new ArrayList<>();
 
     private StringBuilder errorMessage = new StringBuilder();
+
+    private static ArrayList<Topics> selectedTopics = new ArrayList<>();
+
+    private static String currentSelectedClassification;
+
+    private static String currentQuestionStatement;
+
+    private static String currentChoice1;
+
+    private static String currentChoice2;
+
+    private static String currentChoice3;
+
+    private static String currentChoice4;
+
+    private static String currentCorrectChoice;
 
     @FXML
     void btnChooseImagePathClick(ActionEvent event) {
@@ -75,11 +100,6 @@ public class QBankAddUIController implements Initializable {
     @FXML
     void btnAddNewQuestionClick(ActionEvent event) throws IOException {
         Questions quest = new Questions();
-<<<<<<< Updated upstream
-        quest.setForeignKeyTopicId(topicName.indexOf(
-                choiceBoxSelectTopic.getValue()
-        ));
-=======
         ArrayList<Integer> selectedTopicIds = new ArrayList<>();
         for(Topics t: selectedTopics){
             selectedTopicIds.add(topicName.indexOf(t.getTopicName()));
@@ -92,7 +112,9 @@ public class QBankAddUIController implements Initializable {
         quest.setForeignKeyTopicIdForDisplay(selectedTopicNamesDisplay.substring(1, selectedTopicNamesDisplay.length() - 1));
         System.out.println(selectedTopicIds.toString());
         quest.setForeignKeyTopicId(selectedTopicIds);
->>>>>>> Stashed changes
+        /*quest.setForeignKeyTopicId(topicName.indexOf(
+                choiceBoxSelectTopic.getValue()
+        ));*/
         quest.setForeignKeyClassificationId(
                 className.indexOf(choiceBoxSelectClass.getValue())
         );
@@ -138,6 +160,27 @@ public class QBankAddUIController implements Initializable {
         choiceBoxCorrectAns.setItems(FXCollections.observableArrayList(
                 "Choice 1", "Choice 2", "Choice 3", "Choice 4"
         ));
+        loadLastSavedData();
+        btnAddTopic.disableProperty().set(true);
+        btnRemoveTopic.disableProperty().set(true);
+        tableViewSelectedTopic.setItems(
+                FXCollections.observableArrayList(selectedTopics)
+        );
+        tableColSelectedTopicName.setCellValueFactory(
+                (selectedTopics) -> {
+                    return selectedTopics.getValue().getTopicNameProperty();
+                }
+        );
+        tableViewSelectedTopic.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldSelection, newSelection) -> {
+                    if(newSelection != null) btnRemoveTopic.disableProperty().set(false);
+                }
+        );
+        choiceBoxSelectTopic.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldSelection, newSelection) -> {
+                    if(newSelection != null) btnAddTopic.disableProperty().set(false);
+                }
+        );
     }
 
     private boolean inputValidation(){
@@ -156,5 +199,50 @@ public class QBankAddUIController implements Initializable {
             return false;
         }
         return true;
+    }
+
+    @FXML
+    void btnAddTopic(ActionEvent event) throws IOException {
+        if(!selectedTopics.contains(topicsQuestionView.get(topicName.indexOf(choiceBoxSelectTopic.getValue()) - 1))){
+            selectedTopics.add(topicsQuestionView.get(
+                    topicName.indexOf(choiceBoxSelectTopic.getValue()) - 1
+            ));
+            saveCurrentInputData();
+            Navigator.getInstance().closeSecondStage();
+            Navigator.getInstance().goToQBankAdd();
+        }else{
+            AlertUtil.generateErrorWindow("Add new topic failed", "Add new topic",
+                    "Topic has been added before !, please choose other topics");
+        }
+    }
+
+    @FXML
+    void btnRemoveTopic(ActionEvent event) throws IOException {
+        Topics t = tableViewSelectedTopic.getSelectionModel().getSelectedItem();
+        selectedTopics.remove(t);
+        tableViewSelectedTopic.getItems().remove(t);
+        saveCurrentInputData();
+        Navigator.getInstance().closeSecondStage();
+        Navigator.getInstance().goToQBankAdd();
+    }
+
+    private void saveCurrentInputData(){
+        currentSelectedClassification = choiceBoxSelectClass.getValue();
+        currentQuestionStatement = txtAreaQStatement.getText();
+        currentChoice1 = txtxAreaQChoice1.getText();
+        currentChoice2 = txtxAreaQChoice2.getText();
+        currentChoice3 = txtxAreaQChoice3.getText();
+        currentChoice4 = txtxAreaQChoice4.getText();
+        currentCorrectChoice = choiceBoxCorrectAns.getValue();
+    }
+
+    private void loadLastSavedData(){
+        choiceBoxSelectClass.setValue(currentSelectedClassification);
+        txtAreaQStatement.setText(currentQuestionStatement);
+        txtxAreaQChoice1.setText(currentChoice1);
+        txtxAreaQChoice2.setText(currentChoice2);
+        txtxAreaQChoice3.setText(currentChoice3);
+        txtxAreaQChoice4.setText(currentChoice4);
+        choiceBoxCorrectAns.setValue(currentCorrectChoice);
     }
 }

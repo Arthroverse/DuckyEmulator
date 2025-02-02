@@ -9,27 +9,20 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-<<<<<<< Updated upstream
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-=======
 import java.sql.*;
 import java.util.ArrayList;
->>>>>>> Stashed changes
 
 import static Database.MainDB.Beans.Topics.topicsQuestionView;
 
 public class Questions {
     private ObjectProperty<Integer> foreignKeyClassificationId;
-<<<<<<< Updated upstream
-    private ObjectProperty<Integer> foreignKeyTopicId;
-=======
     private ArrayList<Integer> foreignKeyTopicId;
     private ArrayList<Integer> oldForeignKeyTopicId;
     private StringProperty foreignKeyTopicIdForDisplay;
->>>>>>> Stashed changes
     private ObjectProperty<Integer> questionId;
     private StringProperty questionStatement;
     private StringProperty choice1;
@@ -41,13 +34,9 @@ public class Questions {
 
     public Questions() {
         foreignKeyClassificationId = new SimpleObjectProperty<Integer>(null);
-<<<<<<< Updated upstream
-        foreignKeyTopicId = new SimpleObjectProperty<Integer>(null);
-=======
         foreignKeyTopicId = new ArrayList<>();
         foreignKeyTopicIdForDisplay = new SimpleStringProperty();
         oldForeignKeyTopicId = new ArrayList<>();
->>>>>>> Stashed changes
         questionId = new SimpleObjectProperty<Integer>(null);
         questionStatement = new SimpleStringProperty();
         choice1 = new SimpleStringProperty();
@@ -61,11 +50,7 @@ public class Questions {
     public Integer getForeignKeyClassificationId() {
         return this.foreignKeyClassificationId.get();
     }
-
-<<<<<<< Updated upstream
-    public Integer getForeignKeyTopicId() {
-        return this.foreignKeyTopicId.get();
-=======
+  
     public ArrayList<Integer> getForeignKeyTopicId() {
         return this.foreignKeyTopicId;
     }
@@ -76,7 +61,6 @@ public class Questions {
 
     public ArrayList<Integer> getOldForeignKeyTopicId(){
         return this.oldForeignKeyTopicId;
->>>>>>> Stashed changes
     }
 
     public Integer getQuestionId() {
@@ -119,10 +103,6 @@ public class Questions {
         return this.foreignKeyClassificationId;
     }
 
-    public ObjectProperty<Integer> getForeignKeyTopicIdProperty() {
-        return this.foreignKeyTopicId;
-    }
-
     public ObjectProperty<Integer> getQuestionIdProperty() {
         return this.questionId;
     }
@@ -159,10 +139,6 @@ public class Questions {
         this.foreignKeyClassificationId.set(id);
     }
 
-<<<<<<< Updated upstream
-    public void setForeignKeyTopicId(int id) {
-        this.foreignKeyTopicId.set(id);
-=======
     public void setForeignKeyTopicIdForDisplay(String fk){
         this.foreignKeyTopicIdForDisplay.set(fk);
     }
@@ -173,9 +149,8 @@ public class Questions {
 
     public void setOldForeignKeyTopicId(ArrayList<Integer> foreignKeyTopicId){
         this.oldForeignKeyTopicId = new ArrayList<>(foreignKeyTopicId);
->>>>>>> Stashed changes
     }
-
+  
     public void setQuestionId(int id) {
         this.questionId.set(id);
     }
@@ -210,8 +185,6 @@ public class Questions {
 
     public static ObservableList<Questions> select(int offset) {
         ObservableList<Questions> questions = FXCollections.observableArrayList();
-<<<<<<< Updated upstream
-=======
         ArrayList<Integer[]> gatheredQtTable = new ArrayList<>();
         try(
                 Connection conn = MySQLService.getConnection();
@@ -227,7 +200,6 @@ public class Questions {
         }catch(Exception e){
             e.printStackTrace();
         }
->>>>>>> Stashed changes
         try (
                 Connection conn = MySQLService.getConnection();
                 Statement stmt = conn.createStatement();
@@ -237,11 +209,6 @@ public class Questions {
         ) {
             while (rs.next()) {
                 Questions quest = new Questions();
-<<<<<<< Updated upstream
-                quest.setForeignKeyClassificationId(rs.getInt("ClassificationId"));
-                quest.setForeignKeyTopicId(rs.getInt("TopicId"));
-                quest.setQuestionId(rs.getInt("QuestionId"));
-=======
                 ArrayList<Integer> topicIds = new ArrayList<>();
                 ArrayList<String> topicNames = new ArrayList<>();
                 topicNames.add(null);
@@ -253,7 +220,6 @@ public class Questions {
                 for(Integer[] arrInt: gatheredQtTable) if(arrInt[0].equals(quest.getQuestionId())) topicIds.add(arrInt[1]);
                 quest.setForeignKeyTopicId(topicIds);
                 quest.setOldForeignKeyTopicId(topicIds);
->>>>>>> Stashed changes
                 quest.setQuestionStatement(rs.getString("QuestionStatement"));
                 quest.setChoice1(rs.getString("Choice1"));
                 quest.setChoice2(rs.getString("Choice2"));
@@ -331,9 +297,9 @@ public class Questions {
     }
 
     public static void insert(Questions quest) {
-        String sqlInsertQuestions = "INSERT INTO Questions(ClassificationId, TopicId, " +
+        String sqlInsertQuestions = "INSERT INTO Questions(ClassificationId, " +
                 "QuestionStatement, CorrectAnswer, Choice1, Choice2, Choice3, Choice4) " +
-                "VALUES(?, ?, ?, ?, ?, ?, ?, ?);";
+                "VALUES(?, ?, ?, ?, ?, ?, ?);";
         ResultSet key = null;
         try (
                 Connection conn = MySQLService.getConnection();
