@@ -13,10 +13,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class Questions {
     private ObjectProperty<Integer> foreignKeyClassificationId;
-    private ObjectProperty<Integer> foreignKeyTopicId;
+    private ObservableList<ObjectProperty<Integer>> foreignKeyTopicId;
     private ObjectProperty<Integer> questionId;
     private StringProperty questionStatement;
     private StringProperty choice1;
@@ -28,7 +29,6 @@ public class Questions {
 
     public Questions() {
         foreignKeyClassificationId = new SimpleObjectProperty<Integer>(null);
-        foreignKeyTopicId = new SimpleObjectProperty<Integer>(null);
         questionId = new SimpleObjectProperty<Integer>(null);
         questionStatement = new SimpleStringProperty();
         choice1 = new SimpleStringProperty();
@@ -43,8 +43,8 @@ public class Questions {
         return this.foreignKeyClassificationId.get();
     }
 
-    public Integer getForeignKeyTopicId() {
-        return this.foreignKeyTopicId.get();
+    public Integer[] getForeignKeyTopicId() {
+        return this.foreignKeyTopicId.toArray(new Integer[0]);
     }
 
     public Integer getQuestionId() {
@@ -83,10 +83,6 @@ public class Questions {
         return this.foreignKeyClassificationId;
     }
 
-    public ObjectProperty<Integer> getForeignKeyTopicIdProperty() {
-        return this.foreignKeyTopicId;
-    }
-
     public ObjectProperty<Integer> getQuestionIdProperty() {
         return this.questionId;
     }
@@ -123,9 +119,9 @@ public class Questions {
         this.foreignKeyClassificationId.set(id);
     }
 
-    public void setForeignKeyTopicId(int id) {
+    /*public void setForeignKeyTopicId(int id) {
         this.foreignKeyTopicId.set(id);
-    }
+    }*/
 
     public void setQuestionId(int id) {
         this.questionId.set(id);
@@ -161,6 +157,19 @@ public class Questions {
 
     public static ObservableList<Questions> select(int offset) {
         ObservableList<Questions> questions = FXCollections.observableArrayList();
+        ArrayList<Integer> topicIds = new ArrayList<>();
+        topicIds.add(0);
+        try(
+                Connection conn = MySQLService.getConnection();
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery("SELECT * FROM qtrelationship;");
+                ){
+            while(rs.next()){
+                topicIds.add(rs.getInt(2));
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
         try (
                 Connection conn = MySQLService.getConnection();
                 Statement stmt = conn.createStatement();
@@ -170,9 +179,9 @@ public class Questions {
         ) {
             while (rs.next()) {
                 Questions quest = new Questions();
-                quest.setForeignKeyClassificationId(rs.getInt("ClassificationId"));
-                quest.setForeignKeyTopicId(rs.getInt("TopicId"));
                 quest.setQuestionId(rs.getInt("QuestionId"));
+                quest.setForeignKeyClassificationId(rs.getInt("ClassificationId"));
+                quest.setForeignKeyTopicId(topicIds.get(quest.getQuestionId()));
                 quest.setQuestionStatement(rs.getString("QuestionStatement"));
                 quest.setChoice1(rs.getString("Choice1"));
                 quest.setChoice2(rs.getString("Choice2"));
@@ -244,9 +253,9 @@ public class Questions {
     }
 
     public static void insert(Questions quest) {
-        String sqlInsertQuestions = "INSERT INTO Questions(ClassificationId, TopicId, " +
+        String sqlInsertQuestions = "INSERT INTO Questions(ClassificationId, " +
                 "QuestionStatement, CorrectAnswer, Choice1, Choice2, Choice3, Choice4) " +
-                "VALUES(?, ?, ?, ?, ?, ?, ?, ?);";
+                "VALUES(?, ?, ?, ?, ?, ?, ?);";
         ResultSet key = null;
         try (
                 Connection conn = MySQLService.getConnection();
