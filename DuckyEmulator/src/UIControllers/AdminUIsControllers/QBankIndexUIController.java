@@ -1,3 +1,25 @@
+/*
+ * Copyright (c) 2025 Arthroverse Laboratory
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * Organization: Arthroverse Laboratory
+ * Author: Vinh Dinh Mai
+ * Contact: business@arthroverse.com
+ *
+ *
+ * @author ducksabervn
+ */
 package UIControllers.AdminUIsControllers;
 
 import Database.MainDB.Beans.Classifications;
@@ -101,28 +123,13 @@ public class QBankIndexUIController implements Initializable {
 
     @FXML
     void btnTableAddClick(ActionEvent event) throws IOException {
+        currentPageIndex = pageinationQBank.getCurrentPageIndex();
         Navigator.getInstance().goToQBankAdd();
     }
 
     @FXML
     void btnTableDeleteClick(ActionEvent event) throws IOException {
         Questions selectedQuest = tableBankView.getSelectionModel().getSelectedItem();
-        /*if(selectedQuest != null){
-            AlertUtil.generateErrorWindow("Delete question failed", "Question deletion",
-                    "A question must be selected to perform this operation !");
-        }
-        else{
-            if(AlertUtil.generateWarningWindow(
-                    "Delete question confirmation",
-                    "Are you sure you want to delete the selected question ?"
-            )){
-                if(Questions.delete(selectedQuest)){
-                    currentPageIndex = pageinationQBank.getCurrentPageIndex();
-                    tableBankView.getItems().remove(selectedQuest);
-                    Navigator.getInstance().goToQBankIndex();
-                }
-            }
-        }*/
         if(AlertUtil.generateWarningWindow(
                 "Delete question confirmation",
                 "Are you sure you want to delete the selected question ?"
@@ -177,6 +184,7 @@ public class QBankIndexUIController implements Initializable {
         pageinationQBank.currentPageIndexProperty().addListener(
                 (observable, oldIndex, newIndex) -> {
                     int pageIndex = newIndex.intValue();
+                    currentPageIndex = pageIndex;
                     deploy(pageIndex);
                 });
         tableBankView.getSelectionModel().selectedItemProperty().addListener(
