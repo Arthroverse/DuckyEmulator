@@ -1,3 +1,25 @@
+/*
+ * Copyright (c) 2025 Arthroverse Laboratory
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * Organization: Arthroverse Laboratory
+ * Author: Vinh Dinh Mai
+ * Contact: business@arthroverse.com
+ *
+ *
+ * @author ducksabervn
+ */
 package UIControllers.AdminUIsControllers;
 
 import Database.MainDB.Beans.Classifications;
@@ -87,15 +109,12 @@ public class QBankUpdateUIController implements Initializable {
 
     @FXML
     void btnUpdateCurrentQuestionClick(ActionEvent event) throws IOException {
-        ArrayList<Integer> selectedTopicIds = new ArrayList<>();
-        for(Topics t: selectedTopics){
-            selectedTopicIds.add(topicName.indexOf(t.getTopicName()));
-        }
-        updateQuestion.setForeignKeyTopicId(selectedTopicIds);
         ArrayList<String> selectedTopicNames = new ArrayList<>();
         for(Topics t: selectedTopics){
             selectedTopicNames.add(t.getTopicName());
         }
+        ArrayList<Integer> selectedTopicIds = Topics.findingTopicIds(selectedTopicNames);
+        updateQuestion.setForeignKeyTopicId(selectedTopicIds);
         String selectedTopicNamesDisplay = selectedTopicNames.toString();
         updateQuestion.setForeignKeyTopicIdForDisplay(selectedTopicNamesDisplay.substring(1, selectedTopicNamesDisplay.length() - 1));
         updateQuestion.setForeignKeyClassificationId(
@@ -112,9 +131,9 @@ public class QBankUpdateUIController implements Initializable {
         if(errorMessage.toString().isEmpty()){
             Navigator.getInstance().closeSecondStage();
             Navigator.getInstance().goToQBankIndex();
+            selectedTopics = new ArrayList<>();
         }
         errorMessage = new StringBuilder();
-        selectedTopics = new ArrayList<>();
     }
 
     @FXML
@@ -150,12 +169,7 @@ public class QBankUpdateUIController implements Initializable {
     public void initialize(Questions q){
         updateQuestion = q;
         ArrayList<Integer> listTopicIds = q.getForeignKeyTopicId();
-        ArrayList<Topics> listAllTopics = new ArrayList<>(topicsQuestionView);
-        listAllTopics.add(0, null);
-        ArrayList<Topics> listTopics = new ArrayList<>();
-        for(Integer i: listTopicIds){
-            listTopics.add(listAllTopics.get(i));
-        }
+        ArrayList<Topics> listTopics = Topics.findingTopics(listTopicIds);
         selectedTopics = listTopics;
         tableViewSelectedTopic.setItems(FXCollections.observableArrayList(listTopics));
         tableColSelectedTopicName.setCellValueFactory(
@@ -191,10 +205,10 @@ public class QBankUpdateUIController implements Initializable {
         if(temp.size() == 0) errorMessage.append("A question must be associated with a topic !\n");
         if(choiceBoxSelectClass.getValue() == null) errorMessage.append("A question must be associated with a classification !\n");
         if(txtAreaQStatement.getText() == null) errorMessage.append("A question must have a question statement !\n"); //TO DO: CHANGE "== NULL" TO .ISEMPTY()
-        if(txtxAreaQChoice1.getText().isEmpty()
-                || txtxAreaQChoice2.getText().isEmpty()|| txtxAreaQChoice3.getText().isEmpty()
-                || txtxAreaQChoice4.getText().isEmpty()) errorMessage.append("A question must have 4 answers !\n");
-        if(choiceBoxCorrectAns.getValue()== null) errorMessage.append("You must selectAll 1 correct answer !\n");
+        if(txtxAreaQChoice1.getText() == null
+                || txtxAreaQChoice2.getText() == null || txtxAreaQChoice3.getText().isEmpty()
+                || txtxAreaQChoice4.getText() == null) errorMessage.append("A question must have 4 answers !\n");
+        if(choiceBoxCorrectAns.getValue() == null) errorMessage.append("You must select 1 correct answer !\n");
 
         if(!errorMessage.toString().isEmpty()){
             AlertUtil.generateErrorWindow("Update new question failed", "Update new question",
@@ -207,9 +221,7 @@ public class QBankUpdateUIController implements Initializable {
     @FXML
     void btnAddTopicClick(ActionEvent event) throws IOException {
         if(!selectedTopics.contains(topicsQuestionView.get(topicName.indexOf(choiceBoxSelectTopic.getValue()) - 1))){
-            selectedTopics.add(topicsQuestionView.get(
-                    topicName.indexOf(choiceBoxSelectTopic.getValue()) - 1
-            ));
+            selectedTopics.add(topicsQuestionView.get(topicName.indexOf(choiceBoxSelectTopic.getValue()) - 1));
             Navigator.getInstance().closeSecondStage();
             Navigator.getInstance().goToQBankUpdate(this.generateTempQuestionObject());
         }else{
@@ -239,10 +251,11 @@ public class QBankUpdateUIController implements Initializable {
         quest.setChoice3(txtxAreaQChoice3.getText());
         quest.setChoice4(txtxAreaQChoice4.getText());
         quest.setCorrectAnswer(choiceBoxCorrectAns.getValue());
-        ArrayList<Integer> selectedTopicIds = new ArrayList<>();
+        ArrayList<String> selectedTopicNames = new ArrayList<>();
         for(Topics topic: selectedTopics){
-            selectedTopicIds.add(topicName.indexOf(topic.getTopicName()));
+            selectedTopicNames.add(topic.getTopicName());
         }
+        ArrayList<Integer> selectedTopicIds = Topics.findingTopicIds(selectedTopicNames);
         quest.setForeignKeyTopicId(selectedTopicIds);
         return quest;
     }

@@ -1,3 +1,25 @@
+/*
+ * Copyright (c) 2025 Arthroverse Laboratory
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * Organization: Arthroverse Laboratory
+ * Author: Vinh Dinh Mai
+ * Contact: business@arthroverse.com
+ *
+ *
+ * @author ducksabervn
+ */
 package UIControllers.AdminUIsControllers;
 
 import Database.MainDB.Beans.Classifications;
@@ -92,6 +114,17 @@ public class QBankAddUIController implements Initializable {
 
     private static String currentCorrectChoice;
 
+    public static void resetAllDatas(){
+        currentSelectedClassification = null;
+        currentQuestionStatement = null;
+        currentChoice1 = null;
+        currentChoice2 = null;
+        currentChoice3 = null;
+        currentChoice4 = null;
+        currentCorrectChoice = null;
+        selectedTopics = new ArrayList<>();
+    }
+
     @FXML
     void btnChooseImagePathClick(ActionEvent event) {
 
@@ -100,21 +133,14 @@ public class QBankAddUIController implements Initializable {
     @FXML
     void btnAddNewQuestionClick(ActionEvent event) throws IOException {
         Questions quest = new Questions();
-        ArrayList<Integer> selectedTopicIds = new ArrayList<>();
-        for(Topics t: selectedTopics){
-            selectedTopicIds.add(topicName.indexOf(t.getTopicName()));
-        }
         ArrayList<String> selectedTopicNames = new ArrayList<>();
         for(Topics t: selectedTopics){
             selectedTopicNames.add(t.getTopicName());
         }
+        ArrayList<Integer> selectedTopicIds = Topics.findingTopicIds(selectedTopicNames);
         String selectedTopicNamesDisplay = selectedTopicNames.toString();
         quest.setForeignKeyTopicIdForDisplay(selectedTopicNamesDisplay.substring(1, selectedTopicNamesDisplay.length() - 1));
-        System.out.println(selectedTopicIds.toString());
         quest.setForeignKeyTopicId(selectedTopicIds);
-        /*quest.setForeignKeyTopicId(topicName.indexOf(
-                choiceBoxSelectTopic.getValue()
-        ));*/
         quest.setForeignKeyClassificationId(
                 className.indexOf(choiceBoxSelectClass.getValue())
         );
@@ -129,9 +155,9 @@ public class QBankAddUIController implements Initializable {
         if(errorMessage.toString().isEmpty()){
             Navigator.getInstance().closeSecondStage();
             Navigator.getInstance().goToQBankIndex();
+            selectedTopics = new ArrayList<>();
         }
         errorMessage = new StringBuilder();
-        selectedTopics = new ArrayList<>();
     }
 
     @FXML
@@ -161,11 +187,11 @@ public class QBankAddUIController implements Initializable {
                 "Choice 1", "Choice 2", "Choice 3", "Choice 4"
         ));
         loadLastSavedData();
-        btnAddTopic.disableProperty().set(true);
-        btnRemoveTopic.disableProperty().set(true);
         tableViewSelectedTopic.setItems(
                 FXCollections.observableArrayList(selectedTopics)
         );
+        btnAddTopic.disableProperty().set(true);
+        btnRemoveTopic.disableProperty().set(true);
         tableColSelectedTopicName.setCellValueFactory(
                 (selectedTopics) -> {
                     return selectedTopics.getValue().getTopicNameProperty();
@@ -188,10 +214,10 @@ public class QBankAddUIController implements Initializable {
         if(temp.size() == 0) errorMessage.append("A question must be associated with a topic !\n");
         if(choiceBoxSelectClass.getValue() == null) errorMessage.append("A question must be associated with a classification !\n");
         if(txtAreaQStatement.getText() == null) errorMessage.append("A question must have a question statement !\n"); //TO DO: CHANGE "== NULL" TO .ISEMPTY()
-        if(txtxAreaQChoice1.getText().isEmpty()
-        || txtxAreaQChoice2.getText().isEmpty()|| txtxAreaQChoice3.getText().isEmpty()
-        || txtxAreaQChoice4.getText().isEmpty()) errorMessage.append("A question must have 4 answers !\n");
-        if(choiceBoxCorrectAns.getValue()== null) errorMessage.append("You must selectAll 1 correct answer !\n");
+        if(txtxAreaQChoice1.getText() == null
+        || txtxAreaQChoice2.getText() == null|| txtxAreaQChoice3.getText().isEmpty()
+        || txtxAreaQChoice4.getText() == null) errorMessage.append("A question must have 4 answers !\n");
+        if(choiceBoxCorrectAns.getValue() == null) errorMessage.append("You must select 1 correct answer !\n");
 
         if(!errorMessage.toString().isEmpty()){
             AlertUtil.generateErrorWindow("Add new question failed", "Add new question",

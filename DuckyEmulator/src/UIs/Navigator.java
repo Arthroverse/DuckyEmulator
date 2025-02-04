@@ -4,6 +4,7 @@ import Database.MainDB.Beans.Classifications;
 import Database.MainDB.Beans.Questions;
 import Database.MainDB.Beans.Topics;
 import UIControllers.AdminUIsControllers.ClassificationsUpdateUIController;
+import UIControllers.AdminUIsControllers.QBankAddUIController;
 import UIControllers.AdminUIsControllers.QBankUpdateUIController;
 import UIControllers.AdminUIsControllers.TopicsUpdateUIController;
 import javafx.fxml.FXMLLoader;
@@ -136,6 +137,11 @@ public class Navigator {
            secondStage.initOwner(this.stage);
            if(secondStage != null) secondStage.requestFocus();
            secondStage.show();
+           if(fxml.equals(QBANK_ADD)){
+               secondStage.setOnCloseRequest(event -> {
+                   QBankAddUIController.resetAllDatas();
+               });
+           }
        }
    }
 
