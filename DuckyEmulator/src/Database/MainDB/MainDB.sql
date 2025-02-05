@@ -56,5 +56,10 @@ CREATE TABLE QTRelationship(
     FOREIGN KEY (TopicId) REFERENCES Topics(TopicId),
     PRIMARY KEY(QuestionId, TopicId)
 );
+
+SELECT Q.*, C.Classification
+FROM Questions AS Q
+JOIN Classifications AS C ON C.ClassificationId = Q.ClassificationId;
+
 -- FOR TESTING AND DEBUGGING PURPOSES
 -- DROP DATABASE DuckyEmulator_QuestionDB;

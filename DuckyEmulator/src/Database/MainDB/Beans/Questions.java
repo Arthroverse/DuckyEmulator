@@ -23,6 +23,7 @@
 package Database.MainDB.Beans;
 
 import Database.DBService.MySQLService;
+import UIControllers.AdminUIsControllers.QBankAddUIController;
 import UIControllers.AdminUIsControllers.QBankIndexUIController;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -261,6 +262,9 @@ public class Questions {
     }
 
     public static void setPage() {
+        /*
+        * SELECT COUNT(QuestionId)
+          FROM Questions;*/
         try (
                 Connection conn = MySQLService.getConnection();
                 Statement stmt = conn.createStatement();
@@ -274,7 +278,7 @@ public class Questions {
             while (rs.next()) {
                 maxNumPage += rs.getInt(2);
             }
-            if (maxNumPage % 10 != 0) {
+            /*if (maxNumPage % 10 != 0) {
                 QBankIndexUIController.setMaxPageNum(
                         maxNumPage / 10 + 1
                 );
@@ -282,7 +286,8 @@ public class Questions {
                 QBankIndexUIController.setMaxPageNum(
                         maxNumPage / 10
                 );
-            }
+            }*/
+            QBankIndexUIController.setMaxPageNum((int)Math.ceil(maxNumPage/10.0));
             QBankIndexUIController.setOffset(10);
         } catch (Exception e) {
             e.printStackTrace();
