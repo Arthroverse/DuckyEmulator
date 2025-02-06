@@ -61,5 +61,15 @@ SELECT Q.*, C.Classification
 FROM Questions AS Q
 JOIN Classifications AS C ON C.ClassificationId = Q.ClassificationId;
 
+SELECT Q.*, QT.TopicId
+FROM Questions AS Q
+JOIN QTRelationship AS QT ON Q.QuestionId = QT.QuestionId;
+
+SELECT RESULT.*, t.TopicName
+FROM Topics AS T
+JOIN (SELECT Q.*, QT.TopicId
+      FROM Questions AS Q
+               JOIN QTRelationship AS QT ON Q.QuestionId = QT.QuestionId) AS RESULT ON RESULT.TopicId = T.TopicId;
+
 -- FOR TESTING AND DEBUGGING PURPOSES
 -- DROP DATABASE DuckyEmulator_QuestionDB;

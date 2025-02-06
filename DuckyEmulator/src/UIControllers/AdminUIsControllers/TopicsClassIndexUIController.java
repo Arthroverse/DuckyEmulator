@@ -181,7 +181,7 @@ public class TopicsClassIndexUIController implements Initializable{
                     "A classification must be selected to perform this operation !");
         }
         else{
-            currentClassPageIndex = tableViewTopicPageination.getCurrentPageIndex();
+            currentClassPageIndex = tableViewClassPagination.getCurrentPageIndex();
             Navigator.getInstance().goToClassIndexUpdate(selectedClass);
         }
     }

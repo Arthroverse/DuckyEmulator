@@ -136,25 +136,11 @@ public class Classifications {
         try (
                 Connection conn = MySQLService.getConnection();
                 Statement stmt = conn.createStatement();
-                ResultSet rs = stmt.executeQuery(
-                        "SELECT ClassificationId, COUNT(ClassificationId) " +
-                                "FROM Classifications " +
-                                "GROUP BY ClassificationId;"
-                );
+                ResultSet rs = stmt.executeQuery("SELECT COUNT(ClassificationId) FROM Classifications");
         ) {
-            int maxNumPage = 0;
-            while (rs.next()) {
-                maxNumPage += rs.getInt(2);
-            }
-            if (maxNumPage % 10 != 0) {
-                TopicsClassIndexUIController.setClassessMaxPageNum(
-                        maxNumPage / 10 + 1
-                );
-            } else {
-                TopicsClassIndexUIController.setClassessMaxPageNum(
-                        maxNumPage / 10
-                );
-            }
+            rs.next();
+            int maxPageNum = rs.getInt(1);
+            TopicsClassIndexUIController.setClassessMaxPageNum((int)(Math.ceil(maxPageNum/10.0)));
             TopicsClassIndexUIController.setClassessOffset(10);
         } catch (Exception e) {
             e.printStackTrace();
@@ -162,22 +148,41 @@ public class Classifications {
     }
 
     public static boolean delete(Classifications clazz){
-        String sqlDel = "DELETE FROM Classifications WHERE ClassificationId = ?;";
+        int totalRelatedQuestions = 0;
         try(
                 Connection conn = MySQLService.getConnection();
-                PreparedStatement stmt = conn.prepareStatement(sqlDel);
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery("SELECT QuestionId FROM Questions WHERE ClassificationId = "
+                        + clazz.getClassificationId() + ";");
                 ){
-            stmt.setInt(1, clazz.getClassificationId());
-
-            boolean isDeleted = stmt.executeUpdate() == 1 ? true : false;
-
-            if(isDeleted) return true;
-            else return false;
+            while(rs.next()){
+                totalRelatedQuestions++;
+            }
         }catch(Exception e){
-            AlertUtil.generateErrorWindow("Classification deletion failed",
-                    "Classification deletion",
-                    "There are questions that are classified with this classification, please delete the question first !");
+            e.printStackTrace();
+        }
+        boolean isRelated = totalRelatedQuestions == 0 ? false : true;
+        if(isRelated){
+            AlertUtil.generateErrorWindow("Delete topic failed", "Delete topic",
+                    "There are " + totalRelatedQuestions +
+                            " questions associated with this topic, please delete them first !");
             return false;
+        }else{
+            String sqlDel = "DELETE FROM Classifications WHERE ClassificationId = ?;";
+            try(
+                    Connection conn = MySQLService.getConnection();
+                    PreparedStatement stmt = conn.prepareStatement(sqlDel);
+                    ){
+                stmt.setInt(1, clazz.getClassificationId());
+
+                boolean isDeleted = stmt.executeUpdate() == 1 ? true : false;
+
+                if(isDeleted) return true;
+                else return false;
+            }catch(Exception e){
+                e.printStackTrace();
+                return false;
+            }
         }
     }
 
@@ -209,6 +214,36 @@ public class Classifications {
             stmt.executeUpdate();
         }catch(Exception e){
             e.printStackTrace();
+        }
+    }
+
+    public static Integer searchClassificationByName(String name){
+        String sqlSelect = "SELECT ClassificationId FROM Classifications WHERE Classification = ?;";
+        try(
+                Connection conn = MySQLService.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sqlSelect);
+                ){
+            stmt.setString(1, name);
+            ResultSet rs = stmt.executeQuery();
+            rs.next();
+            return rs.getInt(1);
+        }catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static String searchClassificationById(int id){
+        try(
+                Connection conn = MySQLService.getConnection();
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery("SELECT Classification FROM Classifications WHERE ClassificationId = " + id + ";");
+                ){
+            rs.next();
+            return rs.getString(1);
+        }catch(Exception e){
+            e.printStackTrace();
+            return null;
         }
     }
 }

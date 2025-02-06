@@ -142,7 +142,9 @@ public class QBankAddUIController implements Initializable {
         quest.setForeignKeyTopicIdForDisplay(selectedTopicNamesDisplay.substring(1, selectedTopicNamesDisplay.length() - 1));
         quest.setForeignKeyTopicId(selectedTopicIds);
         quest.setForeignKeyClassificationId(
-                className.indexOf(choiceBoxSelectClass.getValue())
+                Classifications.searchClassificationByName(
+                        choiceBoxSelectClass.getValue()
+                )
         );
         quest.setQuestionStatement(txtAreaQStatement.getText());
         quest.setChoice1(txtxAreaQChoice1.getText());
@@ -156,6 +158,7 @@ public class QBankAddUIController implements Initializable {
             Navigator.getInstance().closeSecondStage();
             Navigator.getInstance().goToQBankIndex();
             selectedTopics = new ArrayList<>();
+            resetAllDatas();
         }
         errorMessage = new StringBuilder();
     }

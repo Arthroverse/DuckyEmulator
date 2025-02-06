@@ -57,12 +57,9 @@ CREATE TABLE QTRelationship(
     PRIMARY KEY(QuestionId, TopicId)
 );
 
-SELECT ClassificationId, COUNT(QuestionId)
-FROM Questions
-GROUP BY ClassificationId;
-
-SELECT COUNT(QuestionId)
-FROM Questions;
+SELECT Q.*, C.Classification
+FROM Questions AS Q
+JOIN Classifications AS C ON C.ClassificationId = Q.ClassificationId;
 
 -- FOR TESTING AND DEBUGGING PURPOSES
 -- DROP DATABASE DuckyEmulator_QuestionDB;

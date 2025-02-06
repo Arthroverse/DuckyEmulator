@@ -202,9 +202,7 @@ public class QBankIndexUIController implements Initializable {
         if(pageIndex == maxPageNum) offset = (pageIndex - 1) * 10;
         tableBankView.setItems(Questions.select(offset));
         tableClassCol.setCellValueFactory((questions) -> {
-            return classQuestionView.get(
-                    questions.getValue().getForeignKeyClassificationId() - 1
-            ).getClassificationProperty();
+            return questions.getValue().getForeignKeyClassificationIdForDisplayProperty();
         });
         tableTopicCol.setCellValueFactory((questions) -> {
             return questions.getValue().getForeignKeyTopicIdForDisplayProperty();

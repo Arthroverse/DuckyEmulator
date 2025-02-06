@@ -43,6 +43,7 @@ import static Database.MainDB.Beans.Topics.topicsQuestionView;
 
 public class Questions {
     private ObjectProperty<Integer> foreignKeyClassificationId;
+    private StringProperty foreignKeyClassificationIdForDisplay;
     private ArrayList<Integer> foreignKeyTopicId;
     private ArrayList<Integer> oldForeignKeyTopicId;
     private StringProperty foreignKeyTopicIdForDisplay;
@@ -57,6 +58,7 @@ public class Questions {
 
     public Questions() {
         foreignKeyClassificationId = new SimpleObjectProperty<Integer>(null);
+        foreignKeyClassificationIdForDisplay = new SimpleStringProperty();
         foreignKeyTopicId = new ArrayList<>();
         foreignKeyTopicIdForDisplay = new SimpleStringProperty();
         oldForeignKeyTopicId = new ArrayList<>();
@@ -72,6 +74,10 @@ public class Questions {
 
     public Integer getForeignKeyClassificationId() {
         return this.foreignKeyClassificationId.get();
+    }
+
+    public String getForeignKeyClassificationIdForDisplay(){
+        return this.foreignKeyClassificationIdForDisplay.get();
     }
   
     public ArrayList<Integer> getForeignKeyTopicId() {
@@ -122,6 +128,10 @@ public class Questions {
         return this.foreignKeyTopicIdForDisplay;
     }
 
+    public StringProperty getForeignKeyClassificationIdForDisplayProperty(){
+        return this.foreignKeyClassificationIdForDisplay;
+    }
+
     public ObjectProperty<Integer> getForeignKeyClassificationIdProperty() {
         return this.foreignKeyClassificationId;
     }
@@ -160,6 +170,10 @@ public class Questions {
 
     public void setForeignKeyClassificationId(int id) {
         this.foreignKeyClassificationId.set(id);
+    }
+
+    public void setForeignKeyClassificationIdForDisplay(String fk){
+        this.foreignKeyClassificationIdForDisplay.set(fk);
     }
 
     public void setForeignKeyTopicIdForDisplay(String fk){
@@ -240,6 +254,11 @@ public class Questions {
                 }
                 quest.setQuestionId(rs.getInt("QuestionId"));
                 quest.setForeignKeyClassificationId(rs.getInt("ClassificationId"));
+                quest.setForeignKeyClassificationIdForDisplay(
+                        Classifications.searchClassificationById(
+                                rs.getInt("ClassificationId")
+                        )
+                );
                 for(Integer[] arrInt: gatheredQtTable) if(arrInt[0].equals(quest.getQuestionId())) topicIds.add(arrInt[1]);
                 quest.setForeignKeyTopicId(topicIds);
                 quest.setOldForeignKeyTopicId(topicIds);
@@ -262,31 +281,13 @@ public class Questions {
     }
 
     public static void setPage() {
-        /*
-        * SELECT COUNT(QuestionId)
-          FROM Questions;*/
         try (
                 Connection conn = MySQLService.getConnection();
                 Statement stmt = conn.createStatement();
-                ResultSet rs = stmt.executeQuery(
-                        "SELECT ClassificationId, COUNT(QuestionId) " +
-                                "FROM Questions " +
-                                "GROUP BY ClassificationId;"
-                );
+                ResultSet rs = stmt.executeQuery("SELECT COUNT(QuestionId) FROM Questions");
         ) {
-            int maxNumPage = 0;
-            while (rs.next()) {
-                maxNumPage += rs.getInt(2);
-            }
-            /*if (maxNumPage % 10 != 0) {
-                QBankIndexUIController.setMaxPageNum(
-                        maxNumPage / 10 + 1
-                );
-            } else {
-                QBankIndexUIController.setMaxPageNum(
-                        maxNumPage / 10
-                );
-            }*/
+            rs.next();
+            int maxNumPage = rs.getInt(1);
             QBankIndexUIController.setMaxPageNum((int)Math.ceil(maxNumPage/10.0));
             QBankIndexUIController.setOffset(10);
         } catch (Exception e) {
