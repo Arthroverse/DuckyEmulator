@@ -136,25 +136,11 @@ public class Topics {
         try (
                 Connection conn = MySQLService.getConnection();
                 Statement stmt = conn.createStatement();
-                ResultSet rs = stmt.executeQuery(
-                        "SELECT TopicId, COUNT(TopicId) " +
-                                "FROM Topics " +
-                                "GROUP BY TopicId;"
-                );
+                ResultSet rs = stmt.executeQuery("SELECT COUNT(TopicId) FROM Topics");
         ) {
-            int maxNumPage = 0;
-            while (rs.next()) {
-                maxNumPage += rs.getInt(2);
-            }
-            if (maxNumPage % 10 != 0) {
-                TopicsClassIndexUIController.setTopicsMaxPageNum(
-                        maxNumPage / 10 + 1
-                );
-            } else {
-                TopicsClassIndexUIController.setTopicsMaxPageNum(
-                        maxNumPage / 10
-                );
-            }
+            rs.next();
+            int maxNumPage = rs.getInt(1);
+            TopicsClassIndexUIController.setTopicsMaxPageNum((int)(Math.ceil(maxNumPage/10.0)));
             TopicsClassIndexUIController.setTopicsOffset(10);
         } catch (Exception e) {
             e.printStackTrace();
@@ -162,7 +148,7 @@ public class Topics {
     }
 
     public static boolean delete(Topics top){
-        ArrayList<Integer> questionIds = new ArrayList<>();
+        int totalRelatedQuestions = 0;
         try(
                 Connection conn = MySQLService.getConnection();
                 Statement stmt = conn.createStatement();
@@ -170,55 +156,32 @@ public class Topics {
                         top.getTopicId() + ";");
         ){
             while(rs.next()){
-                questionIds.add(rs.getInt(1));
+                totalRelatedQuestions++;
             }
         }catch(Exception e){
             e.printStackTrace();
         }
 
-        boolean isSingle = false;
-        for(Integer i: questionIds){
-            try(
-                    Connection conn = MySQLService.getConnection();
-                    Statement stmt = conn.createStatement();
-                    ResultSet rs = stmt.executeQuery("SELECT * FROM QTRelationship WHERE QuestionId = " + i + ";");
-            ){
-                int index = 0;
-                while(rs.next()) index++;
-                if(index == 1) isSingle = true;
-            }catch(Exception e){
-                e.printStackTrace();
-            }
-        }
-
-        if(isSingle){
+        boolean isRelated = totalRelatedQuestions == 0 ? false : true;
+        if(isRelated){
             AlertUtil.generateErrorWindow("Delete topic failed", "Delete topic",
-                    "There are questions associated with this topic, please delete them first !");
+                    "There are " + totalRelatedQuestions +
+                            " questions associated with this topic, please delete them first !");
             return false;
         }else{
-            String sqlCurrentTopicInQuestionDelete = "DELETE FROM qtrelationship WHERE TopicId = ?;";
+            String sqlTopicDelete = "DELETE FROM Topics WHERE TopicId = ?;";
             try(
                     Connection conn = MySQLService.getConnection();
-                    PreparedStatement stmt = conn.prepareStatement(sqlCurrentTopicInQuestionDelete);
+                    PreparedStatement stmt = conn.prepareStatement(sqlTopicDelete);
             ){
                 stmt.setInt(1, top.getTopicId());
-                stmt.executeUpdate();
+                boolean isDeleted = stmt.executeUpdate() == 1 ? true : false;
+                if(isDeleted) return true;
+                else return false;
             }catch(Exception e){
                 e.printStackTrace();
+                return false;
             }
-        }
-        String sqlTopicDelete = "DELETE FROM Topics WHERE TopicId = ?;";
-        try(
-                Connection conn = MySQLService.getConnection();
-                PreparedStatement stmt = conn.prepareStatement(sqlTopicDelete);
-        ){
-            stmt.setInt(1, top.getTopicId());
-            boolean isDeleted = stmt.executeUpdate() == 1 ? true : false;
-            if(isDeleted) return true;
-            else return false;
-        }catch(Exception e){
-            e.printStackTrace();
-            return false;
         }
     }
 
