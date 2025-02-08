@@ -115,8 +115,6 @@ public class QBankUpdateUIController implements Initializable {
         }
         ArrayList<Integer> selectedTopicIds = Topics.findingTopicIds(selectedTopicNames);
         updateQuestion.setForeignKeyTopicId(selectedTopicIds);
-        String selectedTopicNamesDisplay = selectedTopicNames.toString();
-        updateQuestion.setForeignKeyTopicIdForDisplay(selectedTopicNamesDisplay.substring(1, selectedTopicNamesDisplay.length() - 1));
         updateQuestion.setForeignKeyClassificationId(
                 Classifications.searchClassificationByName(
                         choiceBoxSelectClass.getValue()
