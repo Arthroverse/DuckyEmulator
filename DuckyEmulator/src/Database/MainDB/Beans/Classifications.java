@@ -141,7 +141,6 @@ public class Classifications {
             rs.next();
             int maxPageNum = rs.getInt(1);
             TopicsClassIndexUIController.setClassessMaxPageNum((int)(Math.ceil(maxPageNum/10.0)));
-            TopicsClassIndexUIController.setClassessOffset(10);
         } catch (Exception e) {
             e.printStackTrace();
         }
