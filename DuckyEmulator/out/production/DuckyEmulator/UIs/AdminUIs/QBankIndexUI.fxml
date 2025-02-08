@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <!--
   ~ Copyright (c) 2025 Arthroverse Laboratory
   ~
@@ -21,6 +22,7 @@
   ~
   ~ @author ducksabervn
   -->
+
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
@@ -126,7 +128,6 @@
                <center>
                   <TableView fx:id="tableBankView">
                     <columns>
-                        <TableColumn fx:id="tableTopicCol" prefWidth="81.0" text="Topic" />
                         <TableColumn fx:id="tableClassCol" prefWidth="81.0" text="Classification" />
                       <TableColumn fx:id="tableQuestStateCol" prefWidth="422.0" text="Question Statement" />
                       <TableColumn fx:id="tableChoice1Col" minWidth="0.0" prefWidth="133.0" text="Choice 1" />
