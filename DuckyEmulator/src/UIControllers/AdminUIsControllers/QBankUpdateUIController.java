@@ -191,9 +191,11 @@ public class QBankUpdateUIController implements Initializable {
                     if(newSelection != null) btnAddTopic.disableProperty().set(false);
                 }
         );
-        choiceBoxSelectClass.setValue(className.get(
-                q.getForeignKeyClassificationId()
-        ));
+        choiceBoxSelectClass.setValue(
+                Classifications.searchClassificationById(
+                        q.getForeignKeyClassificationId()
+                )
+        );
         txtAreaQStatement.setText(q.getQuestionStatement());
         txtxAreaQChoice1.setText(q.getChoice1());
         txtxAreaQChoice2.setText(q.getChoice2());
@@ -245,7 +247,9 @@ public class QBankUpdateUIController implements Initializable {
         Questions quest = new Questions();
         quest.setQuestionId(updateQuestion.getQuestionId());
         quest.setForeignKeyClassificationId(
-                className.indexOf(choiceBoxSelectClass.getValue())
+                Classifications.searchClassificationByName(
+                        choiceBoxSelectClass.getValue()
+                )
         );
         quest.setQuestionStatement(txtAreaQStatement.getText());
         quest.setChoice1(txtxAreaQChoice1.getText());
