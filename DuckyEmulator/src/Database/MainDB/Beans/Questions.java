@@ -46,7 +46,6 @@ public class Questions {
     private StringProperty foreignKeyClassificationIdForDisplay;
     private ArrayList<Integer> foreignKeyTopicId;
     private ArrayList<Integer> oldForeignKeyTopicId;
-    private StringProperty foreignKeyTopicIdForDisplay;
     private ObjectProperty<Integer> questionId;
     private StringProperty questionStatement;
     private StringProperty choice1;
@@ -60,7 +59,6 @@ public class Questions {
         foreignKeyClassificationId = new SimpleObjectProperty<Integer>(null);
         foreignKeyClassificationIdForDisplay = new SimpleStringProperty();
         foreignKeyTopicId = new ArrayList<>();
-        foreignKeyTopicIdForDisplay = new SimpleStringProperty();
         oldForeignKeyTopicId = new ArrayList<>();
         questionId = new SimpleObjectProperty<Integer>(null);
         questionStatement = new SimpleStringProperty();
@@ -82,10 +80,6 @@ public class Questions {
   
     public ArrayList<Integer> getForeignKeyTopicId() {
         return this.foreignKeyTopicId;
-    }
-
-    public String getForeignKeyTopicIdForDisplay(){
-        return this.foreignKeyTopicIdForDisplay.get();
     }
 
     public ArrayList<Integer> getOldForeignKeyTopicId(){
@@ -122,10 +116,6 @@ public class Questions {
 
     public String getImagePath() {
         return this.imagePath.get();
-    }
-
-    public StringProperty getForeignKeyTopicIdForDisplayProperty(){
-        return this.foreignKeyTopicIdForDisplay;
     }
 
     public StringProperty getForeignKeyClassificationIdForDisplayProperty(){
@@ -176,10 +166,6 @@ public class Questions {
         this.foreignKeyClassificationIdForDisplay.set(fk);
     }
 
-    public void setForeignKeyTopicIdForDisplay(String fk){
-        this.foreignKeyTopicIdForDisplay.set(fk);
-    }
-
     public void setForeignKeyTopicId(ArrayList<Integer> foreignKeyTopicId) {
         this.foreignKeyTopicId = new ArrayList<>(foreignKeyTopicId);
     }
@@ -222,59 +208,79 @@ public class Questions {
 
     public static ObservableList<Questions> select(int offset) {
         ObservableList<Questions> questions = FXCollections.observableArrayList();
-        ArrayList<Integer[]> gatheredQtTable = new ArrayList<>();
+        String sqlQuery = "SELECT Q.*, T.TopicId, T.TopicName, T.Description AS Topic_Description, C.Classification, C.Description AS Classification_Description " +
+                "FROM Questions AS Q " +
+                "JOIN (" +
+                "SELECT QuestionId " +
+                "FROM Questions " +
+                "ORDER BY QuestionId " +
+                "LIMIT 10 OFFSET ?" +
+                ") AS RQ ON Q.QuestionId = RQ.QuestionId " +
+                "JOIN QTRelationship AS QT ON Q.QuestionId = QT.QuestionId " +
+                "JOIN Topics AS T ON T.TopicId = QT.TopicId " +
+                "JOIN Classifications AS C ON C.ClassificationId = Q.ClassificationId " +
+                "ORDER BY Q.QuestionId;";
         try(
                 Connection conn = MySQLService.getConnection();
-                Statement stmt = conn.createStatement();
-                ResultSet rs = stmt.executeQuery("SELECT * FROM qtrelationship;");
+                PreparedStatement stmt = conn.prepareStatement(sqlQuery);
                 ){
+            stmt.setInt(1, offset);
+            ResultSet rs = stmt.executeQuery();
+            ArrayList<Integer> topicIds = new ArrayList<>();
+            int currentQuestionId = 0;
+            boolean firstTimeInitialized = true;
             while(rs.next()){
-                Integer[] array = new Integer[2];
-                array[0] = rs.getInt(1);
-                array[1] = rs.getInt(2);
-                gatheredQtTable.add(array);
+                if(rs.getInt(1) == currentQuestionId){
+                    topicIds.add(rs.getInt("TopicId"));
+                    if(rs.isLast()){
+                        Questions quest = new Questions();
+                        quest.setQuestionId(rs.getInt("QuestionId"));
+                        quest.setForeignKeyClassificationId(rs.getInt("ClassificationId"));
+                        quest.setForeignKeyClassificationIdForDisplay(
+                                Classifications.searchClassificationById(
+                                        rs.getInt("ClassificationId")
+                                )
+                        );
+                        quest.setForeignKeyTopicId(topicIds);
+                        quest.setOldForeignKeyTopicId(topicIds);
+                        quest.setQuestionStatement(rs.getString("QuestionStatement"));
+                        quest.setChoice1(rs.getString("Choice1"));
+                        quest.setChoice2(rs.getString("Choice2"));
+                        quest.setChoice3(rs.getString("Choice3"));
+                        quest.setChoice4(rs.getString("Choice4"));
+                        quest.setCorrectAnswer(rs.getString("CorrectAnswer"));
+                        quest.setImagePath(rs.getString("ImagePath"));
+                        questions.add(quest);
+                    }
+                }else if(firstTimeInitialized){
+                    firstTimeInitialized = false;
+                    currentQuestionId = rs.getInt(1);
+                    topicIds.add(rs.getInt("TopicId"));
+                }else{
+                    currentQuestionId = rs.getInt(1);
+                    rs.previous();
+                    Questions quest = new Questions();
+                    quest.setQuestionId(rs.getInt("QuestionId"));
+                    quest.setForeignKeyClassificationId(rs.getInt("ClassificationId"));
+                    quest.setForeignKeyClassificationIdForDisplay(
+                            Classifications.searchClassificationById(
+                                    rs.getInt("ClassificationId")
+                            )
+                    );
+                    quest.setForeignKeyTopicId(topicIds);
+                    quest.setOldForeignKeyTopicId(topicIds);
+                    quest.setQuestionStatement(rs.getString("QuestionStatement"));
+                    quest.setChoice1(rs.getString("Choice1"));
+                    quest.setChoice2(rs.getString("Choice2"));
+                    quest.setChoice3(rs.getString("Choice3"));
+                    quest.setChoice4(rs.getString("Choice4"));
+                    quest.setCorrectAnswer(rs.getString("CorrectAnswer"));
+                    quest.setImagePath(rs.getString("ImagePath"));
+                    questions.add(quest);
+                    topicIds = new ArrayList<>();
+                }
             }
         }catch(Exception e){
-            e.printStackTrace();
-        }
-        try (
-                Connection conn = MySQLService.getConnection();
-                Statement stmt = conn.createStatement();
-                ResultSet rs = stmt.executeQuery(
-                        "SELECT * FROM Questions LIMIT 10 OFFSET " + offset + ";"
-                )
-        ) {
-            while (rs.next()) {
-                Questions quest = new Questions();
-                ArrayList<Integer> topicIds = new ArrayList<>();
-                ArrayList<String> topicNames = new ArrayList<>();
-                topicNames.add(null);
-                for(Topics t: topicsQuestionView){
-                    topicNames.add(t.getTopicName());
-                }
-                quest.setQuestionId(rs.getInt("QuestionId"));
-                quest.setForeignKeyClassificationId(rs.getInt("ClassificationId"));
-                quest.setForeignKeyClassificationIdForDisplay(
-                        Classifications.searchClassificationById(
-                                rs.getInt("ClassificationId")
-                        )
-                );
-                for(Integer[] arrInt: gatheredQtTable) if(arrInt[0].equals(quest.getQuestionId())) topicIds.add(arrInt[1]);
-                quest.setForeignKeyTopicId(topicIds);
-                quest.setOldForeignKeyTopicId(topicIds);
-                quest.setQuestionStatement(rs.getString("QuestionStatement"));
-                quest.setChoice1(rs.getString("Choice1"));
-                quest.setChoice2(rs.getString("Choice2"));
-                quest.setChoice3(rs.getString("Choice3"));
-                quest.setChoice4(rs.getString("Choice4"));
-                quest.setCorrectAnswer(rs.getString("CorrectAnswer"));
-                quest.setImagePath(rs.getString("ImagePath"));
-                questions.add(quest);
-                ArrayList<String> questionTopics = Topics.findingTopicNames(topicIds);
-                String questionTopicsDisplay = questionTopics.toString();
-                quest.setForeignKeyTopicIdForDisplay(questionTopicsDisplay.substring(1, questionTopicsDisplay.length() - 1));
-            }
-        } catch (Exception e) {
             e.printStackTrace();
         }
         return questions;
@@ -289,7 +295,6 @@ public class Questions {
             rs.next();
             int maxNumPage = rs.getInt(1);
             QBankIndexUIController.setMaxPageNum((int)Math.ceil(maxNumPage/10.0));
-            QBankIndexUIController.setOffset(10);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -272,8 +272,7 @@ public class TopicsClassIndexUIController implements Initializable{
     }
 
     private void topicViewInitialize(int pageIndex){
-        if(pageIndex > 0 || pageIndex == 0) topicsOffset = pageIndex * 10;
-        if(pageIndex == topicsMaxPageNum) topicsOffset = (pageIndex - 1) * 10;
+        topicsOffset = pageIndex * 10;
         tableTopicView.setItems(Topics.select(topicsOffset));
 
         tableTopicNameCol.setCellValueFactory((topic) -> {
@@ -286,8 +285,7 @@ public class TopicsClassIndexUIController implements Initializable{
     }
 
     private void classViewInitalize(int pageIndex){
-        if(pageIndex > 0 || pageIndex == 0) classesOffset = pageIndex * 10;
-        if(pageIndex == classessMaxPageNum) classesOffset = (pageIndex - 1) * 10;
+        classesOffset = pageIndex * 10;
         tableClassView.setItems(Classifications.select(classesOffset));
 
         tableClassificationCol.setCellValueFactory((classification) -> {

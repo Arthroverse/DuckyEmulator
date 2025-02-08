@@ -138,8 +138,6 @@ public class QBankAddUIController implements Initializable {
             selectedTopicNames.add(t.getTopicName());
         }
         ArrayList<Integer> selectedTopicIds = Topics.findingTopicIds(selectedTopicNames);
-        String selectedTopicNamesDisplay = selectedTopicNames.toString();
-        quest.setForeignKeyTopicIdForDisplay(selectedTopicNamesDisplay.substring(1, selectedTopicNamesDisplay.length() - 1));
         quest.setForeignKeyTopicId(selectedTopicIds);
         quest.setForeignKeyClassificationId(
                 Classifications.searchClassificationByName(
