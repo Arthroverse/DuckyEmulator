@@ -141,7 +141,6 @@ public class Topics {
             rs.next();
             int maxNumPage = rs.getInt(1);
             TopicsClassIndexUIController.setTopicsMaxPageNum((int)(Math.ceil(maxNumPage/10.0)));
-            TopicsClassIndexUIController.setTopicsOffset(10);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -153,7 +152,7 @@ public class Topics {
                 Connection conn = MySQLService.getConnection();
                 Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery("SELECT * FROM QTRelationship WHERE TopicId = " +
-                        top.getTopicId() + ";");
+                        top.getTopicId() + ";"); //SELECT COUNT(QuestionId) ...
         ){
             while(rs.next()){
                 totalRelatedQuestions++;
