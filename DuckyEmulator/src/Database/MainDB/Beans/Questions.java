@@ -46,7 +46,6 @@ public class Questions {
     private StringProperty foreignKeyClassificationIdForDisplay;
     private ArrayList<Integer> foreignKeyTopicId;
     private ArrayList<Integer> oldForeignKeyTopicId;
-    private StringProperty foreignKeyTopicIdForDisplay;
     private ObjectProperty<Integer> questionId;
     private StringProperty questionStatement;
     private StringProperty choice1;
@@ -60,7 +59,6 @@ public class Questions {
         foreignKeyClassificationId = new SimpleObjectProperty<Integer>(null);
         foreignKeyClassificationIdForDisplay = new SimpleStringProperty();
         foreignKeyTopicId = new ArrayList<>();
-        foreignKeyTopicIdForDisplay = new SimpleStringProperty();
         oldForeignKeyTopicId = new ArrayList<>();
         questionId = new SimpleObjectProperty<Integer>(null);
         questionStatement = new SimpleStringProperty();
@@ -82,10 +80,6 @@ public class Questions {
   
     public ArrayList<Integer> getForeignKeyTopicId() {
         return this.foreignKeyTopicId;
-    }
-
-    public String getForeignKeyTopicIdForDisplay(){
-        return this.foreignKeyTopicIdForDisplay.get();
     }
 
     public ArrayList<Integer> getOldForeignKeyTopicId(){
@@ -122,10 +116,6 @@ public class Questions {
 
     public String getImagePath() {
         return this.imagePath.get();
-    }
-
-    public StringProperty getForeignKeyTopicIdForDisplayProperty(){
-        return this.foreignKeyTopicIdForDisplay;
     }
 
     public StringProperty getForeignKeyClassificationIdForDisplayProperty(){
@@ -174,10 +164,6 @@ public class Questions {
 
     public void setForeignKeyClassificationIdForDisplay(String fk){
         this.foreignKeyClassificationIdForDisplay.set(fk);
-    }
-
-    public void setForeignKeyTopicIdForDisplay(String fk){
-        this.foreignKeyTopicIdForDisplay.set(fk);
     }
 
     public void setForeignKeyTopicId(ArrayList<Integer> foreignKeyTopicId) {
@@ -297,7 +283,6 @@ public class Questions {
         }catch(Exception e){
             e.printStackTrace();
         }
-        System.out.println(questions.size());
         return questions;
     }
 
