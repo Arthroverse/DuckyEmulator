@@ -57,19 +57,39 @@ CREATE TABLE QTRelationship(
     PRIMARY KEY(QuestionId, TopicId)
 );
 
-SELECT Q.*, C.Classification
-FROM Questions AS Q
-JOIN Classifications AS C ON C.ClassificationId = Q.ClassificationId;
+SELECT RESULT2.*, C.Classification, C.Description AS Classification_Descriptions
+FROM Classifications AS C
+JOIN (SELECT RESULT.*, T.TopicName, T.Description AS Topic_Descriptions
+      FROM Topics AS T
+               JOIN (SELECT Q.*, QT.TopicId
+                     FROM Questions AS Q
+                              JOIN QTRelationship AS QT ON Q.QuestionId = QT.QuestionId)
+          AS RESULT ON RESULT.TopicId = T.TopicId) AS RESULT2 ON RESULT2.ClassificationId = C.ClassificationId;
 
-SELECT Q.*, QT.TopicId
-FROM Questions AS Q
-JOIN QTRelationship AS QT ON Q.QuestionId = QT.QuestionId;
+    SELECT Q.*, T.TopicId, T.TopicName, T.Description AS Topic_Description, C.Classification, C.Description AS Classification_Description
+    FROM Questions AS Q
+    JOIN QTRelationship AS QT ON Q.QuestionId = QT.QuestionId
+    JOIN Topics AS T ON T.TopicId = QT.TopicId
+    JOIN Classifications AS C ON C.ClassificationId = Q.ClassificationId
+    ORDER BY Q.QuestionId;
 
-SELECT RESULT.*, t.TopicName
-FROM Topics AS T
-JOIN (SELECT Q.*, QT.TopicId
-      FROM Questions AS Q
-               JOIN QTRelationship AS QT ON Q.QuestionId = QT.QuestionId) AS RESULT ON RESULT.TopicId = T.TopicId;
+
+SELECT Q.*, T.TopicId, T.TopicName, T.Description AS Topic_Description,
+       C.Classification, C.Description AS Classification_Description
+FROM Questions AS Q
+         JOIN (
+             SELECT QuestionId
+             FROM Questions
+             ORDER BY QuestionId
+             LIMIT 10 OFFSET 0
+) AS RQ ON Q.QuestionId = RQ.QuestionId
+         JOIN QTRelationship AS QT ON Q.QuestionId = QT.QuestionId
+         JOIN Topics AS T ON T.TopicId = QT.TopicId
+         JOIN Classifications AS C ON C.ClassificationId = Q.ClassificationId
+ORDER BY Q.QuestionId;
+
+SELECT COUNT(QuestionId)
+FROM Questions
 
 -- FOR TESTING AND DEBUGGING PURPOSES
 -- DROP DATABASE DuckyEmulator_QuestionDB;
