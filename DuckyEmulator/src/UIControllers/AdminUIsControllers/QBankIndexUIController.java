@@ -82,9 +82,6 @@ public class QBankIndexUIController implements Initializable {
     private Button btnTableAdd;
 
     @FXML
-    private TableColumn<Questions, String> tableTopicCol;
-
-    @FXML
     private Button btnTableUpdate;
 
     @FXML
@@ -203,9 +200,7 @@ public class QBankIndexUIController implements Initializable {
         tableClassCol.setCellValueFactory((questions) -> {
             return questions.getValue().getForeignKeyClassificationIdForDisplayProperty();
         });
-        tableTopicCol.setCellValueFactory((questions) -> {
-            return questions.getValue().getForeignKeyTopicIdForDisplayProperty();
-        });
+
         tableQuestStateCol.setCellValueFactory((questions) -> {
             return questions.getValue().getQuestionStatementProperty();
         });
