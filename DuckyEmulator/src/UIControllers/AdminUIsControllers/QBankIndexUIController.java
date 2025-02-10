@@ -96,12 +96,6 @@ public class QBankIndexUIController implements Initializable {
 
     private static int currentPageIndex;
 
-    private static ArrayList<Integer> oldFKCache;
-
-    public static ArrayList<Integer> getOldFKCache(){
-        return new ArrayList<>(oldFKCache);
-    }
-
     public static int getOffset(){
         return offset;
     }
@@ -142,7 +136,6 @@ public class QBankIndexUIController implements Initializable {
     @FXML
     void btnTableUpdateClick(ActionEvent event) throws IOException {
         Questions selectedQuest = tableBankView.getSelectionModel().getSelectedItem();
-        oldFKCache = selectedQuest.getOldForeignKeyTopicId();
         if(selectedQuest == null){
             AlertUtil.generateErrorWindow("Delete question failed", "Question deletion",
                     "A question must be selected to perform this operation !");
@@ -173,9 +166,7 @@ public class QBankIndexUIController implements Initializable {
         Questions.setPage();
         pageinationQBank.setPageCount(maxPageNum);
         pageinationQBank.setCurrentPageIndex(currentPageIndex);
-        Classifications.selectAll();
-        Topics.selectAll();
-        initialDeployment(currentPageIndex);
+        deploy(currentPageIndex);
         btnTableDelete.disableProperty().set(true);
         btnTableUpdate.disableProperty().set(true);
         pageinationQBank.currentPageIndexProperty().addListener(
@@ -228,9 +219,5 @@ public class QBankIndexUIController implements Initializable {
         tableImagePath.setCellValueFactory((questions) -> {
             return questions.getValue().getImagePathProperty();
         });
-    }
-
-    private void initialDeployment(int currentPageIndex){
-        deploy(currentPageIndex);
     }
 }

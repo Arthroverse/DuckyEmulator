@@ -88,6 +88,30 @@ FROM Questions AS Q
          JOIN Classifications AS C ON C.ClassificationId = Q.ClassificationId
 ORDER BY Q.QuestionId;
 
+
+SELECT QuestionId
+FROM Questions
+ORDER BY QuestionId
+LIMIT 10 OFFSET 0;
+
+SELECT Q.*, T.TopicId, T.TopicName, T.Description AS Topic_Description,
+       C.Classification, C.Description AS Classification_Description
+FROM Questions AS Q
+         JOIN QTRelationship AS QT ON Q.QuestionId = QT.QuestionId
+         JOIN Topics AS T ON T.TopicId = QT.TopicId
+         JOIN Classifications AS C ON C.ClassificationId = Q.ClassificationId
+WHERE Q.QuestionId IN (
+    SELECT *
+    FROM(
+            SELECT QuestionId
+            FROM Questions
+            ORDER BY QuestionId
+
+        ) AS Limited_Table
+    )
+ORDER BY Q.QuestionId;
+
+
 SELECT COUNT(QuestionId)
 FROM Questions
 
