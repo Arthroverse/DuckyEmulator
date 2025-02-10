@@ -23,7 +23,6 @@
 package Database.MainDB.Beans;
 
 import Database.DBService.MySQLService;
-import UIControllers.AdminUIsControllers.QBankAddUIController;
 import UIControllers.AdminUIsControllers.QBankIndexUIController;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -31,6 +30,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -38,8 +38,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.*;
 import java.util.ArrayList;
-
-import static Database.MainDB.Beans.Topics.topicsQuestionView;
+import java.util.HashMap;
 
 public class Questions {
     private ObjectProperty<Integer> foreignKeyClassificationId;
@@ -170,6 +169,11 @@ public class Questions {
         this.foreignKeyTopicId = new ArrayList<>(foreignKeyTopicId);
     }
 
+    public void addIndividualForeignKeyTopicId(Integer i){
+        this.foreignKeyTopicId.add(i);
+        this.setOldForeignKeyTopicId(this.getForeignKeyTopicId());
+    }
+
     public void setOldForeignKeyTopicId(ArrayList<Integer> foreignKeyTopicId){
         this.oldForeignKeyTopicId = new ArrayList<>(foreignKeyTopicId);
     }
@@ -206,60 +210,55 @@ public class Questions {
         this.imagePath.set(imagePath);
     }
 
+    /**
+     * This method will select 10 questions each time it get called by
+     * using <pre>
+     *     {@code LIMIT <int> OFFSET <int>}</pre>
+     *     in MySQL. The old version
+     * of this code use old heavily-based logical way (which use {@code boolean},
+     * {@code for} loop, {@code int} variable to control the data loading. However,
+     * that method is super inefficient and unnecessary complex, therefore, we
+     * decided to use a BRAND NEW type of storage called {@code HashMap<K, V>}.
+     * It introduces the key-value mechanism, which makes thing become extremely easier
+     * to handle the data load control without depending on traditional variables.
+     * <p>
+     * If a new QuestionId doesn't present in the {@code HashMap<K, V>}, it will be added in
+     * the {@code else} clause. We also fix the problem when the {@code ResultSet} reaches
+     * the final line => which will cause {@code rs.next()} to return {@code false} =>
+     * We fix this by just constantly changing the {@code oldForeignKeyTopicId} each time
+     * a new Id is added. This is a reasonable fix because each time when a question is
+     * either updated or added, this method will always be called => it will become both new
+     * and old data*/
     public static ObservableList<Questions> select(int offset) {
-        ObservableList<Questions> questions = FXCollections.observableArrayList();
-        String sqlQuery = "SELECT Q.*, T.TopicId, T.TopicName, T.Description AS Topic_Description, C.Classification, C.Description AS Classification_Description " +
-                "FROM Questions AS Q " +
-                "JOIN (" +
-                "SELECT QuestionId " +
-                "FROM Questions " +
-                "ORDER BY QuestionId " +
-                "LIMIT 10 OFFSET ?" +
-                ") AS RQ ON Q.QuestionId = RQ.QuestionId " +
-                "JOIN QTRelationship AS QT ON Q.QuestionId = QT.QuestionId " +
-                "JOIN Topics AS T ON T.TopicId = QT.TopicId " +
-                "JOIN Classifications AS C ON C.ClassificationId = Q.ClassificationId " +
-                "ORDER BY Q.QuestionId;";
+        ObservableMap<Integer, Questions> questions = FXCollections.observableMap(new HashMap<>());
+        String sqlQuery = "SELECT Q.*, T.TopicId, T.TopicName, T.Description AS Topic_Description, " +
+        "C.Classification, C.Description AS Classification_Description " +
+        "FROM Questions AS Q " +
+        "JOIN QTRelationship AS QT ON Q.QuestionId = QT.QuestionId " +
+        "JOIN Topics AS T ON T.TopicId = QT.TopicId " +
+        "JOIN Classifications AS C ON C.ClassificationId = Q.ClassificationId " +
+        "WHERE Q.QuestionId IN ( " +
+                "SELECT * " +
+                        "FROM( " +
+                                "SELECT QuestionId " +
+                                "FROM Questions " +
+                                "ORDER BY QuestionId " +
+                                "LIMIT 10 OFFSET ? " +
+                        ") AS Limited_Table " +
+        ") " +
+        "ORDER BY Q.QuestionId;";
         try(
                 Connection conn = MySQLService.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sqlQuery);
-                ){
+        ) {
             stmt.setInt(1, offset);
             ResultSet rs = stmt.executeQuery();
-            ArrayList<Integer> topicIds = new ArrayList<>();
-            int currentQuestionId = 0;
-            boolean firstTimeInitialized = true;
+            Questions quest = new Questions();
             while(rs.next()){
-                if(rs.getInt(1) == currentQuestionId){
-                    topicIds.add(rs.getInt("TopicId"));
-                    if(rs.isLast()){
-                        Questions quest = new Questions();
-                        quest.setQuestionId(rs.getInt("QuestionId"));
-                        quest.setForeignKeyClassificationId(rs.getInt("ClassificationId"));
-                        quest.setForeignKeyClassificationIdForDisplay(
-                                Classifications.searchClassificationById(
-                                        rs.getInt("ClassificationId")
-                                )
-                        );
-                        quest.setForeignKeyTopicId(topicIds);
-                        quest.setOldForeignKeyTopicId(topicIds);
-                        quest.setQuestionStatement(rs.getString("QuestionStatement"));
-                        quest.setChoice1(rs.getString("Choice1"));
-                        quest.setChoice2(rs.getString("Choice2"));
-                        quest.setChoice3(rs.getString("Choice3"));
-                        quest.setChoice4(rs.getString("Choice4"));
-                        quest.setCorrectAnswer(rs.getString("CorrectAnswer"));
-                        quest.setImagePath(rs.getString("ImagePath"));
-                        questions.add(quest);
-                    }
-                }else if(firstTimeInitialized){
-                    firstTimeInitialized = false;
-                    currentQuestionId = rs.getInt(1);
-                    topicIds.add(rs.getInt("TopicId"));
+                if(questions.containsKey(rs.getInt(1))){
+                    quest.addIndividualForeignKeyTopicId(rs.getInt("TopicId"));
                 }else{
-                    currentQuestionId = rs.getInt(1);
-                    rs.previous();
-                    Questions quest = new Questions();
+                    quest = new Questions();
                     quest.setQuestionId(rs.getInt("QuestionId"));
                     quest.setForeignKeyClassificationId(rs.getInt("ClassificationId"));
                     quest.setForeignKeyClassificationIdForDisplay(
@@ -267,8 +266,7 @@ public class Questions {
                                     rs.getInt("ClassificationId")
                             )
                     );
-                    quest.setForeignKeyTopicId(topicIds);
-                    quest.setOldForeignKeyTopicId(topicIds);
+                    quest.addIndividualForeignKeyTopicId(rs.getInt("TopicId"));
                     quest.setQuestionStatement(rs.getString("QuestionStatement"));
                     quest.setChoice1(rs.getString("Choice1"));
                     quest.setChoice2(rs.getString("Choice2"));
@@ -276,14 +274,13 @@ public class Questions {
                     quest.setChoice4(rs.getString("Choice4"));
                     quest.setCorrectAnswer(rs.getString("CorrectAnswer"));
                     quest.setImagePath(rs.getString("ImagePath"));
-                    questions.add(quest);
-                    topicIds = new ArrayList<>();
+                    questions.put(rs.getInt(1), quest);
                 }
             }
         }catch(Exception e){
             e.printStackTrace();
         }
-        return questions;
+        return FXCollections.observableArrayList(questions.values());
     }
 
     public static void setPage() {
@@ -367,7 +364,7 @@ public class Questions {
         }
     }
     public static void update(Questions q) {
-        for(Integer i: QBankIndexUIController.getOldFKCache()){
+        for(Integer i: q.getOldForeignKeyTopicId()){
             if(!(q.getForeignKeyTopicId().contains(i))){
                 String sqlQtRelationship = "DELETE FROM qtrelationship WHERE (QuestionId, TopicId) = (?, ?);";
                 try (
@@ -383,7 +380,7 @@ public class Questions {
             }
         }
         for(Integer i: q.getForeignKeyTopicId()){
-            if(!(QBankIndexUIController.getOldFKCache().contains(i))){
+            if(!(q.getOldForeignKeyTopicId().contains(i))){
                 String sqlQtRelationship = "INSERT INTO qtrelationship (QuestionId, TopicId) VALUES(?, ?);";
                 try (
                         Connection conn = MySQLService.getConnection();
