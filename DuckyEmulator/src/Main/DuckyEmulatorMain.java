@@ -22,11 +22,17 @@
  */
 package Main;
 
+import Database.MainDB.Beans.Classifications;
+import Database.MainDB.Beans.Topics;
 import UIs.Navigator;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
 public class DuckyEmulatorMain extends Application {
+    static{
+        Classifications.selectAll();
+        Topics.selectAll();
+    }
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("DuckyEmulator");
