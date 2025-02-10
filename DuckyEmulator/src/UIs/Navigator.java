@@ -66,24 +66,36 @@ public class Navigator {
         return this.loader;
    }
 
+   /**
+    * <pre>{@code
+    * Rectangle2D screenBound = Screen.getPrimary().getVisualBounds();
+    * this.stage.setX(screenBound.getMinX());
+    * this.stage.setY(screenBound.getMinY());
+    * this.stage.setWidth(screenBound.getWidth());
+    * this.stage.setHeight(screenBound.getHeight());}</pre><p>
+    * The first line is used to get the general shape of your screen (also gather your screen's resolution)<p>
+    * The next 2 lines is to set the initial position of the stage at the minimum positon<p>
+    * The last 2 lines is to set the stage size using the resolution extracted from the shape gathed in the first line<p>
+    * <p>
+    *
+    * The reason we put it on this method is because that this method
+    * set stage is called only ONCE in {@link Main.DuckyEmulatorMain}
+    * and also all main panels are mostly use a single instance of
+    * {@code Stage} => leave it here will improve the overall
+    * performance of the app (extremely improved)*/
    public void setStage(Stage stage){
         this.stage = stage;
+       Rectangle2D screenBound = Screen.getPrimary().getVisualBounds();
+       this.stage.setX(screenBound.getMinX());
+       this.stage.setY(screenBound.getMinY());
+       this.stage.setWidth(screenBound.getWidth());
+       this.stage.setHeight(screenBound.getHeight());
    }
    private void goTo(String fxml) throws IOException {
         this.generateWindow(fxml);
    }
 
     /**
-     * <pre>{@code
-     * Rectangle2D screenBound = Screen.getPrimary().getVisualBounds();
-     * this.stage.setX(screenBound.getMinX());
-     * this.stage.setY(screenBound.getMinY());
-     * this.stage.setWidth(screenBound.getWidth());
-     * this.stage.setHeight(screenBound.getHeight());}</pre><p>
-     * The first line is used to get the general shape of your screen (also gather your screen's resolution)<p>
-     * The next 2 lines is to set the initial position of the stage at the minimum positon<p>
-     * The last 2 lines is to set the stage size using the resolution extracted from the shape gathed in the first line<p>
-     * <p>
      * <pre>
      * {@code
      * qBank.initModality(Modality.WINDOW_MODAL);
@@ -109,11 +121,6 @@ public class Navigator {
            loader.setLocation((getClass().getResource(fxml)));
            Parent root = loader.load();
            Scene currentScene = new Scene(root);
-           Rectangle2D screenBound = Screen.getPrimary().getVisualBounds();
-           this.stage.setX(screenBound.getMinX());
-           this.stage.setY(screenBound.getMinY());
-           this.stage.setWidth(screenBound.getWidth());
-           this.stage.setHeight(screenBound.getHeight());
            this.stage.setScene(currentScene);
        }else{
            this.secondStage = new Stage();
