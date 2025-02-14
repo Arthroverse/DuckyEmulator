@@ -33,14 +33,17 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.stage.FileChooser;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import static Database.MainDB.Beans.Topics.topicsQuestionView;
-import static Database.MainDB.Beans.Classifications.classQuestionView;
+import static Database.MainDB.Beans.Classifications.classificationNames;
+import static Database.MainDB.Beans.Topics.topicNames;
+import static UIControllers.AdminUIsControllers.QBankIndexUIController.originalQuestion;
 
 public class QBankUpdateUIController implements Initializable {
 
@@ -92,10 +95,6 @@ public class QBankUpdateUIController implements Initializable {
     @FXML
     private TableColumn<Topics, String> tableColSelectedTopicName;
 
-    private static ArrayList<String> topicName = new ArrayList<>();
-
-    private static ArrayList<String> className = new ArrayList<>();
-
     private static StringBuilder errorMessage = new StringBuilder();
 
     private static Questions updateQuestion;
@@ -116,7 +115,7 @@ public class QBankUpdateUIController implements Initializable {
         ArrayList<Integer> selectedTopicIds = Topics.findingTopicIds(selectedTopicNames);
         updateQuestion.setForeignKeyTopicId(selectedTopicIds);
         updateQuestion.setForeignKeyClassificationId(
-                Classifications.searchClassificationByName(
+                Classifications.searchClassification(
                         choiceBoxSelectClass.getValue()
                 )
         );
@@ -126,6 +125,7 @@ public class QBankUpdateUIController implements Initializable {
         updateQuestion.setChoice3(txtxAreaQChoice3.getText());
         updateQuestion.setChoice4(txtxAreaQChoice4.getText());
         updateQuestion.setCorrectAnswer(choiceBoxCorrectAns.getValue());
+        updateQuestion.setImagePath(txtFieldImagePath.getText());
         if(inputValidation())
             Questions.update(updateQuestion);
         if(errorMessage.toString().isEmpty()){
@@ -138,32 +138,35 @@ public class QBankUpdateUIController implements Initializable {
 
     @FXML
     void btnResetFieldClick(ActionEvent event) {
-
+        boolean isOk = AlertUtil.generateWarningWindow("Reset all fields",
+                "Are you sure you want to reset all fields ?");
+        if(isOk){
+            resetAllFields();
+        }
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        topicName = new ArrayList<>();
-        className = new ArrayList<>();
-        for(Topics t: topicsQuestionView){
-            topicName.add(t.getTopicName());
-        }
-        topicName.add(0, "");
-        ArrayList<String> topicNameUi = new ArrayList<>(topicName);
-        topicNameUi.remove(0);
-        choiceBoxSelectTopic.setItems(FXCollections.observableArrayList(topicNameUi));
+        choiceBoxSelectTopic.setItems(FXCollections.observableArrayList(topicNames.values()));
 
-        for(Classifications c: classQuestionView){
-            className.add(c.getClassification());
-        }
-        className.add(0, "");
-        ArrayList<String> classNameUi = new ArrayList<>(className);
-        classNameUi.remove(0);
-        choiceBoxSelectClass.setItems(FXCollections.observableArrayList(classNameUi));
+        choiceBoxSelectClass.setItems(FXCollections.observableArrayList(classificationNames.values()));
 
         choiceBoxCorrectAns.setItems(FXCollections.observableArrayList(
                 "Choice 1", "Choice 2", "Choice 3", "Choice 4"
         ));
+        txtFieldImagePath.setEditable(false);
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif", "*.bmp")
+        );
+
+        // Handle button click
+        btnChooseImagePath.setOnAction(e -> {
+            File selectedFile = fileChooser.showOpenDialog(Navigator.getInstance().getStage());
+            if (selectedFile != null) {
+                txtFieldImagePath.setText(selectedFile.getAbsolutePath());
+            }
+        });
     }
 
     public void initialize(Questions q){
@@ -190,7 +193,7 @@ public class QBankUpdateUIController implements Initializable {
                 }
         );
         choiceBoxSelectClass.setValue(
-                Classifications.searchClassificationById(
+                Classifications.searchClassification(
                         q.getForeignKeyClassificationId()
                 )
         );
@@ -200,6 +203,7 @@ public class QBankUpdateUIController implements Initializable {
         txtxAreaQChoice3.setText(q.getChoice3());
         txtxAreaQChoice4.setText(q.getChoice4());
         choiceBoxCorrectAns.setValue(q.getCorrectAnswer());
+        txtFieldImagePath.setText(q.getImagePath());
     }
 
     private boolean inputValidation(){
@@ -222,8 +226,12 @@ public class QBankUpdateUIController implements Initializable {
 
     @FXML
     void btnAddTopicClick(ActionEvent event) throws IOException {
-        if(!selectedTopics.contains(topicsQuestionView.get(topicName.indexOf(choiceBoxSelectTopic.getValue()) - 1))){
-            selectedTopics.add(topicsQuestionView.get(topicName.indexOf(choiceBoxSelectTopic.getValue()) - 1));
+        ArrayList<String> selectedTopicNames = new ArrayList<>();
+        for(Topics t: selectedTopics){
+            selectedTopicNames.add(t.getTopicName());
+        }
+        if(!selectedTopicNames.contains(choiceBoxSelectTopic.getValue())){
+            selectedTopics.add(Topics.findingTopics(choiceBoxSelectTopic.getValue()));
             Navigator.getInstance().closeSecondStage();
             Navigator.getInstance().goToQBankUpdate(this.generateTempQuestionObject());
         }else{
@@ -245,7 +253,7 @@ public class QBankUpdateUIController implements Initializable {
         Questions quest = new Questions();
         quest.setQuestionId(updateQuestion.getQuestionId());
         quest.setForeignKeyClassificationId(
-                Classifications.searchClassificationByName(
+                Classifications.searchClassification(
                         choiceBoxSelectClass.getValue()
                 )
         );
@@ -261,7 +269,28 @@ public class QBankUpdateUIController implements Initializable {
         }
         ArrayList<Integer> selectedTopicIds = Topics.findingTopicIds(selectedTopicNames);
         quest.setForeignKeyTopicId(selectedTopicIds);
+        quest.setOldForeignKeyTopicId(updateQuestion.getOldForeignKeyTopicId());
         return quest;
+    }
+
+    private void resetAllFields(){
+        tableViewSelectedTopic.setItems(
+                FXCollections.observableArrayList(
+                        Topics.findingTopics(originalQuestion.getForeignKeyTopicId())
+                )
+        );
+        txtFieldImagePath.setText(originalQuestion.getImagePath());
+        choiceBoxSelectClass.setValue(
+                Classifications.searchClassification(
+                        originalQuestion.getForeignKeyClassificationId())
+        );
+        txtAreaQStatement.setText(originalQuestion.getQuestionStatement());
+        txtxAreaQChoice1.setText(originalQuestion.getChoice1());
+        txtxAreaQChoice2.setText(originalQuestion.getChoice2());
+        txtxAreaQChoice3.setText(originalQuestion.getChoice3());
+        txtxAreaQChoice4.setText(originalQuestion.getChoice4());
+        choiceBoxCorrectAns.setValue(originalQuestion.getCorrectAnswer());
+        txtFieldImagePath.setText(originalQuestion.getImagePath());
     }
 
 }
