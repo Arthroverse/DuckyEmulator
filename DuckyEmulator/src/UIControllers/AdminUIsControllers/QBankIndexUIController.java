@@ -22,9 +22,7 @@
  */
 package UIControllers.AdminUIsControllers;
 
-import Database.MainDB.Beans.Classifications;
 import Database.MainDB.Beans.Questions;
-import Database.MainDB.Beans.Topics;
 import UIs.Navigator;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -33,11 +31,8 @@ import javafx.scene.control.*;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.Arrays;
 
-import static Database.MainDB.Beans.Classifications.classQuestionView;
 import Utilities.PromptAlert.AlertUtil;
 
 public class QBankIndexUIController implements Initializable {
@@ -96,6 +91,8 @@ public class QBankIndexUIController implements Initializable {
 
     private static int currentPageIndex;
 
+    public static Questions originalQuestion;
+
     public static int getOffset(){
         return offset;
     }
@@ -143,6 +140,7 @@ public class QBankIndexUIController implements Initializable {
         else{
             currentPageIndex = pageinationQBank.getCurrentPageIndex();
             Navigator.getInstance().goToQBankUpdate(selectedQuest);
+            originalQuestion = selectedQuest;
         }
     }
 
