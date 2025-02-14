@@ -67,7 +67,12 @@ public class TopicsAddUIController implements Initializable {
 
     @FXML
     void btnResetFieldClick(ActionEvent event) {
-
+        boolean isOk = AlertUtil.generateWarningWindow("Reset all fields",
+                "Are you sure you want to reset all fields ?");
+        if(isOk){
+            txtFieldTopicName.setText(null);
+            txtAreaTopicDescription.setText(null);
+        }
     }
 
     @Override

@@ -33,14 +33,16 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.stage.FileChooser;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import static Database.MainDB.Beans.Topics.topicsQuestionView;
-import static Database.MainDB.Beans.Classifications.classQuestionView;
+import static Database.MainDB.Beans.Classifications.classificationNames;
+import static Database.MainDB.Beans.Topics.topicNames;
 
 public class QBankAddUIController implements Initializable {
 
@@ -140,7 +142,7 @@ public class QBankAddUIController implements Initializable {
         ArrayList<Integer> selectedTopicIds = Topics.findingTopicIds(selectedTopicNames);
         quest.setForeignKeyTopicId(selectedTopicIds);
         quest.setForeignKeyClassificationId(
-                Classifications.searchClassificationByName(
+                Classifications.searchClassification(
                         choiceBoxSelectClass.getValue()
                 )
         );
@@ -150,6 +152,7 @@ public class QBankAddUIController implements Initializable {
         quest.setChoice3(txtxAreaQChoice3.getText());
         quest.setChoice4(txtxAreaQChoice4.getText());
         quest.setCorrectAnswer(choiceBoxCorrectAns.getValue());
+        quest.setImagePath(txtFieldImagePath.getText());
         if(inputValidation())
             Questions.insert(quest);
         if(errorMessage.toString().isEmpty()){
@@ -163,26 +166,18 @@ public class QBankAddUIController implements Initializable {
 
     @FXML
     void btnResetFieldClick(ActionEvent event) {
-
+        boolean isOk = AlertUtil.generateWarningWindow("Reset all fields",
+                "Are you sure you want to reset all fields ?");
+        if(isOk){
+            resetAllDatas();
+        }
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        for(Topics t : topicsQuestionView){
-            topicName.add(t.getTopicName());
-        }
-        topicName.add(0, "");
-        ArrayList<String> topicNameUi = new ArrayList<>(topicName);
-        topicNameUi.remove(0);
-        choiceBoxSelectTopic.setItems(FXCollections.observableArrayList(topicNameUi));
+        choiceBoxSelectTopic.setItems(FXCollections.observableArrayList(topicNames.values()));
 
-        for(Classifications clazz: classQuestionView){
-            className.add(clazz.getClassification());
-        }
-        className.add(0, "");
-        ArrayList<String> classNameUi = new ArrayList<>(className);
-        classNameUi.remove(0);
-        choiceBoxSelectClass.setItems(FXCollections.observableArrayList(classNameUi));
+        choiceBoxSelectClass.setItems(FXCollections.observableArrayList(classificationNames.values()));
 
         choiceBoxCorrectAns.setItems(FXCollections.observableArrayList(
                 "Choice 1", "Choice 2", "Choice 3", "Choice 4"
@@ -208,6 +203,18 @@ public class QBankAddUIController implements Initializable {
                     if(newSelection != null) btnAddTopic.disableProperty().set(false);
                 }
         );
+        txtFieldImagePath.setEditable(false);
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif", "*.bmp")
+        );
+
+        btnChooseImagePath.setOnAction(e -> {
+            File selectedFile = fileChooser.showOpenDialog(Navigator.getInstance().getStage());
+            if (selectedFile != null) {
+                txtFieldImagePath.setText(selectedFile.getAbsolutePath());
+            }
+        });
     }
 
     private boolean inputValidation(){
@@ -230,10 +237,12 @@ public class QBankAddUIController implements Initializable {
 
     @FXML
     void btnAddTopic(ActionEvent event) throws IOException {
-        if(!selectedTopics.contains(topicsQuestionView.get(topicName.indexOf(choiceBoxSelectTopic.getValue()) - 1))){
-            selectedTopics.add(topicsQuestionView.get(
-                    topicName.indexOf(choiceBoxSelectTopic.getValue()) - 1
-            ));
+        ArrayList<String> selectedTopicNames = new ArrayList<>();
+        for(Topics t: selectedTopics){
+            selectedTopicNames.add(t.getTopicName());
+        }
+        if(!selectedTopicNames.contains(choiceBoxSelectTopic.getValue())){
+            selectedTopics.add(Topics.findingTopics(choiceBoxSelectTopic.getValue()));
             saveCurrentInputData();
             Navigator.getInstance().closeSecondStage();
             Navigator.getInstance().goToQBankAdd();

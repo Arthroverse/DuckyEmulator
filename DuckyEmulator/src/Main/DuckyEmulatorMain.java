@@ -27,7 +27,19 @@ import Database.MainDB.Beans.Topics;
 import UIs.Navigator;
 import javafx.application.Application;
 import javafx.stage.Stage;
-
+/**
+ * <pre>
+ * {@code
+ *     static{
+ *         Classifications.selectAll();
+ *         Topics.selectAll();
+ *     }
+ * }
+ * </pre>
+ * {@code selectAll()} method is a performance-impact method, which means each time this method is called,
+ * the app performance will be impacted heavily. However, since this method is designed to be run only once,
+ * therefore, let them run in a static initializer in the Main class during app initialization is reasonable
+ * (since all apps has a pretty long initialization)*/
 public class DuckyEmulatorMain extends Application {
     static{
         Classifications.selectAll();

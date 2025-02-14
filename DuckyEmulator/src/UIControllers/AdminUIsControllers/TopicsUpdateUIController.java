@@ -68,7 +68,12 @@ public class TopicsUpdateUIController{
 
     @FXML
     void btnResetFieldClick(ActionEvent event) {
-
+        boolean isOk = AlertUtil.generateWarningWindow("Reset all fields",
+                "Are you sure you want to reset all fields ?");
+        if(isOk){
+            txtFieldTopicName.setText(updateTopic.getTopicName());
+            txtAreaTopicDescription.setText(updateTopic.getTopicDescription());
+        }
     }
 
     public void initialize(Topics t){
