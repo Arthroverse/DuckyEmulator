@@ -67,7 +67,12 @@ public class ClassificationsAddUIController implements Initializable {
 
     @FXML
     void btnResetFieldClick(ActionEvent event) {
-
+        boolean isOk = AlertUtil.generateWarningWindow("Reset all fields",
+                "Are you sure you want to reset all fields ?");
+        if(isOk){
+            txtFieldClassificationName.setText(null);
+            txtAreaClassificationDescription.setText(null);
+        }
     }
 
     @Override
