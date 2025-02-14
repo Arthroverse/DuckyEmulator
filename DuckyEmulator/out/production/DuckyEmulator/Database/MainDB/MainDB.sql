@@ -101,13 +101,7 @@ FROM Questions AS Q
          JOIN Topics AS T ON T.TopicId = QT.TopicId
          JOIN Classifications AS C ON C.ClassificationId = Q.ClassificationId
 WHERE Q.QuestionId IN (
-    SELECT *
-    FROM(
-            SELECT QuestionId
-            FROM Questions
-            ORDER BY QuestionId
-
-        ) AS Limited_Table
+    1,2,3,4,5,6,7,8,9,10
     )
 ORDER BY Q.QuestionId;
 
