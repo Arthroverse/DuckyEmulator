@@ -32,13 +32,10 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -51,6 +48,8 @@ public class Classifications {
     public static Map<Integer, Classifications> classQuestionView;
 
     public static Map<Integer, String> classificationNames;
+
+    public static Map<String, Classifications> classificationNameAsKey;
 
     public Classifications(){
         classificationId = new SimpleObjectProperty<Integer>(null);
@@ -97,6 +96,7 @@ public class Classifications {
     public static void selectAll(){
         classQuestionView = new HashMap<>();
         classificationNames = new HashMap<>();
+        classificationNameAsKey = new HashMap<>();
         try(
                 Connection conn = MySQLService.getConnection();
                 Statement stmt = conn.createStatement();
@@ -104,18 +104,15 @@ public class Classifications {
                 ){
             while(rs.next()){
                 int cId = rs.getInt("ClassificationId");
-                String classifications = rs.getString("Classification");
+                final String classifications = rs.getString("Classification");
                 String cDescription = rs.getString("Description");
                 Classifications clazz = makeClassifications(cId, classifications, cDescription);
                 classificationNames.put(cId, classifications);
                 classQuestionView.put(cId, clazz);
+                classificationNameAsKey.put(classifications, clazz);
             }
         }catch(Exception e){
-            StringWriter sw = new StringWriter();
-            PrintWriter pw = new PrintWriter(sw);
-            e.printStackTrace(pw);
-            String stackTraceAsString = sw.toString();
-            AlertUtil.generateExceptionViewer(stackTraceAsString, "Classification initial query failed");
+            AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e), "Classification initial query failed");
         }
     }
 
@@ -136,11 +133,7 @@ public class Classifications {
                 clazzs.add(clazz);
             }
         }catch(Exception e) {
-            StringWriter sw = new StringWriter();
-            PrintWriter pw = new PrintWriter(sw);
-            e.printStackTrace(pw);
-            String stackTraceAsString = sw.toString();
-            AlertUtil.generateExceptionViewer(stackTraceAsString, "Classification partial query failed");
+            AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e), "Classification partial query failed");
         }
         return clazzs;
     }
@@ -153,13 +146,10 @@ public class Classifications {
         ) {
             rs.next();
             int maxPageNum = rs.getInt(1);
+            if(rs.getInt(1) == 0) maxPageNum = 1;
             TopicsClassIndexUIController.setClassessMaxPageNum((int)(Math.ceil(maxPageNum/10.0)));
         } catch (Exception e) {
-            StringWriter sw = new StringWriter();
-            PrintWriter pw = new PrintWriter(sw);
-            e.printStackTrace(pw);
-            String stackTraceAsString = sw.toString();
-            AlertUtil.generateExceptionViewer(stackTraceAsString, "Classification pagination setPage operation failed");
+            AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e), "Classification pagination setPage operation failed");
         }
     }
 
@@ -175,11 +165,7 @@ public class Classifications {
                 totalRelatedQuestions++;
             }
         }catch(Exception e){
-            StringWriter sw = new StringWriter();
-            PrintWriter pw = new PrintWriter(sw);
-            e.printStackTrace(pw);
-            String stackTraceAsString = sw.toString();
-            AlertUtil.generateExceptionViewer(stackTraceAsString, "Classification delete operation failed");
+            AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e), "Classification delete operation failed");
         }
         boolean isRelated = totalRelatedQuestions == 0 ? false : true;
         if(isRelated){
@@ -200,15 +186,13 @@ public class Classifications {
                 if(isDeleted){
                     classQuestionView.remove(clazz.getClassificationId());
                     classificationNames.remove(clazz.getClassificationId());
+                    final String clazzName = clazz.getClassification();
+                    classificationNameAsKey.remove(clazzName);
                     return true;
                 }
                 else return false;
             }catch(Exception e){
-                StringWriter sw = new StringWriter();
-                PrintWriter pw = new PrintWriter(sw);
-                e.printStackTrace(pw);
-                String stackTraceAsString = sw.toString();
-                AlertUtil.generateExceptionViewer(stackTraceAsString, "Classification delete operation failed");
+                AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e), "Classification delete operation failed");
                 return false;
             }
         }
@@ -232,16 +216,14 @@ public class Classifications {
                 clazz.setClassificationId(returnedKey);
                 classQuestionView.put(returnedKey, clazz);
                 classificationNames.put(returnedKey, clazz.getClassification());
+                final String clazzName = clazz.getClassification();
+                classificationNameAsKey.put(clazzName, clazz);
             }
         }catch(Exception e){
-            StringWriter sw = new StringWriter();
-            PrintWriter pw = new PrintWriter(sw);
-            e.printStackTrace(pw);
-            String stackTraceAsString = sw.toString();
-            AlertUtil.generateExceptionViewer(stackTraceAsString, "Classification insert operation failed");
+            AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e), "Classification insert operation failed");
         }
     }
-    public static void update(Classifications c){
+    public static void update(Classifications c, final String oldClassificationName){
         String sqlUpdateQuestionsTable = "UPDATE Classifications SET Classification = ?, Description = ? " +
                 "WHERE ClassificationId = ?;";
 
@@ -249,38 +231,30 @@ public class Classifications {
                 Connection conn = MySQLService.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sqlUpdateQuestionsTable);
                 ){
-            int cId = c.getClassificationId();
-            String classifications = c.getClassification();
-            String cDescription = c.getClassificationDescription();
-            Classifications clazz = makeClassifications(cId, classifications, cDescription);
+            final String classifications = c.getClassification();
             stmt.setString(1, c.getClassification());
             stmt.setString(2, c.getClassificationDescription());
             stmt.setInt(3, c.getClassificationId());
             stmt.executeUpdate();
-            classQuestionView.replace(c.getClassificationId(), clazz);
-            classificationNames.replace(c.getClassificationId(), clazz.getClassification());
+            classQuestionView.replace(c.getClassificationId(), c);
+            classificationNames.replace(c.getClassificationId(), c.getClassification());
+            classificationNameAsKey.remove(oldClassificationName);
+            classificationNameAsKey.put(classifications, c);
 
         }catch(Exception e){
-            StringWriter sw = new StringWriter();
-            PrintWriter pw = new PrintWriter(sw);
-            e.printStackTrace(pw);
-            String stackTraceAsString = sw.toString();
-            AlertUtil.generateExceptionViewer(stackTraceAsString, "Classification update operation failed");
+            AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e), "Classification update operation failed");
         }
     }
 
     public static Integer searchClassification(String name){
-        for(Classifications c: classQuestionView.values()){
-            if(c.getClassification().equals(name)) return c.getClassificationId();
-        }
+        if(classificationNameAsKey.containsKey(name))
+            return classificationNameAsKey.get(name).getClassificationId();
         return null;
     }
 
     public static String searchClassification(int id){
-        for(Classifications c: classQuestionView.values()){
-            if(c.getClassificationId() == id) return c.getClassification();
-        }
-        return null;
+        if(!classQuestionView.containsKey(id)) return null;
+        return classQuestionView.get(id).getClassification();
     }
 
     public static Classifications makeClassifications(int cId,
