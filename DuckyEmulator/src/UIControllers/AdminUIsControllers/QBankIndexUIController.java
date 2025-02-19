@@ -123,7 +123,9 @@ public class QBankIndexUIController implements Initializable {
                 "Are you sure you want to delete the selected question ?"
         )){
             if(Questions.delete(selectedQuest)){
-                currentPageIndex = pageinationQBank.getCurrentPageIndex();
+                if(tableBankView.getItems().size() == 1 & currentPageIndex > 0){
+                    currentPageIndex = pageinationQBank.getCurrentPageIndex() - 1;
+                }
                 tableBankView.getItems().remove(selectedQuest);
                 Navigator.getInstance().goToQBankIndex();
             }
