@@ -26,6 +26,7 @@ import Database.MainDB.Beans.Classifications;
 import Database.MainDB.Beans.Questions;
 import Database.MainDB.Beans.Topics;
 import UIs.Navigator;
+import Utilities.FileHandler.FileHandler;
 import Utilities.PromptAlert.AlertUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -37,7 +38,13 @@ import javafx.stage.FileChooser;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -116,6 +123,8 @@ public class QBankAddUIController implements Initializable {
 
     private static String currentCorrectChoice;
 
+    private static String currentImagePath;
+
     public static void resetAllDatas(){
         currentSelectedClassification = null;
         currentQuestionStatement = null;
@@ -124,6 +133,7 @@ public class QBankAddUIController implements Initializable {
         currentChoice3 = null;
         currentChoice4 = null;
         currentCorrectChoice = null;
+        currentImagePath = null;
         selectedTopics = new ArrayList<>();
     }
 
@@ -134,34 +144,43 @@ public class QBankAddUIController implements Initializable {
 
     @FXML
     void btnAddNewQuestionClick(ActionEvent event) throws IOException {
-        Questions quest = new Questions();
-        ArrayList<String> selectedTopicNames = new ArrayList<>();
-        for(Topics t: selectedTopics){
-            selectedTopicNames.add(t.getTopicName());
+        try{
+            if(inputValidation()){
+                Questions quest = new Questions();
+                ArrayList<String> selectedTopicNames = new ArrayList<>();
+                for(Topics t: selectedTopics){
+                    selectedTopicNames.add(t.getTopicName());
+                }
+                ArrayList<Integer> selectedTopicIds = Topics.findingTopicIds(selectedTopicNames);
+                quest.setForeignKeyTopicId(selectedTopicIds);
+                quest.setForeignKeyClassificationId(
+                        Classifications.searchClassification(
+                                choiceBoxSelectClass.getValue()
+                        )
+                );
+                quest.setQuestionStatement(txtAreaQStatement.getText());
+                quest.setChoice1(txtxAreaQChoice1.getText());
+                quest.setChoice2(txtxAreaQChoice2.getText());
+                quest.setChoice3(txtxAreaQChoice3.getText());
+                quest.setChoice4(txtxAreaQChoice4.getText());
+                quest.setCorrectAnswer(choiceBoxCorrectAns.getValue());
+                quest.setImagePath(txtFieldImagePath.getText());
+                Questions.insert(quest);
+            }
+            if(errorMessage.toString().isEmpty()){
+                Navigator.getInstance().closeSecondStage();
+                Navigator.getInstance().goToQBankIndex();
+                selectedTopics = new ArrayList<>();
+                resetAllDatas();
+            }
+            errorMessage = new StringBuilder();
+        }catch(Exception e){
+            StringWriter sw = new StringWriter();
+            PrintWriter pw = new PrintWriter(sw);
+            e.printStackTrace(pw);
+            String stackTraceAsString = sw.toString();
+            AlertUtil.generateExceptionViewer(stackTraceAsString, "Add new question failed");
         }
-        ArrayList<Integer> selectedTopicIds = Topics.findingTopicIds(selectedTopicNames);
-        quest.setForeignKeyTopicId(selectedTopicIds);
-        quest.setForeignKeyClassificationId(
-                Classifications.searchClassification(
-                        choiceBoxSelectClass.getValue()
-                )
-        );
-        quest.setQuestionStatement(txtAreaQStatement.getText());
-        quest.setChoice1(txtxAreaQChoice1.getText());
-        quest.setChoice2(txtxAreaQChoice2.getText());
-        quest.setChoice3(txtxAreaQChoice3.getText());
-        quest.setChoice4(txtxAreaQChoice4.getText());
-        quest.setCorrectAnswer(choiceBoxCorrectAns.getValue());
-        quest.setImagePath(txtFieldImagePath.getText());
-        if(inputValidation())
-            Questions.insert(quest);
-        if(errorMessage.toString().isEmpty()){
-            Navigator.getInstance().closeSecondStage();
-            Navigator.getInstance().goToQBankIndex();
-            selectedTopics = new ArrayList<>();
-            resetAllDatas();
-        }
-        errorMessage = new StringBuilder();
     }
 
     @FXML
@@ -206,14 +225,12 @@ public class QBankAddUIController implements Initializable {
         txtFieldImagePath.setEditable(false);
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(
-                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif", "*.bmp")
+                new FileChooser.ExtensionFilter("*.png, *.jpg, *.jpeg, *.gif, *.bmp",
+                        "*.png", "*.jpg", "*.jpeg", "*.gif", "*.bmp")
         );
 
-        btnChooseImagePath.setOnAction(e -> {
-            File selectedFile = fileChooser.showOpenDialog(Navigator.getInstance().getStage());
-            if (selectedFile != null) {
-                txtFieldImagePath.setText(selectedFile.getAbsolutePath());
-            }
+        btnChooseImagePath.setOnAction(event -> {
+            txtFieldImagePath.setText(FileHandler.returnImgPath(fileChooser));
         });
     }
 
@@ -270,6 +287,7 @@ public class QBankAddUIController implements Initializable {
         currentChoice3 = txtxAreaQChoice3.getText();
         currentChoice4 = txtxAreaQChoice4.getText();
         currentCorrectChoice = choiceBoxCorrectAns.getValue();
+        currentImagePath = txtFieldImagePath.getText();
     }
 
     private void loadLastSavedData(){
@@ -280,5 +298,6 @@ public class QBankAddUIController implements Initializable {
         txtxAreaQChoice3.setText(currentChoice3);
         txtxAreaQChoice4.setText(currentChoice4);
         choiceBoxCorrectAns.setValue(currentCorrectChoice);
+        txtFieldImagePath.setText(currentImagePath);
     }
 }

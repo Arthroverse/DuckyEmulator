@@ -37,6 +37,8 @@ import javafx.stage.FileChooser;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -44,6 +46,7 @@ import java.util.ResourceBundle;
 import static Database.MainDB.Beans.Classifications.classificationNames;
 import static Database.MainDB.Beans.Topics.topicNames;
 import static UIControllers.AdminUIsControllers.QBankIndexUIController.originalQuestion;
+import static Database.MainDB.Beans.Classifications.classificationNameAsKey;
 
 public class QBankUpdateUIController implements Initializable {
 
@@ -108,32 +111,41 @@ public class QBankUpdateUIController implements Initializable {
 
     @FXML
     void btnUpdateCurrentQuestionClick(ActionEvent event) throws IOException {
-        ArrayList<String> selectedTopicNames = new ArrayList<>();
-        for(Topics t: selectedTopics){
-            selectedTopicNames.add(t.getTopicName());
+        try{
+            if(inputValidation()){
+                ArrayList<String> selectedTopicNames = new ArrayList<>();
+                for(Topics t: selectedTopics){
+                    selectedTopicNames.add(t.getTopicName());
+                }
+                ArrayList<Integer> selectedTopicIds = Topics.findingTopicIds(selectedTopicNames);
+                updateQuestion.setForeignKeyTopicId(selectedTopicIds);
+                updateQuestion.setForeignKeyClassificationId(
+                        Classifications.searchClassification(
+                                choiceBoxSelectClass.getValue()
+                        )
+                );
+                updateQuestion.setQuestionStatement(txtAreaQStatement.getText());
+                updateQuestion.setChoice1(txtxAreaQChoice1.getText());
+                updateQuestion.setChoice2(txtxAreaQChoice2.getText());
+                updateQuestion.setChoice3(txtxAreaQChoice3.getText());
+                updateQuestion.setChoice4(txtxAreaQChoice4.getText());
+                updateQuestion.setCorrectAnswer(choiceBoxCorrectAns.getValue());
+                updateQuestion.setImagePath(txtFieldImagePath.getText());
+                Questions.update(updateQuestion);
+            }
+            if(errorMessage.toString().isEmpty()){
+                Navigator.getInstance().closeSecondStage();
+                Navigator.getInstance().goToQBankIndex();
+                selectedTopics = new ArrayList<>();
+            }
+            errorMessage = new StringBuilder();
+        }catch(Exception e){
+            StringWriter sw = new StringWriter();
+            PrintWriter pw = new PrintWriter(sw);
+            e.printStackTrace(pw);
+            String stackTraceAsString = sw.toString();
+            AlertUtil.generateExceptionViewer(stackTraceAsString, "Update current question failed");
         }
-        ArrayList<Integer> selectedTopicIds = Topics.findingTopicIds(selectedTopicNames);
-        updateQuestion.setForeignKeyTopicId(selectedTopicIds);
-        updateQuestion.setForeignKeyClassificationId(
-                Classifications.searchClassification(
-                        choiceBoxSelectClass.getValue()
-                )
-        );
-        updateQuestion.setQuestionStatement(txtAreaQStatement.getText());
-        updateQuestion.setChoice1(txtxAreaQChoice1.getText());
-        updateQuestion.setChoice2(txtxAreaQChoice2.getText());
-        updateQuestion.setChoice3(txtxAreaQChoice3.getText());
-        updateQuestion.setChoice4(txtxAreaQChoice4.getText());
-        updateQuestion.setCorrectAnswer(choiceBoxCorrectAns.getValue());
-        updateQuestion.setImagePath(txtFieldImagePath.getText());
-        if(inputValidation())
-            Questions.update(updateQuestion);
-        if(errorMessage.toString().isEmpty()){
-            Navigator.getInstance().closeSecondStage();
-            Navigator.getInstance().goToQBankIndex();
-            selectedTopics = new ArrayList<>();
-        }
-        errorMessage = new StringBuilder();
     }
 
     @FXML
@@ -164,7 +176,7 @@ public class QBankUpdateUIController implements Initializable {
         btnChooseImagePath.setOnAction(e -> {
             File selectedFile = fileChooser.showOpenDialog(Navigator.getInstance().getStage());
             if (selectedFile != null) {
-                txtFieldImagePath.setText(selectedFile.getAbsolutePath());
+                txtFieldImagePath.setText(selectedFile.getPath());
             }
         });
     }

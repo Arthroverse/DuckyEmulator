@@ -25,6 +25,7 @@ package Main;
 import Database.MainDB.Beans.Classifications;
 import Database.MainDB.Beans.Topics;
 import UIs.Navigator;
+import Utilities.FileHandler.FileHandler;
 import javafx.application.Application;
 import javafx.stage.Stage;
 /**
@@ -42,6 +43,7 @@ import javafx.stage.Stage;
  * (since all apps has a pretty long initialization)*/
 public class DuckyEmulatorMain extends Application {
     static{
+        FileHandler.initialize();
         Classifications.selectAll();
         Topics.selectAll();
     }

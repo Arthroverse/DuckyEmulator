@@ -24,6 +24,7 @@ package Database.MainDB.Beans;
 
 import Database.DBService.MySQLService;
 import UIControllers.AdminUIsControllers.QBankIndexUIController;
+import Utilities.FileHandler.FileHandler;
 import Utilities.PromptAlert.AlertUtil;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -33,14 +34,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 public class Questions {
@@ -252,69 +251,63 @@ public class Questions {
                 qIdList.add(rs.getInt(1));
             }
         }catch(Exception e){
-            StringWriter sw = new StringWriter();
-            PrintWriter pw = new PrintWriter(sw);
-            e.printStackTrace(pw);
-            String stackTraceAsString = sw.toString();
-            AlertUtil.generateExceptionViewer(stackTraceAsString, "Question select qId operation failed");
+            AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e), "Question select qId operation failed");
         }
 
         String qIdListString = qIdList.stream().map(Object::toString)
                 .collect(Collectors.joining(", "));
-        ObservableMap<Integer, Questions> questions = FXCollections.observableMap(new HashMap<>());
-        String sqlQuery = "SELECT Q.*, T.TopicId, T.TopicName, T.Description AS Topic_Description, " +
-        "C.Classification, C.Description AS Classification_Description " +
-        "FROM Questions AS Q " +
-        "JOIN QTRelationship AS QT ON Q.QuestionId = QT.QuestionId " +
-        "JOIN Topics AS T ON T.TopicId = QT.TopicId " +
-        "JOIN Classifications AS C ON C.ClassificationId = Q.ClassificationId " +
-        "WHERE Q.QuestionId IN ( " + qIdListString + ") " +
-        "ORDER BY Q.QuestionId; ";
-        try(
-                Connection conn = MySQLService.getConnection();
-                Statement stmt = conn.createStatement();
-                ResultSet rs = stmt.executeQuery(sqlQuery);
-        ) {
-            Questions quest;
-            while(rs.next()){
-                int qId = rs.getInt("QuestionId");
-                int cId = rs.getInt("ClassificationId");
-                int tId = rs.getInt("TopicId");
-                String qStmt = rs.getString("QuestionStatement");
-                String ch1 = rs.getString("Choice1");
-                String ch2 = rs.getString("Choice2");
-                String ch3 = rs.getString("Choice3");
-                String ch4 = rs.getString("Choice4");
-                String ans = rs.getString("CorrectAnswer");
-                String imgPath = rs.getString("ImagePath");
-                if(questions.containsKey(rs.getInt(1))){
-                    quest = questions.get(rs.getInt(1));
-                    quest.addIndividualForeignKeyTopicId(rs.getInt("TopicId"));
-                }else{
-                    quest = makeQuestion(qId,
-                                        cId,
-                                        tId,
-                                        qStmt,
-                                        ch1,
-                                        ch2,
-                                        ch3,
-                                        ch4,
-                                        ans,
-                                        imgPath);
-                    questions.put(rs.getInt(1), quest);
+        ObservableMap<Integer, Questions> questions = FXCollections.observableMap(new TreeMap<>());
+        if(!qIdListString.isEmpty()){
+            String sqlQuery = "SELECT Q.*, T.TopicId, T.TopicName, T.Description AS Topic_Description, " +
+                    "C.Classification, C.Description AS Classification_Description " +
+                    "FROM Questions AS Q " +
+                    "JOIN QTRelationship AS QT ON Q.QuestionId = QT.QuestionId " +
+                    "JOIN Topics AS T ON T.TopicId = QT.TopicId " +
+                    "JOIN Classifications AS C ON C.ClassificationId = Q.ClassificationId " +
+                    "WHERE Q.QuestionId IN ( " + qIdListString + ") " +
+                    "ORDER BY Q.QuestionId; ";
+            try(
+                    Connection conn = MySQLService.getConnection();
+                    Statement stmt = conn.createStatement();
+                    ResultSet rs = stmt.executeQuery(sqlQuery);
+            ) {
+                Questions quest;
+                while(rs.next()){
+                    int qId = rs.getInt("QuestionId");
+                    int cId = rs.getInt("ClassificationId");
+                    int tId = rs.getInt("TopicId");
+                    String qStmt = rs.getString("QuestionStatement");
+                    String ch1 = rs.getString("Choice1");
+                    String ch2 = rs.getString("Choice2");
+                    String ch3 = rs.getString("Choice3");
+                    String ch4 = rs.getString("Choice4");
+                    String ans = rs.getString("CorrectAnswer");
+                    String imgPath = rs.getString("ImagePath");
+                    if(questions.containsKey(rs.getInt(1))){
+                        quest = questions.get(rs.getInt(1));
+                        quest.addIndividualForeignKeyTopicId(rs.getInt("TopicId"));
+                    }else{
+                        quest = makeQuestion(qId,
+                                cId,
+                                tId,
+                                qStmt,
+                                ch1,
+                                ch2,
+                                ch3,
+                                ch4,
+                                ans,
+                                imgPath);
+                        questions.put(rs.getInt(1), quest);
+                    }
                 }
+            }catch(Exception e){
+                AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e), "Question partial select operation failed");
             }
-        }catch(Exception e){
-            StringWriter sw = new StringWriter();
-            PrintWriter pw = new PrintWriter(sw);
-            e.printStackTrace(pw);
-            String stackTraceAsString = sw.toString();
-            AlertUtil.generateExceptionViewer(stackTraceAsString, "Question partial select operation failed");
         }
         return FXCollections.observableArrayList(questions.values());
     }
 
-    public static Questions makeQuestion(int qId,
+    private static Questions makeQuestion(int qId,
                                          int cId,
                                          int tId,
                                          String qStmt,
@@ -323,24 +316,28 @@ public class Questions {
                                          String ch3,
                                          String ch4,
                                          String ans,
-                                         String imgPath){
-        Questions quest = new Questions();
-        quest.setQuestionId(qId);
-        quest.setForeignKeyClassificationId(cId);
-        quest.setForeignKeyClassificationIdForDisplay(
-                Classifications.searchClassification(cId)
-        );
-        quest.addIndividualForeignKeyTopicId(tId);
-        quest.setQuestionStatement(qStmt);
-        quest.setChoice1(ch1);
-        quest.setChoice2(ch2);
-        quest.setChoice3(ch3);
-        quest.setChoice4(ch4);
-        quest.setCorrectAnswer(ans);
-        quest.setImagePath(imgPath);
-        return quest;
+                                         String imgPath) {
+        try {
+            Questions quest = new Questions();
+            quest.setQuestionId(qId);
+            quest.setForeignKeyClassificationId(cId);
+            quest.setForeignKeyClassificationIdForDisplay(
+                    Classifications.searchClassification(cId)
+            );
+            quest.addIndividualForeignKeyTopicId(tId);
+            quest.setQuestionStatement(qStmt);
+            quest.setChoice1(ch1);
+            quest.setChoice2(ch2);
+            quest.setChoice3(ch3);
+            quest.setChoice4(ch4);
+            quest.setCorrectAnswer(ans);
+            quest.setImagePath(FileHandler.addNewImage(imgPath, qId));
+            return quest;
+        } catch (Exception e) {
+            AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e), "Add new question operation failed");
+            return null;
+        }
     }
-
     public static void setPage() {
         try (
                 Connection conn = MySQLService.getConnection();
@@ -349,13 +346,10 @@ public class Questions {
         ) {
             rs.next();
             int maxNumPage = rs.getInt(1);
+            if(rs.getInt(1) == 0) maxNumPage = 1;
             QBankIndexUIController.setMaxPageNum((int)Math.ceil(maxNumPage/10.0));
         } catch (Exception e) {
-            StringWriter sw = new StringWriter();
-            PrintWriter pw = new PrintWriter(sw);
-            e.printStackTrace(pw);
-            String stackTraceAsString = sw.toString();
-            AlertUtil.generateExceptionViewer(stackTraceAsString, "Question pagination setPage operation failed");
+            AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e), "Question pagination setPage operation failed");
         }
     }
 
@@ -368,11 +362,7 @@ public class Questions {
             stmt.setInt(1, quest.getQuestionId());
             stmt.executeUpdate();
         } catch (Exception e) {
-            StringWriter sw = new StringWriter();
-            PrintWriter pw = new PrintWriter(sw);
-            e.printStackTrace(pw);
-            String stackTraceAsString = sw.toString();
-            AlertUtil.generateExceptionViewer(stackTraceAsString, "Question qtRelationship delete operation failed");
+            AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e), "Question qtRelationship delete operation failed");
         }
         String sqlDel = "DELETE FROM Questions WHERE QuestionId = ?;";
         try (
@@ -381,47 +371,55 @@ public class Questions {
         ) {
             stmt.setInt(1, quest.getQuestionId());
             boolean isDeleted = stmt.executeUpdate() == 1 ? true : false;
-            if (isDeleted) return true;
+            if (isDeleted){
+                FileHandler.removeImage(quest.getImagePath());
+                return true;
+            }
             else return false;
         } catch (Exception e) {
-            StringWriter sw = new StringWriter();
-            PrintWriter pw = new PrintWriter(sw);
-            e.printStackTrace(pw);
-            String stackTraceAsString = sw.toString();
-            AlertUtil.generateExceptionViewer(stackTraceAsString, "Question delete operation failed");
+            AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e), "Question delete operation failed");
             return false;
         }
     }
 
     public static void insert(Questions quest) {
         String sqlInsertQuestions = "INSERT INTO Questions(ClassificationId, " +
-                "QuestionStatement, CorrectAnswer, Choice1, Choice2, Choice3, Choice4, ImagePath) " +
-                "VALUES(?, ?, ?, ?, ?, ?, ?, ?);";
+                "QuestionStatement, CorrectAnswer, Choice1, Choice2, Choice3, Choice4) " +
+                "VALUES(?, ?, ?, ?, ?, ?, ?);";
         ResultSet key = null;
         try (
-                Connection conn = MySQLService.getConnection();
-                PreparedStatement stmt = conn.prepareStatement(sqlInsertQuestions, Statement.RETURN_GENERATED_KEYS);
+                Connection conn1 = MySQLService.getConnection();
+                PreparedStatement stmt1 = conn1.prepareStatement(sqlInsertQuestions, Statement.RETURN_GENERATED_KEYS);
         ) {
-            stmt.setInt(1, quest.getForeignKeyClassificationId());
-            stmt.setString(2, quest.getQuestionStatement());
-            stmt.setString(3, quest.getCorrectAnswer());
-            stmt.setString(4, quest.getChoice1());
-            stmt.setString(5, quest.getChoice2());
-            stmt.setString(6, quest.getChoice3());
-            stmt.setString(7, quest.getChoice4());
-            stmt.setString(8, quest.getImagePath());
-            if (stmt.executeUpdate() == 1) {
-                key = stmt.getGeneratedKeys();
+            stmt1.setInt(1, quest.getForeignKeyClassificationId());
+            stmt1.setString(2, quest.getQuestionStatement());
+            stmt1.setString(3, quest.getCorrectAnswer());
+            stmt1.setString(4, quest.getChoice1());
+            stmt1.setString(5, quest.getChoice2());
+            stmt1.setString(6, quest.getChoice3());
+            stmt1.setString(7, quest.getChoice4());
+            if (stmt1.executeUpdate() == 1) {
+                key = stmt1.getGeneratedKeys();
                 key.next();
                 int questId = key.getInt(1);
                 quest.setQuestionId(questId);
             }
+            String newImagePath = FileHandler.
+                    addNewImage(quest.getImagePath(), quest.getQuestionId());
+            quest.setImagePath(newImagePath);
+            String sqlImgUpdateQuery = "UPDATE Questions SET ImagePath = ? WHERE QuestionId = ?";
+            try(
+                    Connection conn2 = MySQLService.getConnection();
+                    PreparedStatement stmt2 = conn2.prepareStatement(sqlImgUpdateQuery);
+                    ){
+                stmt2.setString(1,newImagePath);
+                stmt2.setInt(2, quest.getQuestionId());
+                stmt2.executeUpdate();
+            }catch(Exception e){
+                AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e), "Question insert operation failed");
+            }
         } catch (Exception e) {
-            StringWriter sw = new StringWriter();
-            PrintWriter pw = new PrintWriter(sw);
-            e.printStackTrace(pw);
-            String stackTraceAsString = sw.toString();
-            AlertUtil.generateExceptionViewer(stackTraceAsString, "Question insert operation failed");
+            AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e), "Question insert operation failed");
         }
         String sqlInsertQtRelationship = "INSERT INTO QtRelationship(QuestionId, TopicId) "
                 + "VALUES(?, ?);";
@@ -434,11 +432,7 @@ public class Questions {
                 stmt.setInt(2, i);
                 stmt.executeUpdate();
             } catch (Exception e) {
-                StringWriter sw = new StringWriter();
-                PrintWriter pw = new PrintWriter(sw);
-                e.printStackTrace(pw);
-                String stackTraceAsString = sw.toString();
-                AlertUtil.generateExceptionViewer(stackTraceAsString, "Question qtRelationship insert operation failed");
+                AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e), "Question qtRelationship insert operation failed");
             }
         }
     }
@@ -454,11 +448,7 @@ public class Questions {
                     stmt.setInt(2, i);
                     stmt.executeUpdate();
                 } catch (Exception e) {
-                    StringWriter sw = new StringWriter();
-                    PrintWriter pw = new PrintWriter(sw);
-                    e.printStackTrace(pw);
-                    String stackTraceAsString = sw.toString();
-                    AlertUtil.generateExceptionViewer(stackTraceAsString, "Question qtRelationship delete operation failed");
+                    AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e), "Question qtRelationship delete operation failed");
                 }
             }
         }
@@ -473,11 +463,7 @@ public class Questions {
                     stmt.setInt(2, i);
                     stmt.executeUpdate();
                 } catch (Exception e) {
-                    StringWriter sw = new StringWriter();
-                    PrintWriter pw = new PrintWriter(sw);
-                    e.printStackTrace(pw);
-                    String stackTraceAsString = sw.toString();
-                    AlertUtil.generateExceptionViewer(stackTraceAsString, "Question qtRelationship insert operation failed");
+                    AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e), "Question qtRelationship insert operation failed");
                 }
             }
         }
@@ -486,25 +472,34 @@ public class Questions {
                 + "Choice1 = ?, Choice2 = ?, Choice3 = ?, Choice4 = ?, ImagePath = ? "
                 + "WHERE QuestionId = ?";
         try (
-                Connection conn = MySQLService.getConnection();
-                PreparedStatement stmt = conn.prepareStatement(sqlQuestionUpdate);
+                Connection conn1 = MySQLService.getConnection();
+                PreparedStatement stmt1 = conn1.prepareStatement(sqlQuestionUpdate);
         ) {
-            stmt.setInt(1, q.getForeignKeyClassificationId());
-            stmt.setString(2, q.getQuestionStatement());
-            stmt.setString(3, q.getCorrectAnswer());
-            stmt.setString(4, q.getChoice1());
-            stmt.setString(5, q.getChoice2());
-            stmt.setString(6, q.getChoice3());
-            stmt.setString(7, q.getChoice4());
-            stmt.setString(8, q.getImagePath());
-            stmt.setInt(9, q.getQuestionId());
-            stmt.executeUpdate();
+            stmt1.setInt(1, q.getForeignKeyClassificationId());
+            stmt1.setString(2, q.getQuestionStatement());
+            stmt1.setString(3, q.getCorrectAnswer());
+            stmt1.setString(4, q.getChoice1());
+            stmt1.setString(5, q.getChoice2());
+            stmt1.setString(6, q.getChoice3());
+            stmt1.setString(7, q.getChoice4());
+            stmt1.setString(8, q.getImagePath());
+            stmt1.setInt(9, q.getQuestionId());
+            stmt1.executeUpdate();
+            String newImagePath = FileHandler.addNewImage(q.getImagePath(), q.getQuestionId());
+            q.setImagePath(newImagePath);
+            String sqlUpdateImgPath = "UPDATE Questions SET ImagePath = ? WHERE QuestionId = ?;";
+            try(
+                    Connection conn2 = MySQLService.getConnection();
+                    PreparedStatement stmt2 = conn2.prepareStatement(sqlUpdateImgPath);
+                    ){
+                stmt2.setString(1, newImagePath);
+                stmt2.setInt(2, q.getQuestionId());
+                stmt2.executeUpdate();
+            }catch(Exception e){
+                AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e), "Question update operation failed");
+            }
         } catch (Exception e) {
-            StringWriter sw = new StringWriter();
-            PrintWriter pw = new PrintWriter(sw);
-            e.printStackTrace(pw);
-            String stackTraceAsString = sw.toString();
-            AlertUtil.generateExceptionViewer(stackTraceAsString, "Question update operation failed");
+            AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e), "Question update operation failed");
         }
     }
 }
