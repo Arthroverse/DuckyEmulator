@@ -54,11 +54,13 @@ public class TopicsUpdateUIController{
 
     private static Topics updateTopic;
 
+    private static String oldTopicNames;
+
     @FXML
     void btnUpdateTopicClick(ActionEvent event) throws IOException {
         updateTopic.setTopicName(txtFieldTopicName.getText());
         updateTopic.setTopicDescription(txtAreaTopicDescription.getText());
-        if(inputValidation()) Topics.update(updateTopic);
+        if(inputValidation()) Topics.update(updateTopic, oldTopicNames);
         if(errorMessage.toString().isEmpty()){
             Navigator.getInstance().closeSecondStage();
             Navigator.getInstance().goToTopicClassIndex();
@@ -78,6 +80,7 @@ public class TopicsUpdateUIController{
 
     public void initialize(Topics t){
         updateTopic = t;
+        oldTopicNames = t.getTopicName();
         txtFieldTopicName.setText(t.getTopicName());
         txtAreaTopicDescription.setText(t.getTopicDescription());
     }
