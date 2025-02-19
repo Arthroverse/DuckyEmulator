@@ -52,6 +52,8 @@ public class Topics {
 
     public static Map<Integer, String> topicNames;
 
+    public static Map<String, Topics> topicsNameAsKey;
+
     public Topics(){
         topicId = new SimpleObjectProperty<>(null);
         topicName = new SimpleStringProperty();
@@ -97,6 +99,7 @@ public class Topics {
     public static void selectAll(){
         topicsQuestionView = new HashMap<>();
         topicNames = new HashMap<>();
+        topicsNameAsKey = new HashMap<>();
         try(
                 Connection conn = MySQLService.getConnection();
                 Statement stmt = conn.createStatement();
@@ -104,18 +107,15 @@ public class Topics {
         ){
             while(rs.next()){
                 int tId = rs.getInt("TopicId");
-                String tName = rs.getString("TopicName");
+                final String tName = rs.getString("TopicName");
                 String tDescription = rs.getString("Description");
                 Topics top = makeTopic(tId, tName, tDescription);
                 topicsQuestionView.put(tId, top);
                 topicNames.put(tId, tName);
+                topicsNameAsKey.put(tName, top);
             }
         }catch(Exception e){
-            StringWriter sw = new StringWriter();
-            PrintWriter pw = new PrintWriter(sw);
-            e.printStackTrace(pw);
-            String stackTraceAsString = sw.toString();
-            AlertUtil.generateExceptionViewer(stackTraceAsString, "Topics initial query operation failed");
+            AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e), "Topics initial query operation failed");
         }
     }
 
@@ -136,11 +136,7 @@ public class Topics {
                 topics.add(top);
             }
         } catch (Exception e) {
-            StringWriter sw = new StringWriter();
-            PrintWriter pw = new PrintWriter(sw);
-            e.printStackTrace(pw);
-            String stackTraceAsString = sw.toString();
-            AlertUtil.generateExceptionViewer(stackTraceAsString, "Topics partial select operation failed");
+            AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e), "Topics partial select operation failed");
         }
         return topics;
     }
@@ -153,13 +149,10 @@ public class Topics {
         ) {
             rs.next();
             int maxNumPage = rs.getInt(1);
+            if(rs.getInt(1) == 0) maxNumPage = 1;
             TopicsClassIndexUIController.setTopicsMaxPageNum((int)(Math.ceil(maxNumPage/10.0)));
         } catch (Exception e) {
-            StringWriter sw = new StringWriter();
-            PrintWriter pw = new PrintWriter(sw);
-            e.printStackTrace(pw);
-            String stackTraceAsString = sw.toString();
-            AlertUtil.generateExceptionViewer(stackTraceAsString, "Topics pagination setPage operation failed");
+            AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e), "Topics pagination setPage operation failed");
         }
     }
 
@@ -174,11 +167,7 @@ public class Topics {
             rs.next();
             totalRelatedQuestions = rs.getInt(1);
         }catch(Exception e){
-            StringWriter sw = new StringWriter();
-            PrintWriter pw = new PrintWriter(sw);
-            e.printStackTrace(pw);
-            String stackTraceAsString = sw.toString();
-            AlertUtil.generateExceptionViewer(stackTraceAsString, "Topics find total related question operation failed");
+            AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e), "Topics find total related question operation failed");
         }
 
         boolean isRelated = totalRelatedQuestions == 0 ? false : true;
@@ -198,15 +187,13 @@ public class Topics {
                 if(isDeleted){
                     topicsQuestionView.remove(top.getTopicId());
                     topicNames.remove(top.getTopicId());
+                    final String tName = top.getTopicName();
+                    topicsNameAsKey.remove(tName);
                     return true;
                 }
                 else return false;
             }catch(Exception e){
-                StringWriter sw = new StringWriter();
-                PrintWriter pw = new PrintWriter(sw);
-                e.printStackTrace(pw);
-                String stackTraceAsString = sw.toString();
-                AlertUtil.generateExceptionViewer(stackTraceAsString, "Topics delete operation failed");
+                AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e), "Topics delete operation failed");
                 return false;
             }
         }
@@ -230,17 +217,15 @@ public class Topics {
                 newTopic.setTopicId(returnedKey);
                 topicsQuestionView.put(returnedKey, newTopic);
                 topicNames.put(returnedKey, newTopic.getTopicName());
+                final String tName = newTopic.getTopicName();
+                topicsNameAsKey.put(tName, newTopic);
             }
         }catch(Exception e){
-            StringWriter sw = new StringWriter();
-            PrintWriter pw = new PrintWriter(sw);
-            e.printStackTrace(pw);
-            String stackTraceAsString = sw.toString();
-            AlertUtil.generateExceptionViewer(stackTraceAsString, "Topics insert operation failed");
+            AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e), "Topics insert operation failed");
         }
     }
 
-    public static void update(Topics t){
+    public static void update(Topics t, final String oldTopicName){
         String sqlTopicsUpdate = "UPDATE Topics SET TopicName = ?, Description = ? " +
                 "WHERE TopicId = ?;";
         try(
@@ -253,18 +238,16 @@ public class Topics {
             stmt.executeUpdate();
             topicsQuestionView.replace(t.getTopicId(), t);
             topicNames.replace(t.getTopicId(), t.getTopicName());
+            topicsNameAsKey.remove(oldTopicName);
+            final String tName = t.getTopicName();
+            topicsNameAsKey.put(tName, t);
         }catch(Exception e){
-            StringWriter sw = new StringWriter();
-            PrintWriter pw = new PrintWriter(sw);
-            e.printStackTrace(pw);
-            String stackTraceAsString = sw.toString();
-            AlertUtil.generateExceptionViewer(stackTraceAsString, "Topics update operation failed");
+            AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e), "Topics update operation failed");
         }
     }
 
     public static ArrayList<Integer> findingTopicIds(ArrayList<String> allTopicNames){
         ArrayList<Integer> returnTopicIds = new ArrayList<>();
-        int index = 0;
         for(Topics t: topicsQuestionView.values()){
             if(allTopicNames.contains(t.getTopicName())) returnTopicIds.add(t.getTopicId());
         }
@@ -272,9 +255,7 @@ public class Topics {
     }
 
     public static Topics findingTopics(String topicName){
-        for(Topics t: topicsQuestionView.values()){
-            if(t.getTopicName().equals(topicName)) return t;
-        }
+        if(topicsNameAsKey.containsKey(topicName)) return topicsNameAsKey.get(topicName);
         return null;
     }
 
