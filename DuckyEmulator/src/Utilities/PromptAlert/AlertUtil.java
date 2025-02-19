@@ -64,4 +64,11 @@ public abstract interface AlertUtil {
         alert.getDialogPane().setContent(textArea);
         alert.showAndWait();
     }
+
+    public static String generateExceptionString(Throwable t){
+        StringWriter sw = new StringWriter();
+        PrintWriter pw = new PrintWriter(sw);
+        t.printStackTrace(pw);
+        return sw.toString();
+    }
 }
