@@ -51,11 +51,13 @@ public class ClassificationsUpdateUIController {
 
     private static Classifications updateClass;
 
+    private static String oldClassificationName;
+
     @FXML
     void btnUpdateClassificationClick(ActionEvent event) throws IOException {
         updateClass.setClassification(txtFieldClassificationName.getText());
         updateClass.setClassificationDescription((txtAreaClassificationDescription.getText()));
-        if(inputValidation()) Classifications.update(updateClass);
+        if(inputValidation()) Classifications.update(updateClass, oldClassificationName);
         if(errorMessage.toString().isEmpty()){
             Navigator.getInstance().closeSecondStage();
             Navigator.getInstance().goToTopicClassIndex();
@@ -75,6 +77,7 @@ public class ClassificationsUpdateUIController {
 
     public void initialize(Classifications c){
         updateClass = c;
+        oldClassificationName = c.getClassification();
         txtFieldClassificationName.setText(c.getClassification());
         txtAreaClassificationDescription.setText(c.getClassificationDescription());
     }
