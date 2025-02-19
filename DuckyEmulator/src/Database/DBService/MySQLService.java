@@ -22,9 +22,7 @@
  */
 package Database.DBService;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class MySQLService {
     private static final String USERNAME = "root";
