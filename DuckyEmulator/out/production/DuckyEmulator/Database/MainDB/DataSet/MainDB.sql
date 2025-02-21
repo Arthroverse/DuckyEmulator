@@ -54,5 +54,17 @@ CREATE TABLE IF NOT EXISTS QTRelationship(
     FOREIGN KEY (TopicId) REFERENCES Topics(TopicId),
     PRIMARY KEY(QuestionId, TopicId)
 );
+
+CREATE TABLE IF NOT EXISTS Users(
+    UserId INT NOT NULL,
+    PRIMARY KEY(UserId),
+    UserEmail VARCHAR(50) NOT NULL,
+    UserName VARCHAR(50) NOT NULL,
+    UserPassword VARCHAR(150) NOT NULL,
+    UserType VARCHAR(10) NOT NULL,
+    UserEmailUuid VARCHAR(90) NOT NULL,
+    UserNameUuid VARCHAR(90) NOT NULL
+);
+
 -- FOR TESTING AND DEBUGGING PURPOSES
 -- DROP DATABASE DuckyEmulator_QuestionDB;
