@@ -22,8 +22,10 @@
  */
 package UIControllers.AdminUIsControllers;
 
-import Database.MainDB.Beans.Questions;
+import Database.MainDB.AdminBeans.Questions;
 import UIs.Navigator;
+import Utilities.Constant.ErrorMessage.ErrorMessage;
+import Utilities.Constant.ErrorTitle.ErrorTitle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -136,8 +138,9 @@ public class QBankIndexUIController implements Initializable {
     void btnTableUpdateClick(ActionEvent event) throws IOException {
         Questions selectedQuest = tableBankView.getSelectionModel().getSelectedItem();
         if(selectedQuest == null){
-            AlertUtil.generateErrorWindow("Delete question failed", "Question deletion",
-                    "A question must be selected to perform this operation !");
+            AlertUtil.generateErrorWindow(ErrorTitle.QUEST_UI_CONTROLLER_DELETE_QUEST_FAILED.toString(),
+                    "Question deletion",
+                    ErrorMessage.QUEST_UI_CONTROLLER_DELETE_QUEST_FAILED.toString());
         }
         else{
             currentPageIndex = pageinationQBank.getCurrentPageIndex();
