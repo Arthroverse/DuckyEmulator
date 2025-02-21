@@ -22,10 +22,15 @@
  */
 package UIControllers.AdminUIsControllers;
 
-import Database.MainDB.Beans.Classifications;
-import Database.MainDB.Beans.Questions;
-import Database.MainDB.Beans.Topics;
+import Database.MainDB.AdminBeans.Classifications;
+import Database.MainDB.AdminBeans.Questions;
+import Database.MainDB.AdminBeans.Topics;
 import UIs.Navigator;
+import Utilities.Constant.ErrorMessage.ErrorMessage;
+import Utilities.Constant.ErrorTitle.ErrorTitle;
+import Utilities.Constant.FailedOperationType.FailedOperationType;
+import Utilities.Constant.WarningMessage.WarningMessage;
+import Utilities.Constant.WarningTitle.WarningTitle;
 import Utilities.FileHandler.FileHandler;
 import Utilities.PromptAlert.AlertUtil;
 import javafx.collections.FXCollections;
@@ -36,20 +41,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import static Database.MainDB.Beans.Classifications.classificationNames;
-import static Database.MainDB.Beans.Topics.topicNames;
+import static Database.MainDB.AdminBeans.Classifications.classificationNames;
+import static Database.MainDB.AdminBeans.Topics.topicNames;
 
 public class QBankAddUIController implements Initializable {
 
@@ -179,14 +179,14 @@ public class QBankAddUIController implements Initializable {
             PrintWriter pw = new PrintWriter(sw);
             e.printStackTrace(pw);
             String stackTraceAsString = sw.toString();
-            AlertUtil.generateExceptionViewer(stackTraceAsString, "Add new question failed");
+            AlertUtil.generateExceptionViewer(stackTraceAsString, ErrorTitle.QUEST_UI_CONTROLLER_ADD_QUEST_FAILED.toString());
         }
     }
 
     @FXML
     void btnResetFieldClick(ActionEvent event) {
-        boolean isOk = AlertUtil.generateWarningWindow("Reset all fields",
-                "Are you sure you want to reset all fields ?");
+        boolean isOk = AlertUtil.generateWarningWindow(WarningTitle.UNIVERSAL_RESET_FIELD.toString(),
+                WarningMessage.UNIVERSAL_RESET_FIELD.toString());
         if(isOk){
             resetAllDatas();
         }
@@ -236,16 +236,17 @@ public class QBankAddUIController implements Initializable {
 
     private boolean inputValidation(){
         ObservableList<Topics> temp = tableViewSelectedTopic.getItems();
-        if(temp.size() == 0) errorMessage.append("A question must be associated with a topic !\n");
-        if(choiceBoxSelectClass.getValue() == null) errorMessage.append("A question must be associated with a classification !\n");
-        if(txtAreaQStatement.getText() == null) errorMessage.append("A question must have a question statement !\n"); //TO DO: CHANGE "== NULL" TO .ISEMPTY()
+        if(temp.size() == 0) errorMessage.append(ErrorMessage.QUEST_NO_TOPIC_ASSOCIATED);
+        if(choiceBoxSelectClass.getValue() == null) errorMessage.append(ErrorMessage.QUEST_NO_CLASSIFICATION_ASSOCIATED);
+        if(txtAreaQStatement.getText() == null) errorMessage.append(ErrorMessage.QUEST_NO_QUESTION_STATEMENT);
         if(txtxAreaQChoice1.getText() == null
         || txtxAreaQChoice2.getText() == null|| txtxAreaQChoice3.getText().isEmpty()
-        || txtxAreaQChoice4.getText() == null) errorMessage.append("A question must have 4 answers !\n");
-        if(choiceBoxCorrectAns.getValue() == null) errorMessage.append("You must select 1 correct answer !\n");
+        || txtxAreaQChoice4.getText() == null) errorMessage.append(ErrorMessage.QUEST_NO_CHOICE);
+        if(choiceBoxCorrectAns.getValue() == null) errorMessage.append(ErrorMessage.QUEST_NO_CORRECT_ANS);
 
         if(!errorMessage.toString().isEmpty()){
-            AlertUtil.generateErrorWindow("Add new question failed", "Add new question",
+            AlertUtil.generateErrorWindow(ErrorTitle.QUEST_UI_CONTROLLER_ADD_QUEST_FAILED.toString(),
+                    FailedOperationType.QUEST_UI_CONTROLLER_ADD_QUESTION_FAILED.toString(),
                     errorMessage.toString());
             return false;
         }
@@ -264,8 +265,9 @@ public class QBankAddUIController implements Initializable {
             Navigator.getInstance().closeSecondStage();
             Navigator.getInstance().goToQBankAdd();
         }else{
-            AlertUtil.generateErrorWindow("Add new topic failed", "Add new topic",
-                    "Topic has been added before !, please choose other topics");
+            AlertUtil.generateErrorWindow(ErrorTitle.QUEST_UI_CONTROLLER_ADD_TOPIC_FAILED.toString(),
+                    FailedOperationType.QUEST_UI_CONTROLLER_ADD_TOPIC_FAILED.toString(),
+                    ErrorMessage.QUEST_UI_CONTROLLER_ADD_TOPIC_FAILED.toString());
         }
     }
 
