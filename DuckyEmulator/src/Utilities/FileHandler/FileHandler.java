@@ -32,9 +32,9 @@ public final class FileHandler {
         return null;
     }
 
-    public static String addNewImage(String imgAbsPath, int qId) throws IOException {
-        if(checkExistingPath(imgAbsPath)) return imgAbsPath;
-        Path originalAbsPath = Paths.get(imgAbsPath);
+    public static String addNewImage(String imgPath, int qId) throws IOException {
+        if(checkExistingPath(imgPath)) return imgPath;
+        Path originalAbsPath = Paths.get(imgPath);
         Path fileName = originalAbsPath.getFileName();
         String newFileName = "";
         String originalFileName = fileName.toString();
