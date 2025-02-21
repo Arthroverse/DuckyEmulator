@@ -22,8 +22,13 @@
  */
 package UIControllers.AdminUIsControllers;
 
-import Database.MainDB.Beans.Classifications;
+import Database.MainDB.AdminBeans.Classifications;
 import UIs.Navigator;
+import Utilities.Constant.ErrorMessage.ErrorMessage;
+import Utilities.Constant.ErrorTitle.ErrorTitle;
+import Utilities.Constant.FailedOperationType.FailedOperationType;
+import Utilities.Constant.WarningMessage.WarningMessage;
+import Utilities.Constant.WarningTitle.WarningTitle;
 import Utilities.PromptAlert.AlertUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -67,8 +72,8 @@ public class ClassificationsAddUIController implements Initializable {
 
     @FXML
     void btnResetFieldClick(ActionEvent event) {
-        boolean isOk = AlertUtil.generateWarningWindow("Reset all fields",
-                "Are you sure you want to reset all fields ?");
+        boolean isOk = AlertUtil.generateWarningWindow(WarningTitle.UNIVERSAL_RESET_FIELD.toString(),
+                WarningMessage.UNIVERSAL_RESET_FIELD.toString());
         if(isOk){
             txtFieldClassificationName.setText(null);
             txtAreaClassificationDescription.setText(null);
@@ -81,9 +86,10 @@ public class ClassificationsAddUIController implements Initializable {
     }
 
     private boolean inputValidation(){
-        if(txtFieldClassificationName.getText().isEmpty()) errorMessage.append("Classification shouldn't be leave empty !\n");
+        if(txtFieldClassificationName.getText().isEmpty()) errorMessage.append(ErrorMessage.CLASS_NO_CLASSIFICATION_NAME);
         if(!errorMessage.toString().isEmpty()){
-            AlertUtil.generateErrorWindow("Add new classification failed", "Add new classification",
+            AlertUtil.generateErrorWindow(ErrorTitle.CLASS_UI_CONTROLLER_ADD_CLASS_FAILED.toString(),
+                    FailedOperationType.CLASS_UI_CONTROLLER_ADD_CLASS_FAILED.toString(),
                     errorMessage.toString());
             return false;
         }
