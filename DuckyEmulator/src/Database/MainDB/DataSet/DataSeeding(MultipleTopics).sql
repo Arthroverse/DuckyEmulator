@@ -1,4 +1,4 @@
-    USE DuckyEmulator_QuestionDB;
+USE DuckyEmulator_QuestionDB;
 INSERT INTO Classifications (Classification, Description) VALUES
 ('Beginner', 'Basic concepts and fundamentals suitable for newcomers'),
 ('Intermediate', 'Topics requiring some prior knowledge and experience'),
@@ -175,6 +175,3 @@ INSERT INTO QTRelationship (QuestionId, TopicId) VALUES
 (41, 8), (41, 29), (41, 32),
 (42, 31), (42, 33), (42, 49),
 (43, 30), (43, 29), (43, 48);
-
-INSERT INTO QTRelationship(QuestionId, TopicId)
-VALUES(93, 71), (93, 72), (93, 73);
