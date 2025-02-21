@@ -22,8 +22,8 @@
  */
 package Main;
 
-import Database.MainDB.Beans.Classifications;
-import Database.MainDB.Beans.Topics;
+import Database.MainDB.AdminBeans.Classifications;
+import Database.MainDB.AdminBeans.Topics;
 import UIs.Navigator;
 import Utilities.FileHandler.FileHandler;
 import javafx.application.Application;
