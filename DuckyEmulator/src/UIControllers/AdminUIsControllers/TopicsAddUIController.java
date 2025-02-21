@@ -22,8 +22,13 @@
  */
 package UIControllers.AdminUIsControllers;
 
-import Database.MainDB.Beans.Topics;
+import Database.MainDB.AdminBeans.Topics;
 import UIs.Navigator;
+import Utilities.Constant.ErrorMessage.ErrorMessage;
+import Utilities.Constant.ErrorTitle.ErrorTitle;
+import Utilities.Constant.FailedOperationType.FailedOperationType;
+import Utilities.Constant.WarningMessage.WarningMessage;
+import Utilities.Constant.WarningTitle.WarningTitle;
 import Utilities.PromptAlert.AlertUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -67,8 +72,8 @@ public class TopicsAddUIController implements Initializable {
 
     @FXML
     void btnResetFieldClick(ActionEvent event) {
-        boolean isOk = AlertUtil.generateWarningWindow("Reset all fields",
-                "Are you sure you want to reset all fields ?");
+        boolean isOk = AlertUtil.generateWarningWindow(WarningTitle.UNIVERSAL_RESET_FIELD.toString(),
+                WarningMessage.UNIVERSAL_RESET_FIELD.toString());
         if(isOk){
             txtFieldTopicName.setText(null);
             txtAreaTopicDescription.setText(null);
@@ -81,9 +86,10 @@ public class TopicsAddUIController implements Initializable {
     }
 
     private boolean inputValidation(){
-        if(txtFieldTopicName.getText().isEmpty()) errorMessage.append("Topic name shouldn't be leave empty !\n");
+        if(txtFieldTopicName.getText().isEmpty()) errorMessage.append(ErrorMessage.TOPIC_NO_TOPIC_NAME);
         if(!errorMessage.toString().isEmpty()){
-            AlertUtil.generateErrorWindow("Add new topic failed", "Add new topic",
+            AlertUtil.generateErrorWindow(ErrorTitle.TOPIC_UI_CONTROLLER_ADD_TOPIC_FAILED.toString(),
+                    FailedOperationType.TOPIC_UI_CONTROLLER_ADD_NEW_TOPIC_FAILED.toString(),
                     errorMessage.toString());
             return false;
         }
