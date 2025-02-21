@@ -56,10 +56,19 @@ CREATE TABLE IF NOT EXISTS QTRelationship(
 );
 
 CREATE TABLE IF NOT EXISTS Users(
-    UserId INT NOT NULL,
-    PRIMARY KEY(UserId),
     UserEmail VARCHAR(50) NOT NULL,
-    UserPassword 
-)
+    UserName VARCHAR(50) NOT NULL,
+    UserPassword VARCHAR(150) NOT NULL,
+    UserType VARCHAR(10) NOT NULL,
+    UserEmailUuid VARCHAR(90) NOT NULL,
+    PRIMARY KEY(UserEmailUuid)
+);
+
+INSERT INTO Users(UserEmail, UserName, UserPassword, UserType, UserEmailUuid)
+VALUES('a@example.com', 'hello', '123456789', 'Admin', 'b418773a-2c51-3b97-b7a1-648346fa7394');
+
+SELECT *
+FROM Users
+
 -- FOR TESTING AND DEBUGGING PURPOSES
 -- DROP DATABASE DuckyEmulator_QuestionDB;
