@@ -22,6 +22,7 @@
  */
 package Utilities.PromptAlert;
 
+import Utilities.Constant.ErrorTitle.ErrorTitle;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextArea;
@@ -47,14 +48,14 @@ public abstract interface AlertUtil {
     public static void generateErrorWindow(String errorTitle, String operationType, String errorMessage){
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(errorTitle);
-        alert.setHeaderText(operationType + " failed due to following reason:\n" + errorMessage);
+        alert.setHeaderText(operationType + ErrorTitle.ALERT_UTIL_MIDDLE_TEXT + errorMessage);
         alert.showAndWait();
     }
 
     public static void generateExceptionViewer(String stackTraceAsString, String title){
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
-        alert.setHeaderText("A fatal error occurred");
+        alert.setHeaderText(ErrorTitle.ALERT_UTIL_EXCEPTION_TITLE.toString());
         TextArea textArea = new TextArea();
         textArea.setEditable(false);
         textArea.setWrapText(true);
