@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="a57d5096-8edd-4b4d-954e-07f711464abf" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/ducksabervn/duckyemulator/Utilities/Constant/Reusable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/mysql_connector_java_8_0_16.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/okhttp_5_0_0_alpha_14.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DuckyEmulator.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/MySQLDriver/mysql-connector-java-8.0.16.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/OkHttp/okhttp-5.0.0-alpha.14.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DuckyEmulator/Database/DBService/MySQLService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DuckyEmulator/Database/MainDB/Beans/Classifications.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DuckyEmulator/Database/MainDB/Beans/Questions.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DuckyEmulator/Database/MainDB/Beans/Topics.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DuckyEmulator/Database/MainDB/DataSet/DataSeeding(MultipleTopics).sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DuckyEmulator/Database/MainDB/DataSet/DataSeeding(SingleTopic).sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DuckyEmulator/Database/MainDB/DataSet/MainDB.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DuckyEmulator/Main/DuckyEmulatorMain.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DuckyEmulator/UIControllers/AdminUIsControllers/ClassificationsAddUIController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DuckyEmulator/UIControllers/AdminUIsControllers/ClassificationsUpdateUIController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DuckyEmulator/UIControllers/AdminUIsControllers/HomePageUIController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DuckyEmulator/UIControllers/AdminUIsControllers/QBankAddUIController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DuckyEmulator/UIControllers/AdminUIsControllers/QBankIndexUIController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DuckyEmulator/UIControllers/AdminUIsControllers/QBankUpdateUIController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DuckyEmulator/UIControllers/AdminUIsControllers/TopicsAddUIController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DuckyEmulator/UIControllers/AdminUIsControllers/TopicsClassIndexUIController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DuckyEmulator/UIControllers/AdminUIsControllers/TopicsUpdateUIController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DuckyEmulator/UIs/AdminUIs/ClassificationsAddUI.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DuckyEmulator/UIs/AdminUIs/ClassificationsUpdateUI.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DuckyEmulator/UIs/AdminUIs/HomePageUI.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DuckyEmulator/UIs/AdminUIs/QBankAddUI.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DuckyEmulator/UIs/AdminUIs/QBankIndexUI.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DuckyEmulator/UIs/AdminUIs/QBankUpdateUI.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DuckyEmulator/UIs/AdminUIs/TopicsAddUI.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DuckyEmulator/UIs/AdminUIs/TopicsClassIndexUI.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DuckyEmulator/UIs/AdminUIs/TopicsUpdateUI.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DuckyEmulator/UIs/LoginLogout/Login.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DuckyEmulator/UIs/Navigator.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DuckyEmulator/Utilities/FileHandler/FileHandler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DuckyEmulator/Utilities/FileHandler/NameGenerator.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DuckyEmulator/Utilities/PromptAlert/AlertUtil.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Database/DBService/MySQLService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Database/MainDB/AdminBeans/Classifications.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Database/MainDB/AdminBeans/Questions.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Database/MainDB/AdminBeans/Topics.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Database/MainDB/CredentialBeans/Users.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Database/MainDB/DataSet/DataSeeding(MultipleTopics).sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Database/MainDB/DataSet/DataSeeding(SingleTopic).sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Database/MainDB/DataSet/MainDB.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main/DuckyEmulatorMain.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/UIControllers/AdminUIsControllers/ClassificationsAddUIController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/UIControllers/AdminUIsControllers/ClassificationsUpdateUIController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/UIControllers/AdminUIsControllers/HomePageUIController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/UIControllers/AdminUIsControllers/QBankAddUIController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/UIControllers/AdminUIsControllers/QBankIndexUIController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/UIControllers/AdminUIsControllers/QBankUpdateUIController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/UIControllers/AdminUIsControllers/TopicsAddUIController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/UIControllers/AdminUIsControllers/TopicsClassIndexUIController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/UIControllers/AdminUIsControllers/TopicsUpdateUIController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/UIControllers/LoginController/LoginUIController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/UIs/AdminUIs/ClassificationsAddUI.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/UIs/AdminUIs/ClassificationsUpdateUI.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/UIs/AdminUIs/HomePageUI.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/UIs/AdminUIs/QBankAddUI.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/UIs/AdminUIs/QBankIndexUI.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/UIs/AdminUIs/QBankUpdateUI.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/UIs/AdminUIs/TopicsAddUI.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/UIs/AdminUIs/TopicsClassIndexUI.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/UIs/AdminUIs/TopicsUpdateUI.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/UIs/Login/LoginUI.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/UIs/Navigator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Utilities/Constant/ErrorMessage/ErrorMessage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Utilities/Constant/ErrorTitle/ErrorTitle.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Utilities/Constant/FailedOperationType/FailedOperationType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Utilities/Constant/WarningMessage/WarningMessage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Utilities/Constant/WarningTitle/WarningTitle.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Utilities/FileHandler/FileHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Utilities/FileHandler/NameGenerator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Utilities/PromptAlert/AlertUtil.java" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Enum" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="2tU8VnjPQYjORHrPdEgBpQzn4oD" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.DuckyEmulatorMain.executor": "Run",
+    "Attach to process.localhost:5005.executor": "ProcessAttachDebug",
+    "Attach to process.localhost:8000.executor": "ProcessAttachDebug",
+    "Maven.Debug.executor": "Run",
+    "Maven.DuckyEmulator [--debug].executor": "Run",
+    "Maven.DuckyEmulator [-Dmaven.surefire.debug...].executor": "Run",
+    "Maven.DuckyEmulator [-Dmaven.surefire.debug=\"-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=localhost:8000\"...].executor": "Run",
+    "Maven.DuckyEmulator [-Dmaven.surefire.debug=-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005...].executor": "Run",
+    "Maven.DuckyEmulator [clean,install].executor": "Run",
+    "Maven.DuckyEmulator [javafx:run...].executor": "Debug",
+    "Maven.DuckyEmulator [javafx:run].executor": "Run",
+    "Maven.DuckyEmulator [mvn,exec:java...].executor": "Debug",
+    "Maven.DuckyEmulator [mvn...].executor": "Run",
+    "Maven.DuckyEmulator [mvnDebug...].executor": "Debug",
+    "Maven.DuckyEmulator [org.apache.maven.plugins:maven-surefire-plugin:3.2.5:help].executor": "Run",
+    "Maven.DuckyEmulator [org.apache.maven.plugins:maven-surefire-plugin:3.2.5:test].executor": "Run",
+    "Maven.DuckyEmulatorDebug.executor": "Run",
+    "Maven.DuckyEmulatorExec.executor": "Run",
+    "Maven.Exec.executor": "Run",
+    "Maven.fuck.executor": "Run",
+    "Remote JVM Debug.Unnamed.executor": "Debug",
+    "Remote JVM Debug.mvnDebug.executor": "Debug",
+    "RunOnceActivity.OpenDatabaseViewOnStart": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "2-19-2025",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/ducksabervn",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "onboarding.tips.debug.path": "/Users/ducksabervn/DATA/coding/DuckyEmulator/DuckyEmulator/src/main/java/org/example/Main.java",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "preferences.editor",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "redshift",
+      "mysql"
+    ]
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/java/com/ducksabervn/duckyemulator/UIs" />
+      <recent name="$PROJECT_DIR$/src/main/resources/UIs" />
+      <recent name="$PROJECT_DIR$/src/main/java/com/ducksabervn/duckyemulator" />
+    </key>
+  </component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="mvn clean install" />
+      <command value="mvn javafx:run" />
+      <command value="mvn --debug" />
+      <command value="mvnDebug -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=8000" />
+      <command value="mvnDebug -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005" />
+      <command value="mvn -Dmaven.surefire.debug=&quot;-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=localhost:8000&quot; test" />
+      <command value="mvnDebug -Dmaven.surefire.debug=&quot;-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=localhost:8000&quot; test" />
+      <command value="mvn -Dmaven.surefire.debug test" />
+      <command value="mvn -Dmaven.surefire.debug target" />
+      <command value="mvn -Dmaven.surefire.debug test target" />
+      <command value="mvnDebug" />
+    </option>
+  </component>
+  <component name="RunManager" selected="Maven.Debug" />
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-125ca727e0f0-intellij.indexing.shared.core-IU-243.24978.46" />
+        <option value="bundled-js-predefined-d6986cc7102b-76f8388c3a79-JavaScript-IU-243.24978.46" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a57d5096-8edd-4b4d-954e-07f711464abf" name="Changes" comment="" />
+      <created>1740395319312</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1740395319312</updated>
+      <workItem from="1740395320786" duration="12482000" />
+      <workItem from="1740408205861" duration="2099000" />
+      <workItem from="1740435737875" duration="7987000" />
+      <workItem from="1740447631209" duration="849000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>

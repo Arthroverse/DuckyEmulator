@@ -4,34 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="876640ba-2309-4eec-9124-d451bb765e14" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckyEmulator/out/production/DuckyEmulator/Database/MainDB/Beans/Questions.class" beforeDir="false" afterPath="$PROJECT_DIR$/DuckyEmulator/out/production/DuckyEmulator/Database/MainDB/Beans/Questions.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckyEmulator/out/production/DuckyEmulator/Database/MainDB/DataSet/DataSeeding(MultipleTopics).sql" beforeDir="false" afterPath="$PROJECT_DIR$/DuckyEmulator/out/production/DuckyEmulator/Database/MainDB/DataSet/DataSeeding(MultipleTopics).sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckyEmulator/out/production/DuckyEmulator/Database/MainDB/DataSet/MainDB.sql" beforeDir="false" afterPath="$PROJECT_DIR$/DuckyEmulator/out/production/DuckyEmulator/Database/MainDB/DataSet/MainDB.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckyEmulator/out/production/DuckyEmulator/UIControllers/AdminUIsControllers/QBankUpdateUIController.class" beforeDir="false" afterPath="$PROJECT_DIR$/DuckyEmulator/out/production/DuckyEmulator/UIControllers/AdminUIsControllers/QBankUpdateUIController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckyEmulator/out/production/DuckyEmulator/UIs/Navigator.class" beforeDir="false" afterPath="$PROJECT_DIR$/DuckyEmulator/out/production/DuckyEmulator/UIs/Navigator.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckyEmulator/out/production/DuckyEmulator/Utilities/FileHandler/FileHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/DuckyEmulator/out/production/DuckyEmulator/Utilities/FileHandler/FileHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckyEmulator/src/Database/MainDB/Beans/Classifications.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckyEmulator/src/Database/MainDB/Beans/Questions.java" beforeDir="false" afterPath="$PROJECT_DIR$/DuckyEmulator/src/Database/MainDB/AdminBeans/Questions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckyEmulator/src/Database/MainDB/Beans/Topics.java" beforeDir="false" afterPath="$PROJECT_DIR$/DuckyEmulator/src/Database/MainDB/AdminBeans/Topics.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckyEmulator/src/Database/MainDB/DataSet/DataSeeding(MultipleTopics).sql" beforeDir="false" afterPath="$PROJECT_DIR$/DuckyEmulator/src/Database/MainDB/DataSet/DataSeeding(MultipleTopics).sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckyEmulator/src/Database/MainDB/DataSet/MainDB.sql" beforeDir="false" afterPath="$PROJECT_DIR$/DuckyEmulator/src/Database/MainDB/DataSet/MainDB.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckyEmulator/src/Main/DuckyEmulatorMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/DuckyEmulator/src/Main/DuckyEmulatorMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckyEmulator/src/UIControllers/AdminUIsControllers/ClassificationsAddUIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/DuckyEmulator/src/UIControllers/AdminUIsControllers/ClassificationsAddUIController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckyEmulator/src/UIControllers/AdminUIsControllers/ClassificationsUpdateUIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/DuckyEmulator/src/UIControllers/AdminUIsControllers/ClassificationsUpdateUIController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckyEmulator/src/UIControllers/AdminUIsControllers/QBankAddUIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/DuckyEmulator/src/UIControllers/AdminUIsControllers/QBankAddUIController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckyEmulator/src/UIControllers/AdminUIsControllers/QBankIndexUIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/DuckyEmulator/src/UIControllers/AdminUIsControllers/QBankIndexUIController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckyEmulator/src/UIControllers/AdminUIsControllers/QBankUpdateUIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/DuckyEmulator/src/UIControllers/AdminUIsControllers/QBankUpdateUIController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckyEmulator/src/UIControllers/AdminUIsControllers/TopicsAddUIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/DuckyEmulator/src/UIControllers/AdminUIsControllers/TopicsAddUIController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckyEmulator/src/UIControllers/AdminUIsControllers/TopicsClassIndexUIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/DuckyEmulator/src/UIControllers/AdminUIsControllers/TopicsClassIndexUIController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckyEmulator/src/UIControllers/AdminUIsControllers/TopicsUpdateUIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/DuckyEmulator/src/UIControllers/AdminUIsControllers/TopicsUpdateUIController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckyEmulator/src/UIs/Navigator.java" beforeDir="false" afterPath="$PROJECT_DIR$/DuckyEmulator/src/UIs/Navigator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckyEmulator/src/Utilities/FileHandler/FileHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/DuckyEmulator/src/Utilities/FileHandler/FileHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckyEmulator/src/Utilities/FileHandler/NameGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/DuckyEmulator/src/Utilities/FileHandler/NameGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DuckyEmulator/src/Utilities/PromptAlert/AlertUtil.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project_Management/~$oject_Tracking_2_15_2025.doc" beforeDir="false" />
-    </list>
+    <list default="true" id="876640ba-2309-4eec-9124-d451bb765e14" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
