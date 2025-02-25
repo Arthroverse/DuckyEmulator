@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ Copyright (c) 2025 Arthroverse Laboratory
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  ~
+  ~ Organization: Arthroverse Laboratory
+  ~ Author: Vinh Dinh Mai
+  ~ Contact: business@arthroverse.com
+  ~
+  ~
+  ~ @author ducksabervn
+  -->
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Pagination?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ducksabervn.duckyemulator.UIControllers.AdminUIsControllers.TopicsClassIndexUIController">
+   <top>
+      <HBox alignment="TOP_CENTER" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="DuckyEmulator Admin Console">
+               <font>
+                  <Font name="Proxima Nova Bold" size="36.0" />
+               </font>
+            </Label>
+            <Line endX="100.0" scaleX="3.0" scaleY="5.0" startX="-100.0" translateX="-350.0" translateY="50.0" />
+         </children>
+         <BorderPane.margin>
+            <Insets left="245.0" right="50.0" top="10.0" />
+         </BorderPane.margin>
+      </HBox>
+   </top>
+   <left>
+      <VBox alignment="CENTER" prefHeight="1052.0" prefWidth="210.0" spacing="30.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="greetingLabel">
+               <font>
+                  <Font name="Proxima Nova Bold" size="25.0" />
+               </font>
+            </Label>
+            <Button fx:id="btnMenuHome" mnemonicParsing="false" onAction="#btnMenuHomeClick" text="Home">
+               <font>
+                  <Font name="Proxima Nova" size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnMenuQuestBank" mnemonicParsing="false" onAction="#btnMenuQuestBankClick" text="Question Banks">
+               <font>
+                  <Font name="Proxima Nova" size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnMenuTopicClass" mnemonicParsing="false" onAction="#btnMenuTopicClassClick" text="Topics/Classifications">
+               <font>
+                  <Font name="Proxima Nova" size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnLogout" mnemonicParsing="false" onAction="#btnLogoutClick" text="Logout">
+               <font>
+                  <Font name="Proxima Nova" size="18.0" />
+               </font>
+            </Button>
+            <Line endX="100.0" rotate="90.0" scaleX="2.0" scaleY="5.0" startX="-100.0" translateX="110.0" translateY="-140.0" />
+         </children>
+         <BorderPane.margin>
+            <Insets right="20.0" />
+         </BorderPane.margin>
+      </VBox>
+   </left>
+   <center>
+      <VBox BorderPane.alignment="CENTER">
+         <children>
+            <BorderPane>
+               <top>
+                  <HBox alignment="CENTER_LEFT" spacing="30.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <Label text="Topics view">
+                           <font>
+                              <Font name="Proxima Nova Bold" size="25.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="btnTopicViewAdd" mnemonicParsing="false" onAction="#btnTopicViewAddClick" text="Add">
+                           <font>
+                              <Font name="Proxima Nova" size="20.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="btnTopicViewUpdate" mnemonicParsing="false" onAction="#btnTopicViewUpdateClick" text="Update">
+                           <font>
+                              <Font name="Proxima Nova" size="20.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="btnTopicViewDelete" mnemonicParsing="false" onAction="#btnTopicViewDeleteClick" text="Delete">
+                           <font>
+                              <Font name="Proxima Nova" size="20.0" />
+                           </font>
+                        </Button>
+                     </children>
+                     <padding>
+                        <Insets left="30.0" />
+                     </padding>
+                     <BorderPane.margin>
+                        <Insets bottom="20.0" top="30.0" />
+                     </BorderPane.margin>
+                  </HBox>
+               </top>
+               <center>
+                  <BorderPane BorderPane.alignment="CENTER">
+                     <center>
+                        <TableView fx:id="tableTopicView" prefHeight="452.0" prefWidth="1506.0" BorderPane.alignment="CENTER">
+                          <columns>
+                            <TableColumn fx:id="tableTopicNameCol" prefWidth="506.0" text="Topic name" />
+                              <TableColumn fx:id="tableTopicDesc" prefWidth="997.0" text="Topic description" />
+                          </columns>
+                        </TableView>
+                     </center>
+                     <BorderPane.margin>
+                        <Insets />
+                     </BorderPane.margin>
+                     <padding>
+                        <Insets right="100.0" />
+                     </padding>
+                     <bottom>
+                        <Pagination fx:id="tableViewTopicPageination" prefHeight="48.0" prefWidth="1506.0" BorderPane.alignment="CENTER" />
+                     </bottom>
+                  </BorderPane>
+               </center>
+            </BorderPane>
+            <BorderPane>
+               <top>
+                  <HBox alignment="CENTER_LEFT" spacing="30.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <Label text="Classifications view">
+                           <font>
+                              <Font name="Proxima Nova Bold" size="25.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="tableClassViewAdd" mnemonicParsing="false" onAction="#tableClassViewAddClick" text="Add">
+                           <font>
+                              <Font name="Proxima Nova" size="20.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="tableClassViewUpdate" mnemonicParsing="false" onAction="#tableClassViewUpdateClick" text="Update">
+                           <font>
+                              <Font name="Proxima Nova" size="20.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="tableClassViewDelete" mnemonicParsing="false" onAction="#tableClassViewDeleteClick" text="Delete">
+                           <font>
+                              <Font name="Proxima Nova" size="20.0" />
+                           </font>
+                        </Button>
+                     </children>
+                     <padding>
+                        <Insets left="30.0" />
+                     </padding>
+                     <BorderPane.margin>
+                        <Insets bottom="20.0" top="20.0" />
+                     </BorderPane.margin>
+                  </HBox>
+               </top>
+               <bottom>
+                  <Pane prefHeight="44.0" prefWidth="1506.0" BorderPane.alignment="CENTER" />
+               </bottom>
+               <center>
+                  <BorderPane BorderPane.alignment="CENTER">
+                     <center>
+                        <TableView fx:id="tableClassView" prefHeight="485.0" prefWidth="1506.0" BorderPane.alignment="CENTER">
+                          <columns>
+                            <TableColumn fx:id="tableClassificationCol" prefWidth="489.0" text="Classification" />
+                              <TableColumn fx:id="tableClassificationDesc" prefWidth="1015.0" text="Classification description" />
+                          </columns>
+                           <BorderPane.margin>
+                              <Insets />
+                           </BorderPane.margin>
+                        </TableView>
+                     </center>
+                     <bottom>
+                        <Pagination fx:id="tableViewClassPagination" prefHeight="52.0" prefWidth="1506.0" BorderPane.alignment="CENTER" />
+                     </bottom>
+                  </BorderPane>
+               </center>
+               <padding>
+                  <Insets right="100.0" />
+               </padding>
+            </BorderPane>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>
