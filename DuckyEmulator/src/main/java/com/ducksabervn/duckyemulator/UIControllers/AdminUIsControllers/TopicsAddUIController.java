@@ -57,12 +57,6 @@ public class TopicsAddUIController implements Initializable {
     @FXML
     private TextField txtFieldTopicName;
 
-    @FXML
-    private Button btnLogout;
-
-    @FXML
-    private Label greetingLabel;
-
     private static StringBuilder errorMessage = new StringBuilder();
 
     @FXML
@@ -90,7 +84,6 @@ public class TopicsAddUIController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        greetingLabel.setText(Users.getUserNameForFrontEnd());
     }
 
     private boolean inputValidation(){

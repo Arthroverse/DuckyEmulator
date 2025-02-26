@@ -64,6 +64,46 @@ CREATE TABLE IF NOT EXISTS Users(
 );
 
 INSERT INTO Users(UserEmail, UserName, UserPassword, UserType)
-VALUES('a@example.com', 'hello', '123456789', 'Admin');
+VALUES('a@example.com', 'vinh', '123456789', 'Admin');
+
+CREATE TABLE IF NOT EXISTS ArchivedQuestions(
+    QuestionId INT NOT NULL,
+    PRIMARY KEY(QuestionId),
+    ClassificationId INT NOT NULL,
+    QuestionStatement VARCHAR(512) NOT NULL,
+    CorrectAnswer VARCHAR(512) NOT NULL,
+    Choice1 VARCHAR(512) NOT NULL,
+    Choice2 VARCHAR(512) NOT NULL,
+    Choice3 VARCHAR(512) NOT NULL,
+    Choice4 VARCHAR(512) NOT NULL,
+    ImagePath VARCHAR(512),
+    DeletedAt VARCHAR(150),
+    DeletedBy VARCHAR(50)
+);
+
+CREATE TABLE IF NOT EXISTS ArchivedClassifications(
+    ClassificationId INT NOT NULL,
+    Classification VARCHAR(50),
+    Description VARCHAR(512),
+    PRIMARY KEY(ClassificationId),
+    DeletedAt VARCHAR(150),
+    DeletedBy VARCHAR(50)
+);
+
+CREATE TABLE IF NOT EXISTS ArchivedTopics(
+    TopicId INT NOT NULL,
+    TopicName VARCHAR(50) NOT NULL,
+    Description VARCHAR(512),
+    PRIMARY KEY(TopicId),
+    DeletedAt VARCHAR(150),
+    DeletedBy VARCHAR(50)
+);
+
+CREATE TABLE IF NOT EXISTS ArchivedQTRelationship(
+    QuestionId INT NOT NULL,
+    TopicId INT NOT NULL,
+    PRIMARY KEY(QuestionId, TopicId)
+);
+
 -- FOR TESTING AND DEBUGGING PURPOSES
 -- DROP DATABASE DuckyEmulator_QuestionDB;

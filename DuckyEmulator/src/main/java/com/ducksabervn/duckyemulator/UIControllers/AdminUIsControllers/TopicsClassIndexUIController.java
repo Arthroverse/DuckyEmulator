@@ -160,13 +160,12 @@ public class TopicsClassIndexUIController implements Initializable{
                 "Delete topic confirmation",
                 "Are you sure you want to delete the selected topic ?"
         )){
-            if(Topics.delete(selectedTop)){
-                if(tableTopicView.getItems().size() == 1 & tableViewTopicPageination.getCurrentPageIndex() > 0){
-                    currentTopicPageIndex = tableViewTopicPageination.getCurrentPageIndex() - 1;
-                }
-                tableTopicView.getItems().remove(selectedTop);
-                Navigator.getInstance().goToTopicClassIndex();
+            Topics.delete(selectedTop);
+            if(tableTopicView.getItems().size() == 1 & tableViewTopicPageination.getCurrentPageIndex() > 0){
+                currentTopicPageIndex = tableViewTopicPageination.getCurrentPageIndex() - 1;
             }
+            tableTopicView.getItems().remove(selectedTop);
+            Navigator.getInstance().goToTopicClassIndex();
         }
     }
 
@@ -189,13 +188,12 @@ public class TopicsClassIndexUIController implements Initializable{
                 "Delete topic confirmation",
                 "Are you sure you want to delete the selected topic ?"
         )){
-            if(Classifications.delete(selectedClass)){
-                if(tableClassView.getItems().size() == 1 & tableViewClassPagination.getCurrentPageIndex() > 0){
-                    currentClassPageIndex = tableViewClassPagination.getCurrentPageIndex() - 1;
-                }
-                tableClassView.getItems().remove(selectedClass);
-                Navigator.getInstance().goToTopicClassIndex();
+            Classifications.delete(selectedClass);
+            if(tableClassView.getItems().size() == 1 & tableViewClassPagination.getCurrentPageIndex() > 0){
+                currentClassPageIndex = tableViewClassPagination.getCurrentPageIndex() - 1;
             }
+            tableClassView.getItems().remove(selectedClass);
+            Navigator.getInstance().goToTopicClassIndex();
         }
     }
 
