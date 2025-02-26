@@ -23,6 +23,7 @@
 package com.ducksabervn.duckyemulator.Database.MainDB.AdminBeans;
 
 import com.ducksabervn.duckyemulator.Database.DBService.MySQLService;
+import com.ducksabervn.duckyemulator.Database.MainDB.CredentialBeans.Users;
 import com.ducksabervn.duckyemulator.UIControllers.AdminUIsControllers.QBankIndexUIController;
 import com.ducksabervn.duckyemulator.Utilities.Constant.ErrorTitle;
 import com.ducksabervn.duckyemulator.Utilities.FileHandler.FileHandler;
@@ -39,15 +40,16 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
-public class Questions {
+public class Questions{
     private ObjectProperty<Integer> foreignKeyClassificationId;
     private StringProperty foreignKeyClassificationIdForDisplay;
-    private ArrayList<Integer> foreignKeyTopicId;
-    private ArrayList<Integer> oldForeignKeyTopicId;
     private ObjectProperty<Integer> questionId;
     private StringProperty questionStatement;
     private StringProperty choice1;
@@ -57,11 +59,12 @@ public class Questions {
     private StringProperty correctAnswer;
     private StringProperty imagePath;
 
+    private ArrayList<Integer> foreignKeyTopicId;
+    private ArrayList<Integer> oldForeignKeyTopicId;
+
     public Questions() {
         foreignKeyClassificationId = new SimpleObjectProperty<Integer>(null);
         foreignKeyClassificationIdForDisplay = new SimpleStringProperty();
-        foreignKeyTopicId = new ArrayList<>();
-        oldForeignKeyTopicId = new ArrayList<>();
         questionId = new SimpleObjectProperty<Integer>(null);
         questionStatement = new SimpleStringProperty();
         choice1 = new SimpleStringProperty();
@@ -70,6 +73,9 @@ public class Questions {
         choice4 = new SimpleStringProperty();
         correctAnswer = new SimpleStringProperty();
         imagePath = new SimpleStringProperty();
+
+        foreignKeyTopicId = new ArrayList<>();
+        oldForeignKeyTopicId = new ArrayList<>();
     }
 
     public Integer getForeignKeyClassificationId() {
@@ -252,7 +258,8 @@ public class Questions {
                 qIdList.add(rs.getInt(1));
             }
         }catch(Exception e){
-            AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e), ErrorTitle.SQL_QUEST_SELECT_QID_FAILED.toString());
+            AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e),
+                    ErrorTitle.SQL_QUEST_SELECT_QID_FAILED.toString());
         }
 
         String qIdListString = qIdList.stream().map(Object::toString)
@@ -302,7 +309,8 @@ public class Questions {
                     }
                 }
             }catch(Exception e){
-                AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e), ErrorTitle.SQL_QUEST_PARTIAL_SELECT_FAILED.toString());
+                AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e),
+                        ErrorTitle.SQL_QUEST_PARTIAL_SELECT_FAILED.toString());
             }
         }
         return FXCollections.observableArrayList(questions.values());
@@ -336,7 +344,8 @@ public class Questions {
             quest.setImagePath(FileHandler.addNewImage(imgPath, qId));
             return quest;
         } catch (Exception e) {
-            AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e), ErrorTitle.SQL_QUEST_ADD_QUESTION_FAILED.toString());
+            AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e),
+                    ErrorTitle.SQL_QUEST_ADD_QUESTION_FAILED.toString());
             return null;
         }
     }
@@ -351,11 +360,68 @@ public class Questions {
             if(rs.getInt(1) == 0) maxNumPage = 1;
             QBankIndexUIController.setMaxPageNum((int)Math.ceil(maxNumPage/10.0));
         } catch (Exception e) {
-            AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e), ErrorTitle.SQL_QUEST_SET_PAGE_FAILED.toString());
+            AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e),
+                    ErrorTitle.SQL_QUEST_SET_PAGE_FAILED.toString());
         }
     }
 
-    public static boolean delete(Questions quest) {
+    public static void delete(Questions quest){
+        LocalDateTime deletedDate = LocalDateTime.now();
+        String deletedBy = Users.getUserNameForFrontEnd();
+        String sqlInsertQuestions = "INSERT INTO ArchivedQuestions(QuestionId, ClassificationId, " +
+                "QuestionStatement, CorrectAnswer, Choice1, Choice2, Choice3, Choice4, DeletedAt, DeletedBy) " +
+                "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        String oldImagePath = "";
+        try (
+                Connection conn1 = MySQLService.getConnection();
+                PreparedStatement stmt1 = conn1.prepareStatement(sqlInsertQuestions);
+        ) {
+            stmt1.setInt(1, quest.getQuestionId());
+            stmt1.setInt(2, quest.getForeignKeyClassificationId());
+            stmt1.setString(3, quest.getQuestionStatement());
+            stmt1.setString(4, quest.getCorrectAnswer());
+            stmt1.setString(5, quest.getChoice1());
+            stmt1.setString(6, quest.getChoice2());
+            stmt1.setString(7, quest.getChoice3());
+            stmt1.setString(8, quest.getChoice4());
+            stmt1.setString(9, deletedDate.toString());
+            stmt1.setString(10, deletedBy);
+            stmt1.executeUpdate();
+            oldImagePath = quest.getImagePath();
+            String newImagePath = FileHandler.deleteAndReplaceExistingImg(quest.getImagePath());
+            quest.setImagePath(newImagePath);
+            String sqlImgUpdateQuery = "UPDATE ArchivedQuestions SET ImagePath = ? WHERE QuestionId = ?";
+            try(
+                    Connection conn2 = MySQLService.getConnection();
+                    PreparedStatement stmt2 = conn2.prepareStatement(sqlImgUpdateQuery);
+            ){
+                stmt2.setString(1,newImagePath);
+                stmt2.setInt(2, quest.getQuestionId());
+                stmt2.executeUpdate();
+            }catch(Exception e){
+                AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e),
+                        ErrorTitle.SQL_QUEST_DELETE_FAILED.toString());
+            }
+        } catch (Exception e) {
+            AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e),
+                    ErrorTitle.SQL_QUEST_DELETE_FAILED.toString());
+        }
+        String sqlInsertQtRelationship = "INSERT INTO ArchivedQTRelationship(QuestionId, TopicId) "
+                + "VALUES(?, ?);";
+        for(Integer i: quest.getForeignKeyTopicId()){
+            try (
+                    Connection conn = MySQLService.getConnection();
+                    PreparedStatement stmt = conn.prepareStatement(sqlInsertQtRelationship);
+            ) {
+                stmt.setInt(1, quest.getQuestionId());
+                stmt.setInt(2, i);
+                stmt.executeUpdate();
+            } catch (Exception e) {
+                AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e),
+                        ErrorTitle.SQL_QUEST_QTRELATIONSHIP_DELETE_FAILED.toString());
+            }
+        }
+
         String sqlQtRelationship = "DELETE FROM QTRelationship WHERE QuestionId = ?";
         try (
                 Connection conn = MySQLService.getConnection();
@@ -364,7 +430,8 @@ public class Questions {
             stmt.setInt(1, quest.getQuestionId());
             stmt.executeUpdate();
         } catch (Exception e) {
-            AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e), ErrorTitle.SQL_QUEST_QTRELATIONSHIP_DELETE_FAILED.toString());
+            AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e),
+                    ErrorTitle.SQL_QUEST_QTRELATIONSHIP_DELETE_FAILED.toString());
         }
         String sqlDel = "DELETE FROM Questions WHERE QuestionId = ?;";
         try (
@@ -374,13 +441,11 @@ public class Questions {
             stmt.setInt(1, quest.getQuestionId());
             boolean isDeleted = stmt.executeUpdate() == 1 ? true : false;
             if (isDeleted){
-                FileHandler.removeImage(quest.getImagePath());
-                return true;
+                FileHandler.removeImage(oldImagePath);
             }
-            else return false;
         } catch (Exception e) {
-            AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e), ErrorTitle.SQL_QUEST_DELETE_FAILED.toString());
-            return false;
+            AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e),
+                    ErrorTitle.SQL_QUEST_DELETE_FAILED.toString());
         }
     }
 
@@ -418,10 +483,12 @@ public class Questions {
                 stmt2.setInt(2, quest.getQuestionId());
                 stmt2.executeUpdate();
             }catch(Exception e){
-                AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e), ErrorTitle.SQL_QUEST_INSERTION_FAILED.toString());
+                AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e),
+                        ErrorTitle.SQL_QUEST_INSERTION_FAILED.toString());
             }
         } catch (Exception e) {
-            AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e), ErrorTitle.SQL_QUEST_INSERTION_FAILED.toString());
+            AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e),
+                    ErrorTitle.SQL_QUEST_INSERTION_FAILED.toString());
         }
         String sqlInsertQtRelationship = "INSERT INTO QtRelationship(QuestionId, TopicId) "
                 + "VALUES(?, ?);";
@@ -434,7 +501,8 @@ public class Questions {
                 stmt.setInt(2, i);
                 stmt.executeUpdate();
             } catch (Exception e) {
-                AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e), ErrorTitle.SQL_QUEST_QTRELATIONSHIP_INSERT_FAILED.toString());
+                AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e),
+                        ErrorTitle.SQL_QUEST_QTRELATIONSHIP_INSERT_FAILED.toString());
             }
         }
     }
@@ -450,7 +518,8 @@ public class Questions {
                     stmt.setInt(2, i);
                     stmt.executeUpdate();
                 } catch (Exception e) {
-                    AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e), ErrorTitle.SQL_QUEST_QTRELATIONSHIP_DELETE_FAILED.toString());
+                    AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e),
+                            ErrorTitle.SQL_QUEST_QTRELATIONSHIP_DELETE_FAILED.toString());
                 }
             }
         }
@@ -465,7 +534,8 @@ public class Questions {
                     stmt.setInt(2, i);
                     stmt.executeUpdate();
                 } catch (Exception e) {
-                    AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e), ErrorTitle.SQL_QUEST_QTRELATIONSHIP_INSERT_FAILED.toString());
+                    AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e),
+                            ErrorTitle.SQL_QUEST_QTRELATIONSHIP_INSERT_FAILED.toString());
                 }
             }
         }
@@ -498,10 +568,12 @@ public class Questions {
                 stmt2.setInt(2, q.getQuestionId());
                 stmt2.executeUpdate();
             }catch(Exception e){
-                AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e), ErrorTitle.SQL_QUEST_UPDATE_FAILED.toString());
+                AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e),
+                        ErrorTitle.SQL_QUEST_UPDATE_FAILED.toString());
             }
         } catch (Exception e) {
-            AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e), ErrorTitle.SQL_QUEST_UPDATE_FAILED.toString());
+            AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e),
+                    ErrorTitle.SQL_QUEST_UPDATE_FAILED.toString());
         }
     }
 }
