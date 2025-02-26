@@ -247,6 +247,17 @@ public class Questions{
                 "FROM Questions " +
                 "ORDER BY QuestionId " +
                 "LIMIT 10 OFFSET ? ";
+        //TODO: READ THIS COMMENTS !!!
+        /*
+        * The current implementation of the delete method is "ok" but not
+        * entirely perfect. It is because the creation of 4 separate tables
+        * make the entire database become filled with garbage and stuff =>
+        * slowing down the entire system with just "delete" button.
+        * The solution is to change the qIdOffset query with an additional
+        * WHERE isDeleted = True (or something similar to that). Therefore,
+        * when each questions is deleted, it will be marked as deleted =>
+        * This query will filter out all questions mark as deleted (and also
+        * maintain the same 10 questions query mechanism)*/
         ArrayList<Integer> qIdList = new ArrayList<>();
         try(
                 Connection conn = MySQLService.getConnection();
