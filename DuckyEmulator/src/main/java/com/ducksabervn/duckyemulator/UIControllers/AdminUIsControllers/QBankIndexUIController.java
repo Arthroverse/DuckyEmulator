@@ -132,13 +132,12 @@ public class QBankIndexUIController implements Initializable {
                 "Delete question confirmation",
                 "Are you sure you want to delete the selected question ?"
         )){
-            if(Questions.delete(selectedQuest)){
-                if(tableBankView.getItems().size() == 1 & currentPageIndex > 0){
-                    currentPageIndex = pageinationQBank.getCurrentPageIndex() - 1;
-                }
-                tableBankView.getItems().remove(selectedQuest);
-                Navigator.getInstance().goToQBankIndex();
+            Questions.delete(selectedQuest);
+            if(tableBankView.getItems().size() == 1 & currentPageIndex > 0){
+                currentPageIndex = pageinationQBank.getCurrentPageIndex() - 1;
             }
+            tableBankView.getItems().remove(selectedQuest);
+            Navigator.getInstance().goToQBankIndex();
         }
     }
 
