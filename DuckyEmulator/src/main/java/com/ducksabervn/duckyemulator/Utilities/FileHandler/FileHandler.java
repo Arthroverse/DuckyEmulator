@@ -42,10 +42,13 @@ public final class FileHandler {
 
     public static final String programImgSrcFolderName = "DuckyEmulator/imgsrc";
 
+    public static final String programImgDeletedSrcFolderName = "DuckyEmulator/deletedImg";
+
     public static void initialize(){
         new File(userPath,programFolderName).mkdir();
         new File(userPath, programLogFolderName).mkdirs();
         new File(userPath, programImgSrcFolderName).mkdirs();
+        new File(userPath, programImgDeletedSrcFolderName).mkdirs();
     }
 
     public static String returnImgPath(FileChooser fileChooser){
@@ -77,5 +80,13 @@ public final class FileHandler {
     public static void removeImage(String imgPath) throws IOException {
         Path delPath = Paths.get(userPath + "/" + imgPath);
         Files.delete(delPath);
+    }
+
+    public static String deleteAndReplaceExistingImg(String relativePath) throws IOException {
+        String fileNameExtracted = relativePath.substring(relativePath.lastIndexOf("/") + 1);
+        Path newPath = Paths.get(userPath + "/" + programImgDeletedSrcFolderName + "/" + fileNameExtracted);
+        Path oldPath = Paths.get(userPath + "/" + relativePath);
+        Files.copy(oldPath, newPath, StandardCopyOption.REPLACE_EXISTING);
+        return programImgDeletedSrcFolderName + "/" + fileNameExtracted;
     }
 }
