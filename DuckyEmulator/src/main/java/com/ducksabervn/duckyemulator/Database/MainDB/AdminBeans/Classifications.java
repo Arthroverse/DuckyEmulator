@@ -23,6 +23,7 @@
 package com.ducksabervn.duckyemulator.Database.MainDB.AdminBeans;
 
 import com.ducksabervn.duckyemulator.Database.DBService.MySQLService;
+import com.ducksabervn.duckyemulator.Database.MainDB.CredentialBeans.Users;
 import com.ducksabervn.duckyemulator.UIControllers.AdminUIsControllers.TopicsClassIndexUIController;
 import com.ducksabervn.duckyemulator.Utilities.Constant.ErrorMessage;
 import com.ducksabervn.duckyemulator.Utilities.Constant.ErrorTitle;
@@ -39,6 +40,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -115,7 +117,8 @@ public class Classifications {
                 classificationNameAsKey.put(classifications, clazz);
             }
         }catch(Exception e){
-            AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e), ErrorTitle.SQL_CLASS_INIT_QUERY_FAILED.toString());
+            AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e),
+                    ErrorTitle.SQL_CLASS_INIT_QUERY_FAILED.toString());
         }
     }
 
@@ -136,7 +139,8 @@ public class Classifications {
                 clazzs.add(clazz);
             }
         }catch(Exception e) {
-            AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e), ErrorTitle.SQL_CLASS_PARTIAL_QUERY_FAILED.toString());
+            AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e),
+                    ErrorTitle.SQL_CLASS_PARTIAL_QUERY_FAILED.toString());
         }
         return clazzs;
     }
@@ -152,11 +156,12 @@ public class Classifications {
             if(rs.getInt(1) == 0) maxPageNum = 1;
             TopicsClassIndexUIController.setClassessMaxPageNum((int)(Math.ceil(maxPageNum/10.0)));
         } catch (Exception e) {
-            AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e), ErrorTitle.SQL_CLASS_PAGINATION_SET_PAGE_FAILED.toString());
+            AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e),
+                    ErrorTitle.SQL_CLASS_PAGINATION_SET_PAGE_FAILED.toString());
         }
     }
 
-    public static boolean delete(Classifications clazz){
+    public static void delete(Classifications clazz){
         int totalRelatedQuestions = 0;
         try(
                 Connection conn = MySQLService.getConnection();
@@ -168,15 +173,34 @@ public class Classifications {
                 totalRelatedQuestions++;
             }
         }catch(Exception e){
-            AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e), ErrorTitle.SQL_CLASS_DELETION_FAILED.toString());
+            AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e),
+                    ErrorTitle.SQL_CLASS_DELETION_FAILED.toString());
         }
         boolean isRelated = totalRelatedQuestions == 0 ? false : true;
         if(isRelated){
             AlertUtil.generateErrorWindow(ErrorTitle.SQL_CLASS_DELETION_FAILED.toString(),
                     FailedOperationType.SQL_CLASS_DELETE_CLASS_FAILED.toString(),
                     String.format(ErrorMessage.SQL_CLASS_NUM_OF_RELATED_QUESTION.toString(), totalRelatedQuestions));
-            return false;
         }else{
+            LocalDateTime deletedDate = LocalDateTime.now();
+            String deletedBy = Users.getUserNameForFrontEnd();
+            String sqlInsert = "INSERT INTO ArchivedClassifications(ClassificationId, Classification, Description, DeletedAt, DeletedBy) "
+                    + "VALUES(?, ?, ?, ?, ?);";
+            try(
+                    Connection conn = MySQLService.getConnection();
+                    PreparedStatement stmt = conn.prepareStatement(sqlInsert);
+            ){
+                stmt.setInt(1, clazz.getClassificationId());
+                stmt.setString(2, clazz.getClassification());
+                stmt.setString(3, clazz.getClassificationDescription());
+                stmt.setString(4, deletedDate.toString());
+                stmt.setString(5, deletedBy);
+                stmt.executeUpdate();
+            }catch(Exception e){
+                AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e),
+                        ErrorTitle.SQL_CLASS_INSERTION_FAILED.toString());
+            }
+
             String sqlDel = "DELETE FROM Classifications WHERE ClassificationId = ?;";
             try(
                     Connection conn = MySQLService.getConnection();
@@ -191,12 +215,10 @@ public class Classifications {
                     classificationNames.remove(clazz.getClassificationId());
                     final String clazzName = clazz.getClassification();
                     classificationNameAsKey.remove(clazzName);
-                    return true;
                 }
-                else return false;
             }catch(Exception e){
-                AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e), ErrorTitle.SQL_CLASS_DELETION_FAILED.toString());
-                return false;
+                AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e),
+                        ErrorTitle.SQL_CLASS_DELETION_FAILED.toString());
             }
         }
     }
@@ -223,7 +245,8 @@ public class Classifications {
                 classificationNameAsKey.put(clazzName, clazz);
             }
         }catch(Exception e){
-            AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e), ErrorTitle.SQL_CLASS_INSERTION_FAILED.toString());
+            AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e),
+                    ErrorTitle.SQL_CLASS_INSERTION_FAILED.toString());
         }
     }
     public static void update(Classifications c, final String oldClassificationName){
@@ -245,7 +268,8 @@ public class Classifications {
             classificationNameAsKey.put(classifications, c);
 
         }catch(Exception e){
-            AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e), ErrorTitle.SQL_CLASS_UPDATION_FAILED.toString());
+            AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e),
+                    ErrorTitle.SQL_CLASS_UPDATION_FAILED.toString());
         }
     }
 
