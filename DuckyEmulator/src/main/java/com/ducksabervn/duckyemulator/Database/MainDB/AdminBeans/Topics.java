@@ -23,6 +23,7 @@
 package com.ducksabervn.duckyemulator.Database.MainDB.AdminBeans;
 
 import com.ducksabervn.duckyemulator.Database.DBService.MySQLService;
+import com.ducksabervn.duckyemulator.Database.MainDB.CredentialBeans.Users;
 import com.ducksabervn.duckyemulator.UIControllers.AdminUIsControllers.TopicsClassIndexUIController;
 import com.ducksabervn.duckyemulator.Utilities.Constant.ErrorMessage;
 import com.ducksabervn.duckyemulator.Utilities.Constant.ErrorTitle;
@@ -39,6 +40,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -54,6 +56,8 @@ public class Topics {
     public static Map<Integer, String> topicNames;
 
     public static Map<String, Topics> topicsNameAsKey;
+
+    private static Map<Integer, Topics> deletedTopics = new HashMap<>();
 
     public Topics(){
         topicId = new SimpleObjectProperty<>(null);
@@ -73,6 +77,10 @@ public class Topics {
         return this.topicDescription.get();
     }
 
+    public static Map<Integer, Topics> getDeletedTopics(){
+        return deletedTopics;
+    }
+
     public ObjectProperty<Integer> getTopicIdProperty(){
         return this.topicId;
     }
@@ -83,6 +91,10 @@ public class Topics {
 
     public StringProperty getTopicDescriptionProperty(){
         return this.topicDescription;
+    }
+
+    public static void resetDeletedTopics(){
+        deletedTopics = new HashMap<>();
     }
 
     public void setTopicId(int id){
@@ -107,16 +119,19 @@ public class Topics {
                 ResultSet rs = stmt.executeQuery("SELECT * FROM Topics;");
         ){
             while(rs.next()){
-                int tId = rs.getInt("TopicId");
-                final String tName = rs.getString("TopicName");
-                String tDescription = rs.getString("Description");
-                Topics top = makeTopic(tId, tName, tDescription);
-                topicsQuestionView.put(tId, top);
-                topicNames.put(tId, tName);
-                topicsNameAsKey.put(tName, top);
+                if(!deletedTopics.containsKey(rs.getInt("TopicId"))){
+                    int tId = rs.getInt("TopicId");
+                    final String tName = rs.getString("TopicName");
+                    String tDescription = rs.getString("Description");
+                    Topics top = makeTopic(tId, tName, tDescription);
+                    topicsQuestionView.put(tId, top);
+                    topicNames.put(tId, tName);
+                    topicsNameAsKey.put(tName, top);
+                }
             }
         }catch(Exception e){
-            AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e), ErrorTitle.SQL_TOPIC_INIT_QUERY_FAILED.toString());
+            AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e),
+                    ErrorTitle.SQL_TOPIC_INIT_QUERY_FAILED.toString());
         }
     }
 
@@ -130,14 +145,17 @@ public class Topics {
                 )
         ) {
             while (rs.next()) {
-                int tId = rs.getInt("TopicId");
-                String tName = rs.getString("TopicName");
-                String tDescription = rs.getString("Description");
-                Topics top = makeTopic(tId, tName, tDescription);
-                topics.add(top);
+                if(!deletedTopics.containsKey(rs.getInt("TopicId"))){
+                    int tId = rs.getInt("TopicId");
+                    String tName = rs.getString("TopicName");
+                    String tDescription = rs.getString("Description");
+                    Topics top = makeTopic(tId, tName, tDescription);
+                    topics.add(top);
+                }
             }
         } catch (Exception e) {
-            AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e), ErrorTitle.SQL_TOPIC_PARTIAL_SELECT_FAILED.toString());
+            AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e),
+                    ErrorTitle.SQL_TOPIC_PARTIAL_SELECT_FAILED.toString());
         }
         return topics;
     }
@@ -153,22 +171,24 @@ public class Topics {
             if(rs.getInt(1) == 0) maxNumPage = 1;
             TopicsClassIndexUIController.setTopicsMaxPageNum((int)(Math.ceil(maxNumPage/10.0)));
         } catch (Exception e) {
-            AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e), ErrorTitle.SQL_TOPIC_PAGINATION_SET_PAGE_FAILED.toString());
+            AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e),
+                    ErrorTitle.SQL_TOPIC_PAGINATION_SET_PAGE_FAILED.toString());
         }
     }
 
-    public static boolean delete(Topics top){
+    public static void delete(Topics t){
         int totalRelatedQuestions = 0;
         try(
                 Connection conn = MySQLService.getConnection();
                 Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery("SELECT COUNT(QuestionId) FROM QTRelationship WHERE TopicId = " +
-                        top.getTopicId() + ";");
+                        t.getTopicId() + ";");
         ){
             rs.next();
             totalRelatedQuestions = rs.getInt(1);
         }catch(Exception e){
-            AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e), ErrorTitle.SQL_TOPIC_FIND_TOTAL_RELATED_QUEST_FAILED.toString());
+            AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e),
+                    ErrorTitle.SQL_TOPIC_FIND_TOTAL_RELATED_QUEST_FAILED.toString());
         }
 
         boolean isRelated = totalRelatedQuestions == 0 ? false : true;
@@ -176,26 +196,41 @@ public class Topics {
             AlertUtil.generateErrorWindow(ErrorTitle.SQL_TOPIC_DELETE_FAILED.toString(),
                     FailedOperationType.SQL_TOPIC_DELETE_TOPIC_FAILED.toString(),
                     String.format(ErrorMessage.SQL_TOPIC_NUM_OF_QUEST_RELATED.toString(), totalRelatedQuestions));
-            return false;
         }else{
+            LocalDateTime deletedDate = LocalDateTime.now();
+            String deletedBy = Users.getUserNameForFrontEnd();
+            String sqlInsert = "INSERT INTO ArchivedTopics(TopicId, TopicName, Description, DeletedAt, DeletedBy) "
+                    + "VALUES(?, ?, ?, ?, ?);";
+            try(
+                    Connection conn = MySQLService.getConnection();
+                    PreparedStatement stmt = conn.prepareStatement(sqlInsert);
+            ){
+                stmt.setInt(1, t.getTopicId());
+                stmt.setString(2, t.getTopicName());
+                stmt.setString(3, t.getTopicDescription());
+                stmt.setString(4, deletedDate.toString());
+                stmt.setString(5, deletedBy);
+                stmt.executeUpdate();
+            }catch(Exception e){
+                AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e),
+                        ErrorTitle.SQL_TOPIC_INSERT_FAILED.toString());
+            }
             String sqlTopicDelete = "DELETE FROM Topics WHERE TopicId = ?;";
             try(
                     Connection conn = MySQLService.getConnection();
                     PreparedStatement stmt = conn.prepareStatement(sqlTopicDelete);
             ){
-                stmt.setInt(1, top.getTopicId());
+                stmt.setInt(1, t.getTopicId());
                 boolean isDeleted = stmt.executeUpdate() == 1 ? true : false;
                 if(isDeleted){
-                    topicsQuestionView.remove(top.getTopicId());
-                    topicNames.remove(top.getTopicId());
-                    final String tName = top.getTopicName();
+                    topicsQuestionView.remove(t.getTopicId());
+                    topicNames.remove(t.getTopicId());
+                    final String tName = t.getTopicName();
                     topicsNameAsKey.remove(tName);
-                    return true;
                 }
-                else return false;
             }catch(Exception e){
-                AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e), ErrorTitle.SQL_TOPIC_DELETE_FAILED.toString());
-                return false;
+                AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e),
+                        ErrorTitle.SQL_TOPIC_DELETE_FAILED.toString());
             }
         }
     }
@@ -222,7 +257,8 @@ public class Topics {
                 topicsNameAsKey.put(tName, newTopic);
             }
         }catch(Exception e){
-            AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e), ErrorTitle.SQL_TOPIC_INSERT_FAILED.toString());
+            AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e),
+                    ErrorTitle.SQL_TOPIC_INSERT_FAILED.toString());
         }
     }
 
@@ -243,7 +279,8 @@ public class Topics {
             final String tName = t.getTopicName();
             topicsNameAsKey.put(tName, t);
         }catch(Exception e){
-            AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e), ErrorTitle.SQL_TOPIC_UPDATE_FAILED.toString());
+            AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e),
+                    ErrorTitle.SQL_TOPIC_UPDATE_FAILED.toString());
         }
     }
 
