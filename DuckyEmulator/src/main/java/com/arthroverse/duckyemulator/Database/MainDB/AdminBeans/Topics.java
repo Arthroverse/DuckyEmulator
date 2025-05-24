@@ -116,7 +116,7 @@ public class Topics {
         try(
                 Connection conn = MySQLService.getConnection();
                 Statement stmt = conn.createStatement();
-                ResultSet rs = stmt.executeQuery("SELECT * FROM Topics;");
+                ResultSet rs = stmt.executeQuery("SELECT * FROM Topics WHERE Deleted = 0;");
         ){
             while(rs.next()){
                 if(!deletedTopics.containsKey(rs.getInt("TopicId"))){
@@ -141,7 +141,7 @@ public class Topics {
                 Connection conn = MySQLService.getConnection();
                 Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery(
-                        "SELECT * FROM Topics LIMIT 10 OFFSET " + offset + ";"
+                        "SELECT * FROM Topics WHERE Deleted = 0 LIMIT 10 OFFSET " + offset + ";"
                 )
         ) {
             while (rs.next()) {
@@ -164,7 +164,7 @@ public class Topics {
         try (
                 Connection conn = MySQLService.getConnection();
                 Statement stmt = conn.createStatement();
-                ResultSet rs = stmt.executeQuery("SELECT COUNT(TopicId) FROM Topics");
+                ResultSet rs = stmt.executeQuery("SELECT COUNT(TopicId) FROM Topics WHERE Deleted = 0");
         ) {
             rs.next();
             int maxNumPage = rs.getInt(1);
@@ -210,6 +210,10 @@ public class Topics {
                 stmt1.setString(2, deletedDate);
                 stmt1.setInt(3, t.getTopicId());
                 stmt1.executeUpdate();
+                topicsQuestionView.remove(t.getTopicId());
+                topicNames.remove(t.getTopicId());
+                final String tName = t.getTopicName();
+                topicsNameAsKey.remove(tName);
             }catch(Exception e){
                 AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e),
                         ErrorTitle.SQL_TOPIC_DELETE_FAILED.toString());
