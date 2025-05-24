@@ -5,48 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a57d5096-8edd-4b4d-954e-07f711464abf" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ducksabervn/duckyemulator/Database/DBService/MySQLService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/Database/DBService/MySQLService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ducksabervn/duckyemulator/Database/MainDB/AdminBeans/Classifications.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/Database/MainDB/AdminBeans/Classifications.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ducksabervn/duckyemulator/Database/MainDB/AdminBeans/Questions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/Database/MainDB/AdminBeans/Questions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ducksabervn/duckyemulator/Database/MainDB/AdminBeans/Topics.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/Database/MainDB/AdminBeans/Topics.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ducksabervn/duckyemulator/Database/MainDB/CredentialBeans/Users.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/Database/MainDB/CredentialBeans/Users.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ducksabervn/duckyemulator/Database/MainDB/DataSet/DataSeeding(MultipleTopics).sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/Database/MainDB/DataSet/DataSeeding(MultipleTopics).sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ducksabervn/duckyemulator/Database/MainDB/DataSet/DataSeeding(SingleTopic).sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/Database/MainDB/DataSet/DataSeeding(SingleTopic).sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ducksabervn/duckyemulator/Database/MainDB/DataSet/MainDB.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/Database/MainDB/DataSet/MainDB.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ducksabervn/duckyemulator/Main/DuckyEmulatorMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/Main/DuckyEmulatorMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ducksabervn/duckyemulator/UIControllers/AdminUIsControllers/ClassificationsAddUIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIControllers/AdminUIsControllers/ClassificationsAddUIController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ducksabervn/duckyemulator/UIControllers/AdminUIsControllers/ClassificationsUpdateUIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIControllers/AdminUIsControllers/ClassificationsUpdateUIController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ducksabervn/duckyemulator/UIControllers/AdminUIsControllers/HomePageUIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIControllers/AdminUIsControllers/HomePageUIController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ducksabervn/duckyemulator/UIControllers/AdminUIsControllers/QBankAddUIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIControllers/AdminUIsControllers/QBankAddUIController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ducksabervn/duckyemulator/UIControllers/AdminUIsControllers/QBankIndexUIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIControllers/AdminUIsControllers/QBankIndexUIController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ducksabervn/duckyemulator/UIControllers/AdminUIsControllers/QBankUpdateUIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIControllers/AdminUIsControllers/QBankUpdateUIController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ducksabervn/duckyemulator/UIControllers/AdminUIsControllers/TopicsAddUIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIControllers/AdminUIsControllers/TopicsAddUIController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ducksabervn/duckyemulator/UIControllers/AdminUIsControllers/TopicsClassIndexUIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIControllers/AdminUIsControllers/TopicsClassIndexUIController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ducksabervn/duckyemulator/UIControllers/AdminUIsControllers/TopicsUpdateUIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIControllers/AdminUIsControllers/TopicsUpdateUIController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ducksabervn/duckyemulator/UIControllers/LoginController/LoginUIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIControllers/LoginController/LoginUIController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ducksabervn/duckyemulator/UIs/AdminUIs/ClassificationsAddUI.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIs/AdminUIs/ClassificationsAddUI.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ducksabervn/duckyemulator/UIs/AdminUIs/ClassificationsUpdateUI.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIs/AdminUIs/ClassificationsUpdateUI.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ducksabervn/duckyemulator/UIs/AdminUIs/HomePageUI.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIs/AdminUIs/HomePageUI.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ducksabervn/duckyemulator/UIs/AdminUIs/QBankAddUI.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIs/AdminUIs/QBankAddUI.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ducksabervn/duckyemulator/UIs/AdminUIs/QBankIndexUI.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIs/AdminUIs/QBankIndexUI.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ducksabervn/duckyemulator/UIs/AdminUIs/QBankUpdateUI.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIs/AdminUIs/QBankUpdateUI.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ducksabervn/duckyemulator/UIs/AdminUIs/TopicsAddUI.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIs/AdminUIs/TopicsAddUI.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ducksabervn/duckyemulator/UIs/AdminUIs/TopicsClassIndexUI.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIs/AdminUIs/TopicsClassIndexUI.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ducksabervn/duckyemulator/UIs/AdminUIs/TopicsUpdateUI.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIs/AdminUIs/TopicsUpdateUI.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ducksabervn/duckyemulator/UIs/Login/LoginUI.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIs/Login/LoginUI.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ducksabervn/duckyemulator/UIs/Navigator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIs/Navigator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ducksabervn/duckyemulator/Utilities/Constant/ErrorMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/Utilities/Constant/ErrorMessage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ducksabervn/duckyemulator/Utilities/Constant/ErrorTitle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/Utilities/Constant/ErrorTitle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ducksabervn/duckyemulator/Utilities/Constant/FailedOperationType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/Utilities/Constant/FailedOperationType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ducksabervn/duckyemulator/Utilities/Constant/Reusable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/Utilities/Constant/Reusable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ducksabervn/duckyemulator/Utilities/Constant/WarningMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/Utilities/Constant/WarningMessage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ducksabervn/duckyemulator/Utilities/Constant/WarningTitle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/Utilities/Constant/WarningTitle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ducksabervn/duckyemulator/Utilities/FileHandler/FileHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/Utilities/FileHandler/FileHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ducksabervn/duckyemulator/Utilities/FileHandler/NameGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/Utilities/FileHandler/NameGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ducksabervn/duckyemulator/Utilities/PromptAlert/AlertUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/Utilities/PromptAlert/AlertUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/Database/MainDB/AdminBeans/Classifications.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/Database/MainDB/AdminBeans/Classifications.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/Database/MainDB/AdminBeans/Questions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/Database/MainDB/AdminBeans/Questions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/Database/MainDB/AdminBeans/Topics.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/Database/MainDB/AdminBeans/Topics.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/Database/MainDB/DataSet/DataSeeding(MultipleTopics).sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/Database/MainDB/DataSet/DataSeeding(MultipleTopics).sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/Database/MainDB/DataSet/MainDB.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/Database/MainDB/DataSet/MainDB.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/Main/DuckyEmulatorMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/Main/DuckyEmulatorMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIControllers/AdminUIsControllers/QBankAddUIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIControllers/AdminUIsControllers/QBankAddUIController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIControllers/AdminUIsControllers/QBankUpdateUIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIControllers/AdminUIsControllers/QBankUpdateUIController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIs/AdminUIs/QBankAddUI.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIs/AdminUIs/QBankAddUI.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIs/AdminUIs/QBankUpdateUI.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIs/AdminUIs/QBankUpdateUI.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,57 +46,57 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.DuckyEmulatorMain.executor&quot;: &quot;Run&quot;,
-    &quot;Attach to process.localhost:5005.executor&quot;: &quot;ProcessAttachDebug&quot;,
-    &quot;Attach to process.localhost:8000.executor&quot;: &quot;ProcessAttachDebug&quot;,
-    &quot;Maven.Debug.executor&quot;: &quot;Debug&quot;,
-    &quot;Maven.DuckyEmulator [--debug].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.DuckyEmulator [-Dmaven.surefire.debug...].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.DuckyEmulator [-Dmaven.surefire.debug=\&quot;-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=localhost:8000\&quot;...].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.DuckyEmulator [-Dmaven.surefire.debug=-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005...].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.DuckyEmulator [clean,install].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.DuckyEmulator [javafx:run...].executor&quot;: &quot;Debug&quot;,
-    &quot;Maven.DuckyEmulator [javafx:run].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.DuckyEmulator [mvn,exec:java...].executor&quot;: &quot;Debug&quot;,
-    &quot;Maven.DuckyEmulator [mvn...].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.DuckyEmulator [mvnDebug...].executor&quot;: &quot;Debug&quot;,
-    &quot;Maven.DuckyEmulator [org.apache.maven.plugins:maven-clean-plugin:3.2.0:clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.DuckyEmulator [org.apache.maven.plugins:maven-surefire-plugin:3.2.5:help].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.DuckyEmulator [org.apache.maven.plugins:maven-surefire-plugin:3.2.5:test].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.DuckyEmulatorDebug.executor&quot;: &quot;Run&quot;,
-    &quot;Maven.DuckyEmulatorExec.executor&quot;: &quot;Run&quot;,
-    &quot;Maven.Exec.executor&quot;: &quot;Run&quot;,
-    &quot;Maven.fuck.executor&quot;: &quot;Run&quot;,
-    &quot;Remote JVM Debug.Unnamed.executor&quot;: &quot;Debug&quot;,
-    &quot;Remote JVM Debug.mvnDebug.executor&quot;: &quot;Debug&quot;,
-    &quot;RunOnceActivity.OpenDatabaseViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;2025-5-23&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/ducksabervn&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;onboarding.tips.debug.path&quot;: &quot;/Users/ducksabervn/DATA/coding/DuckyEmulator/DuckyEmulator/src/main/java/org/example/Main.java&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.DuckyEmulatorMain.executor": "Run",
+    "Attach to process.localhost:5005.executor": "ProcessAttachDebug",
+    "Attach to process.localhost:8000.executor": "ProcessAttachDebug",
+    "Maven.Debug.executor": "Run",
+    "Maven.DuckyEmulator [--debug].executor": "Run",
+    "Maven.DuckyEmulator [-Dmaven.surefire.debug...].executor": "Run",
+    "Maven.DuckyEmulator [-Dmaven.surefire.debug=\"-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=localhost:8000\"...].executor": "Run",
+    "Maven.DuckyEmulator [-Dmaven.surefire.debug=-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005...].executor": "Run",
+    "Maven.DuckyEmulator [clean,install].executor": "Run",
+    "Maven.DuckyEmulator [javafx:run...].executor": "Debug",
+    "Maven.DuckyEmulator [javafx:run].executor": "Run",
+    "Maven.DuckyEmulator [mvn,exec:java...].executor": "Debug",
+    "Maven.DuckyEmulator [mvn...].executor": "Run",
+    "Maven.DuckyEmulator [mvnDebug...].executor": "Debug",
+    "Maven.DuckyEmulator [org.apache.maven.plugins:maven-clean-plugin:3.2.0:clean].executor": "Run",
+    "Maven.DuckyEmulator [org.apache.maven.plugins:maven-surefire-plugin:3.2.5:help].executor": "Run",
+    "Maven.DuckyEmulator [org.apache.maven.plugins:maven-surefire-plugin:3.2.5:test].executor": "Run",
+    "Maven.DuckyEmulatorDebug.executor": "Run",
+    "Maven.DuckyEmulatorExec.executor": "Run",
+    "Maven.Exec.executor": "Run",
+    "Maven.fuck.executor": "Run",
+    "Remote JVM Debug.Unnamed.executor": "Debug",
+    "Remote JVM Debug.mvnDebug.executor": "Debug",
+    "RunOnceActivity.OpenDatabaseViewOnStart": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "2025-5-23",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/ducksabervn",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "onboarding.tips.debug.path": "/Users/ducksabervn/DATA/coding/DuckyEmulator/DuckyEmulator/src/main/java/org/example/Main.java",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "Errors",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;redshift&quot;,
-      &quot;mysql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "redshift",
+      "mysql"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/java/com/ducksabervn/duckyemulator/UIs" />
@@ -187,7 +157,9 @@
       <workItem from="1746512665914" duration="3429000" />
       <workItem from="1746898872181" duration="144000" />
       <workItem from="1747537231939" duration="141000" />
-      <workItem from="1747990717495" duration="22050000" />
+      <workItem from="1747990717495" duration="31506000" />
+      <workItem from="1748105399120" duration="3789000" />
+      <workItem from="1748109203492" duration="6724000" />
     </task>
     <servers />
   </component>
