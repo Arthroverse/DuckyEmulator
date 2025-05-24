@@ -268,11 +268,12 @@ public class Questions{
             String sqlQuery = "SELECT Q.*, T.TopicId, T.TopicName, T.Description AS Topic_Description, " +
                     "C.Classification, C.Description AS Classification_Description " +
                     "FROM Questions AS Q " +
-                    "JOIN QTRelationship AS QT ON Q.QuestionId = QT.QuestionId " +
+                    "JOIN (SELECT relationshipId, QuestionId, TopicId " +
+                    "FROM QTRelationship WHERE Deleted = 0) AS QT ON Q.QuestionId = QT.QuestionId " +
                     "JOIN Topics AS T ON T.TopicId = QT.TopicId " +
                     "JOIN Classifications AS C ON C.ClassificationId = Q.ClassificationId " +
-                    "WHERE Q.QuestionId IN ( " + qIdListString + ") " +
-                    "ORDER BY Q.QuestionId; ";
+                    "WHERE Q.QuestionId IN ( " + qIdListString + " )" +
+                    "ORDER BY QT.relationshipId; ";
             try(
                     Connection conn = MySQLService.getConnection();
                     Statement stmt = conn.createStatement();
@@ -352,13 +353,13 @@ public class Questions{
         try (
                 Connection conn = MySQLService.getConnection();
                 Statement stmt = conn.createStatement();
-                ResultSet rs = stmt.executeQuery("SELECT COUNT(QuestionId) FROM Questions");
-        ) {
+                ResultSet rs = stmt.executeQuery("SELECT COUNT(QuestionId) FROM Questions WHERE Deleted = 0");
+        ){
             rs.next();
             int maxNumPage = rs.getInt(1);
             if(rs.getInt(1) == 0) maxNumPage = 1;
             QBankIndexUIController.setMaxPageNum((int)Math.ceil(maxNumPage/10.0));
-        } catch (Exception e) {
+        }catch(Exception e){
             AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e),
                     ErrorTitle.SQL_QUEST_SET_PAGE_FAILED.toString());
         }
@@ -386,9 +387,10 @@ public class Questions{
             stmt2.setString(2, deletedDate);
             stmt2.setInt(3, quest.getQuestionId());
             stmt2.executeUpdate();
-
-            FileHandler.moveDeletedImageToDisposal(quest.getImagePath());
-            FileHandler.removeImage(quest.getImagePath());
+            if(!quest.getImagePath().equals("")){
+                FileHandler.moveDeletedImageToDisposal(quest.getImagePath());
+                FileHandler.removeImage(quest.getImagePath());
+            }
         }catch(Exception e){
             AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e),
                     ErrorTitle.SQL_QUEST_DELETE_FAILED.toString());
@@ -439,14 +441,14 @@ public class Questions{
         String sqlInsertQtRelationship = "INSERT INTO QTRelationship(QuestionId, TopicId, Deleted) "
                 + "VALUES(?, ?, 0);";
         for(Integer i: quest.getForeignKeyTopicId()){
-            try (
+            try(
                     Connection conn = MySQLService.getConnection();
                     PreparedStatement stmt = conn.prepareStatement(sqlInsertQtRelationship);
-            ) {
+            ){
                 stmt.setInt(1, quest.getQuestionId());
                 stmt.setInt(2, i);
                 stmt.executeUpdate();
-            } catch (Exception e) {
+            }catch (Exception e){
                 AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e),
                         ErrorTitle.SQL_QUEST_QTRELATIONSHIP_INSERT_FAILED.toString());
             }
@@ -477,14 +479,14 @@ public class Questions{
         for(Integer i: q.getForeignKeyTopicId()){
             if(!(q.getOldForeignKeyTopicId().contains(i))){
                 String sqlQtRelationship = "INSERT INTO QTRelationship (QuestionId, TopicId) VALUES(?, ?);";
-                try (
+                try(
                         Connection conn = MySQLService.getConnection();
                         PreparedStatement stmt = conn.prepareStatement(sqlQtRelationship);
-                ) {
+                ){
                     stmt.setInt(1, q.getQuestionId());
                     stmt.setInt(2, i);
                     stmt.executeUpdate();
-                } catch (Exception e) {
+                }catch (Exception e){
                     AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e),
                             ErrorTitle.SQL_QUEST_QTRELATIONSHIP_INSERT_FAILED.toString());
                 }
