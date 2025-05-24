@@ -71,10 +71,10 @@ public class QBankAddUIController implements Initializable {
     private ChoiceBox<String> choiceBoxSelectClass;
 
     @FXML
-    private TextArea txtxAreaQChoice2;
+    private TextArea txtAreaQChoice2;
 
     @FXML
-    private TextArea txtxAreaQChoice1;
+    private TextArea txtAreaQChoice1;
 
     @FXML
     private Button btnAddNewQuestion;
@@ -83,10 +83,10 @@ public class QBankAddUIController implements Initializable {
     private TextArea txtAreaQStatement;
 
     @FXML
-    private TextArea txtxAreaQChoice4;
+    private TextArea txtAreaQChoice4;
 
     @FXML
-    private TextArea txtxAreaQChoice3;
+    private TextArea txtAreaQChoice3;
 
     @FXML
     private Button btnResetField;
@@ -157,10 +157,10 @@ public class QBankAddUIController implements Initializable {
                         )
                 );
                 quest.setQuestionStatement(txtAreaQStatement.getText());
-                quest.setChoice1(txtxAreaQChoice1.getText());
-                quest.setChoice2(txtxAreaQChoice2.getText());
-                quest.setChoice3(txtxAreaQChoice3.getText());
-                quest.setChoice4(txtxAreaQChoice4.getText());
+                quest.setChoice1(txtAreaQChoice1.getText());
+                quest.setChoice2(txtAreaQChoice2.getText());
+                quest.setChoice3(txtAreaQChoice3.getText());
+                quest.setChoice4(txtAreaQChoice4.getText());
                 quest.setCorrectAnswer(choiceBoxCorrectAns.getValue());
                 if(txtFieldImagePath.getText() == null){
                     txtFieldImagePath.setText("");
@@ -202,7 +202,6 @@ public class QBankAddUIController implements Initializable {
         choiceBoxCorrectAns.setItems(FXCollections.observableArrayList(
                 "Choice 1", "Choice 2", "Choice 3", "Choice 4"
         ));
-        loadLastSavedData();
         tableViewSelectedTopic.setItems(
                 FXCollections.observableArrayList(selectedTopics)
         );
@@ -240,9 +239,9 @@ public class QBankAddUIController implements Initializable {
         if(temp.size() == 0) errorMessage.append(ErrorMessage.QUEST_NO_TOPIC_ASSOCIATED);
         if(choiceBoxSelectClass.getValue() == null) errorMessage.append(ErrorMessage.QUEST_NO_CLASSIFICATION_ASSOCIATED);
         if(txtAreaQStatement.getText() == null) errorMessage.append(ErrorMessage.QUEST_NO_QUESTION_STATEMENT);
-        if(txtxAreaQChoice1.getText() == null
-        || txtxAreaQChoice2.getText() == null|| txtxAreaQChoice3.getText().isEmpty()
-        || txtxAreaQChoice4.getText() == null) errorMessage.append(ErrorMessage.QUEST_NO_CHOICE);
+        if(txtAreaQChoice1.getText() == null
+        || txtAreaQChoice2.getText() == null|| txtAreaQChoice3.getText().isEmpty()
+        || txtAreaQChoice4.getText() == null) errorMessage.append(ErrorMessage.QUEST_NO_CHOICE);
         if(choiceBoxCorrectAns.getValue() == null) errorMessage.append(ErrorMessage.QUEST_NO_CORRECT_ANS);
 
         if(!errorMessage.toString().isEmpty()){
@@ -262,9 +261,9 @@ public class QBankAddUIController implements Initializable {
         }
         if(!selectedTopicNames.contains(choiceBoxSelectTopic.getValue())){
             selectedTopics.add(Topics.findingTopics(choiceBoxSelectTopic.getValue()));
-            saveCurrentInputData();
-            Navigator.getInstance().closeSecondStage();
-            Navigator.getInstance().goToQBankAdd();
+            tableViewSelectedTopic.setItems(
+                    FXCollections.observableArrayList(selectedTopics)
+            );
         }else{
             AlertUtil.generateErrorWindow(ErrorTitle.QUEST_UI_CONTROLLER_ADD_TOPIC_FAILED.toString(),
                     FailedOperationType.QUEST_UI_CONTROLLER_ADD_TOPIC_FAILED.toString(),
@@ -277,30 +276,5 @@ public class QBankAddUIController implements Initializable {
         Topics t = tableViewSelectedTopic.getSelectionModel().getSelectedItem();
         selectedTopics.remove(t);
         tableViewSelectedTopic.getItems().remove(t);
-        saveCurrentInputData();
-        Navigator.getInstance().closeSecondStage();
-        Navigator.getInstance().goToQBankAdd();
-    }
-
-    private void saveCurrentInputData(){
-        currentSelectedClassification = choiceBoxSelectClass.getValue();
-        currentQuestionStatement = txtAreaQStatement.getText();
-        currentChoice1 = txtxAreaQChoice1.getText();
-        currentChoice2 = txtxAreaQChoice2.getText();
-        currentChoice3 = txtxAreaQChoice3.getText();
-        currentChoice4 = txtxAreaQChoice4.getText();
-        currentCorrectChoice = choiceBoxCorrectAns.getValue();
-        currentImagePath = txtFieldImagePath.getText();
-    }
-
-    private void loadLastSavedData(){
-        choiceBoxSelectClass.setValue(currentSelectedClassification);
-        txtAreaQStatement.setText(currentQuestionStatement);
-        txtxAreaQChoice1.setText(currentChoice1);
-        txtxAreaQChoice2.setText(currentChoice2);
-        txtxAreaQChoice3.setText(currentChoice3);
-        txtxAreaQChoice4.setText(currentChoice4);
-        choiceBoxCorrectAns.setValue(currentCorrectChoice);
-        txtFieldImagePath.setText(currentImagePath);
     }
 }
