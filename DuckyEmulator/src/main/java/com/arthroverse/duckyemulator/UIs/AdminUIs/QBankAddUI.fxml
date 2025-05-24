@@ -155,7 +155,7 @@
                               <Font name="Proxima Nova Bold" size="20.0" />
                            </font>
                         </Label>
-                        <TextArea fx:id="txtxAreaQChoice1" prefHeight="100.0" prefWidth="407.0" promptText="Enter new choice for choice 1">
+                        <TextArea fx:id="txtAreaQChoice1" prefHeight="100.0" prefWidth="407.0" promptText="Enter new choice for choice 1">
                            <font>
                               <Font name="Proxima Nova Bold" size="16.0" />
                            </font>
@@ -175,7 +175,7 @@
                               <Font name="Proxima Nova Bold" size="20.0" />
                            </font>
                         </Label>
-                        <TextArea fx:id="txtxAreaQChoice2" prefHeight="100.0" prefWidth="403.0" promptText="Enter new choice for choice 2">
+                        <TextArea fx:id="txtAreaQChoice2" prefHeight="100.0" prefWidth="403.0" promptText="Enter new choice for choice 2">
                            <font>
                               <Font name="Proxima Nova Bold" size="16.0" />
                            </font>
@@ -189,7 +189,7 @@
                               <Font name="Proxima Nova Bold" size="20.0" />
                            </font>
                         </Label>
-                        <TextArea fx:id="txtxAreaQChoice3" prefHeight="100.0" prefWidth="406.0" promptText="Enter new choice for choice 3">
+                        <TextArea fx:id="txtAreaQChoice3" prefHeight="100.0" prefWidth="406.0" promptText="Enter new choice for choice 3">
                            <font>
                               <Font name="Proxima Nova Bold" size="16.0" />
                            </font>
@@ -206,7 +206,7 @@
                               <Font name="Proxima Nova Bold" size="20.0" />
                            </font>
                         </Label>
-                        <TextArea fx:id="txtxAreaQChoice4" prefHeight="100.0" prefWidth="406.0" promptText="Enter new choice for choice 4">
+                        <TextArea fx:id="txtAreaQChoice4" prefHeight="100.0" prefWidth="406.0" promptText="Enter new choice for choice 4">
                            <font>
                               <Font name="Proxima Nova Bold" size="16.0" />
                            </font>
