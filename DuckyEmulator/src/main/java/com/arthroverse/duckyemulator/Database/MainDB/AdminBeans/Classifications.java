@@ -195,6 +195,10 @@ public class Classifications {
                 stmt1.setString(2, deletedDate);
                 stmt1.setInt(3, clazz.getClassificationId());
                 stmt1.executeUpdate();
+                classQuestionView.remove(clazz.getClassificationId());
+                classificationNames.remove(clazz.getClassificationId());
+                final String clazzName = clazz.getClassification();
+                classificationNameAsKey.remove(clazzName);
             }catch(Exception e){
                 AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e),
                         ErrorTitle.SQL_CLASS_DELETION_FAILED.toString());
