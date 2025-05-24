@@ -52,8 +52,6 @@ import static
         com.arthroverse.duckyemulator.Database.MainDB.AdminBeans.Classifications.classificationNames;
 import static
         com.arthroverse.duckyemulator.Database.MainDB.AdminBeans.Topics.topicNames;
-import static
-        com.arthroverse.duckyemulator.UIControllers.AdminUIsControllers.QBankIndexUIController.originalQuestion;
 
 public class QBankUpdateUIController implements Initializable {
 
@@ -73,19 +71,19 @@ public class QBankUpdateUIController implements Initializable {
     private ChoiceBox<String> choiceBoxSelectClass;
 
     @FXML
-    private TextArea txtxAreaQChoice2;
+    private TextArea txtAreaQChoice2;
 
     @FXML
-    private TextArea txtxAreaQChoice1;
+    private TextArea txtAreaQChoice1;
 
     @FXML
     private TextArea txtAreaQStatement;
 
     @FXML
-    private TextArea txtxAreaQChoice4;
+    private TextArea txtAreaQChoice4;
 
     @FXML
-    private TextArea txtxAreaQChoice3;
+    private TextArea txtAreaQChoice3;
 
     @FXML
     private Button btnResetField;
@@ -107,7 +105,7 @@ public class QBankUpdateUIController implements Initializable {
 
     private static StringBuilder errorMessage = new StringBuilder();
 
-    private static Questions updateQuestion;
+    private static Questions originalQuestion;
 
     private static ArrayList<Topics> selectedTopics = new ArrayList<>();
 
@@ -125,20 +123,20 @@ public class QBankUpdateUIController implements Initializable {
                     selectedTopicNames.add(t.getTopicName());
                 }
                 ArrayList<Integer> selectedTopicIds = Topics.findingTopicIds(selectedTopicNames);
-                updateQuestion.setForeignKeyTopicId(selectedTopicIds);
-                updateQuestion.setForeignKeyClassificationId(
+                originalQuestion.setForeignKeyTopicId(selectedTopicIds);
+                originalQuestion.setForeignKeyClassificationId(
                         Classifications.searchClassification(
                                 choiceBoxSelectClass.getValue()
                         )
                 );
-                updateQuestion.setQuestionStatement(txtAreaQStatement.getText());
-                updateQuestion.setChoice1(txtxAreaQChoice1.getText());
-                updateQuestion.setChoice2(txtxAreaQChoice2.getText());
-                updateQuestion.setChoice3(txtxAreaQChoice3.getText());
-                updateQuestion.setChoice4(txtxAreaQChoice4.getText());
-                updateQuestion.setCorrectAnswer(choiceBoxCorrectAns.getValue());
-                updateQuestion.setImagePath(txtFieldImagePath.getText());
-                Questions.update(updateQuestion);
+                originalQuestion.setQuestionStatement(txtAreaQStatement.getText());
+                originalQuestion.setChoice1(txtAreaQChoice1.getText());
+                originalQuestion.setChoice2(txtAreaQChoice2.getText());
+                originalQuestion.setChoice3(txtAreaQChoice3.getText());
+                originalQuestion.setChoice4(txtAreaQChoice4.getText());
+                originalQuestion.setCorrectAnswer(choiceBoxCorrectAns.getValue());
+                originalQuestion.setImagePath(txtFieldImagePath.getText());
+                Questions.update(originalQuestion);
             }
             if(errorMessage.toString().isEmpty()){
                 Navigator.getInstance().closeSecondStage();
@@ -189,7 +187,7 @@ public class QBankUpdateUIController implements Initializable {
     }
 
     public void initialize(Questions q){
-        updateQuestion = q;
+        originalQuestion = q;
         ArrayList<Integer> listTopicIds = q.getForeignKeyTopicId();
         ArrayList<Topics> listTopics = Topics.findingTopics(listTopicIds);
         selectedTopics = listTopics;
@@ -217,10 +215,10 @@ public class QBankUpdateUIController implements Initializable {
                 )
         );
         txtAreaQStatement.setText(q.getQuestionStatement());
-        txtxAreaQChoice1.setText(q.getChoice1());
-        txtxAreaQChoice2.setText(q.getChoice2());
-        txtxAreaQChoice3.setText(q.getChoice3());
-        txtxAreaQChoice4.setText(q.getChoice4());
+        txtAreaQChoice1.setText(q.getChoice1());
+        txtAreaQChoice2.setText(q.getChoice2());
+        txtAreaQChoice3.setText(q.getChoice3());
+        txtAreaQChoice4.setText(q.getChoice4());
         choiceBoxCorrectAns.setValue(q.getCorrectAnswer());
         txtFieldImagePath.setText(q.getImagePath());
     }
@@ -230,9 +228,9 @@ public class QBankUpdateUIController implements Initializable {
         if(temp.size() == 0) errorMessage.append(ErrorMessage.QUEST_NO_TOPIC_ASSOCIATED);
         if(choiceBoxSelectClass.getValue() == null) errorMessage.append(ErrorMessage.QUEST_NO_CLASSIFICATION_ASSOCIATED);
         if(txtAreaQStatement.getText() == null) errorMessage.append(ErrorMessage.QUEST_NO_QUESTION_STATEMENT);
-        if(txtxAreaQChoice1.getText() == null
-                || txtxAreaQChoice2.getText() == null || txtxAreaQChoice3.getText().isEmpty()
-                || txtxAreaQChoice4.getText() == null) errorMessage.append(ErrorMessage.QUEST_NO_CHOICE);
+        if(txtAreaQChoice1.getText() == null
+                || txtAreaQChoice2.getText() == null || txtAreaQChoice3.getText().isEmpty()
+                || txtAreaQChoice4.getText() == null) errorMessage.append(ErrorMessage.QUEST_NO_CHOICE);
         if(choiceBoxCorrectAns.getValue() == null) errorMessage.append(ErrorMessage.QUEST_NO_CORRECT_ANS);
         if(txtFieldImagePath.getText() == null) txtFieldImagePath.setText("");
 
@@ -253,8 +251,7 @@ public class QBankUpdateUIController implements Initializable {
         }
         if(!selectedTopicNames.contains(choiceBoxSelectTopic.getValue())){
             selectedTopics.add(Topics.findingTopics(choiceBoxSelectTopic.getValue()));
-            Navigator.getInstance().closeSecondStage();
-            Navigator.getInstance().goToQBankUpdate(this.generateTempQuestionObject());
+            tableViewSelectedTopic.setItems(FXCollections.observableArrayList(selectedTopics));
         }else{
             AlertUtil.generateErrorWindow(ErrorTitle.QUEST_UI_CONTROLLER_ADD_TOPIC_FAILED.toString(),
                     FailedOperationType.QUEST_UI_CONTROLLER_ADD_TOPIC_FAILED.toString(),
@@ -267,34 +264,8 @@ public class QBankUpdateUIController implements Initializable {
         Topics t = tableViewSelectedTopic.getSelectionModel().getSelectedItem();
         selectedTopics.remove(t);
         tableViewSelectedTopic.getItems().remove(t);
-        Navigator.getInstance().closeSecondStage();
-        Navigator.getInstance().goToQBankUpdate(this.generateTempQuestionObject());
     }
-
-    private Questions generateTempQuestionObject(){
-        Questions quest = new Questions();
-        quest.setQuestionId(updateQuestion.getQuestionId());
-        quest.setForeignKeyClassificationId(
-                Classifications.searchClassification(
-                        choiceBoxSelectClass.getValue()
-                )
-        );
-        quest.setQuestionStatement(txtAreaQStatement.getText());
-        quest.setChoice1(txtxAreaQChoice1.getText());
-        quest.setChoice2(txtxAreaQChoice2.getText());
-        quest.setChoice3(txtxAreaQChoice3.getText());
-        quest.setChoice4(txtxAreaQChoice4.getText());
-        quest.setCorrectAnswer(choiceBoxCorrectAns.getValue());
-        ArrayList<String> selectedTopicNames = new ArrayList<>();
-        for(Topics topic: selectedTopics){
-            selectedTopicNames.add(topic.getTopicName());
-        }
-        ArrayList<Integer> selectedTopicIds = Topics.findingTopicIds(selectedTopicNames);
-        quest.setForeignKeyTopicId(selectedTopicIds);
-        quest.setOldForeignKeyTopicId(updateQuestion.getOldForeignKeyTopicId());
-        return quest;
-    }
-
+    
     private void resetAllFields(){
         tableViewSelectedTopic.setItems(
                 FXCollections.observableArrayList(
@@ -307,12 +278,11 @@ public class QBankUpdateUIController implements Initializable {
                         originalQuestion.getForeignKeyClassificationId())
         );
         txtAreaQStatement.setText(originalQuestion.getQuestionStatement());
-        txtxAreaQChoice1.setText(originalQuestion.getChoice1());
-        txtxAreaQChoice2.setText(originalQuestion.getChoice2());
-        txtxAreaQChoice3.setText(originalQuestion.getChoice3());
-        txtxAreaQChoice4.setText(originalQuestion.getChoice4());
+        txtAreaQChoice1.setText(originalQuestion.getChoice1());
+        txtAreaQChoice2.setText(originalQuestion.getChoice2());
+        txtAreaQChoice3.setText(originalQuestion.getChoice3());
+        txtAreaQChoice4.setText(originalQuestion.getChoice4());
         choiceBoxCorrectAns.setValue(originalQuestion.getCorrectAnswer());
         txtFieldImagePath.setText(originalQuestion.getImagePath());
     }
-
 }
