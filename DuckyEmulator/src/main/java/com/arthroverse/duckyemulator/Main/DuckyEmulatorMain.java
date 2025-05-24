@@ -28,30 +28,30 @@ import com.arthroverse.duckyemulator.UIs.Navigator;
 import com.arthroverse.duckyemulator.Utilities.FileHandler.FileHandler;
 import javafx.application.Application;
 import javafx.stage.Stage;
+
 /**
- * <pre>
- * {@code
- *     static{
- *         Classifications.selectAll();
- *         Topics.selectAll();
- *     }
- * }
- * </pre>
- * {@code selectAll()} method is a performance-impact method, which means each time this method is called,
- * the app performance will be impacted heavily. However, since this method is designed to be run only once,
- * therefore, let them run in a static initializer in the Main class during app initialization is reasonable
- * (since all apps has a pretty long initialization)*/
+ * This class serves as the entry point to the emulator
+ * <p>
+ * DuckyEmulator is a universal testing emulator that supports real-time
+ * testing (currently only supports MCQs), question bank management
+ * (creating, editing, and deleting questions, topics, and classifications),
+ * test customization, ... and more !
+ * @author ducksabervn
+ * @version 0.1
+ * @since 2025-05-25
+ */
 public class DuckyEmulatorMain extends Application {
+    /**
+     * A static initializer that starts only once when the emulator runs for the first time
+     * <p>
+     * These are all essential data that need to be loaded during the initialization
+     * of the emulator. For example, if the emulator
+     */
     static{
         FileHandler.initialize();
         Classifications.selectAll();
         Topics.selectAll();
     }
-    /**
-     * Update Java 17: Since JDK 17, any new Stages that have been created will
-     * automatically become a windows (if we use {@code show()} method). Therefore,
-     * to prevent random stage become a window before any scenes are added, we
-     * need to know where we should use {@code show()} method*/
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("DuckyEmulator");
