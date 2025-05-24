@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS Classifications(
     Classification VARCHAR(50),
     Description VARCHAR(512),
     PRIMARY KEY(ClassificationId),
-    Deleted BOOLEAN,
+    Deleted BOOLEAN DEFAULT 0,
     DeletedAt VARCHAR(100),
     DeletedBy VARCHAR(50)
 );
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS Topics(
     TopicName VARCHAR(50) NOT NULL,
     Description VARCHAR(512),
     PRIMARY KEY(TopicId),
-    Deleted BOOLEAN,
+    Deleted BOOLEAN DEFAULT 0,
     DeletedAt VARCHAR(100),
     DeletedBy VARCHAR(50)
 );
@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS Questions(
     Choice3 VARCHAR(512) NOT NULL,
     Choice4 VARCHAR(512) NOT NULL,
     ImagePath VARCHAR(512),
-    Deleted BOOLEAN,
+    Deleted BOOLEAN DEFAULT 0,
     DeletedAt VARCHAR(100),
     DeletedBy VARCHAR(50)
 );
@@ -61,8 +61,12 @@ CREATE TABLE IF NOT EXISTS QTRelationship(
     FOREIGN KEY (QuestionId) REFERENCES Questions(QuestionId),
     TopicId INT NOT NULL,
     FOREIGN KEY (TopicId) REFERENCES Topics(TopicId),
-    PRIMARY KEY(QuestionId, TopicId),
-    Deleted BOOLEAN,
+    relationshipId INT AUTO_INCREMENT,
+    PRIMARY KEY(relationshipId),
+    UNIQUE KEY(QuestionId, TopicId),
+    #the usage of composite key will accidentally sort the user's original order of topic selection
+    #Therefore, implementing UNIQUE KEY will prevent this from happen in the future
+    Deleted BOOLEAN DEFAULT 0,
     DeletedAt VARCHAR(100),
     DeletedBy VARCHAR(50)
 );
@@ -78,3 +82,20 @@ INSERT INTO Users(UserEmail, UserName, UserPassword, UserType)
 VALUES('a@example.com', 'vinh', '123456789', 'Admin');
 -- FOR TESTING AND DEBUGGING PURPOSES
 -- DROP DATABASE DuckyEmulator_QuestionDB;
+
+SELECT Q.*,
+       T.TopicId,
+       T.TopicName,
+       T.Description AS Topic_Description,
+       C.Classification,
+       C.Description AS Classification_Description
+FROM Questions AS Q
+         JOIN (
+            SELECT relationshipId, QuestionId, TopicId
+            FROM QTRelationship
+            WHERE Deleted = 0
+        ) AS QT ON Q.QuestionId = QT.QuestionId
+         JOIN Topics AS T ON T.TopicId = QT.TopicId
+         JOIN Classifications AS C ON C.ClassificationId = Q.ClassificationId
+WHERE Q.QuestionId IN (42,43,44,45)
+ORDER BY QT.relationshipId;
