@@ -48,11 +48,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import static
-        com.arthroverse.duckyemulator.Database.MainDB.AdminBeans.Classifications.classificationNames;
-import static
-        com.arthroverse.duckyemulator.Database.MainDB.AdminBeans.Topics.topicNames;
-
 public class QBankAddUIController implements Initializable {
 
     @FXML
@@ -195,9 +190,11 @@ public class QBankAddUIController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        choiceBoxSelectTopic.setItems(FXCollections.observableArrayList(topicNames.values()));
+        choiceBoxSelectTopic.setItems(FXCollections.observableArrayList(
+                Topics.getTopicNames().values()));
 
-        choiceBoxSelectClass.setItems(FXCollections.observableArrayList(classificationNames.values()));
+        choiceBoxSelectClass.setItems(FXCollections.observableArrayList(
+                Classifications.getClassificationNames().values()));
 
         choiceBoxCorrectAns.setItems(FXCollections.observableArrayList(
                 "Choice 1", "Choice 2", "Choice 3", "Choice 4"
