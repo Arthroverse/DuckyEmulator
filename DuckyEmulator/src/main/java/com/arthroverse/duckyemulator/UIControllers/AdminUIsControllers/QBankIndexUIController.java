@@ -206,7 +206,7 @@ public class QBankIndexUIController implements Initializable {
         offset = pageIndex * 10;
         tableBankView.setItems(Questions.select(offset));
         tableClassCol.setCellValueFactory((questions) -> {
-            return questions.getValue().getForeignKeyClassificationIdForDisplayProperty();
+            return questions.getValue().getQuestionClassificationProperty();
         });
 
         tableQuestStateCol.setCellValueFactory((questions) -> {
