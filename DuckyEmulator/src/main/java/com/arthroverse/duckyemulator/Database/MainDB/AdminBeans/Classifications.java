@@ -29,8 +29,6 @@ import com.arthroverse.duckyemulator.Utilities.Constant.ErrorMessage;
 import com.arthroverse.duckyemulator.Utilities.Constant.ErrorTitle;
 import com.arthroverse.duckyemulator.Utilities.Constant.FailedOperationType;
 import com.arthroverse.duckyemulator.Utilities.PromptAlert.AlertUtil;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
@@ -44,26 +42,55 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * A class serves as a "Bean", meaning results returned from a table from a MySQL Database
+ *
+ * This class contains all the necessary fields and methods to store the returned data
+ * from a single Classifications table in the MySQL database (Classification name, description, id)
+ * and process the returned data (CRUD), meaning CREATE - READ - UPDATE - DELETE
+ * @author ducksabervn
+ * @since 2025-5-26
+ * @version 0.1
+ */
 public class Classifications {
-    private ObjectProperty<Integer> classificationId;
+    //============================================================================
+    // FIELD DECLARATIONS
+    //============================================================================
+
+
+
+    //Each classification is associated with an ID
+    private Integer classificationId;
+
+    //These are used to display and store information about a classification
     private StringProperty classification;
     private StringProperty classificationDescription;
 
-    //for question table view
-    public static Map<Integer, Classifications> classQuestionView;
-
-    public static Map<Integer, String> classificationNames;
-
-    public static Map<String, Classifications> classificationNameAsKey;
+    
+    private static Map<Integer, Classifications> classQuestionView;
+    private static Map<Integer, String> classificationNames;
+    private static Map<String, Classifications> classificationNameAsKey;
 
     public Classifications(){
-        classificationId = new SimpleObjectProperty<Integer>(null);
+        classificationId = 0;
         classification = new SimpleStringProperty();
         classificationDescription = new SimpleStringProperty();
     }
 
+    public static Map<Integer, Classifications> getClassQuestionView(){
+        return classQuestionView;
+    }
+
+    public static Map<String, Classifications> getClassificationNameAsKey(){
+        return classificationNameAsKey;
+    }
+
+    public static Map<Integer, String> getClassificationNames(){
+        return classificationNames;
+    }
+
     public Integer getClassificationId(){
-        return this.classificationId.get();
+        return this.classificationId;
     }
 
     public String getClassification(){
@@ -72,10 +99,6 @@ public class Classifications {
 
     public String getClassificationDescription(){
         return this.classificationDescription.get();
-    }
-
-    public ObjectProperty<Integer> getClassificationIdProperty(){
-        return this.classificationId;
     }
 
     public StringProperty getClassificationProperty(){
@@ -87,7 +110,7 @@ public class Classifications {
     }
 
     public void setClassificationId(int id){
-        this.classificationId.set(id);
+        this.classificationId = id;
     }
 
     public void setClassification(String classification){
