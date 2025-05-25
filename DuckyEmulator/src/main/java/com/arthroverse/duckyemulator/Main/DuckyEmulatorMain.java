@@ -45,21 +45,38 @@ public class DuckyEmulatorMain extends Application {
      * A static initializer that starts only once when the emulator runs for the first time
      * <p>
      * These are all essential data that need to be loaded during the initialization
-     * of the emulator. For example, if the emulator
+     * of the emulator. These data will be initialized only once
+     *
      */
     static{
+        //initialize necessary directories
         FileHandler.initialize();
+
+        //Initialize all available question classifications for the user to edit any question
         Classifications.selectAll();
+
+        //Initialize all available question topics for the user to edit any question
         Topics.selectAll();
     }
+
+    /**
+     * JavaFX start method, don't ask me, ask the JavaFX developer why tf they put it here
+     * @param primaryStage
+     * @throws Exception
+     */
     @Override
     public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("DuckyEmulator");
-        Navigator.getInstance().setStage(primaryStage);
-        Navigator.getInstance().goToLoginPage();
+        primaryStage.setTitle("DuckyEmulator"); //Set up the name for the emulator windows
+        Navigator.getInstance().setStage(primaryStage); //Set up the main stage where all emulator scenes will be loaded
+        Navigator.getInstance().goToLoginPage(); //Once everything has been set up, redirect the user to the authenication form
     }
 
+    /**
+     * This main method will start the emulator, nothing special
+     *
+     * @param args
+     */
     public static void main(String[] args) {
-        launch(args);
+        launch(args); //I don't know what this is, ask JavaFX developer if you want to know
     }
 }
