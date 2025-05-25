@@ -29,8 +29,6 @@ import com.arthroverse.duckyemulator.Utilities.Constant.ErrorMessage;
 import com.arthroverse.duckyemulator.Utilities.Constant.ErrorTitle;
 import com.arthroverse.duckyemulator.Utilities.Constant.FailedOperationType;
 import com.arthroverse.duckyemulator.Utilities.PromptAlert.AlertUtil;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
@@ -46,27 +44,39 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Topics {
-    private ObjectProperty<Integer> topicId;
+    private Integer topicId;
     private StringProperty topicName;
     private StringProperty topicDescription;
 
     //for question table view
-    public static Map<Integer, Topics> topicsQuestionView;
+    private static Map<Integer, Topics> topicsQuestionView;
 
-    public static Map<Integer, String> topicNames;
+    private static Map<Integer, String> topicNames;
 
-    public static Map<String, Topics> topicsNameAsKey;
+    private static Map<String, Topics> topicsNameAsKey;
 
     private static Map<Integer, Topics> deletedTopics = new HashMap<>();
 
     public Topics(){
-        topicId = new SimpleObjectProperty<>(null);
+        topicId = 0;
         topicName = new SimpleStringProperty();
         topicDescription = new SimpleStringProperty();
     }
 
+    public static Map<Integer, Topics> getTopicsQuestionView(){
+        return topicsQuestionView;
+    }
+
+    public static Map<String, Topics> getTopicsNameAsKey(){
+        return topicsNameAsKey;
+    }
+
+    public static Map<Integer, String> getTopicNames(){
+        return topicNames;
+    }
+
     public Integer getTopicId(){
-        return this.topicId.get();
+        return this.topicId;
     }
 
     public String getTopicName(){
@@ -79,10 +89,6 @@ public class Topics {
 
     public static Map<Integer, Topics> getDeletedTopics(){
         return deletedTopics;
-    }
-
-    public ObjectProperty<Integer> getTopicIdProperty(){
-        return this.topicId;
     }
 
     public StringProperty getTopicNameProperty(){
@@ -98,7 +104,7 @@ public class Topics {
     }
 
     public void setTopicId(int id){
-        this.topicId.set(id);
+        this.topicId = id;
     }
 
     public void setTopicName(String name) {
