@@ -83,19 +83,8 @@ VALUES('a@example.com', 'vinh', '123456789', 'Admin');
 -- FOR TESTING AND DEBUGGING PURPOSES
 -- DROP DATABASE DuckyEmulator_QuestionDB;
 
-SELECT Q.*,
-       T.TopicId,
-       T.TopicName,
-       T.Description AS Topic_Description,
-       C.Classification,
-       C.Description AS Classification_Description
-FROM Questions AS Q
-         JOIN (
-            SELECT relationshipId, QuestionId, TopicId
-            FROM QTRelationship
-            WHERE Deleted = 0
-        ) AS QT ON Q.QuestionId = QT.QuestionId
-         JOIN Topics AS T ON T.TopicId = QT.TopicId
-         JOIN Classifications AS C ON C.ClassificationId = Q.ClassificationId
-WHERE Q.QuestionId IN (42,43,44,45)
-ORDER BY QT.relationshipId;
+SELECT QuestionId
+FROM Questions
+WHERE Deleted = 0
+ORDER BY QuestionId
+LIMIT 10 OFFSET 0;
