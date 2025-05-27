@@ -361,20 +361,16 @@ public class Questions{
             * In this case, to prevent NULL data from happening, I have implemented a full JOIN query to make
             * sure that data from both tables exists.
             *
-            * The nested query will create a table with filtered data from the QTRelationship table, which
-            * not marked as deleted
-            *
             * The WHERE and IN queries are used for further filtration of data, where the ID lies in the range
             * inside the bracket (passed in a question id list string processed above)*/
             String sqlQuery = "SELECT Q.*, T.TopicId, T.TopicName, T.Description AS Topic_Description, " +
                     "C.Classification, C.Description AS Classification_Description " +
                     "FROM Questions AS Q " +
-                    "JOIN (SELECT relationshipId, QuestionId, TopicId " +
-                    "FROM QTRelationship WHERE Deleted = 0) AS QT ON Q.QuestionId = QT.QuestionId " +
+                    "JOIN QTRelationship AS QT ON Q.QuestionId = QT.QuestionId " +
                     "JOIN Topics AS T ON T.TopicId = QT.TopicId " +
                     "JOIN Classifications AS C ON C.ClassificationId = Q.ClassificationId " +
                     "WHERE Q.QuestionId IN ( " + qIdListString + " )" +
-                    "ORDER BY QT.relationshipId; ";
+                    "ORDER BY Q.QuestionId; ";
 
             try(
                     Connection conn = MySQLService.getConnection();
@@ -592,14 +588,16 @@ public class Questions{
         String sqlInsertQuestions = "INSERT INTO Questions(ClassificationId, " +
                 "QuestionStatement, CorrectAnswer, Choice1, Choice2, Choice3, Choice4, ImagePath, Deleted) " +
                 "VALUES(?, ?, ?, ?, ?, ?, ?, ?, 0);";
+        String sqlImgUpdateQuery = "UPDATE Questions SET ImagePath = ? WHERE QuestionId = ?";
         ResultSet key = null;
         try (
-                Connection conn1 = MySQLService.getConnection();
+                Connection conn = MySQLService.getConnection();
                 /*
                 * The part Statement.RETURN_GENERATED_KEY means that each time executed, the query will return
                 * a key acting as the new questionId of the newly added question. Without this, the new question
                 * won't have an ID considering this as a bug*/
-                PreparedStatement stmt1 = conn1.prepareStatement(sqlInsertQuestions, Statement.RETURN_GENERATED_KEYS);
+                PreparedStatement stmt1 = conn.prepareStatement(sqlInsertQuestions, Statement.RETURN_GENERATED_KEYS);
+                PreparedStatement stmt2 = conn.prepareStatement(sqlImgUpdateQuery);
         ) {
             stmt1.setInt(1, quest.getForeignKeyClassificationId());
             stmt1.setString(2, quest.getQuestionStatement());
@@ -608,11 +606,6 @@ public class Questions{
             stmt1.setString(5, quest.getChoice2());
             stmt1.setString(6, quest.getChoice3());
             stmt1.setString(7, quest.getChoice4());
-
-            //The raw image path of the question object is full => I don't like it, so I change it to a relative path
-            String newImagePath = FileHandler.
-                    addNewImage(quest.getImagePath(), quest.getQuestionId()); //return a relative path
-            quest.setImagePath(newImagePath);
             stmt1.setString(8, quest.getImagePath());
             if (stmt1.executeUpdate() == 1) {
                 key = stmt1.getGeneratedKeys(); //The generated questionid will be returned as a table in ResultSet
@@ -620,6 +613,12 @@ public class Questions{
                 int questId = key.getInt(1);
                 quest.setQuestionId(questId);
             }
+            String newImagePath = FileHandler.
+                    addNewImage(quest.getImagePath(), quest.getQuestionId());
+            quest.setImagePath(newImagePath);
+            stmt2.setString(1,newImagePath);
+            stmt2.setInt(2, quest.getQuestionId());
+            stmt2.executeUpdate();
         } catch (Exception e) {
             AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e),
                     ErrorTitle.SQL_QUEST_INSERTION_FAILED.toString());
