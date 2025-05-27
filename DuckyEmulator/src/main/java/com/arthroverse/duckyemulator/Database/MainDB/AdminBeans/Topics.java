@@ -39,9 +39,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Topics {
     private Integer topicId;
@@ -54,8 +52,6 @@ public class Topics {
     private static Map<Integer, String> topicNames;
 
     private static Map<String, Topics> topicsNameAsKey;
-
-    private static Map<Integer, Topics> deletedTopics = new HashMap<>();
 
     public Topics(){
         topicId = 0;
@@ -75,6 +71,12 @@ public class Topics {
         return topicNames;
     }
 
+    public static ArrayList<String> getSortedTopicNames(){
+        ArrayList<String> sortedTopicNames = new ArrayList<>(topicNames.values());
+        sortedTopicNames.sort(String::compareToIgnoreCase);
+        return sortedTopicNames;
+    }
+
     public Integer getTopicId(){
         return this.topicId;
     }
@@ -87,20 +89,12 @@ public class Topics {
         return this.topicDescription.get();
     }
 
-    public static Map<Integer, Topics> getDeletedTopics(){
-        return deletedTopics;
-    }
-
     public StringProperty getTopicNameProperty(){
         return this.topicName;
     }
 
     public StringProperty getTopicDescriptionProperty(){
         return this.topicDescription;
-    }
-
-    public static void resetDeletedTopics(){
-        deletedTopics = new HashMap<>();
     }
 
     public void setTopicId(int id){
@@ -125,15 +119,13 @@ public class Topics {
                 ResultSet rs = stmt.executeQuery("SELECT * FROM Topics WHERE Deleted = 0;");
         ){
             while(rs.next()){
-                if(!deletedTopics.containsKey(rs.getInt("TopicId"))){
-                    int tId = rs.getInt("TopicId");
-                    final String tName = rs.getString("TopicName");
-                    String tDescription = rs.getString("Description");
-                    Topics top = makeTopic(tId, tName, tDescription);
-                    topicsQuestionView.put(tId, top);
-                    topicNames.put(tId, tName);
-                    topicsNameAsKey.put(tName, top);
-                }
+                int tId = rs.getInt("TopicId");
+                final String tName = rs.getString("TopicName");
+                String tDescription = rs.getString("Description");
+                Topics top = makeTopic(tId, tName, tDescription);
+                topicsQuestionView.put(tId, top);
+                topicNames.put(tId, tName);
+                topicsNameAsKey.put(tName, top);
             }
         }catch(Exception e){
             AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e),
@@ -151,13 +143,11 @@ public class Topics {
                 )
         ) {
             while (rs.next()) {
-                if(!deletedTopics.containsKey(rs.getInt("TopicId"))){
-                    int tId = rs.getInt("TopicId");
-                    String tName = rs.getString("TopicName");
-                    String tDescription = rs.getString("Description");
-                    Topics top = makeTopic(tId, tName, tDescription);
-                    topics.add(top);
-                }
+                int tId = rs.getInt("TopicId");
+                String tName = rs.getString("TopicName");
+                String tDescription = rs.getString("Description");
+                Topics top = makeTopic(tId, tName, tDescription);
+                topics.add(top);
             }
         } catch (Exception e) {
             AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e),
@@ -188,7 +178,7 @@ public class Topics {
                 Connection conn = MySQLService.getConnection();
                 Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery("SELECT COUNT(QuestionId) FROM QTRelationship WHERE TopicId = " +
-                        t.getTopicId() + ";");
+                        t.getTopicId() + " AND Deleted = 0;");
         ){
             rs.next();
             totalRelatedQuestions = rs.getInt(1);
