@@ -28,6 +28,10 @@ import com.arthroverse.duckyemulator.Utilities.Constant.ErrorMessage;
 import com.arthroverse.duckyemulator.Utilities.Constant.ErrorTitle;
 import com.arthroverse.duckyemulator.Utilities.Constant.FailedOperationType;
 import com.arthroverse.duckyemulator.Utilities.PromptAlert.AlertUtil;
+import io.github.palexdev.materialfx.controls.MFXButton;
+import io.github.palexdev.materialfx.controls.MFXComboBox;
+import io.github.palexdev.materialfx.controls.MFXPasswordField;
+import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -41,19 +45,16 @@ import java.util.ResourceBundle;
 public class LoginUIController implements Initializable {
 
     @FXML
-    private Button btnLogin;
+    private MFXButton btnLogin;
 
     @FXML
-    private PasswordField passwordFieldUsrPw;
+    private MFXPasswordField passwordFieldUsrPw;
 
     @FXML
-    private ChoiceBox<String> choiceBoxUserType;
+    private MFXComboBox<String> choiceBoxUserType;
 
     @FXML
-    private Button btnSignUp;
-
-    @FXML
-    private TextField txtUsrNameEmail;
+    private MFXTextField txtUsrNameEmail;
 
     @FXML
     private Label loginMessage;
