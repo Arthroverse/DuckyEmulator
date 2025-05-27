@@ -46,6 +46,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.ResourceBundle;
 
 public class QBankUpdateUIController implements Initializable {
@@ -160,10 +161,10 @@ public class QBankUpdateUIController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         choiceBoxSelectTopic.setItems(FXCollections.observableArrayList(
-                Topics.getTopicNames().values()));
+                Topics.getSortedTopicNames()));
 
         choiceBoxSelectClass.setItems(FXCollections.observableArrayList(
-                Classifications.getClassificationNames().values()));
+                Classifications.getSortedClassificationNames()));
 
         choiceBoxCorrectAns.setItems(FXCollections.observableArrayList(
                 "Choice 1", "Choice 2", "Choice 3", "Choice 4"
@@ -188,6 +189,12 @@ public class QBankUpdateUIController implements Initializable {
         ArrayList<Integer> listTopicIds = q.getForeignKeyTopicId();
         ArrayList<Topics> listTopics = Topics.findingTopics(listTopicIds);
         selectedTopics = listTopics;
+
+        selectedTopics.sort(
+                (t1, t2) ->
+                        t1.getTopicName().compareToIgnoreCase(t2.getTopicName())
+        );
+
         tableViewSelectedTopic.setItems(FXCollections.observableArrayList(listTopics));
         tableColSelectedTopicName.setCellValueFactory(
                 (topic) -> {
@@ -248,6 +255,12 @@ public class QBankUpdateUIController implements Initializable {
         }
         if(!selectedTopicNames.contains(choiceBoxSelectTopic.getValue())){
             selectedTopics.add(Topics.findingTopics(choiceBoxSelectTopic.getValue()));
+
+            selectedTopics.sort(
+                    (t1, t2) ->
+                            t1.getTopicName().compareToIgnoreCase(t2.getTopicName())
+            );
+
             tableViewSelectedTopic.setItems(FXCollections.observableArrayList(selectedTopics));
         }else{
             AlertUtil.generateErrorWindow(ErrorTitle.QUEST_UI_CONTROLLER_ADD_TOPIC_FAILED.toString(),
