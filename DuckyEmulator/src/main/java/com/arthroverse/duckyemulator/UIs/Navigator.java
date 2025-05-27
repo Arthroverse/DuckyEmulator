@@ -45,25 +45,25 @@ public class Navigator {
      * If we change the position of the {@code .fxml} files<p>
      * to another position, then we have to add the new package name<p>
      * where the fxml file reside !*/
-    private static final String HOME_FXML = "AdminUIs/HomePageUI.fxml";
+    private static final String HOME_FXML = "/com/arthroverse/duckyemulator/fxmls/AdminUIs/HomePageUI.fxml";
 
-    private static final String QBANK_INDEX = "AdminUIs/QBankIndexUI.fxml";
+    private static final String QBANK_INDEX = "/com/arthroverse/duckyemulator/fxmls/AdminUIs/QBankIndexUI.fxml";
 
-    private static final String QBANK_ADD = "AdminUIs/QBankAddUI.fxml";
+    private static final String QBANK_ADD = "/com/arthroverse/duckyemulator/fxmls/AdminUIs/QBankAddUI.fxml";
 
-    private static final String QBANK_UPDATE = "AdminUIs/QBankUpdateUI.fxml";
+    private static final String QBANK_UPDATE = "/com/arthroverse/duckyemulator/fxmls/AdminUIs/QBankUpdateUI.fxml";
 
-    private static final String TOPICS_CLASS_INDEX = "AdminUIs/TopicsClassIndexUI.fxml";
+    private static final String TOPICS_CLASS_INDEX = "/com/arthroverse/duckyemulator/fxmls/AdminUIs/TopicsClassIndexUI.fxml";
 
-    private static final String TOPICS_INDEX_ADD = "AdminUIs/TopicsAddUI.fxml";
+    private static final String TOPICS_INDEX_ADD = "/com/arthroverse/duckyemulator/fxmls/AdminUIs/TopicsAddUI.fxml";
 
-    private static final String TOPICS_INDEX_UPDATE = "AdminUIs/TopicsUpdateUI.fxml";
+    private static final String TOPICS_INDEX_UPDATE = "/com/arthroverse/duckyemulator/fxmls/AdminUIs/TopicsUpdateUI.fxml";
 
-    private static final String CLASS_INDEX_ADD = "AdminUIs/ClassificationsAddUI.fxml";
+    private static final String CLASS_INDEX_ADD = "/com/arthroverse/duckyemulator/fxmls/AdminUIs/ClassificationsAddUI.fxml";
 
-    private static final String CLASS_INDEX_UPDATE = "AdminUIs/ClassificationsUpdateUI.fxml";
+    private static final String CLASS_INDEX_UPDATE = "/com/arthroverse/duckyemulator/fxmls/AdminUIs/ClassificationsUpdateUI.fxml";
 
-    private static final String LOGIN_PAGE = "Login/LoginUI.fxml";
+    private static final String LOGIN_PAGE = "/com/arthroverse/duckyemulator/fxmls/Login/NewLoginUI.fxml";
 
     private Stage stage;
 
