@@ -1,0 +1,18 @@
+@import url('../fonts/JetBrainsMono/JetBrainsMono.css');
+@import url('../fonts/JetBrainsMonoNL/JetBrainsMonoNL.css');
+
+.welcome-label{
+    -fx-font-family: 'JetBrains Mono Bold Italic';
+}
+
+.welcome-label-subtext{
+    -fx-font-family: 'JetBrains Mono Regular';
+}
+
+.mfx-button{
+    -fx-font-family: 'JetBrains Mono Bold';
+}
+
+.mfx-text-field .floating-text{
+    -fx-font-family: 'JetBrains Mono Regular';
+}
