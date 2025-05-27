@@ -61,11 +61,7 @@ CREATE TABLE IF NOT EXISTS QTRelationship(
     FOREIGN KEY (QuestionId) REFERENCES Questions(QuestionId),
     TopicId INT NOT NULL,
     FOREIGN KEY (TopicId) REFERENCES Topics(TopicId),
-    relationshipId INT AUTO_INCREMENT,
-    PRIMARY KEY(relationshipId),
-    UNIQUE KEY(QuestionId, TopicId),
-    #the usage of composite key will accidentally sort the user's original order of topic selection
-    #Therefore, implementing UNIQUE KEY will prevent this from happen in the future
+    PRIMARY KEY(QuestionId, TopicId),
     Deleted BOOLEAN DEFAULT 0,
     DeletedAt VARCHAR(100),
     DeletedBy VARCHAR(50)
@@ -82,9 +78,3 @@ INSERT INTO Users(UserEmail, UserName, UserPassword, UserType)
 VALUES('a@example.com', 'vinh', '123456789', 'Admin');
 -- FOR TESTING AND DEBUGGING PURPOSES
 -- DROP DATABASE DuckyEmulator_QuestionDB;
-
-SELECT QuestionId
-FROM Questions
-WHERE Deleted = 0
-ORDER BY QuestionId
-LIMIT 10 OFFSET 0;
