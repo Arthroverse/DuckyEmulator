@@ -39,8 +39,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * A class serves as a "Bean", meaning results returned from a table from a MySQL Database
@@ -87,6 +86,12 @@ public class Classifications {
 
     public static Map<Integer, String> getClassificationNames(){
         return classificationNames;
+    }
+
+    public static ArrayList<String> getSortedClassificationNames(){
+        ArrayList<String> sortedClassificationNames = new ArrayList<>(classificationNames.values());
+        sortedClassificationNames.sort(String::compareToIgnoreCase);
+        return sortedClassificationNames;
     }
 
     public Integer getClassificationId(){
@@ -190,7 +195,7 @@ public class Classifications {
                 Connection conn = MySQLService.getConnection();
                 Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery("SELECT QuestionId FROM Questions WHERE ClassificationId = "
-                        + clazz.getClassificationId() + ";");
+                        + clazz.getClassificationId() + " AND Deleted = 0;");
         ){
             while(rs.next()){
                 totalRelatedQuestions++;
