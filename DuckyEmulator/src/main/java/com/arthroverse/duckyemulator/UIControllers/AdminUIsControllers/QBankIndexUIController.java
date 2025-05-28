@@ -128,16 +128,21 @@ public class QBankIndexUIController implements Initializable {
     @FXML
     void btnTableDeleteClick(ActionEvent event) throws IOException {
         Questions selectedQuest = tableBankView.getSelectionModel().getSelectedItem();
-        if(AlertUtil.generateWarningWindow(
-                "Delete question confirmation",
-                "Are you sure you want to delete the selected question ?"
-        )){
-            Questions.delete(selectedQuest);
-            if(tableBankView.getItems().size() == 1 & currentPageIndex > 0){
-                currentPageIndex = pageinationQBank.getCurrentPageIndex() - 1;
+        if(selectedQuest == null){
+            AlertUtil.generateErrorWindow("Delete question failed",
+                    "Delete question", "You must select a question to delete");
+        }else{
+            if(AlertUtil.generateWarningWindow(
+                    "Delete question confirmation",
+                    "Are you sure you want to delete the selected question ?"
+            )){
+                Questions.delete(selectedQuest);
+                if(tableBankView.getItems().size() == 1 & currentPageIndex > 0){
+                    currentPageIndex = pageinationQBank.getCurrentPageIndex() - 1;
+                }
+                tableBankView.getItems().remove(selectedQuest);
+                Navigator.getInstance().goToQBankIndex();
             }
-            tableBankView.getItems().remove(selectedQuest);
-            Navigator.getInstance().goToQBankIndex();
         }
     }
 
@@ -179,22 +184,12 @@ public class QBankIndexUIController implements Initializable {
         pageinationQBank.setPageCount(maxPageNum);
         pageinationQBank.setCurrentPageIndex(currentPageIndex);
         deploy(currentPageIndex);
-        btnTableDelete.disableProperty().set(true);
-        btnTableUpdate.disableProperty().set(true);
         pageinationQBank.currentPageIndexProperty().addListener(
                 (observable, oldIndex, newIndex) -> {
                     int pageIndex = newIndex.intValue();
                     currentPageIndex = pageIndex;
                     deploy(pageIndex);
                 });
-        tableBankView.getSelectionModel().selectedItemProperty().addListener(
-                (observable, oldSelection, newSelection) -> {
-                    if(newSelection != null){
-                        btnTableDelete.disableProperty().set(false);
-                        btnTableUpdate.disableProperty().set(false);
-                    }
-                }
-        );
     }
 
     @FXML
