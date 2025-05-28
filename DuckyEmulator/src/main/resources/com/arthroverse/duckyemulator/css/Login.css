@@ -1,18 +1,72 @@
 @import url('../fonts/JetBrainsMono/JetBrainsMono.css');
 @import url('../fonts/JetBrainsMonoNL/JetBrainsMonoNL.css');
 
-.welcome-label{
+.welcome_label{
     -fx-font-family: 'JetBrains Mono Bold Italic';
+    -fx-text-fill: #FFFFFF;
 }
 
-.welcome-label-subtext{
+.welcome_label_subtext{
     -fx-font-family: 'JetBrains Mono Regular';
+    -fx-text-fill: #FFFFFF;
 }
 
 .mfx-button{
     -fx-font-family: 'JetBrains Mono Bold';
+    -fx-text-fill: #3E59A0;
 }
 
 .mfx-text-field .floating-text{
+    -fx-font-family: 'JetBrains Mono Bold Italic';
+    -fx-text-fill: #3E59A0;
+}
+
+.login_as{
+    -fx-font-family: 'JetBrains Mono Bold Italic';
+    -fx-text-fill: #FFFFFF;
+}
+
+.background_color{
+    -fx-background-color: linear-gradient(
+            to right,
+            #332D7B 0%,
+            #3D4B9F 25%,
+            #4984C4 100%
+    );
+}
+
+.mfx-text-field {
+    -mfx-main: rgba(51, 45, 123, 1);
+    -fx-font-family: "JetBrains Mono Regular";
+}
+
+.mfx-combo-box .caret .mfx-ripple-generator {
+    -mfx-ripple-color: rgba(51, 45, 123, 1);
+    -mfx-ripple-radius: 14;
+}
+
+.mfx-password-field .eye-icon{
+    -mfx-color: #332D7B;
+}
+
+.mfx-combo-box-cell .data-label {
+    -fx-font-family: "JetBrains Mono Regular";
+    -fx-text-fill: #3E59A0;
+}
+
+.sign_up{
     -fx-font-family: 'JetBrains Mono Regular';
+    -fx-text-fill: #FFFFFF;
+}
+
+.link_button {
+    -fx-background-color: transparent;
+    -fx-border-radius: 3;
+    -fx-text-fill: #ffffff;
+    -fx-cursor: hand;
+    -fx-font-family: 'JetBrains Mono Bold Italic';
+}
+
+.link_button:hover{
+    -fx-underline: true;
 }
