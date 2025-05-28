@@ -23,27 +23,24 @@
   ~ @author ducksabervn
   -->
 
-<?import io.github.palexdev.materialfx.controls.MFXButton?>
-<?import io.github.palexdev.materialfx.controls.MFXTextField?>
-<?import io.github.palexdev.materialfx.controls.MFXPasswordField?>
-<?import io.github.palexdev.materialfx.controls.MFXComboBox?>
+<?import io.github.palexdev.materialfx.controls.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane prefHeight="700.0" prefWidth="1200.0" style="-fx-background-color: white;" stylesheets="@../../css/Login.css" xmlns="http://javafx.com/javafx/17.0.14" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.arthroverse.duckyemulator.UIControllers.LoginController.LoginUIController">
+<BorderPane prefHeight="700.0" prefWidth="1200.0" styleClass="background_color" stylesheets="@../../css/Login.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.arthroverse.duckyemulator.UIControllers.LoginController.LoginUIController">
     <center>
         <HBox alignment="CENTER" spacing="0.0" BorderPane.alignment="CENTER">
             <children>
                 <!-- Left Side - Welcome Section -->
-                <VBox alignment="CENTER" prefWidth="600.0" style="-fx-background-color: white;">
+                <VBox alignment="CENTER" prefWidth="600.0">
                     <children>
                         <VBox alignment="CENTER" spacing="32.0">
                             <children>
                                 <VBox alignment="CENTER" spacing="16.0">
                                     <children>
-                                        <Label styleClass="welcome-label" text="DuckyEmulator">
+                                        <Label styleClass="welcome_label" text="DuckyEmulator">
                                             <font>
                                                 <Font size="46.0" />
                                             </font>
@@ -54,17 +51,17 @@
                                 <!-- Welcome Message -->
                                 <VBox alignment="CENTER" spacing="16.0">
                                     <children>
-                                        <Label styleClass="welcome-label-subtext" text="Ready to &quot;Quack&quot; some test ?">
+                                        <Label styleClass="welcome_label_subtext" text="Ready to &quot;Quack&quot; some test ?">
                                             <font>
                                                 <Font size="26.0" />
                                             </font>
                                         </Label>
-                                        <Label styleClass="welcome-label-subtext" text="Time to show those exams who's boss!">
+                                        <Label styleClass="welcome_label_subtext" text="Time to show those exams who's boss!">
                                             <font>
                                                 <Font size="18.0" />
                                             </font>
                                         </Label>
-                                        <Label styleClass="welcome-label-subtext" text="Your test preparation journey starts here">
+                                        <Label styleClass="welcome_label_subtext" text="Your test preparation journey starts here">
                                             <font>
                                                 <Font size="18.0" />
                                             </font>
@@ -82,7 +79,7 @@
                 <!-- Right Side - Login Form -->
                 <StackPane prefWidth="600.0">
                     <children>
-                        <VBox alignment="CENTER" maxWidth="460.0" minWidth="400.0" prefWidth="440.0" spacing="0.0" style="-fx-background-color: white; -fx-background-radius: 12; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 20, 0, 0, 2);">
+                        <VBox alignment="CENTER" maxWidth="460.0" minWidth="400.0" prefWidth="440.0" spacing="0.0" style="-fx-background-radius: 12; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 20, 0, 0, 2); -fx-background-color: transparent;">
                             <children>
                                 <!-- Header Section -->
                                 <VBox alignment="CENTER_LEFT" spacing="8.0">
@@ -117,12 +114,12 @@
                                         <!-- User Type Selection -->
                                         <VBox spacing="12.0">
                                             <children>
-                                                <Label styleClass="welcome-label-subtext" text="Login as" textFill="#555555">
+                                                <Label styleClass="login_as" text="Login as" textFill="#555555">
                                                     <font>
                                                         <Font size="14.0" />
                                                     </font>
                                                 </Label>
-                                                <MFXComboBox fx:id="choiceBoxUserType" floatingText="Choose a login mode" prefHeight="56.0" prefWidth="360.0" styleClass="mfx-text-field">
+                                                <MFXComboBox fx:id="choiceBoxUserType" floatingText="Choose a login mode" prefHeight="56.0" prefWidth="360.0">
                                                     <font>
                                                         <Font name="JetBrains Mono Regular" size="13.0" />
                                                     </font>
@@ -138,21 +135,14 @@
                                                         <Font size="14.0" />
                                                     </font>
                                                 </Label>
+                                    <HBox alignment="CENTER" prefHeight="7.0" prefWidth="380.0" spacing="50.0">
+                                       <children>
+                                          <MFXButton alignment="CENTER" mnemonicParsing="false" styleClass="link_button" text="Don't have an account?" />
+                                          <MFXButton fx:id="btnLogin" layoutX="261.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnLoginClick" styleClass="mfx-button" text="Login" />
+                                       </children>
+                                    </HBox>
                                             </children>
                                         </VBox>
-
-                                        <!-- Buttons Section -->
-                                        <VBox spacing="20.0">
-                                            <children>
-                                                <HBox alignment="CENTER_RIGHT" spacing="12.0">
-                                                    <children>
-                                                        <MFXButton fx:id="btnLogin" onAction="#btnLoginClick" styleClass="mfx-button" />
-                                                    </children>
-                                                </HBox>
-                                            </children>
-                                        </VBox>
-
-                                        <Region prefHeight="40.0" />
                                     </children>
                                     <padding>
                                         <Insets bottom="0.0" left="40.0" right="40.0" top="0.0" />
