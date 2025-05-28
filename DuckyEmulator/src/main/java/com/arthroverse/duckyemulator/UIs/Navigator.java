@@ -45,9 +45,9 @@ public class Navigator {
      * If we change the position of the {@code .fxml} files<p>
      * to another position, then we have to add the new package name<p>
      * where the fxml file reside !*/
-    private static final String HOME_FXML = "/com/arthroverse/duckyemulator/fxmls/AdminUIs/HomePageUI.fxml";
+    private static final String HOME_FXML = "/com/arthroverse/duckyemulator/fxmls/AdminUIs/NewHomePageUI.fxml";
 
-    private static final String QBANK_INDEX = "/com/arthroverse/duckyemulator/fxmls/AdminUIs/QBankIndexUI.fxml";
+    private static final String QBANK_INDEX = "/com/arthroverse/duckyemulator/fxmls/AdminUIs/NewQBankIndexUI.fxml";
 
     private static final String QBANK_ADD = "/com/arthroverse/duckyemulator/fxmls/AdminUIs/QBankAddUI.fxml";
 
