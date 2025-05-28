@@ -28,7 +28,7 @@ public enum Reusable {
 
     ALERT_CONTAINER(),
 
-    DEFAULT_GREETING("Hello %s");
+    DEFAULT_GREETING("Welcome, %s");
 
     private TextArea stackTraceAlertContainer;
 
