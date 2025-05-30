@@ -6,13 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="a57d5096-8edd-4b4d-954e-07f711464abf" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIControllers/AdminUIsControllers/QBankIndexUIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIControllers/AdminUIsControllers/QBankIndexUIController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIs/Navigator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIs/Navigator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/Utilities/Constant/Reusable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/Utilities/Constant/Reusable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/css/Login.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/css/Login.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/AdminUIs/HomePageUI.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/AdminUIs/QBankIndexUI.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/Login/NewLoginUI.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/Login/NewLoginUI.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/AdminUIs/NewQBankIndexUI.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/AdminUIs/NewQBankIndexUI.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -196,6 +190,7 @@
       <workItem from="1748452718700" duration="96000" />
       <workItem from="1748452841546" duration="193000" />
       <workItem from="1748453119660" duration="5626000" />
+      <workItem from="1748500453906" duration="2761000" />
     </task>
     <servers />
   </component>
