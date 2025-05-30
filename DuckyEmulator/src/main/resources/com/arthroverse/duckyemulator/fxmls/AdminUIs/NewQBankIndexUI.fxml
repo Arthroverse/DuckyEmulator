@@ -29,7 +29,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane stylesheets="@../../css/HomePage.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.arthroverse.duckyemulator.UIControllers.AdminUIsControllers.QBankIndexUIController">
+<BorderPane stylesheets="@../../css/QBankIndexPage.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.arthroverse.duckyemulator.UIControllers.AdminUIsControllers.QBankIndexUIController">
     <top>
         <!-- Header Section -->
         <VBox style="-fx-background-color: linear-gradient(to right, #332D7B, #42A5F5); -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 4, 0, 0, 2);">
