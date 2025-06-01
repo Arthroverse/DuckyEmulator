@@ -40,6 +40,8 @@ public enum ErrorTitle {
 
     SQL_CLASS_UPDATION_FAILED("Classification update operation failed"),
 
+    SQL_QUEST_INIT_FAILED("QuestionId initialization failed"),
+
     SQL_QUEST_SELECT_QID_FAILED("Question select qId operation failed"),
 
     SQL_QUEST_PARTIAL_SELECT_FAILED("Question partial select operation failed"),
@@ -94,7 +96,9 @@ public enum ErrorTitle {
 
     SQL_USER_LOAD_DB_FAILED("Users DB select all failed"),
 
-    SQL_USER_LOAD_USERNAME_FAILED("UserName load failed !");
+    SQL_USER_LOAD_USERNAME_FAILED("UserName load failed !"),
+
+    SQL_SESSION_INSERT_NEW_FAILED("Insert new session failed");
 
     private String title;
 
