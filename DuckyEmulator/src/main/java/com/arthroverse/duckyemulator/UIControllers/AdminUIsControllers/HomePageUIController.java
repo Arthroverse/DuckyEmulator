@@ -70,7 +70,7 @@ public class HomePageUIController implements Initializable{
 
     @FXML
     void btnMenuHomeClick(ActionEvent event) throws IOException {
-        Navigator.getInstance().goToHome();
+        Navigator.getInstance().goToAdminHomePage();
     }
 
     @FXML
@@ -86,7 +86,7 @@ public class HomePageUIController implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         greetingLabel.setText(String.format(Reusable.DEFAULT_GREETING.toString(),
-                Users.getUserNameForFrontEnd()));
+                Users.getUserName()));
     }
 
     @FXML
