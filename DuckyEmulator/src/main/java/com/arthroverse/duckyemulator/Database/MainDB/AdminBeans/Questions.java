@@ -45,7 +45,7 @@ import java.util.stream.Collectors;
 
 /**
  * A class serves as a "Bean", meaning results returned from a table from a MySQL Database
- *
+ * <p>
  * This class contains all the necessary fields and methods to store the returned data
  * from a single Question table in the MySQL database (QuestionId, Choices, Correct answer,...)
  * and process the returned data (CRUD), meaning CREATE - READ - UPDATE - DELETE
@@ -87,6 +87,9 @@ public class Questions{
 
     //Each question is associated with a specific ID
     private Integer questionId;
+
+    //The arrayList containing all existing questionIds
+    private static ArrayList<Integer> allQuestionIds = new ArrayList<>();
 
     //These are used for displaying and storing the question data
     private StringProperty questionClassification;
@@ -207,6 +210,10 @@ public class Questions{
         return this.imagePath.get();
     }
 
+    public static ArrayList<Integer> getAllQuestionIds(){
+        return allQuestionIds;
+    }
+
 
 
 
@@ -270,6 +277,11 @@ public class Questions{
     public void setImagePath(String imagePath) {
         this.imagePath.set(imagePath);
     }
+
+    public static void setAllQuestionIds(ArrayList<Integer> allQuestionIds){
+        allQuestionIds = allQuestionIds;
+    }
+
 
 
 
@@ -518,6 +530,84 @@ public class Questions{
         }catch(Exception e){
             AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e),
                     ErrorTitle.SQL_QUEST_SET_PAGE_FAILED.toString());
+        }
+    }
+
+    public static void selectAll(){
+        try(
+                Connection conn = MySQLService.getConnection();
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery("SELECT QuestionId FROM Questions WHERE Deleted = 0");
+                ){
+            while(rs.next()){
+                allQuestionIds.add(rs.getInt(1));
+            }
+        }catch(Exception e){
+            AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e),
+                    ErrorTitle.SQL_QUEST_INIT_FAILED.toString());
+        }
+    }
+
+    public static void querySelectedQuestionIds(TreeMap<Integer, Questions> qMap, String selectedIds){
+        String sqlQuery = "SELECT Q.*, T.TopicId, T.TopicName, T.Description AS Topic_Description, " +
+                "C.Classification, C.Description AS Classification_Description " +
+                "FROM Questions AS Q " +
+                "JOIN QTRelationship AS QT ON Q.QuestionId = QT.QuestionId " +
+                "JOIN Topics AS T ON T.TopicId = QT.TopicId " +
+                "JOIN Classifications AS C ON C.ClassificationId = Q.ClassificationId " +
+                "WHERE Q.QuestionId IN ( " + selectedIds + " )" +
+                "ORDER BY Q.QuestionId; ";
+
+        try(
+                Connection conn = MySQLService.getConnection();
+                Statement stmt = conn.createStatement();
+                //The result of the execution will be a table that will then be looped for further processing
+                ResultSet rs = stmt.executeQuery(sqlQuery);
+        ) {
+            Questions quest;
+            while(rs.next()){
+                //all of the code down here is merely collecting data from the table based on the column name
+                int qId = rs.getInt("QuestionId");
+                int cId = rs.getInt("ClassificationId");
+                int tId = rs.getInt("TopicId");
+                String qStmt = rs.getString("QuestionStatement");
+                String ch1 = rs.getString("Choice1");
+                String ch2 = rs.getString("Choice2");
+                String ch3 = rs.getString("Choice3");
+                String ch4 = rs.getString("Choice4");
+                String ans = rs.getString("CorrectAnswer");
+                String imgPath = rs.getString("ImagePath");
+
+                /*
+                 * If the question has already been presented in the main Questions' TreeMap, continue to
+                 * add the question's topicId to its topicId arraylist field until the condition becomes
+                 * false.*/
+                if(qMap.containsKey(rs.getInt(1))){
+                    quest = qMap.get(rs.getInt(1));
+                    quest.addIndividualForeignKeyTopicId(rs.getInt("TopicId"));
+                }
+                /*
+                 * If the condition becomes false, we have to add a new question, as this means that the question
+                 * is not present in the TreeMap. Therefore, calling the method to make a new Question object.
+                 * It also has a TopicId parameter because the first row of a new question in the returned
+                 * ResultSet will contain all data in a question object (including the first topicId)*/
+                else{
+                    quest = makeQuestion(qId,
+                            cId,
+                            tId,
+                            qStmt,
+                            ch1,
+                            ch2,
+                            ch3,
+                            ch4,
+                            ans,
+                            imgPath);
+                    qMap.put(rs.getInt(1), quest); //then add the newly created question object to the TreeMap
+                }
+            }
+        }catch(Exception e){
+            AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e),
+                    ErrorTitle.SQL_QUEST_PARTIAL_SELECT_FAILED.toString());
         }
     }
 
