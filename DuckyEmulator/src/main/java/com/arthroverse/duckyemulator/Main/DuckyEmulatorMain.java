@@ -23,6 +23,7 @@
 package com.arthroverse.duckyemulator.Main;
 
 import com.arthroverse.duckyemulator.Database.MainDB.AdminBeans.Classifications;
+import com.arthroverse.duckyemulator.Database.MainDB.AdminBeans.Questions;
 import com.arthroverse.duckyemulator.Database.MainDB.AdminBeans.Topics;
 import com.arthroverse.duckyemulator.UIs.Navigator;
 import com.arthroverse.duckyemulator.Utilities.FileHandler.FileHandler;
@@ -60,6 +61,9 @@ public class DuckyEmulatorMain extends Application {
 
         //Initialize all available question topics for the user to edit any question
         Topics.selectAll();
+
+        //Initialize all existing questionIds in database
+        Questions.selectAll();
     }
 
     /**
