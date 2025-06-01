@@ -54,7 +54,7 @@ public enum ErrorMessage {
 
     LOGIN_UI_CONTROLLER_INVALID_EMAIL("Invalid email, please choose another email address !\n"),
 
-    LOGIN_UI_CONTROLLER_INVALID_CREDENTIAL("Invalid Credential !");
+    LOGIN_UI_CONTROLLER_INVALID_CREDENTIAL("Failed to authenticate!");
     private String errorMessage;
 
     private ErrorMessage(String errorMessage){
