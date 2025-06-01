@@ -65,6 +65,10 @@ public class Navigator {
 
     private static final String LOGIN_PAGE = "/com/arthroverse/duckyemulator/fxmls/Login/NewLoginUI.fxml";
 
+    private static final String USER_HOME_PAGE = "/com/arthroverse/duckyemulator/fxmls/PublicUserUI/UserHomePage.fxml";
+
+    private static final String USER_TESTING_PAGE = "/com/arthroverse/duckyemulator/fxmls/PublicUserUI/UserTestingUI.fxml";
+
     private Stage stage;
 
     private Stage secondStage = new Stage();
@@ -204,7 +208,7 @@ public class Navigator {
         this.secondStage = null;
    }
 
-   public void goToHome() throws IOException {
+   public void goToAdminHomePage() throws IOException {
         this.goTo(HOME_FXML);
    }
 
@@ -249,5 +253,13 @@ public class Navigator {
     public void goToLoginPage() throws IOException {
        if(this.stage.isShowing()) this.stage.close();
        this.goTo(LOGIN_PAGE);
+    }
+
+    public void goToUserHomePage() throws IOException{
+       this.goTo(USER_HOME_PAGE);
+    }
+
+    public void goToTestPage() throws IOException{
+       this.goTo(USER_TESTING_PAGE);
     }
 }
