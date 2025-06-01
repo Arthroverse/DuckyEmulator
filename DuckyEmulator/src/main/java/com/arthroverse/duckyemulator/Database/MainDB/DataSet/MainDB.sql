@@ -74,7 +74,34 @@ CREATE TABLE IF NOT EXISTS Users(
     UserPassword VARCHAR(150) NOT NULL,
     UserType VARCHAR(10) NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS Sessions(
+    SessionId TIMESTAMP PRIMARY KEY NOT NULL,
+    CandidateEmail VARCHAR(50) NOT NULL,
+    CandidateName VARCHAR(50) NOT NULL,
+    TotalQuestions INT NOT NULL,
+    Status BOOLEAN DEFAULT FALSE, #True = passed, false = failed
+    TotalCorrectQuestions INT DEFAULT 0,
+    TimeTaken INT DEFAULT 0,
+    Deleted BOOLEAN DEFAULT 0,
+    DeletedAt VARCHAR(100),
+    DeletedBy VARCHAR(50)
+);
+
+CREATE TABLE IF NOT EXISTS Results(
+    SessionId TIMESTAMP NOT NULL,
+    FOREIGN KEY (SessionId) REFERENCES Sessions(SessionId),
+    PRIMARY KEY(SessionId),
+    QuestionId INT NOT NULL,
+    FOREIGN KEY (QuestionId) REFERENCES Questions(QuestionId),
+    UserAnswer VARCHAR(512) NOT NULL,
+    IsCorrect BOOLEAN NOT NULL,
+    Deleted BOOLEAN DEFAULT 0,
+    DeletedAt VARCHAR(100),
+    DeletedBy VARCHAR(50)
+);
 INSERT INTO Users(UserEmail, UserName, UserPassword, UserType)
-VALUES('a@example.com', 'vinh', '123456789', 'Admin');
+VALUES('admin@example.com', 'vinh', 'a', 'Admin'),
+('user@example.com', 'hoang', 'a', 'User');
 -- FOR TESTING AND DEBUGGING PURPOSES
 -- DROP DATABASE DuckyEmulator_QuestionDB;
