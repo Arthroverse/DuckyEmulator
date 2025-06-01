@@ -51,11 +51,11 @@ public class Users {
         this.userEmail = userEmail;
     }
 
-    public static String getUserNameForFrontEnd() {
+    public static String getUserName() {
         return currentUserNameInActiveSession;
     }
 
-    public static void setUserNameForFrontEnd(String userNameForFrontEnd) {
+    public static void setUserName(String userNameForFrontEnd) {
         Users.currentUserNameInActiveSession = userNameForFrontEnd;
     }
 
@@ -116,7 +116,7 @@ public class Users {
             if(rs.getInt(1) != 1){
                 return false;
             }
-            setUserNameForFrontEnd(fetchUserName(user));
+            setUserName(fetchUserName(user));
             setCurrentUserEmailInActiveSession(user.getUserEmail());
             return true;
         }catch(Exception e){
