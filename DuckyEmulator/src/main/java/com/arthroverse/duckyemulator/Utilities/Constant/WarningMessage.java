@@ -24,7 +24,8 @@ package com.arthroverse.duckyemulator.Utilities.Constant;
 
 public enum WarningMessage{
 
-    UNIVERSAL_RESET_FIELD("Are you sure you want to reset all fields ?");
+    UNIVERSAL_RESET_FIELD("Are you sure you want to reset all fields ?"),
+    USER_AGREEMENT("By pressing \"OK\", you have complied to all of the rules above, any cheating action will result in heavy punishment or permenant ban");
 
     private String message;
     private WarningMessage(String message){
