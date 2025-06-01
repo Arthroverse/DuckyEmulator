@@ -163,7 +163,7 @@ public class QBankIndexUIController implements Initializable {
 
     @FXML
     void btnMenuHome(ActionEvent event) throws IOException {
-        Navigator.getInstance().goToHome();
+        Navigator.getInstance().goToAdminHomePage();
     }
 
     @FXML
@@ -179,7 +179,7 @@ public class QBankIndexUIController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         greetingLabel.setText(String.format(Reusable.DEFAULT_GREETING.toString(),
-                Users.getUserNameForFrontEnd()));
+                Users.getUserName()));
         Questions.setPage();
         pageinationQBank.setPageCount(maxPageNum);
         pageinationQBank.setCurrentPageIndex(currentPageIndex);
