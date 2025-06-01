@@ -56,9 +56,6 @@ public class LoginUIController implements Initializable {
     @FXML
     private MFXTextField txtUsrNameEmail;
 
-    @FXML
-    private Label loginMessage;
-
     private static StringBuilder errorMessage;
 
     @FXML
@@ -69,10 +66,17 @@ public class LoginUIController implements Initializable {
             u.setUserPassword(passwordFieldUsrPw.getText());
             u.setUserType(choiceBoxUserType.getValue());
             if(Users.checkCredential(u)){
-                Navigator.getInstance().closeSecondStage();
-                Navigator.getInstance().goToHome();
+                if(u.getUserType().equals("Admin")){
+                    Navigator.getInstance().closeSecondStage();
+                    Navigator.getInstance().goToAdminHomePage();
+                }else if(u.getUserType().equals("User")){
+                    Navigator.getInstance().closeSecondStage();
+                    Navigator.getInstance().goToUserHomePage();
+                }
             }
-            else loginMessage.setText(
+            else AlertUtil.generateErrorWindow(
+                    ErrorTitle.LOGIN_UI_CONTROLLER_LOGIN_FAILED.toString(),
+                    FailedOperationType.LOGIN_UI_CONTROLLER_LOGIN_FAILED.toString(),
                     ErrorMessage.LOGIN_UI_CONTROLLER_INVALID_CREDENTIAL.toString());
         }
         errorMessage = new StringBuilder();
