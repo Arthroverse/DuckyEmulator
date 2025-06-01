@@ -82,7 +82,7 @@ CREATE TABLE IF NOT EXISTS Sessions(
     TotalQuestions INT NOT NULL,
     Status BOOLEAN DEFAULT FALSE, #True = passed, false = failed
     TotalCorrectQuestions INT DEFAULT 0,
-    TimeTaken INT DEFAULT 0,
+    TimeTaken BIGINT DEFAULT 0,
     Deleted BOOLEAN DEFAULT 0,
     DeletedAt VARCHAR(100),
     DeletedBy VARCHAR(50)
