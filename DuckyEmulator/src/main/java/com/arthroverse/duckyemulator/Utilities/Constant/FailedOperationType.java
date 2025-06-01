@@ -42,7 +42,9 @@ public enum FailedOperationType {
 
     TOPIC_UI_CONTROLLER_UPDATE_TOPIC_FAILED("Update new topic"),
 
-    LOGIN_UI_CONTROLLER_LOGIN_FAILED("Login Failed");
+    LOGIN_UI_CONTROLLER_LOGIN_FAILED("Login"),
+
+    SQL_SESSION_INSERT_NEW_QUERY_FAILED("Session insert");
 
     private String opType;
     private FailedOperationType(String opType){
