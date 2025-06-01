@@ -130,11 +130,6 @@
                                         <!-- Error/Login Message -->
                                         <VBox alignment="CENTER_LEFT" spacing="8.0">
                                             <children>
-                                                <Label fx:id="loginMessage" textFill="#dc3545" wrapText="true">
-                                                    <font>
-                                                        <Font size="14.0" />
-                                                    </font>
-                                                </Label>
                                     <HBox alignment="CENTER" prefHeight="7.0" prefWidth="380.0" spacing="50.0">
                                        <children>
                                           <MFXButton alignment="CENTER" mnemonicParsing="false" styleClass="link_button" text="Don't have an account?" />
