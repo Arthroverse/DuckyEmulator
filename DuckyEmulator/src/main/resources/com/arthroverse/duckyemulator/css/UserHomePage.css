@@ -1,0 +1,40 @@
+@import url('../fonts/JetBrainsMono/JetBrainsMono.css');
+@import url('../fonts/JetBrainsMonoNL/JetBrainsMonoNL.css');
+
+.welcome_label{
+    -fx-font-family: 'JetBrains Mono Bold Italic';
+    -fx-text-fill: #5f6368;
+}
+
+.welcome_label_subtext{
+    -fx-font-family: 'JetBrains Mono Regular';
+    -fx-text-fill: #5f6368;
+}
+
+.user_welcome_sub_message{
+    -fx-font-family: 'JetBrains Mono Regular';
+    -fx-text-fill: #FFFFFF;
+}
+
+.user_welcome_message{
+    -fx-font-family: 'JetBrains Mono Bold Italic';
+    -fx-text-fill: #FFFFFF;
+}
+
+.mfx-button{
+    -fx-font-family: 'JetBrains Mono Bold';
+    -fx-text-fill: #FFFFFF;
+}
+
+.rule_num{
+    -fx-font-family: 'JetBrains Mono Bold';
+}
+
+.rule_header{
+    -fx-font-family: 'JetBrains Mono Bold';
+}
+
+
+.rule_text{
+    -fx-font-family: 'JetBrains Mono Regular';
+}
