@@ -24,7 +24,8 @@ package com.arthroverse.duckyemulator.Utilities.Constant;
 
 public enum WarningTitle {
 
-    UNIVERSAL_RESET_FIELD("Reset all fields");
+    UNIVERSAL_RESET_FIELD("Reset all fields"),
+    USER_AGREEMENT("User Agreement");
 
     private String title;
     private WarningTitle(String title){
