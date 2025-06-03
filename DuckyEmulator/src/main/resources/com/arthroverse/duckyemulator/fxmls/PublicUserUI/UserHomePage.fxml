@@ -30,13 +30,20 @@
   ~ @author ducksabervn
   -->
 
-<?import io.github.palexdev.materialfx.controls.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane stylesheets="@../../css/UserHomePage.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.arthroverse.duckyemulator.UIControllers.PublicUIController.UserHomePageUIController">
+<BorderPane stylesheets="@../../css/UserHomePage.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.arthroverse.duckyemulator.UIControllers.PublicUIController.UserHomePageUIController">
     <top>
         <!-- Header Section -->
         <VBox style="-fx-background-color: linear-gradient(to right, #332D7B, #42A5F5); -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 4, 0, 0, 2);">
@@ -121,9 +128,9 @@
     </left>
     <center>
         <!-- Main Content Area -->
-        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: #f8f9fa; -fx-background: #f8f9fa;">
+        <ScrollPane fx:id="scrollPaneMain" fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: #f8f9fa; -fx-background: #f8f9fa;">
             <content>
-                <VBox style="-fx-background-color: #f8f9fa;">
+                <VBox fx:id="scrollPaneContentVBox" style="-fx-background-color: #f8f9fa;">
                     <children>
                         <!-- Welcome Section -->
                         <VBox spacing="15.0">
@@ -178,7 +185,7 @@
                                                         <!-- Rule 1 -->
                                                         <HBox alignment="TOP_LEFT" spacing="12.0">
                                                             <children>
-                                                                <Label styleClass="rule_num" text="1." textFill="#332D7B">
+                                                                <Label style="-fx-text-fill: #332d7b;" styleClass="rule_num" text="1." textFill="#332D7B">
                                                                     <font>
                                                                         <Font name="Segoe UI Semibold" size="16.0" />
                                                                     </font>
@@ -203,7 +210,7 @@
                                                         <!-- Rule 2 -->
                                                         <HBox alignment="TOP_LEFT" spacing="12.0">
                                                             <children>
-                                                                <Label styleClass="rule_num" text="2." textFill="#332D7B">
+                                                                <Label style="-fx-text-fill: #332d7b;" styleClass="rule_num" text="2." textFill="#332D7B">
                                                                     <font>
                                                                         <Font name="Segoe UI Semibold" size="16.0" />
                                                                     </font>
@@ -228,7 +235,7 @@
                                                         <!-- Rule 3 -->
                                                         <HBox alignment="TOP_LEFT" spacing="12.0">
                                                             <children>
-                                                                <Label styleClass="rule_num" text="3." textFill="#332D7B">
+                                                                <Label style="-fx-text-fill: #332d7b;" styleClass="rule_num" text="3." textFill="#332D7B">
                                                                     <font>
                                                                         <Font name="Segoe UI Semibold" size="16.0" />
                                                                     </font>
@@ -253,7 +260,7 @@
                                                         <!-- Rule 4 -->
                                                         <HBox alignment="TOP_LEFT" spacing="12.0">
                                                             <children>
-                                                                <Label styleClass="rule_num" text="4." textFill="#332D7B">
+                                                                <Label style="-fx-text-fill: #332d7b;" styleClass="rule_num" text="4." textFill="#332D7B">
                                                                     <font>
                                                                         <Font name="Segoe UI Semibold" size="16.0" />
                                                                     </font>
@@ -278,7 +285,7 @@
                                                         <!-- Rule 5 -->
                                                         <HBox alignment="TOP_LEFT" spacing="12.0">
                                                             <children>
-                                                                <Label styleClass="rule_num" text="5." textFill="#332D7B">
+                                                                <Label style="-fx-text-fill: #332d7b;" styleClass="rule_num" text="5." textFill="#332D7B">
                                                                     <font>
                                                                         <Font name="Segoe UI Semibold" size="16.0" />
                                                                     </font>
@@ -305,19 +312,19 @@
                                                             <children>
                                                                 <HBox alignment="CENTER_LEFT" spacing="10.0">
                                                                     <children>
-                                                                        <Label text="⚠️" textFill="#e65100">
+                                                                        <Label style="-fx-text-fill: #e65100;" text="⚠️" textFill="#e65100">
                                                                             <font>
                                                                                 <Font size="20.0" />
                                                                             </font>
                                                                         </Label>
-                                                                        <Label styleClass="rule_text" text="Important Notice" textFill="#e65100">
+                                                                        <Label style="-fx-text-fill: #e65100;" styleClass="rule_text" text="Important Notice" textFill="#e65100">
                                                                             <font>
                                                                                 <Font name="Segoe UI Semibold" size="16.0" />
                                                                             </font>
                                                                         </Label>
                                                                     </children>
                                                                 </HBox>
-                                                                <Label styleClass="rule_text" text="By clicking 'Start New Test', you acknowledge that you have read and understood all the examination rules. Academic integrity policies apply to all examinations." textFill="#bf360c" wrapText="true">
+                                                                <Label style="-fx-text-fill: #bf360c;" styleClass="rule_text" text="By clicking 'Start New Test', you acknowledge that you have read and understood all the examination rules. Academic integrity policies apply to all examinations." textFill="#bf360c" wrapText="true">
                                                                     <font>
                                                                         <Font name="Segoe UI" size="14.0" />
                                                                     </font>
