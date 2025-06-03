@@ -10,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
@@ -44,13 +45,13 @@ public class UserTestingUIController implements Initializable {
     private MFXRadioButton mfxRadBtnFirst;
 
     @FXML
-    private MFXRadioButton mfxRadBtnFourth;
-
-    @FXML
     private MFXRadioButton mfxRadBtnSecond;
 
     @FXML
     private MFXRadioButton mfxRadBtnThird;
+
+    @FXML
+    private MFXRadioButton mfxRadBtnFourth;
 
     @FXML
     private TableColumn<String, Integer> tableColQuestNum;
@@ -112,6 +113,12 @@ public class UserTestingUIController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         timeline = new Timeline(new KeyFrame(javafx.util.Duration.millis(1000), ae -> incrementTime()));
         timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
+        ToggleGroup toggleGroup = new ToggleGroup();
+        mfxRadBtnFirst.setToggleGroup(toggleGroup);
+        mfxRadBtnSecond.setToggleGroup(toggleGroup);
+        mfxRadBtnThird.setToggleGroup(toggleGroup);
+        mfxRadBtnFourth.setToggleGroup(toggleGroup);
     }
 
     private void incrementTime() {
