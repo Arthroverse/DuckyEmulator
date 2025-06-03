@@ -77,28 +77,17 @@ CREATE TABLE IF NOT EXISTS Users(
 
 CREATE TABLE IF NOT EXISTS Sessions(
     SessionId TIMESTAMP PRIMARY KEY NOT NULL,
-    CandidateEmail VARCHAR(50) NOT NULL,
-    CandidateName VARCHAR(50) NOT NULL,
-    TotalQuestions INT NOT NULL,
-    Status BOOLEAN DEFAULT FALSE, #True = passed, false = failed
-    TotalCorrectQuestions INT DEFAULT 0,
-    TimeTaken BIGINT DEFAULT 0,
-    Deleted BOOLEAN DEFAULT 0,
-    DeletedAt VARCHAR(100),
-    DeletedBy VARCHAR(50)
+    UserEmail VARCHAR(50) NOT NULL,
+    FOREIGN KEY (UserEmail) REFERENCES Users(UserEmail),
+    ElapsedTime INT DEFAULT 0,
+    Status BOOLEAN DEFAULT FALSE
 );
 
-CREATE TABLE IF NOT EXISTS Results(
+CREATE TABLE IF NOT EXISTS Session_has_question(
     SessionId TIMESTAMP NOT NULL,
-    FOREIGN KEY (SessionId) REFERENCES Sessions(SessionId),
-    PRIMARY KEY(SessionId),
     QuestionId INT NOT NULL,
-    FOREIGN KEY (QuestionId) REFERENCES Questions(QuestionId),
-    UserAnswer VARCHAR(512) NOT NULL,
-    IsCorrect BOOLEAN NOT NULL,
-    Deleted BOOLEAN DEFAULT 0,
-    DeletedAt VARCHAR(100),
-    DeletedBy VARCHAR(50)
+    PRIMARY KEY(SessionId, QuestionId),
+    UserAnswer VARCHAR(512)
 );
 INSERT INTO Users(UserEmail, UserName, UserPassword, UserType)
 VALUES('admin@example.com', 'vinh', 'a', 'Admin'),
