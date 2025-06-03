@@ -91,6 +91,17 @@ public class LoginUIController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         choiceBoxUserType.setItems(FXCollections.observableArrayList("User", "Admin"));
         errorMessage = new StringBuilder();
+
+
+        //for user testing, since it takes too much time to type all of ts in
+        choiceBoxUserType.setValue("User");
+        txtUsrNameEmail.setText("user@example.com");
+        passwordFieldUsrPw.setText("a");
+
+          //for admin testing, since it takes too much time to type all of ts in
+//        choiceBoxUserType.setValue("Admin");
+//        txtUsrNameEmail.setText("admin@example.com");
+//        passwordFieldUsrPw.setText("a");
     }
 
     private boolean inputValidation(){
