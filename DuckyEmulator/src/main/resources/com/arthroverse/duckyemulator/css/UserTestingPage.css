@@ -38,4 +38,15 @@
 
 .mfx-radio-button{
     -fx-font-family: 'JetBrains Mono Regular';
+    -fx-text-fill: #000000;
+    -fx-wrap-text: true;
+    -fx-text-alignment: left;
+    -fx-content-display: left;
+}
+
+/* Alternative targeting */
+.mfx-radio-button .label {
+    -fx-wrap-text: true;
+    -fx-max-width: 500px;
+    -fx-pref-width: 500px;
 }
