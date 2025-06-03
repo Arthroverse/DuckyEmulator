@@ -29,9 +29,12 @@ import com.arthroverse.duckyemulator.Utilities.Constant.WarningMessage;
 import com.arthroverse.duckyemulator.Utilities.Constant.WarningTitle;
 import com.arthroverse.duckyemulator.Utilities.PromptAlert.AlertUtil;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.net.URL;
@@ -50,6 +53,12 @@ public class UserHomePageUIController implements Initializable {
     @FXML
     private Label greetingLabel;
 
+    @FXML
+    private ScrollPane scrollPaneMain;
+
+    @FXML
+    private VBox scrollPaneContentVBox;
+
     private static LocalDateTime startTime;
 
     public static LocalDateTime getStartTime(){
@@ -63,11 +72,8 @@ public class UserHomePageUIController implements Initializable {
         Sessions session = new Sessions();
         session.setSessionId(now.format(formatter));
         Sessions.insert(session);
-        if(AlertUtil.generateWarningWindow(WarningTitle.USER_AGREEMENT.toString(),
-                WarningMessage.USER_AGREEMENT.toString())){
-            startTime = LocalDateTime.now();
-            Navigator.getInstance().goToTestPage();
-        }
+        startTime = LocalDateTime.now();
+        Navigator.getInstance().goToTestPage();
     }
 
     @FXML
@@ -89,5 +95,9 @@ public class UserHomePageUIController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         greetingLabel.setText(String.format(Reusable.DEFAULT_GREETING.toString(),
                 Users.getUserName()));
+
+        //Solutions from StackOverFlow, seems like the resizing element when mouse clicked is a JavaFX bug (not fixed yet)
+        scrollPaneMain.setOnMousePressed(Event::consume);
+        scrollPaneContentVBox.setOnMousePressed(Event::consume);
     }
 }
