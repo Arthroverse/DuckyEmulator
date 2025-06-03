@@ -157,6 +157,7 @@ public class Sessions {
         ArrayList<Integer> selectedQuestionIds = new ArrayList<>();
         for(int i = 0; i < totalQuestionsInSession; i++){
             selectedQuestionIds.add(
+                    //TODO: If size = 100, then what happen if qId from 10 - 20 get deleted ?
                     (int)(Math.random() * Questions.getAllQuestionIds().size())
             );
         }
@@ -166,16 +167,14 @@ public class Sessions {
 
         Questions.querySelectedQuestionIds(s.selectedQuestions, selectedQuestionIdsList);
 
-        String sqlQuery = "INSERT INTO Sessions(SessionId, CandidateEmail, CandidateName, TotalQuestions) " +
-                "VALUES(?, ?, ?, ?);";
+        String sqlQuery = "INSERT INTO Sessions(SessionId, UserEmail) " +
+                "VALUES(?, ?);";
         try(
                 Connection conn = MySQLService.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sqlQuery);
                 ){
             stmt.setString(1, s.getSessionId());
             stmt.setString(2, s.getCandidateEmail());
-            stmt.setString(3, s.getCandidateName());
-            stmt.setInt(4, s.getTotalQuestions());
             stmt.executeUpdate();
         }catch(Exception e){
             AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e),
