@@ -33,6 +33,7 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -61,11 +62,16 @@
                         </Label>
                         <Region HBox.hgrow="ALWAYS" />
                         <!-- Stopwatch Label -->
-                        <Label fx:id="labelElapsedTime" styleClass="user_welcome_sub_message" text="Time Remaining: 00:00:00" textFill="WHITE">
+                        <Label styleClass="user_welcome_sub_message" text="Time Remaining:" textFill="WHITE">
                             <font>
                                 <Font name="Segoe UI Semibold" size="18.0" />
                             </font>
                         </Label>
+                  <Label fx:id="labelElapsedTime" styleClass="user_welcome_sub_message" text="00:00:00" textFill="WHITE">
+                     <font>
+                        <Font name="Segoe UI Semibold" size="18.0" />
+                     </font>
+                  </Label>
                     </children>
                     <padding>
                         <Insets bottom="15.0" left="30.0" right="30.0" top="15.0" />
@@ -145,19 +151,19 @@
         <VBox style="-fx-background-color: #f8f9fa;">
             <children>
                 <!-- Question Content Area -->
-                <HBox spacing="15.0" VBox.vgrow="ALWAYS">
+                <HBox prefHeight="700.0" prefWidth="1000.0" spacing="15.0" VBox.vgrow="ALWAYS">
                     <children>
                         <!-- Left Side: Question Statement + Image -->
-                        <VBox spacing="15.0" HBox.hgrow="ALWAYS">
+                        <VBox prefHeight="700.0" prefWidth="100.0" spacing="15.0" HBox.hgrow="ALWAYS">
                             <children>
                                 <!-- Question Statement Card -->
-                                <StackPane>
+                                <StackPane prefHeight="700.0" prefWidth="1500.0">
                                     <children>
                                         <!-- Card Background -->
                                         <Pane style="-fx-background-color: white; -fx-background-radius: 12; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0, 0, 2);" />
 
                                         <!-- Question Content -->
-                                        <VBox spacing="15.0">
+                                        <VBox prefHeight="349.0" prefWidth="1300.0" spacing="15.0">
                                             <children>
                                                 <!-- Question Header -->
                                                 <HBox alignment="CENTER_LEFT" spacing="12.0">
@@ -181,7 +187,7 @@
                                                 <!-- Question Statement -->
                                                 <MFXScrollPane fitToWidth="true" prefHeight="259.0" prefWidth="1542.0">
                                                     <content>
-                                                        <Label fx:id="labelQuestionStatement" styleClass="other_text" text="This is a sample question statement. Please read the question carefully and select the most appropriate answer from the options provided below. The question may include multiple parts or require analysis of the accompanying image." textFill="#202124" wrapText="true">
+                                                        <Label fx:id="labelQuestionStatement" styleClass="other_text" text="We could always make exceptions if they are logical. If we have tables product and invoice, and we want to specify which products were on which invoice, we could name that table invoice_product or invoice_contains_product. Still, using the name invoice_item is much closer to the real world. Still, that decision is completely up to you.We could always make exceptions if they are logical. If we have tables product and invoice, and we want to specify which products were on which invoice, we could name that table invoice_product or invoice_contains_product. Still, using the name invoice_item is much closer to the real world. Still, that decision is completely up to you.We could always make exceptions if they are logical. If we have tables product and invoice, and we want to specify which products were on which invoice, we could name that table invoice_product or invoice_contains_product. Still, using the name invoice_item is much closer to the real world. Still, that decision is completely up to you.We could always make exceptions if they are logical. If we have tables product and invoice, and we want to specify which products were on which invoice, we could name that table invoice_product or invoice_contains_product. Still, using the name invoice_item is much closer to the real world. Still, that decision is completely up to you." textFill="#202124" wrapText="true">
                                                             <font>
                                                                 <Font name="Segoe UI" size="16.0" />
                                                             </font>
@@ -197,13 +203,13 @@
                                 </StackPane>
 
                                 <!-- Question Image Card -->
-                                <StackPane>
+                                <StackPane prefHeight="700.0" prefWidth="1500.0">
                                     <children>
                                         <!-- Card Background -->
                                         <Pane style="-fx-background-color: white; -fx-background-radius: 12; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0, 0, 2);" />
 
                                         <!-- Image Content -->
-                                        <VBox spacing="10.0">
+                                        <VBox prefHeight="263.0" prefWidth="1559.0" spacing="10.0">
                                             <children>
                                                 <Label styleClass="other_text_bold" text="Question Image" textFill="#332D7B">
                                                     <font>
@@ -214,7 +220,7 @@
                                                 <!-- Image Placeholder -->
                                                 <StackPane prefHeight="150.0" style="-fx-background-color: #f5f5f5; -fx-background-radius: 8; -fx-border-color: #e0e0e0; -fx-border-radius: 8; -fx-border-width: 1;">
                                                     <children>
-                                                        <VBox alignment="CENTER" prefHeight="173.0" prefWidth="1540.0" spacing="10.0">
+                                                        <VBox alignment="CENTER" prefHeight="238.0" prefWidth="651.0" spacing="10.0">
                                                             <children>
                                                                 <Label text="🖼️" textFill="#9e9e9e">
                                                                     <font>
@@ -229,7 +235,10 @@
                                                             </children>
                                                         </VBox>
                                                         <!-- Actual ImageView for real implementation -->
-                                                        <ImageView fx:id="imageViewQuestImg" fitHeight="199.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                                                        <ImageView fx:id="imageViewQuestImg" fitHeight="276.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                                             <image>
+                                                <Image url="@../../duckyicon.png" />
+                                             </image>
                                                         </ImageView>
                                                     </children>
                                                 </StackPane>
@@ -272,35 +281,36 @@
                                                 </HBox>
 
                                                 <Separator />
-
-                                                <!-- Answer Options -->
-                                                <VBox spacing="15.0">
-                                                    <children>
-                                                        <!-- Answer A -->
-                                                        <MFXRadioButton fx:id="mfxRadBtnFirst" styleClass="mfx-radio-button" text="A. First answer option - this could be a longer text that wraps to multiple lines if needed" wrapText="true">
-                                                            <toggleGroup>
-                                                            </toggleGroup>
-                                                        </MFXRadioButton>
-
-                                                        <!-- Answer B -->
-                                                        <MFXRadioButton fx:id="mfxRadBtnSecond" styleClass="mfx-radio-button" text="B. Second answer option - each answer can contain different types of content and varying lengths" wrapText="true">
-                                                            <toggleGroup>
-                                                            </toggleGroup>
-                                                        </MFXRadioButton>
-
-                                                        <!-- Answer C -->
-                                                        <MFXRadioButton fx:id="mfxRadBtnThird" styleClass="mfx-radio-button" text="C. Third answer option - students can select only one option from the available choices" wrapText="true">
-                                                            <toggleGroup>
-                                                            </toggleGroup>
-                                                        </MFXRadioButton>
-
-                                                        <!-- Answer D -->
-                                                        <MFXRadioButton fx:id="mfxRadBtnFourth" styleClass="mfx-radio-button" text="D. Fourth answer option - this completes the set of four possible answers for this question" wrapText="true">
-                                                            <toggleGroup>
-                                                            </toggleGroup>
-                                                        </MFXRadioButton>
-                                                    </children>
-                                                </VBox>
+                                    <MFXScrollPane>
+                                       <content>
+                                          <VBox spacing="40.0">
+                                             <children>
+                                                <Pane prefHeight="0.0" prefWidth="316.0" />
+                                                <MFXRadioButton fx:id="mfxRadBtnFirst" styleClass="mfx-radio-button" text="This time we won’t talk about the data itself, but rather about the database objects and the way they were named.I’ve already stated it in the intro, but more generally, a naming convention is a set of rules you decide to go with before you start modeling your database. You’ll apply these rules while naming anything inside the database – tables, columns, primary and foreign keys, stored procedures, functions, views, etc. Of course, you could decide to only set naming convention rules for tables and column names. That part is completely up to you.Also, using the naming convention is not the rule, but it’s desired. While most rules are pretty logical, you could go with some you’ve invited (e.g., you could call a primary key attribute “id”, or “ID”), and that is completely up to you. In this article, I’ll try to use these rules you’ll meet in most cases.This time we won’t talk about the data itself, but rather about the database objects and the way they were named.I’ve already stated it in the intro, but more generally, a naming convention is a set of rules you decide to go with before you start modeling your database. You’ll apply these rules while naming anything inside the database – tables, columns, primary and foreign keys, stored procedures, functions, views, etc. Of course, you could decide to only set naming convention rules for tables and column names. That part is completely up to you.Also, using the naming convention is not the rule, but it’s desired. While most rules are pretty logical, you could go with some you’ve invited (e.g., you could call a primary key attribute “id”, or “ID”), and that is completely up to you. In this article, I’ll try to use these rules you’ll meet in most cases.">
+                                                   <padding>
+                                                      <Insets left="10.0" />
+                                                   </padding>
+                                                </MFXRadioButton>
+                                                <MFXRadioButton fx:id="mfxRadBtnSecond" styleClass="mfx-radio-button" text="This time we won’t talk about the data itself, but rather about the database objects and the way they were named.I’ve already stated it in the intro, but more generally, a naming convention is a set of rules you decide to go with before you start modeling your database. You’ll apply these rules while naming anything inside the database – tables, columns, primary and foreign keys, stored procedures, functions, views, etc. Of course, you could decide to only set naming convention rules for tables and column names. That part is completely up to you.Also, using the naming convention is not the rule, but it’s desired. While most rules are pretty logical, you could go with some you’ve invited (e.g., you could call a primary key attribute “id”, or “ID”), and that is completely up to you. In this article, I’ll try to use these rules you’ll meet in most cases.This time we won’t talk about the data itself, but rather about the database objects and the way they were named.I’ve already stated it in the intro, but more generally, a naming convention is a set of rules you decide to go with before you start modeling your database. You’ll apply these rules while naming anything inside the database – tables, columns, primary and foreign keys, stored procedures, functions, views, etc. Of course, you could decide to only set naming convention rules for tables and column names. That part is completely up to you.Also, using the naming convention is not the rule, but it’s desired. While most rules are pretty logical, you could go with some you’ve invited (e.g., you could call a primary key attribute “id”, or “ID”), and that is completely up to you. In this article, I’ll try to use these rules you’ll meet in most cases.">
+                                                   <padding>
+                                                      <Insets left="10.0" />
+                                                   </padding>
+                                                </MFXRadioButton>
+                                                <MFXRadioButton fx:id="mfxRadBtnThird" styleClass="mfx-radio-button" text="This time we won’t talk about the data itself, but rather about the database objects and the way they were named.I’ve already stated it in the intro, but more generally, a naming convention is a set of rules you decide to go with before you start modeling your database. You’ll apply these rules while naming anything inside the database – tables, columns, primary and foreign keys, stored procedures, functions, views, etc. Of course, you could decide to only set naming convention rules for tables and column names. That part is completely up to you.Also, using the naming convention is not the rule, but it’s desired. While most rules are pretty logical, you could go with some you’ve invited (e.g., you could call a primary key attribute “id”, or “ID”), and that is completely up to you. In this article, I’ll try to use these rules you’ll meet in most cases.This time we won’t talk about the data itself, but rather about the database objects and the way they were named.I’ve already stated it in the intro, but more generally, a naming convention is a set of rules you decide to go with before you start modeling your database. You’ll apply these rules while naming anything inside the database – tables, columns, primary and foreign keys, stored procedures, functions, views, etc. Of course, you could decide to only set naming convention rules for tables and column names. That part is completely up to you.Also, using the naming convention is not the rule, but it’s desired. While most rules are pretty logical, you could go with some you’ve invited (e.g., you could call a primary key attribute “id”, or “ID”), and that is completely up to you. In this article, I’ll try to use these rules you’ll meet in most cases.">
+                                                   <padding>
+                                                      <Insets left="10.0" />
+                                                   </padding>
+                                                </MFXRadioButton>
+                                                <MFXRadioButton fx:id="mfxRadBtnFourth" styleClass="mfx-radio-button" text="This time we won’t talk about the data itself, but rather about the database objects and the way they were named.I’ve already stated it in the intro, but more generally, a naming convention is a set of rules you decide to go with before you start modeling your database. You’ll apply these rules while naming anything inside the database – tables, columns, primary and foreign keys, stored procedures, functions, views, etc. Of course, you could decide to only set naming convention rules for tables and column names. That part is completely up to you.Also, using the naming convention is not the rule, but it’s desired. While most rules are pretty logical, you could go with some you’ve invited (e.g., you could call a primary key attribute “id”, or “ID”), and that is completely up to you. In this article, I’ll try to use these rules you’ll meet in most cases.This time we won’t talk about the data itself, but rather about the database objects and the way they were named.I’ve already stated it in the intro, but more generally, a naming convention is a set of rules you decide to go with before you start modeling your database. You’ll apply these rules while naming anything inside the database – tables, columns, primary and foreign keys, stored procedures, functions, views, etc. Of course, you could decide to only set naming convention rules for tables and column names. That part is completely up to you.Also, using the naming convention is not the rule, but it’s desired. While most rules are pretty logical, you could go with some you’ve invited (e.g., you could call a primary key attribute “id”, or “ID”), and that is completely up to you. In this article, I’ll try to use these rules you’ll meet in most cases.">
+                                                   <padding>
+                                                      <Insets left="10.0" />
+                                                   </padding>
+                                                </MFXRadioButton>
+                                                <Pane prefHeight="0.0" prefWidth="316.0" />
+                                             </children>
+                                          </VBox>
+                                       </content>
+                                    </MFXScrollPane>
                                             </children>
                                             <padding>
                                                 <Insets bottom="20.0" left="25.0" right="25.0" top="20.0" />
