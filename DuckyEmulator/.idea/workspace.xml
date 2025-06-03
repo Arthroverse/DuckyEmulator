@@ -6,8 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="a57d5096-8edd-4b4d-954e-07f711464abf" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/Database/MainDB/DataSet/MainDB.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/Database/MainDB/DataSet/MainDB.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/Database/MainDB/PublicBeans/Sessions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/Database/MainDB/PublicBeans/Sessions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIControllers/LoginController/LoginUIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIControllers/LoginController/LoginUIController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIControllers/PublicUIController/UserHomePageUIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIControllers/PublicUIController/UserHomePageUIController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIControllers/PublicUIController/UserTestingUIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIControllers/PublicUIController/UserTestingUIController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/css/UserTestingPage.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/css/UserTestingPage.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/PublicUserUI/UserHomePage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/PublicUserUI/UserHomePage.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/PublicUserUI/UserTestingUI.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/PublicUserUI/UserTestingUI.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,9 +25,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
-        <option value="FxmlFile" />
         <option value="CSS File" />
         <option value="Class" />
+        <option value="FxmlFile" />
       </list>
     </option>
   </component>
@@ -80,7 +87,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "2025-5-23",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/ducksabervn/DATA/coding/DuckyEmulator/DuckyEmulator/src/main/resources/com/arthroverse/duckyemulator/fxmls/AdminUIs",
+    "last_opened_file_path": "/Users/ducksabervn/DATA/coding/DuckyEmulator/DuckyEmulator/src/main/resources/com/arthroverse/duckyemulator",
     "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -103,11 +110,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator" />
+      <recent name="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/others" />
       <recent name="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/AdminUIs" />
       <recent name="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/Login" />
       <recent name="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/css" />
-      <recent name="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fonts/JetBrainsMonoNL" />
-      <recent name="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fonts/JetBrainsMono" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/java" />
@@ -196,7 +203,10 @@
       <workItem from="1748453119660" duration="5626000" />
       <workItem from="1748500453906" duration="2761000" />
       <workItem from="1748703600900" duration="2593000" />
-      <workItem from="1748736860134" duration="36815000" />
+      <workItem from="1748736860134" duration="36832000" />
+      <workItem from="1748847819440" duration="6330000" />
+      <workItem from="1748972113921" duration="13379000" />
+      <workItem from="1748987186645" duration="1161000" />
     </task>
     <servers />
   </component>
@@ -225,17 +235,6 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/Utilities/FileHandler/FileHandler.java</url>
-          <line>61</line>
-          <option name="timeStamp" value="8" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
