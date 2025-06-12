@@ -43,6 +43,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import io.github.palexdev.materialfx.controls.MFXScrollPane?>
 <BorderPane stylesheets="@../../css/UserHomePage.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.arthroverse.duckyemulator.UIControllers.PublicUIController.UserHomePageUIController">
     <top>
         <!-- Header Section -->
@@ -90,14 +91,14 @@
                         </Label>
 
                         <!-- Home Button -->
-                        <MFXButton mnemonicParsing="false" onAction="#btnGoToHome" prefHeight="48.0" prefWidth="260.0" style="-fx-background-color: linear-gradient(to right, #332D7B, #42A5F5); -fx-background-radius: 24; -fx-border-radius: 24; -fx-text-fill: white; -fx-effect: dropshadow(gaussian, rgba(51,45,123,0.4), 8, 0, 0, 3); -fx-cursor: hand;" styleClass="mfx-button" text="🏠  Home">
+                        <MFXButton mnemonicParsing="false" onAction="#btnGoToHome" prefHeight="48.0" prefWidth="260.0" style="-fx-background-color: linear-gradient(to right, #332D7B, #42A5F5); -fx-background-radius: 24; -fx-border-radius: 24; -fx-text-fill: white; -fx-effect: dropshadow(gaussian, rgba(51,45,123,0.4), 8, 0, 0, 3); -fx-cursor: hand;" styleClass="all_button_normal" text="🏠  Home">
                             <font>
                                 <Font name="Segoe UI" size="18.0" />
                             </font>
                         </MFXButton>
 
                         <!-- Test History Button -->
-                        <MFXButton mnemonicParsing="false" onAction="#btnGoToTestHistory" prefHeight="48.0" prefWidth="260.0" style="-fx-background-color: transparent; -fx-background-radius: 24; -fx-border-radius: 24; -fx-text-fill: #5f6368; -fx-border-color: linear-gradient(to right, #332D7B, #42A5F5); -fx-border-width: 1.5; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 4, 0, 0, 1); -fx-cursor: hand;" styleClass="mfx-button" text="📊  Test History">
+                        <MFXButton mnemonicParsing="false" onAction="#btnGoToTestHistory" prefHeight="48.0" prefWidth="260.0" style="-fx-background-color: transparent; -fx-background-radius: 24; -fx-border-radius: 24; -fx-text-fill: #5f6368; -fx-border-color: linear-gradient(to right, #332D7B, #42A5F5); -fx-border-width: 1.5; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 4, 0, 0, 1); -fx-cursor: hand;" styleClass="all_button_normal" text="📊  Test History">
                             <font>
                                 <Font name="Segoe UI" size="18.0" />
                             </font>
@@ -110,7 +111,7 @@
                         </Separator>
 
                         <!-- Logout Button -->
-                        <MFXButton mnemonicParsing="false" onAction="#btnLogout" prefHeight="48.0" prefWidth="260.0" style="-fx-background-color: transparent; -fx-background-radius: 24; -fx-border-radius: 24; -fx-text-fill: #d93025; -fx-effect: dropshadow(gaussian, rgba(217,48,37,0.2), 4, 0, 0, 1); -fx-cursor: hand;" styleClass="mfx-button" text="🚪  Logout">
+                        <MFXButton mnemonicParsing="false" onAction="#btnLogout" prefHeight="48.0" prefWidth="260.0" style="-fx-background-color: transparent; -fx-background-radius: 24; -fx-border-radius: 24; -fx-text-fill: #d93025; -fx-effect: dropshadow(gaussian, rgba(217,48,37,0.2), 4, 0, 0, 1); -fx-cursor: hand;" styleClass="all_button_normal" text="🚪  Logout">
                             <font>
                                 <Font name="Segoe UI" size="18.0" />
                             </font>
@@ -128,14 +129,14 @@
     </left>
     <center>
         <!-- Main Content Area -->
-        <ScrollPane fx:id="scrollPaneMain" fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: #f8f9fa; -fx-background: #f8f9fa;">
+        <MFXScrollPane fx:id="scrollPaneMain" fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: #f8f9fa; -fx-background: #f8f9fa;">
             <content>
                 <VBox fx:id="scrollPaneContentVBox" style="-fx-background-color: #f8f9fa;">
                     <children>
                         <!-- Welcome Section -->
-                        <VBox spacing="15.0">
+                        <VBox spacing="15.0" VBox.vgrow="ALWAYS">
                             <children>
-                                <Label styleClass="welcome_label" text="Exam Center" textFill="#202124">
+                                <Label styleClass="welcome_label_large" text="Exam Center" textFill="#202124">
                                     <font>
                                         <Font name="Segoe UI" size="32.0" />
                                     </font>
@@ -152,7 +153,7 @@
                         </VBox>
 
                         <!-- Exam Rules Section -->
-                        <VBox spacing="20.0">
+                        <VBox spacing="20.0" VBox.vgrow="ALWAYS">
                             <children>
                                 <!-- Rules Card -->
                                 <StackPane>
@@ -317,7 +318,7 @@
                                                                                 <Font size="20.0" />
                                                                             </font>
                                                                         </Label>
-                                                                        <Label style="-fx-text-fill: #e65100;" styleClass="rule_text" text="Important Notice" textFill="#e65100">
+                                                                        <Label style="-fx-text-fill: #e65100;" styleClass="important_notice" text="Important Notice" textFill="#e65100">
                                                                             <font>
                                                                                 <Font name="Segoe UI Semibold" size="16.0" />
                                                                             </font>
@@ -347,7 +348,7 @@
                                 <!-- Start Test Button Section -->
                                 <VBox alignment="CENTER" spacing="20.0">
                                     <children>
-                                        <MFXButton mnemonicParsing="false" onAction="#btnStartSession" prefHeight="70.0" prefWidth="400.0" style="-fx-background-color: linear-gradient(to right, #332D7B, #42A5F5); -fx-background-radius: 35; -fx-text-fill: white; -fx-effect: dropshadow(gaussian, rgba(51,45,123,0.4), 15, 0, 0, 5); -fx-cursor: hand;" styleClass="mfx-button" text="🚀  Start New Test">
+                                        <MFXButton mnemonicParsing="false" onAction="#btnStartSession" prefHeight="70.0" prefWidth="400.0" style="-fx-background-color: linear-gradient(to right, #332D7B, #42A5F5); -fx-background-radius: 35; -fx-text-fill: white; -fx-effect: dropshadow(gaussian, rgba(51,45,123,0.4), 15, 0, 0, 5); -fx-cursor: hand;" styleClass="all_button_large" text="🚀  Start New Test">
                                             <font>
                                                 <Font name="Segoe UI Semibold" size="24.0" />
                                             </font>
@@ -367,6 +368,6 @@
                     </children>
                 </VBox>
             </content>
-        </ScrollPane>
+        </MFXScrollPane>
     </center>
 </BorderPane>
