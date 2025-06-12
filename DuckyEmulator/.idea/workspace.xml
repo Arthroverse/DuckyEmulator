@@ -7,14 +7,15 @@
     <list default="true" id="a57d5096-8edd-4b4d-954e-07f711464abf" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/Database/MainDB/DataSet/MainDB.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/Database/MainDB/DataSet/MainDB.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/Database/MainDB/PublicBeans/Sessions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/Database/MainDB/PublicBeans/Sessions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIControllers/LoginController/LoginUIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIControllers/LoginController/LoginUIController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/Main/DuckyEmulatorMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/Main/DuckyEmulatorMain.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIControllers/PublicUIController/UserHomePageUIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIControllers/PublicUIController/UserHomePageUIController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIControllers/PublicUIController/UserTestingUIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIControllers/PublicUIController/UserTestingUIController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/Utilities/FileHandler/FileHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/Utilities/FileHandler/FileHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/css/UserHomePage.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/css/UserHomePage.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/css/UserTestingPage.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/css/UserTestingPage.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/PublicUserUI/UserHomePage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/PublicUserUI/UserHomePage.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/PublicUserUI/UserTestingUI.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/PublicUserUI/UserTestingUI.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/PublicUserUI/UserTestingUI.fxml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,7 +88,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "2025-5-23",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/ducksabervn/DATA/coding/DuckyEmulator/DuckyEmulator/src/main/resources/com/arthroverse/duckyemulator",
+    "last_opened_file_path": "/Users/ducksabervn/DATA/coding/DuckyEmulator/DuckyEmulator/src/main/resources/com/arthroverse/duckyemulator/images/macos_icons",
     "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -95,8 +96,8 @@
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "onboarding.tips.debug.path": "/Users/ducksabervn/DATA/coding/DuckyEmulator/DuckyEmulator/src/main/java/org/example/Main.java",
-    "project.structure.last.edited": "Artifacts",
-    "project.structure.proportion": "0.0",
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "editing.templates",
     "vue.rearranger.settings.migration": "true"
@@ -110,18 +111,18 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/images/macos_icons" />
       <recent name="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator" />
       <recent name="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/others" />
       <recent name="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/AdminUIs" />
       <recent name="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/Login" />
-      <recent name="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/css" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/images/macos_icons" />
+      <recent name="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/images/macos_icon" />
       <recent name="$PROJECT_DIR$/src/main/java" />
       <recent name="$PROJECT_DIR$/src/main/resources/css" />
       <recent name="$PROJECT_DIR$/src/main" />
-      <recent name="$PROJECT_DIR$/src/main/resources/font" />
-      <recent name="$PROJECT_DIR$/src/main/java/com/ducksabervn/duckyemulator/UIs" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -139,12 +140,17 @@
       <command value="mvnDebug" />
     </option>
   </component>
-  <component name="RunManager" selected="Maven.Exec" />
+  <component name="RunManager" selected="Maven.Exec">
+    <list>
+      <item itemvalue="Maven.Debug" />
+      <item itemvalue="Maven.Exec" />
+    </list>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.25410.129" />
-        <option value="bundled-js-predefined-d6986cc7102b-6a121458b545-JavaScript-IU-251.25410.129" />
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.26094.121" />
+        <option value="bundled-js-predefined-d6986cc7102b-b26f3e71634d-JavaScript-IU-251.26094.121" />
       </set>
     </attachedChunks>
   </component>
@@ -207,6 +213,17 @@
       <workItem from="1748847819440" duration="6330000" />
       <workItem from="1748972113921" duration="13379000" />
       <workItem from="1748987186645" duration="1161000" />
+      <workItem from="1749107082219" duration="4719000" />
+      <workItem from="1749115517131" duration="6564000" />
+      <workItem from="1749278188063" duration="343000" />
+      <workItem from="1749284681911" duration="1261000" />
+      <workItem from="1749357191740" duration="17941000" />
+      <workItem from="1749378002985" duration="12273000" />
+      <workItem from="1749438277971" duration="80000" />
+      <workItem from="1749446703422" duration="248000" />
+      <workItem from="1749447478641" duration="1697000" />
+      <workItem from="1749720978116" duration="18156000" />
+      <workItem from="1749747974649" duration="7797000" />
     </task>
     <servers />
   </component>
