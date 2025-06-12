@@ -25,6 +25,7 @@ package com.arthroverse.duckyemulator.Utilities.FileHandler;
 import com.arthroverse.duckyemulator.UIs.Navigator;
 import javafx.stage.FileChooser;
 
+import javafx.scene.image.Image;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -90,5 +91,13 @@ public final class FileHandler {
         Path oldPath = Paths.get(userPath + "/" + relativePath);
         Files.copy(oldPath, newPath, StandardCopyOption.REPLACE_EXISTING);
         return programImgDeletedSrcFolderName + "/" + fileNameExtracted;
+    }
+
+    public static String returnFullPath(String relativePath){
+        return userPath + "/" + relativePath;
+    }
+
+    public static Image imageLoader(String relativePath){
+        return new Image(new File(FileHandler.returnFullPath(relativePath)).toURI().toString());
     }
 }
