@@ -1,18 +1,19 @@
 package com.arthroverse.duckyemulator.UIControllers.PublicUIController;
 
-import io.github.palexdev.materialfx.controls.MFXRadioButton;
+import com.arthroverse.duckyemulator.Database.MainDB.AdminBeans.Questions;
+import com.arthroverse.duckyemulator.Database.MainDB.PublicBeans.Sessions;
+import com.arthroverse.duckyemulator.Utilities.FileHandler.FileHandler;
+import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 
 import java.net.URL;
 import java.time.Duration;
@@ -21,7 +22,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
-public class UserTestingUIController implements Initializable {
+public class UserTestingUIController implements Initializable{
 
     @FXML
     private ImageView imageViewQuestImg;
@@ -33,25 +34,22 @@ public class UserTestingUIController implements Initializable {
     private Label labelElapsedTime;
 
     @FXML
-    private Label labelPrimaryQuestCounter;
+    private Button btnPrimaryQuestCounter;
 
     @FXML
     private Label labelQuestionStatement;
 
     @FXML
-    private Label labelSecondaryQuestCounter;
+    private RadioButton radBtnFirst;
 
     @FXML
-    private MFXRadioButton mfxRadBtnFirst;
+    private RadioButton radBtnSecond;
 
     @FXML
-    private MFXRadioButton mfxRadBtnSecond;
+    private RadioButton radBtnThird;
 
     @FXML
-    private MFXRadioButton mfxRadBtnThird;
-
-    @FXML
-    private MFXRadioButton mfxRadBtnFourth;
+    private RadioButton radBtnFourth;
 
     @FXML
     private TableColumn<String, Integer> tableColQuestNum;
@@ -62,11 +60,22 @@ public class UserTestingUIController implements Initializable {
     @FXML
     private TableView<String> tableViewQuestNav;
 
+    @FXML
+    private VBox vBoxQuestNav;
+
+    @FXML
+    private MFXButton btnNextQuestion;
+
+    @FXML
+    private MFXButton btnPreviousQuestion;
+
     private static LocalDateTime endTime;
 
     private static String timeTakenAsString;
 
     private static long timeTakenInSeconds;
+
+    private static int currentQuestionNum = 1;
 
     Timeline timeline;
     LocalTime time = LocalTime.parse("00:00:00");
@@ -85,13 +94,24 @@ public class UserTestingUIController implements Initializable {
     }
 
     @FXML
-    void btnNextQuestion(ActionEvent event) {
+    void btnNextQuestionClick(ActionEvent event) {
+        btnPreviousQuestion.disableProperty().set(false);
+        currentQuestionNum++;
+        deployQuestion();
+        if(currentQuestionNum == Sessions.getCurrentSession().getTotalQuestions()){
+            btnNextQuestion.disableProperty().set(true);
+        }
 
     }
 
     @FXML
-    void btnPreviousQuestion(ActionEvent event) {
-
+    void btnPreviousQuestionClick(ActionEvent event) {
+        btnNextQuestion.disableProperty().set(false);
+        currentQuestionNum--;
+        deployQuestion();
+        if(currentQuestionNum == 1){
+            btnPreviousQuestion.disableProperty().set(true);
+        }
     }
 
     @FXML
@@ -104,25 +124,52 @@ public class UserTestingUIController implements Initializable {
                 timeTaken.toHoursPart(), timeTaken.toMinutesPart(), timeTaken.toSecondsPart());
     }
 
-    @FXML
-    void tableViewQuestNav(MouseEvent event) {
-
-    }
-
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize(URL location, ResourceBundle resources){
         timeline = new Timeline(new KeyFrame(javafx.util.Duration.millis(1000), ae -> incrementTime()));
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
-        ToggleGroup toggleGroup = new ToggleGroup();
-        mfxRadBtnFirst.setToggleGroup(toggleGroup);
-        mfxRadBtnSecond.setToggleGroup(toggleGroup);
-        mfxRadBtnThird.setToggleGroup(toggleGroup);
-        mfxRadBtnFourth.setToggleGroup(toggleGroup);
+        vBoxQuestNav.setVisible(false); //automatically hide the quest navigator for user to have more space
+        vBoxQuestNav.setManaged(false); //hiding isn't enough, so we have to make sure that they don't occupy any space
+        deployQuestion();
+        btnPreviousQuestion.disableProperty().set(true);
+        imageViewQuestImg.setPreserveRatio(true);
     }
 
     private void incrementTime() {
         time = time.plusSeconds(1);
         labelElapsedTime.setText(time.format(dtf));
+    }
+
+    @FXML
+    public void btnPrimaryQuestCounterClick(){
+        if(vBoxQuestNav.isManaged() && vBoxQuestNav.isVisible()){
+            vBoxQuestNav.setVisible(false);
+            vBoxQuestNav.setManaged(false);
+        }else{
+            vBoxQuestNav.setVisible(true);
+            vBoxQuestNav.setManaged(true);
+        }
+    }
+
+    private void deployQuestion(){
+        int qId = Sessions.getCurrentSession().getQuestionNumAndIdPair().get(currentQuestionNum);
+        Questions question = Sessions.getCurrentSession().getSelectedQuestions().get(qId);
+
+        int totalQuestions = Sessions.getCurrentSession().getQuestionNumAndIdPair().size();
+        labelCurrentQuestion.setText(String.format("Question %d", currentQuestionNum));
+        btnPrimaryQuestCounter.setText(String.format("Question %d of %d", currentQuestionNum, totalQuestions));
+
+        labelQuestionStatement.setText(question.getQuestionStatement());
+        radBtnFirst.setText(question.getChoice1());
+        radBtnSecond.setText(question.getChoice2());
+        radBtnThird.setText(question.getChoice3());
+        radBtnFourth.setText(question.getChoice4());
+        if(!question.getImagePath().equals("")){
+            Image image = FileHandler.imageLoader(question.getImagePath());
+            imageViewQuestImg.setImage(image);
+        }else{
+            imageViewQuestImg.setImage(null);
+        }
     }
 }
