@@ -33,6 +33,9 @@ import io.github.palexdev.materialfx.theming.UserAgentBuilder;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+import java.awt.*;
+
+
 /**
  * This class serves as the entry point to the emulator
  * <p>
@@ -84,6 +87,17 @@ public class DuckyEmulatorMain extends Application {
                 .setResolveAssets(true) // Whether to try resolving @import statements and resources urls
                 .build() // Assembles all the added themes into a single CSSFragment (very powerful class check its documentation)
                 .setGlobal(); // Finally, sets the produced stylesheet as the global User-Agent stylesheet//Once everything has been set up, redirect the user to the authenication form
+
+        //Set icon on the taskbar/dock
+        if (Taskbar.isTaskbarSupported()) {
+            Taskbar taskbar = Taskbar.getTaskbar();
+
+            if (taskbar.isSupported(Taskbar.Feature.ICON_IMAGE)) {
+                final Toolkit defaultToolkit = Toolkit.getDefaultToolkit();
+                Image dockIcon = defaultToolkit.getImage(getClass().getResource("/com/arthroverse/duckyemulator/images/macos_icons/duckyemulator.png"));
+                taskbar.setIconImage(dockIcon);
+            }
+        }
     }
 
     /**
