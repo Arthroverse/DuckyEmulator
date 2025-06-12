@@ -25,9 +25,7 @@ import com.arthroverse.duckyemulator.Database.MainDB.CredentialBeans.Users;
 import com.arthroverse.duckyemulator.Database.MainDB.PublicBeans.Sessions;
 import com.arthroverse.duckyemulator.UIs.Navigator;
 import com.arthroverse.duckyemulator.Utilities.Constant.Reusable;
-import com.arthroverse.duckyemulator.Utilities.Constant.WarningMessage;
-import com.arthroverse.duckyemulator.Utilities.Constant.WarningTitle;
-import com.arthroverse.duckyemulator.Utilities.PromptAlert.AlertUtil;
+import io.github.palexdev.materialfx.controls.MFXScrollPane;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -54,7 +52,7 @@ public class UserHomePageUIController implements Initializable {
     private Label greetingLabel;
 
     @FXML
-    private ScrollPane scrollPaneMain;
+    private MFXScrollPane scrollPaneMain;
 
     @FXML
     private VBox scrollPaneContentVBox;
@@ -70,6 +68,7 @@ public class UserHomePageUIController implements Initializable {
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
         Sessions session = new Sessions();
+        Sessions.setCurrentSession(session);
         session.setSessionId(now.format(formatter));
         Sessions.insert(session);
         startTime = LocalDateTime.now();
@@ -95,9 +94,5 @@ public class UserHomePageUIController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         greetingLabel.setText(String.format(Reusable.DEFAULT_GREETING.toString(),
                 Users.getUserName()));
-
-        //Solutions from StackOverFlow, seems like the resizing element when mouse clicked is a JavaFX bug (not fixed yet)
-        scrollPaneMain.setOnMousePressed(Event::consume);
-        scrollPaneContentVBox.setOnMousePressed(Event::consume);
     }
 }
