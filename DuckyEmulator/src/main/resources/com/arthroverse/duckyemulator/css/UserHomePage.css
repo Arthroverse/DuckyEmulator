@@ -4,11 +4,25 @@
 .welcome_label{
     -fx-font-family: 'JetBrains Mono Bold Italic';
     -fx-text-fill: #5f6368;
+    -fx-font-size: 24; /*DO NOT DELETE THIS ONE. THIS LINE FIXED ALL OF THE BUGS ASSOCIATED WITH FONT SIZE*/
+}
+
+.welcome_label_medium{
+    -fx-font-family: 'JetBrains Mono Bold Italic';
+    -fx-text-fill: #5f6368;
+    -fx-font-size: 16; /*DO NOT DELETE THIS ONE. THIS LINE FIXED ALL OF THE BUGS ASSOCIATED WITH FONT SIZE*/
+}
+
+.welcome_label_large{
+    -fx-font-family: 'JetBrains Mono Bold Italic';
+    -fx-text-fill: #5f6368;
+    -fx-font-size: 32; /*DO NOT DELETE THIS ONE. THIS LINE FIXED ALL OF THE BUGS ASSOCIATED WITH FONT SIZE*/
 }
 
 .welcome_label_subtext{
     -fx-font-family: 'JetBrains Mono Regular';
     -fx-text-fill: #5f6368;
+    -fx-font-size: 16; /*DO NOT DELETE THIS ONE. THIS LINE FIXED ALL OF THE BUGS ASSOCIATED WITH FONT SIZE*/
 }
 
 .user_welcome_sub_message{
@@ -28,13 +42,37 @@
 
 .rule_num{
     -fx-font-family: 'JetBrains Mono Bold';
+    -fx-font-size: 16; /*DO NOT DELETE THIS ONE. THIS LINE FIXED ALL OF THE BUGS ASSOCIATED WITH FONT SIZE*/
 }
 
 .rule_header{
     -fx-font-family: 'JetBrains Mono Bold';
+    -fx-font-size: 16; /*DO NOT DELETE THIS ONE. THIS LINE FIXED ALL OF THE BUGS ASSOCIATED WITH FONT SIZE*/
 }
 
 
 .rule_text{
     -fx-font-family: 'JetBrains Mono Regular';
+    -fx-font-size: 14; /*DO NOT DELETE THIS ONE. THIS LINE FIXED ALL OF THE BUGS ASSOCIATED WITH FONT SIZE*/
+}
+
+.important_notice{
+    -fx-font-family: 'JetBrains Mono Regular';
+    -fx-font-size: 16; /*DO NOT DELETE THIS ONE. THIS LINE FIXED ALL OF THE BUGS ASSOCIATED WITH FONT SIZE*/
+}
+
+.all_button_normal{
+    -fx-font-family: 'JetBrains Mono Bold';
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 18; /*DO NOT DELETE THIS ONE. THIS LINE FIXED ALL OF THE BUGS ASSOCIATED WITH FONT SIZE*/
+}
+
+.all_button_large{
+    -fx-font-family: 'JetBrains Mono Bold';
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 24; /*DO NOT DELETE THIS ONE. THIS LINE FIXED ALL OF THE BUGS ASSOCIATED WITH FONT SIZE*/
+}
+
+.scroll-pane:focused{
+    -fx-background-insets: 0; /*DO NOT DELETE THIS ONE. THIS LINE FIXED ALL OF THE BUGS ASSOCIATED WITH SCROLL PANE FOCUSING ISSUE. THIS BUG ALSO RELATED TO FONT ISSUE*/
 }
