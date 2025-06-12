@@ -25,8 +25,11 @@ public class Sessions {
     private StringProperty timeLimit;
 
     private String candidateEmail;
-    private String candidateName;
     private TreeMap<Integer, Questions> selectedQuestions = new TreeMap<>();
+    private TreeMap<Integer, Integer> questionNumAndIdPair = new TreeMap<>();
+
+    //keep track of current Session running
+    private static Sessions currentSession;
 
     public StringProperty getSessionIdProperty(){
         return this.sessionId;
@@ -80,8 +83,16 @@ public class Sessions {
         return this.candidateEmail;
     }
 
-    public String getCandidateName(){
-        return this.candidateName;
+    public TreeMap<Integer, Questions> getSelectedQuestions(){
+        return this.selectedQuestions;
+    }
+
+    public TreeMap<Integer, Integer> getQuestionNumAndIdPair(){
+        return this.questionNumAndIdPair;
+    }
+
+    public static Sessions getCurrentSession(){
+        return currentSession;
     }
 
     public void setSessionIdProperty(StringProperty sessionId){
@@ -136,8 +147,8 @@ public class Sessions {
         this.candidateEmail = candidateEmail;
     }
 
-    public void setCandidateName(String candidateName){
-        this.candidateName = candidateName;
+    public static void setCurrentSession(Sessions currentSession){
+        Sessions.currentSession = currentSession;
     }
 
     public Sessions(){
@@ -151,21 +162,27 @@ public class Sessions {
 
     public static void insert(Sessions s){
         s.setCandidateEmail(Users.getCurrentUserEmailInActiveSession());
-        s.setCandidateName(Users.getUserName());
         int totalQuestionsInSession = (int)(Math.random() * 11 + 10); //generate around 10-20 questions at once, inclusive
         s.setTotalQuestions(totalQuestionsInSession);
         ArrayList<Integer> selectedQuestionIds = new ArrayList<>();
         for(int i = 0; i < totalQuestionsInSession; i++){
-            selectedQuestionIds.add(
-                    //TODO: If size = 100, then what happen if qId from 10 - 20 get deleted ?
-                    (int)(Math.random() * Questions.getAllQuestionIds().size())
-            );
+            int index = (int)(Math.random() * Questions.getAllQuestionIds().size());
+            selectedQuestionIds.add(Questions.getAllQuestionIds().get(index));
         }
 
         String selectedQuestionIdsList = selectedQuestionIds.stream().map(Object::toString)
                 .collect(Collectors.joining(", "));
 
         Questions.querySelectedQuestionIds(s.selectedQuestions, selectedQuestionIdsList);
+
+        s.totalQuestions.set(s.selectedQuestions.size());
+
+        //process queried data for frontend (setup question number associated with each questionId)
+        int questionNum = 1;
+        for(Integer i: s.selectedQuestions.keySet()){
+            s.questionNumAndIdPair.put(questionNum, i);
+            questionNum++;
+        }
 
         String sqlQuery = "INSERT INTO Sessions(SessionId, UserEmail) " +
                 "VALUES(?, ?);";
