@@ -87,6 +87,8 @@ CREATE TABLE IF NOT EXISTS Session_has_question(
     SessionId TIMESTAMP NOT NULL,
     QuestionId INT NOT NULL,
     PRIMARY KEY(SessionId, QuestionId),
+    FOREIGN KEY (SessionId) REFERENCES Sessions(SessionId),
+    FOREIGN KEY (QuestionId) REFERENCES Questions(QuestionId),
     UserAnswer VARCHAR(512)
 );
 INSERT INTO Users(UserEmail, UserName, UserPassword, UserType)
