@@ -23,10 +23,12 @@ public class Sessions {
     private ObjectProperty<Integer> totalCorrectQuestions;
     private StringProperty timeTaken;
     private StringProperty timeLimit;
+    private ArrayList<SessionInput> isAnsweredStatForNav = new ArrayList<>();
 
     private String candidateEmail;
     private TreeMap<Integer, Questions> selectedQuestions = new TreeMap<>();
     private TreeMap<Integer, Integer> questionNumAndIdPair = new TreeMap<>();
+    private TreeMap<Integer, SessionInput> userInput = new TreeMap<>();
 
     //keep track of current Session running
     private static Sessions currentSession;
@@ -83,12 +85,20 @@ public class Sessions {
         return this.candidateEmail;
     }
 
+    public ArrayList<SessionInput> getIsAnsweredStatForNav(){
+        return this.isAnsweredStatForNav;
+    }
+
     public TreeMap<Integer, Questions> getSelectedQuestions(){
         return this.selectedQuestions;
     }
 
     public TreeMap<Integer, Integer> getQuestionNumAndIdPair(){
         return this.questionNumAndIdPair;
+    }
+
+    public TreeMap<Integer, SessionInput> getUserInput(){
+        return this.userInput;
     }
 
     public static Sessions getCurrentSession(){
@@ -184,15 +194,32 @@ public class Sessions {
             questionNum++;
         }
 
+        //Automatically set all question status as unanswered by default
+        String unansweredForNav = "❗";
+        for(Integer i: s.questionNumAndIdPair.keySet()){
+            SessionInput si = new SessionInput(i, unansweredForNav);
+            s.isAnsweredStatForNav.add(si);
+            s.userInput.put(i, si);
+        }
+
         String sqlQuery = "INSERT INTO Sessions(SessionId, UserEmail) " +
                 "VALUES(?, ?);";
+        String sqlQueryInsertSessionQIdPair = "INSERT INTO Session_has_question(SessionId, QuestionId) " +
+                "VALUES(?, ?)";
         try(
                 Connection conn = MySQLService.getConnection();
-                PreparedStatement stmt = conn.prepareStatement(sqlQuery);
+                PreparedStatement stmt1 = conn.prepareStatement(sqlQuery);
+                PreparedStatement stmt2 = conn.prepareStatement(sqlQueryInsertSessionQIdPair);
                 ){
-            stmt.setString(1, s.getSessionId());
-            stmt.setString(2, s.getCandidateEmail());
-            stmt.executeUpdate();
+            stmt1.setString(1, s.getSessionId());
+            stmt1.setString(2, s.getCandidateEmail());
+            stmt1.executeUpdate();
+
+            for(Integer i: s.selectedQuestions.keySet()) {
+                stmt2.setString(1, s.getSessionId());
+                stmt2.setInt(2, i);
+                stmt2.executeUpdate();
+            }
         }catch(Exception e){
             AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e),
                     ErrorTitle.SQL_SESSION_INSERT_NEW_FAILED.toString());
