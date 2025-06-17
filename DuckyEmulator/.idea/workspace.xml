@@ -4,16 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a57d5096-8edd-4b4d-954e-07f711464abf" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../DevelopmentDocs/v0.1/SystemRequirement/DuckyEmulator_SystemRequirement(v0.1.2).docx" beforeDir="false" afterPath="$PROJECT_DIR$/../DevelopmentDocs/v0.1/SystemRequirement/DuckyEmulator_SystemRequirement(v0.1.2).docx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/Database/MainDB/DataSet/MainDB.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/Database/MainDB/DataSet/MainDB.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/Database/MainDB/PublicBeans/Sessions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/Database/MainDB/PublicBeans/Sessions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIControllers/PublicUIController/UserTestingUIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIControllers/PublicUIController/UserTestingUIController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/PublicUserUI/UserHomePage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/PublicUserUI/UserHomePage.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/PublicUserUI/UserTestingUI.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/PublicUserUI/UserTestingUI.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Project_Management/Project_Tracking_2025_5_29 copy.doc" beforeDir="false" />
-    </list>
+    <list default="true" id="a57d5096-8edd-4b4d-954e-07f711464abf" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -225,7 +216,7 @@
       <workItem from="1749793788066" duration="10590000" />
       <workItem from="1749876368968" duration="40000" />
       <workItem from="1750140363448" duration="2783000" />
-      <workItem from="1750171860983" duration="12141000" />
+      <workItem from="1750171860983" duration="12250000" />
     </task>
     <servers />
   </component>
