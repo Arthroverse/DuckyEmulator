@@ -1,12 +1,16 @@
 package com.arthroverse.duckyemulator.UIControllers.PublicUIController;
 
 import com.arthroverse.duckyemulator.Database.MainDB.AdminBeans.Questions;
+import com.arthroverse.duckyemulator.Database.MainDB.PublicBeans.SessionInput;
 import com.arthroverse.duckyemulator.Database.MainDB.PublicBeans.Sessions;
 import com.arthroverse.duckyemulator.Utilities.FileHandler.FileHandler;
+import com.arthroverse.duckyemulator.Utilities.PromptAlert.AlertUtil;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.InvalidationListener;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -52,13 +56,13 @@ public class UserTestingUIController implements Initializable{
     private RadioButton radBtnFourth;
 
     @FXML
-    private TableColumn<String, Integer> tableColQuestNum;
+    private TableColumn<SessionInput, Integer> tableColQuestNum;
 
     @FXML
-    private TableColumn<String, String> tableColQuestStatus;
+    private TableColumn<SessionInput, String> tableColQuestStatus;
 
     @FXML
-    private TableView<String> tableViewQuestNav;
+    private TableView<SessionInput> tableViewQuestNav;
 
     @FXML
     private VBox vBoxQuestNav;
@@ -95,6 +99,8 @@ public class UserTestingUIController implements Initializable{
 
     @FXML
     void btnNextQuestionClick(ActionEvent event) {
+        tableViewQuestNav.getSelectionModel().clearSelection();
+        saveUserAnswer();
         btnPreviousQuestion.disableProperty().set(false);
         currentQuestionNum++;
         deployQuestion();
@@ -106,6 +112,8 @@ public class UserTestingUIController implements Initializable{
 
     @FXML
     void btnPreviousQuestionClick(ActionEvent event) {
+        tableViewQuestNav.getSelectionModel().clearSelection();
+        saveUserAnswer();
         btnNextQuestion.disableProperty().set(false);
         currentQuestionNum--;
         deployQuestion();
@@ -116,12 +124,24 @@ public class UserTestingUIController implements Initializable{
 
     @FXML
     void btnSubmitTest(ActionEvent event) {
-        timeline.stop();
-        endTime = LocalDateTime.now();
-        Duration timeTaken = Duration.between(UserHomePageUIController.getStartTime(), endTime);
-        timeTakenInSeconds = timeTaken.getSeconds();
-        timeTakenAsString = String.format("%dh:%dm:%ds",
-                timeTaken.toHoursPart(), timeTaken.toMinutesPart(), timeTaken.toSecondsPart());
+        int totalUnansweredQuestions = 0;
+        for(SessionInput si: Sessions.getCurrentSession().getUserInput().values()){
+            if(!si.isAnswered()){
+                totalUnansweredQuestions++;
+            }
+        }
+
+        if((totalUnansweredQuestions != 0 &&
+                AlertUtil.generateWarningWindow("DuckyEmulator",
+                        String.format("You have %d question(s) unanswered, proceed to submit?"
+                                , totalUnansweredQuestions))) || totalUnansweredQuestions == 0){
+            timeline.stop();
+            endTime = LocalDateTime.now();
+            Duration timeTaken = Duration.between(UserHomePageUIController.getStartTime(), endTime);
+            timeTakenInSeconds = timeTaken.getSeconds();
+            timeTakenAsString = String.format("%dh:%dm:%ds",
+                    timeTaken.toHoursPart(), timeTaken.toMinutesPart(), timeTaken.toSecondsPart());
+        }
     }
 
     @Override
@@ -134,6 +154,53 @@ public class UserTestingUIController implements Initializable{
         deployQuestion();
         btnPreviousQuestion.disableProperty().set(true);
         imageViewQuestImg.setPreserveRatio(true);
+        ToggleGroup tg = new ToggleGroup();
+        radBtnFirst.setToggleGroup(tg);
+        radBtnSecond.setToggleGroup(tg);
+        radBtnThird.setToggleGroup(tg);
+        radBtnFourth.setToggleGroup(tg);
+
+        updateQuestionNavStatus();
+
+        tg.selectedToggleProperty().addListener((observable, oldToggle, newToggle) -> {
+            if (newToggle != null) {
+                SessionInput si = Sessions.getCurrentSession().getUserInput().get(currentQuestionNum);
+                si.setAnswered(true);
+                si.setIsAnsweredForNav("✅");
+                updateQuestionNavStatus();
+                saveUserAnswer();
+            }
+        });
+
+
+
+        tableViewQuestNav.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldSelection, newSelection) -> {
+                    if(newSelection != null){
+                        saveUserAnswer();
+                        currentQuestionNum = newSelection.getQuestionNumber();
+                        if(currentQuestionNum == Sessions.getCurrentSession().getTotalQuestions()){
+                            btnNextQuestion.disableProperty().set(true);
+                            btnPreviousQuestion.disableProperty().set(false);
+                        }else if(currentQuestionNum == 1){
+                            btnPreviousQuestion.disableProperty().set(true);
+                            btnNextQuestion.disableProperty().set(false);
+                        }else{
+                            btnPreviousQuestion.disableProperty().set(false);
+                            btnNextQuestion.disableProperty().set(false);
+                        }
+                        deployQuestion();
+                    }
+                }
+        );
+
+        tableViewQuestNav.setItems(FXCollections.observableList(Sessions.getCurrentSession().getIsAnsweredStatForNav()));
+        tableColQuestNum.setCellValueFactory((sessionInput) -> {
+            return sessionInput.getValue().getQuestionNumberProperty();
+        });
+        tableColQuestStatus.setCellValueFactory((sessionInput) -> {
+            return sessionInput.getValue().getIsAnsweredForNavProperty();
+        });
     }
 
     private void incrementTime() {
@@ -165,11 +232,88 @@ public class UserTestingUIController implements Initializable{
         radBtnSecond.setText(question.getChoice2());
         radBtnThird.setText(question.getChoice3());
         radBtnFourth.setText(question.getChoice4());
+
+        radBtnFirst.setSelected(false);
+        radBtnSecond.setSelected(false);
+        radBtnThird.setSelected(false);
+        radBtnFourth.setSelected(false);
+
+        boolean isAnswered = Sessions.getCurrentSession().getUserInput().get(currentQuestionNum).isAnswered();
+        if(isAnswered){
+            String userAnwer = Sessions.getCurrentSession().getUserInput().get(currentQuestionNum).getUserAnswer();
+            if(radBtnFirst.getText().equals(userAnwer)){
+                radBtnFirst.setSelected(true);
+            }else if(radBtnSecond.getText().equals(userAnwer)){
+                radBtnSecond.setSelected(true);
+            }else if(radBtnThird.getText().equals(userAnwer)){
+                radBtnThird.setSelected(true);
+            }else if(radBtnFourth.getText().equals(userAnwer)){
+                radBtnFourth.setSelected(true);
+            }
+        }
         if(!question.getImagePath().equals("")){
             Image image = FileHandler.imageLoader(question.getImagePath());
             imageViewQuestImg.setImage(image);
         }else{
             imageViewQuestImg.setImage(null);
         }
+    }
+
+    private void saveUserAnswer(){
+        SessionInput si = Sessions.getCurrentSession().getUserInput().get(currentQuestionNum);
+
+        if(radBtnFirst.isSelected()){
+            si.setUserAnswer(radBtnFirst.getText());
+        }else if(radBtnSecond.isSelected()){
+            si.setUserAnswer(radBtnSecond.getText());
+        }else if(radBtnThird.isSelected()){
+            si.setUserAnswer(radBtnThird.getText());
+        }else if(radBtnFourth.isSelected()){
+            si.setUserAnswer(radBtnFourth.getText());
+        }
+    }
+
+    private void updateQuestionNavStatus(){
+        tableColQuestStatus.setCellFactory(column -> {
+            return new TableCell<SessionInput, String>() {
+                private SessionInput si;
+                private InvalidationListener siListener;
+
+                @Override
+                protected void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+
+                    if(si != null && siListener != null){
+                        si.getIsAnsweredForNavProperty().removeListener( siListener);
+                    }
+
+                    if (empty || item == null) {
+                        setText(null);
+                        setStyle("");
+                        si = null;// Clear any previous styling
+                    } else {
+                        setText(item);
+
+                        si = getTableView().getItems().get(getIndex());
+
+                        siListener = observable -> updateCellStyle();
+
+                        si.getIsAnsweredForNavProperty().addListener( siListener);
+
+                        updateCellStyle();
+                    }
+                }
+
+                private void updateCellStyle() {
+                    if (si != null) {
+                        if (!si.isAnswered()) {
+                            setStyle("-fx-background-color: lightyellow; -fx-border-color: black;");
+                        } else {
+                            setStyle("-fx-background-color: lightgreen; -fx-border-color: black;");
+                        }
+                    }
+                }
+            };
+        });
     }
 }
