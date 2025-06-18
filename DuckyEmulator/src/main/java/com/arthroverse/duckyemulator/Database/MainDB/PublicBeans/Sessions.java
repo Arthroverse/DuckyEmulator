@@ -2,6 +2,7 @@ package com.arthroverse.duckyemulator.Database.MainDB.PublicBeans;
 
 import com.arthroverse.duckyemulator.Database.DBService.MySQLService;
 import com.arthroverse.duckyemulator.Database.MainDB.AdminBeans.Questions;
+import com.arthroverse.duckyemulator.Database.MainDB.AdminBeans.Topics;
 import com.arthroverse.duckyemulator.Database.MainDB.CredentialBeans.Users;
 import com.arthroverse.duckyemulator.Utilities.Constant.ErrorTitle;
 import com.arthroverse.duckyemulator.Utilities.PromptAlert.AlertUtil;
@@ -12,6 +13,7 @@ import javafx.beans.property.StringProperty;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
@@ -22,13 +24,18 @@ public class Sessions {
     private ObjectProperty<Boolean> status;
     private ObjectProperty<Integer> totalCorrectQuestions;
     private StringProperty timeTaken;
-    private StringProperty timeLimit;
+    private StringProperty percentage;
+    private StringProperty startTime;
+    private StringProperty endTime;
     private ArrayList<SessionInput> isAnsweredStatForNav = new ArrayList<>();
 
     private String candidateEmail;
+    private long timeTakenInSecond;
     private TreeMap<Integer, Questions> selectedQuestions = new TreeMap<>();
     private TreeMap<Integer, Integer> questionNumAndIdPair = new TreeMap<>();
+    private TreeMap<Integer, Integer> questionIdAndNumPair = new TreeMap<>();
     private TreeMap<Integer, SessionInput> userInput = new TreeMap<>();
+    private ArrayList<SessionResult> testResult = new ArrayList<>();
 
     //keep track of current Session running
     private static Sessions currentSession;
@@ -53,8 +60,16 @@ public class Sessions {
         return this.timeTaken;
     }
 
-    public StringProperty getTimeLimitProperty(){
-        return this.timeLimit;
+    public StringProperty getPercentageProperty(){
+        return this.percentage;
+    }
+
+    public StringProperty getStartTimeProperty(){
+        return this.startTime;
+    }
+
+    public StringProperty getEndTimeProperty(){
+        return this.endTime;
     }
 
     public String getSessionId(){
@@ -77,12 +92,24 @@ public class Sessions {
         return this.timeTaken.get();
     }
 
-    public String getTimeLimit(){
-        return this.timeLimit.get();
+    public String getPercentage(){
+        return this.percentage.get();
+    }
+
+    public String getStartTime(){
+        return this.startTime.get();
+    }
+
+    public String getEndTime(){
+        return this.endTime.get();
     }
 
     public String getCandidateEmail(){
         return this.candidateEmail;
+    }
+
+    public long getTimeTakenInSecond(){
+        return this.timeTakenInSecond;
     }
 
     public ArrayList<SessionInput> getIsAnsweredStatForNav(){
@@ -99,6 +126,14 @@ public class Sessions {
 
     public TreeMap<Integer, SessionInput> getUserInput(){
         return this.userInput;
+    }
+
+    public TreeMap<Integer, Integer> getQuestionIdAndNumPair(){
+        return this.questionIdAndNumPair;
+    }
+
+    public ArrayList<SessionResult> getTestResult(){
+        return this.testResult;
     }
 
     public static Sessions getCurrentSession(){
@@ -126,7 +161,7 @@ public class Sessions {
     }
 
     public void setTimeLimitProperty(StringProperty timeLimit){
-        this.timeLimit = timeLimit;
+        this.percentage = timeLimit;
     }
 
     public void setSessionId(String sessionId){
@@ -149,12 +184,24 @@ public class Sessions {
         this.timeTaken.set(timeTaken);
     }
 
-    public void setTimeLimit(String timeLimit){
-        this.timeLimit.set(timeLimit);
+    public void setPercentage(String percentage){
+        this.percentage.set(percentage);
+    }
+
+    public void setStartTime(String startTime){
+        this.startTime.set(startTime);
+    }
+
+    public void setEndTime(String endTime){
+        this.endTime.set(endTime);
     }
 
     public void setCandidateEmail(String candidateEmail){
         this.candidateEmail = candidateEmail;
+    }
+
+    public void setTimeTakenInSecond(long timeTakenInSecond){
+        this.timeTakenInSecond = timeTakenInSecond;
     }
 
     public static void setCurrentSession(Sessions currentSession){
@@ -162,12 +209,16 @@ public class Sessions {
     }
 
     public Sessions(){
-        sessionId = new SimpleStringProperty();
-        totalQuestions = new SimpleObjectProperty<>();
-        status = new SimpleObjectProperty<>();
-        totalCorrectQuestions = new SimpleObjectProperty<>();
-        timeTaken = new SimpleStringProperty();
-        timeLimit = new SimpleStringProperty();
+        this.sessionId = new SimpleStringProperty();
+        this.totalQuestions = new SimpleObjectProperty<>();
+        this.status = new SimpleObjectProperty<>();
+        this.totalCorrectQuestions = new SimpleObjectProperty<>();
+        this.timeTaken = new SimpleStringProperty();
+        this.percentage = new SimpleStringProperty();
+        this.startTime = new SimpleStringProperty();
+        this.endTime = new SimpleStringProperty();
+
+        this.timeTakenInSecond = 0;
     }
 
     public static void insert(Sessions s){
@@ -191,6 +242,7 @@ public class Sessions {
         int questionNum = 1;
         for(Integer i: s.selectedQuestions.keySet()){
             s.questionNumAndIdPair.put(questionNum, i);
+            s.questionIdAndNumPair.put(i, questionNum);
             questionNum++;
         }
 
@@ -225,4 +277,72 @@ public class Sessions {
                     ErrorTitle.SQL_SESSION_INSERT_NEW_FAILED.toString());
         }
     }
+
+    public static void markTest(Sessions s){
+        String sqlMarkTest = "SELECT * FROM Session_has_question AS JSession " +
+                "JOIN Questions AS Q ON JSession.QuestionId = Q.QuestionId WHERE SessionId = ?;";
+        String sqlUpdateSession = "UPDATE Sessions SET ElapsedTime = ? WHERE SessionId = ?;";
+        try(
+                Connection conn = MySQLService.getConnection();
+                PreparedStatement stmt1 = conn.prepareStatement(sqlMarkTest);
+                PreparedStatement stmt2 = conn.prepareStatement(sqlUpdateSession)
+                ){
+            s.totalQuestions.set(s.selectedQuestions.size());
+            double correctQuestionsCount = 0;
+            stmt1.setString(1, s.getSessionId());
+            ResultSet rs = stmt1.executeQuery();
+            while(rs.next()){
+                Questions selectedQuestion = s.selectedQuestions.get(rs.getInt(2));
+                int questionNum = s.questionIdAndNumPair.get(rs.getInt(2));
+                SessionInput si = s.userInput.get(questionNum);
+                boolean isCorrect = false;
+                String isCorrectAsString = "❌";
+                if(rs.getString("UserAnswer") != null
+                    && rs.getString("UserAnswer").equals(rs.getString("CorrectAnswer"))){
+                   isCorrect = true;
+                   isCorrectAsString = "✅";
+                   correctQuestionsCount++;
+                }
+
+                ArrayList<String> associatedTopicNames = new ArrayList<>() ;
+                for(Topics t: Topics.findingTopics(selectedQuestion.getForeignKeyTopicId())){
+                    associatedTopicNames.add(t.getTopicName());
+                }
+                String associatedTopicsAsString = associatedTopicNames.toString();
+                associatedTopicsAsString = associatedTopicsAsString.substring(1, associatedTopicsAsString.length() - 1);
+                s.testResult.add(new SessionResult(
+                        si, selectedQuestion, isCorrect, associatedTopicsAsString, isCorrectAsString
+                ));
+            }
+            s.totalCorrectQuestions.set((int)correctQuestionsCount);
+            s.percentage.set(Double.toString(correctQuestionsCount / s.selectedQuestions.size() * 100));
+
+            stmt2.setLong(1, s.timeTakenInSecond);
+            stmt2.setString(2, s.getSessionId());
+            stmt2.executeUpdate();
+        }catch(Exception e){
+            AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e),
+                    "DuckyEmulator");
+        }
+    }
+
+    public static void saveUserAnswerToDb(Sessions s){
+        String sqlQueryAddInputToJoinTable = "UPDATE Session_has_question SET UserAnswer = ? WHERE SessionId = ? AND QuestionId = ?";
+        try(
+                Connection conn = MySQLService.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sqlQueryAddInputToJoinTable);
+        ){
+            for(int i = 1; i <= s.getQuestionNumAndIdPair().size(); i++){
+                stmt.setString(1, s.getUserInput().get(i).getUserAnswer());
+                stmt.setString(2, s.getSessionId());
+                stmt.setInt(3, s.getQuestionNumAndIdPair().get(i));
+                stmt.executeUpdate();
+            }
+        }catch(Exception e){
+            AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e),
+                    "DuckyEmulator");
+        }
+    }
+
+
 }
