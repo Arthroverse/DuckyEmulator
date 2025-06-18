@@ -79,8 +79,7 @@ CREATE TABLE IF NOT EXISTS Sessions(
     SessionId TIMESTAMP PRIMARY KEY NOT NULL,
     UserEmail VARCHAR(50) NOT NULL,
     FOREIGN KEY (UserEmail) REFERENCES Users(UserEmail),
-    ElapsedTime INT DEFAULT 0,
-    Status BOOLEAN DEFAULT FALSE
+    ElapsedTime BIGINT DEFAULT 0
 );
 
 CREATE TABLE IF NOT EXISTS Session_has_question(
