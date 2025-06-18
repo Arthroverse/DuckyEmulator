@@ -3,13 +3,13 @@ package com.arthroverse.duckyemulator.UIControllers.PublicUIController;
 import com.arthroverse.duckyemulator.Database.MainDB.AdminBeans.Questions;
 import com.arthroverse.duckyemulator.Database.MainDB.PublicBeans.SessionInput;
 import com.arthroverse.duckyemulator.Database.MainDB.PublicBeans.Sessions;
+import com.arthroverse.duckyemulator.UIs.Navigator;
 import com.arthroverse.duckyemulator.Utilities.FileHandler.FileHandler;
 import com.arthroverse.duckyemulator.Utilities.PromptAlert.AlertUtil;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.beans.InvalidationListener;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,6 +19,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -75,8 +76,6 @@ public class UserTestingUIController implements Initializable{
 
     private static LocalDateTime endTime;
 
-    private static String timeTakenAsString;
-
     private static long timeTakenInSeconds;
 
     private static int currentQuestionNum = 1;
@@ -87,10 +86,6 @@ public class UserTestingUIController implements Initializable{
 
     public static LocalDateTime getEndTime(){
         return endTime;
-    }
-
-    public static String getTimeTakenAsString(){
-        return timeTakenAsString;
     }
 
     public static long getTimeTakenInSeconds(){
@@ -123,7 +118,7 @@ public class UserTestingUIController implements Initializable{
     }
 
     @FXML
-    void btnSubmitTest(ActionEvent event) {
+    void btnSubmitTest(ActionEvent event) throws IOException {
         int totalUnansweredQuestions = 0;
         for(SessionInput si: Sessions.getCurrentSession().getUserInput().values()){
             if(!si.isAnswered()){
@@ -137,10 +132,15 @@ public class UserTestingUIController implements Initializable{
                                 , totalUnansweredQuestions))) || totalUnansweredQuestions == 0){
             timeline.stop();
             endTime = LocalDateTime.now();
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
+            Sessions.getCurrentSession().setEndTime(endTime.format(dtf));
+            Sessions.getCurrentSession().setTimeTaken(labelElapsedTime.getText());
             Duration timeTaken = Duration.between(UserHomePageUIController.getStartTime(), endTime);
             timeTakenInSeconds = timeTaken.getSeconds();
-            timeTakenAsString = String.format("%dh:%dm:%ds",
-                    timeTaken.toHoursPart(), timeTaken.toMinutesPart(), timeTaken.toSecondsPart());
+            Sessions.getCurrentSession().setTimeTakenInSecond(timeTakenInSeconds);
+            Sessions.saveUserAnswerToDb(Sessions.getCurrentSession());
+            Sessions.markTest(Sessions.getCurrentSession());
+            Navigator.getInstance().goToResultPage();
         }
     }
 
@@ -166,7 +166,7 @@ public class UserTestingUIController implements Initializable{
             if (newToggle != null) {
                 SessionInput si = Sessions.getCurrentSession().getUserInput().get(currentQuestionNum);
                 si.setAnswered(true);
-                si.setIsAnsweredForNav("✅");
+                si.setIsAnsweredAsString("✅");
                 updateQuestionNavStatus();
                 saveUserAnswer();
             }
@@ -276,40 +276,21 @@ public class UserTestingUIController implements Initializable{
     private void updateQuestionNavStatus(){
         tableColQuestStatus.setCellFactory(column -> {
             return new TableCell<SessionInput, String>() {
-                private SessionInput si;
-                private InvalidationListener siListener;
-
                 @Override
                 protected void updateItem(String item, boolean empty) {
                     super.updateItem(item, empty);
-
-                    if(si != null && siListener != null){
-                        si.getIsAnsweredForNavProperty().removeListener( siListener);
-                    }
-
                     if (empty || item == null) {
                         setText(null);
                         setStyle("");
-                        si = null;// Clear any previous styling
                     } else {
                         setText(item);
-
-                        si = getTableView().getItems().get(getIndex());
-
-                        siListener = observable -> updateCellStyle();
-
-                        si.getIsAnsweredForNavProperty().addListener( siListener);
-
-                        updateCellStyle();
-                    }
-                }
-
-                private void updateCellStyle() {
-                    if (si != null) {
-                        if (!si.isAnswered()) {
-                            setStyle("-fx-background-color: lightyellow; -fx-border-color: black;");
-                        } else {
-                            setStyle("-fx-background-color: lightgreen; -fx-border-color: black;");
+                        SessionInput si = getTableView().getItems().get(getIndex());
+                        if (si != null) {
+                            if (!si.isAnswered()) {
+                                setStyle("-fx-background-color: lightyellow; -fx-border-color: black;");
+                            } else {
+                                setStyle("-fx-background-color: lightgreen; -fx-border-color: black;");
+                            }
                         }
                     }
                 }
