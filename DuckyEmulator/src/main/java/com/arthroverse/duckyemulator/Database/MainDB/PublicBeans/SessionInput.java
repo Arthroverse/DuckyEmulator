@@ -7,13 +7,14 @@ import javafx.beans.property.StringProperty;
 
 public class SessionInput {
     private ObjectProperty<Integer> questionNumber;
-    private StringProperty isAnsweredForNav;
+    private StringProperty isAnsweredAsString;
     private boolean answered;
-    private String userAnswer;
+    private StringProperty userAnswer;
 
     public SessionInput(int questionNumber, String isAnsweredForNav){
         this.questionNumber = new SimpleObjectProperty<>(questionNumber);
-        this.isAnsweredForNav = new SimpleStringProperty(isAnsweredForNav);
+        this.isAnsweredAsString = new SimpleStringProperty(isAnsweredForNav);
+        this.userAnswer = new SimpleStringProperty();
     }
 
     public ObjectProperty<Integer> getQuestionNumberProperty(){
@@ -21,15 +22,19 @@ public class SessionInput {
     }
 
     public StringProperty getIsAnsweredForNavProperty(){
-        return this.isAnsweredForNav;
+        return this.isAnsweredAsString;
+    }
+
+    public StringProperty getUserAnswerProperty(){
+        return this.userAnswer;
     }
 
     public Integer getQuestionNumber(){
         return this.questionNumber.get();
     }
 
-    public String getIsAnsweredForNav(){
-        return this.isAnsweredForNav.get();
+    public String getIsAnsweredAsString(){
+        return this.isAnsweredAsString.get();
     }
 
     public boolean isAnswered(){
@@ -37,7 +42,7 @@ public class SessionInput {
     }
 
     public String getUserAnswer(){
-        return this.userAnswer;
+        return this.userAnswer.get();
     }
 
     public void setAnswered(boolean answered){
@@ -45,10 +50,10 @@ public class SessionInput {
     }
 
     public void setUserAnswer(String userAnswer){
-        this.userAnswer = userAnswer;
+        this.userAnswer.set(userAnswer);
     }
 
-    public void setIsAnsweredForNav(String isAnsweredForNav){
-        this.isAnsweredForNav.set(isAnsweredForNav);
+    public void setIsAnsweredAsString(String isAnsweredAsString){
+        this.isAnsweredAsString.set(isAnsweredAsString);
     }
 }
