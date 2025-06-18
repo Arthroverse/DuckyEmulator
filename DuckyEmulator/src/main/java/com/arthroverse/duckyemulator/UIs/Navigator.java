@@ -25,6 +25,7 @@ package com.arthroverse.duckyemulator.UIs;
 import com.arthroverse.duckyemulator.Database.MainDB.AdminBeans.Classifications;
 import com.arthroverse.duckyemulator.Database.MainDB.AdminBeans.Questions;
 import com.arthroverse.duckyemulator.Database.MainDB.AdminBeans.Topics;
+import com.arthroverse.duckyemulator.Database.MainDB.PublicBeans.SessionResult;
 import com.arthroverse.duckyemulator.Main.DuckyEmulatorMain;
 import com.arthroverse.duckyemulator.UIControllers.AdminUIsControllers.ClassificationsUpdateUIController;
 import com.arthroverse.duckyemulator.UIControllers.AdminUIsControllers.QBankAddUIController;
@@ -68,6 +69,8 @@ public class Navigator {
     private static final String USER_HOME_PAGE = "/com/arthroverse/duckyemulator/fxmls/PublicUserUI/UserHomePage.fxml";
 
     private static final String USER_TESTING_PAGE = "/com/arthroverse/duckyemulator/fxmls/PublicUserUI/UserTestingUI.fxml";
+
+    private static final String USER_RESULT_PAGE = "/com/arthroverse/duckyemulator/fxmls/PublicUserUI/UserResultPage.fxml";
 
     private Stage stage;
 
@@ -261,5 +264,9 @@ public class Navigator {
 
     public void goToTestPage() throws IOException{
        this.goTo(USER_TESTING_PAGE);
+    }
+
+    public void goToResultPage() throws IOException{
+       this.goTo(USER_RESULT_PAGE);
     }
 }
