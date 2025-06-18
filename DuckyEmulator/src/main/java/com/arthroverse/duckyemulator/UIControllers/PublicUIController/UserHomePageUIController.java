@@ -70,6 +70,7 @@ public class UserHomePageUIController implements Initializable {
         Sessions session = new Sessions();
         Sessions.setCurrentSession(session);
         session.setSessionId(now.format(formatter));
+        session.setStartTime(now.format(formatter));
         Sessions.insert(session);
         startTime = LocalDateTime.now();
         Navigator.getInstance().goToTestPage();
