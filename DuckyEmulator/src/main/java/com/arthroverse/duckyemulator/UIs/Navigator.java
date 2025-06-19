@@ -72,6 +72,8 @@ public class Navigator {
 
     private static final String USER_RESULT_PAGE = "/com/arthroverse/duckyemulator/fxmls/PublicUserUI/UserResultPage.fxml";
 
+    private static final String USER_SESSION_HISTORIES_PAGE = "/com/arthroverse/duckyemulator/fxmls/PublicUserUI/UserSessionHistoriesPage.fxml";
+
     private Stage stage;
 
     private Stage secondStage = new Stage();
@@ -268,5 +270,9 @@ public class Navigator {
 
     public void goToResultPage() throws IOException{
        this.goTo(USER_RESULT_PAGE);
+    }
+
+    public void goToUserSessionHistories() throws IOException{
+       this.goTo(USER_SESSION_HISTORIES_PAGE);
     }
 }
