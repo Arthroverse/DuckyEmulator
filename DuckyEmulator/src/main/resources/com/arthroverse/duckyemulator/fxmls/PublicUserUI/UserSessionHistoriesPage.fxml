@@ -34,6 +34,7 @@
 <?import io.github.palexdev.materialfx.controls.MFXScrollPane?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Pagination?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -180,7 +181,7 @@
                                                             </font>
                                                         </Label>
                                                         <Region HBox.hgrow="ALWAYS" />
-                                                        <MFXButton mnemonicParsing="false" onAction="#btnDeleteSelectedSession" prefHeight="45.0" prefWidth="180.0" style="-fx-background-color: #d32f2f; -fx-background-radius: 22; -fx-text-fill: white; -fx-effect: dropshadow(gaussian, rgba(211,47,47,0.4), 8, 0, 0, 3); -fx-cursor: hand;" styleClass="animated-button-danger" text="🗑️  Delete Selected">
+                                                        <MFXButton fx:id="mfxButtonDeleteSession" mnemonicParsing="false" onAction="#btnDeleteSelectedSession" prefHeight="45.0" prefWidth="244.0" style="-fx-background-color: #d32f2f; -fx-background-radius: 22; -fx-text-fill: white; -fx-effect: dropshadow(gaussian, rgba(211,47,47,0.4), 8, 0, 0, 3); -fx-cursor: hand;" styleClass="animated-button-danger" text="🗑️  Delete Selected">
                                                             <font>
                                                                 <Font name="Segoe UI Semibold" size="16.0" />
                                                             </font>
@@ -198,12 +199,6 @@
                                                                 <TableColumn fx:id="tableColSessionName" prefWidth="200.0" text="Session Name">
                                                                     <cellValueFactory>
                                                                         <PropertyValueFactory property="sessionName" />
-                                                                    </cellValueFactory>
-                                                                </TableColumn>
-
-                                                                <TableColumn fx:id="tableColCorrectAns" prefWidth="150.0" style="-fx-alignment: CENTER;" text="Correct Answers">
-                                                                    <cellValueFactory>
-                                                                        <PropertyValueFactory property="correctAnswers" />
                                                                     </cellValueFactory>
                                                                 </TableColumn>
 
@@ -225,12 +220,6 @@
                                                                     </cellValueFactory>
                                                                 </TableColumn>
 
-                                                                <TableColumn fx:id="tableColTotalQuests" prefWidth="130.0" style="-fx-alignment: CENTER;" text="Total Questions">
-                                                                    <cellValueFactory>
-                                                                        <PropertyValueFactory property="totalQuestions" />
-                                                                    </cellValueFactory>
-                                                                </TableColumn>
-
                                                                 <TableColumn fx:id="tableColPauseTime" prefWidth="150.0" style="-fx-alignment: CENTER;" text="Pause Time">
                                                                     <cellValueFactory>
                                                                         <PropertyValueFactory property="pauseTime" />
@@ -241,10 +230,13 @@
                                                     </content>
                                                 </MFXScrollPane>
 
+                                                <!-- Pagination -->
+                                                <Pagination fx:id="pagination" />
+
                                                 <!-- Action Buttons Section -->
                                                 <HBox alignment="CENTER" spacing="30.0">
                                                     <children>
-                                                        <MFXButton mnemonicParsing="false" onAction="#btnViewSelectedResult" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: transparent; -fx-background-radius: 25; -fx-border-color: linear-gradient(to right, #332D7B, #42A5F5); -fx-border-width: 2; -fx-border-radius: 25; -fx-text-fill: #332D7B; -fx-cursor: hand;" styleClass="animated-button-outline" text="📋 View Results">
+                                                        <MFXButton fx:id="mfxButtonViewResult" mnemonicParsing="false" onAction="#btnViewSelectedResult" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: transparent; -fx-background-radius: 25; -fx-border-color: linear-gradient(to right, #332D7B, #42A5F5); -fx-border-width: 2; -fx-border-radius: 25; -fx-text-fill: #332D7B; -fx-cursor: hand;" styleClass="animated-button-outline" text="📋 View Results">
                                                             <font>
                                                                 <Font name="Segoe UI Semibold" size="16.0" />
                                                             </font>
