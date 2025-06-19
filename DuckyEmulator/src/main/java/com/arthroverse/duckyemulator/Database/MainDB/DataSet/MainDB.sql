@@ -79,7 +79,13 @@ CREATE TABLE IF NOT EXISTS Sessions(
     SessionId TIMESTAMP PRIMARY KEY NOT NULL,
     UserEmail VARCHAR(50) NOT NULL,
     FOREIGN KEY (UserEmail) REFERENCES Users(UserEmail),
-    ElapsedTime BIGINT DEFAULT 0
+    ElapsedTime BIGINT DEFAULT 0,
+    StartTime TIMESTAMP,
+    EndTime TIMESTAMP,
+    Percentage DOUBLE,
+    Deleted BOOLEAN DEFAULT 0,
+    DeletedAt VARCHAR(100),
+    DeletedBy VARCHAR(50)
 );
 
 CREATE TABLE IF NOT EXISTS Session_has_question(
@@ -88,10 +94,29 @@ CREATE TABLE IF NOT EXISTS Session_has_question(
     PRIMARY KEY(SessionId, QuestionId),
     FOREIGN KEY (SessionId) REFERENCES Sessions(SessionId),
     FOREIGN KEY (QuestionId) REFERENCES Questions(QuestionId),
-    UserAnswer VARCHAR(512)
+    UserAnswer VARCHAR(512),
+    Deleted BOOLEAN DEFAULT 0,
+    DeletedAt VARCHAR(100),
+    DeletedBy VARCHAR(50)
 );
 INSERT INTO Users(UserEmail, UserName, UserPassword, UserType)
 VALUES('admin@example.com', 'vinh', 'a', 'Admin'),
 ('user@example.com', 'hoang', 'a', 'User');
 -- FOR TESTING AND DEBUGGING PURPOSES
 -- DROP DATABASE DuckyEmulator_QuestionDB;
+
+SELECT *
+FROM Sessions AS JSessions
+JOIN Session_has_question AS JQuestions ON JQuestions.SessionId = JSessions.SessionId
+JOIN Questions AS Q ON Q.QuestionId = JQuestions.QuestionId;
+
+SELECT *
+FROM Sessions AS JSessions
+JOIN Session_has_question AS J ON J.SessionId = JSessions.SessionId
+JOIN Questions AS Q ON Q.QuestionId = J.QuestionId
+WHERE JSessions.Deleted = 0 AND JSessions.SessionId = '2025-06-19 01:16:07';
+
+SELECT * FROM Sessions WHERE Deleted = 0 ORDER BY SessionId LIMIT 10 OFFSET 0;
+
+SELECT * FROM Session_has_question AS JSession
+JOIN Questions AS Q ON JSession.QuestionId = Q.QuestionId WHERE SessionId = '2025-06-19 11:53:09' AND JSession.Deleted = 0;
