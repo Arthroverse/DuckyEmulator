@@ -27,11 +27,9 @@ import com.arthroverse.duckyemulator.UIs.Navigator;
 import com.arthroverse.duckyemulator.Utilities.Constant.Reusable;
 import io.github.palexdev.materialfx.controls.MFXScrollPane;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
@@ -87,8 +85,8 @@ public class UserHomePageUIController implements Initializable {
     }
 
     @FXML
-    public void btnGoToTestHistory(ActionEvent event){
-
+    public void btnGoToTestHistory(ActionEvent event) throws IOException {
+        Navigator.getInstance().goToUserSessionHistories();
     }
 
     @Override
