@@ -4,6 +4,7 @@ import com.arthroverse.duckyemulator.Database.DBService.MySQLService;
 import com.arthroverse.duckyemulator.Database.MainDB.AdminBeans.Questions;
 import com.arthroverse.duckyemulator.Database.MainDB.AdminBeans.Topics;
 import com.arthroverse.duckyemulator.Database.MainDB.CredentialBeans.Users;
+import com.arthroverse.duckyemulator.UIControllers.PublicUIController.UserSessionHistoriesPageUIController;
 import com.arthroverse.duckyemulator.Utilities.Constant.ErrorTitle;
 import com.arthroverse.duckyemulator.Utilities.PromptAlert.AlertUtil;
 import javafx.beans.property.ObjectProperty;
@@ -14,6 +15,10 @@ import javafx.beans.property.StringProperty;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
+import java.time.Duration;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
@@ -21,7 +26,6 @@ import java.util.stream.Collectors;
 public class Sessions {
     private StringProperty sessionId;
     private ObjectProperty<Integer> totalQuestions;
-    private ObjectProperty<Boolean> status;
     private ObjectProperty<Integer> totalCorrectQuestions;
     private StringProperty timeTaken;
     private StringProperty percentage;
@@ -46,10 +50,6 @@ public class Sessions {
 
     public ObjectProperty<Integer> getTotalQuestionsProperty(){
         return this.totalQuestions;
-    }
-
-    public ObjectProperty<Boolean> getStatusProperty(){
-        return this.status;
     }
 
     public ObjectProperty<Integer> getTotalCorrectQuestionsProperty(){
@@ -78,10 +78,6 @@ public class Sessions {
 
     public Integer getTotalQuestions(){
         return this.totalQuestions.get();
-    }
-
-    public Boolean getStatus(){
-        return this.status.get();
     }
 
     public Integer getTotalCorrectQuestions(){
@@ -148,10 +144,6 @@ public class Sessions {
         this.totalQuestions = totalQuestions;
     }
 
-    public void setStatusProperty(ObjectProperty<Boolean> status){
-        this.status = status;
-    }
-
     public void setTotalCorrectQuestionsProperty(ObjectProperty<Integer> totalCorrectQuestions){
         this.totalCorrectQuestions = totalCorrectQuestions;
     }
@@ -170,10 +162,6 @@ public class Sessions {
 
     public void setTotalQuestions(Integer totalQuestions){
         this.totalQuestions.set(totalQuestions);
-    }
-
-    public void setStatus(Boolean status){
-        this.status.set(status);
     }
 
     public void setTotalCorrectQuestions(Integer totalCorrectQuestions){
@@ -211,7 +199,6 @@ public class Sessions {
     public Sessions(){
         this.sessionId = new SimpleStringProperty();
         this.totalQuestions = new SimpleObjectProperty<>();
-        this.status = new SimpleObjectProperty<>();
         this.totalCorrectQuestions = new SimpleObjectProperty<>();
         this.timeTaken = new SimpleStringProperty();
         this.percentage = new SimpleStringProperty();
@@ -280,8 +267,9 @@ public class Sessions {
 
     public static void markTest(Sessions s){
         String sqlMarkTest = "SELECT * FROM Session_has_question AS JSession " +
-                "JOIN Questions AS Q ON JSession.QuestionId = Q.QuestionId WHERE SessionId = ?;";
-        String sqlUpdateSession = "UPDATE Sessions SET ElapsedTime = ? WHERE SessionId = ?;";
+                "JOIN Questions AS Q ON JSession.QuestionId = Q.QuestionId WHERE SessionId = ? AND JSession.Deleted = 0;";
+        String sqlUpdateSession = "UPDATE Sessions SET ElapsedTime = ?, StartTime = ?," +
+                " EndTime = ?, Percentage = ? WHERE SessionId = ?;";
         try(
                 Connection conn = MySQLService.getConnection();
                 PreparedStatement stmt1 = conn.prepareStatement(sqlMarkTest);
@@ -318,7 +306,10 @@ public class Sessions {
             s.percentage.set(Double.toString(correctQuestionsCount / s.selectedQuestions.size() * 100));
 
             stmt2.setLong(1, s.timeTakenInSecond);
-            stmt2.setString(2, s.getSessionId());
+            stmt2.setString(2, s.getStartTime());
+            stmt2.setString(3, s.getEndTime());
+            stmt2.setDouble(4, correctQuestionsCount / s.selectedQuestions.size() * 100);
+            stmt2.setString(5, s.getSessionId());
             stmt2.executeUpdate();
         }catch(Exception e){
             AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e),
@@ -327,7 +318,7 @@ public class Sessions {
     }
 
     public static void saveUserAnswerToDb(Sessions s){
-        String sqlQueryAddInputToJoinTable = "UPDATE Session_has_question SET UserAnswer = ? WHERE SessionId = ? AND QuestionId = ?";
+        String sqlQueryAddInputToJoinTable = "UPDATE Session_has_question SET UserAnswer = ? WHERE SessionId = ? AND QuestionId = ?;";
         try(
                 Connection conn = MySQLService.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sqlQueryAddInputToJoinTable);
@@ -344,5 +335,157 @@ public class Sessions {
         }
     }
 
+    /**
+     * This method is used to set up the number of total pages available in the emulator window
+     * <p>
+     * Each time a question is added to or deleted from the database, the emulator window will be
+     * re-invoked invoking this method => Ensuring a real-time update to the data for better UX
+     */
+    public static void setPage() {
+        try (
+                Connection conn = MySQLService.getConnection();
+                Statement stmt = conn.createStatement();
+                //This query will count the total questions available in the database, not deleted yet.
+                ResultSet rs = stmt.executeQuery("SELECT COUNT(SessionId) FROM Sessions WHERE Deleted = 0");
+        ){
+            /*
+             * The current cursor is pointing to nothing, and the table only has 1 column and 1 row =>
+             * A call to rs.next() will make it point to the row => retrieving the data from there*/
+            rs.next();
+            int maxNumPage = rs.getInt(1);
 
+            //extreme case: if there are no questions in the database => we still initialize the table to a single page table
+            if(rs.getInt(1) == 0) maxNumPage = 1;
+
+            /*
+             * Here is how the algorithm works:
+             *
+             * Let's say we have 48 questions, each page is capable of holding 10 questions => how
+             * many pages are needed to hold all 48 questions?
+             *
+             * The answer is 5 => The number of pages will depend on the number of questions available in
+             * the database. If the number of questions is DIVISIBLE by 10 => the number of pages is
+             *
+             * TOTAL QUESTIONS / 10
+             *
+             * If it is not divisible by 10 => increment the number of pages by 1
+             *
+             * This algorithm works like the ceiling function in Mathematics
+             * Wikipedia: https://en.wikipedia.org/wiki/Floor_and_ceiling_functions*/
+            UserSessionHistoriesPageUIController.setMaxPageNum((int)Math.ceil(maxNumPage/10.0));
+
+        }catch(Exception e){
+            AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e),
+                    ErrorTitle.SQL_QUEST_SET_PAGE_FAILED.toString());
+        }
+    }
+
+    public static ArrayList<Sessions> selectSessions(int offset){
+        ArrayList<Sessions> someSessions = new ArrayList<>();
+        String sqlSelectAllSessions = "SELECT * FROM Sessions WHERE Deleted = 0 " +
+                "ORDER BY SessionId LIMIT 10 OFFSET ? ";
+        try(
+                Connection conn = MySQLService.getConnection();
+                PreparedStatement stmt1 = conn.prepareStatement(sqlSelectAllSessions);
+                ){
+            stmt1.setInt(1, offset);
+            ResultSet rs1 = stmt1.executeQuery();
+            long timeTakenInSecond = 0;
+            while(rs1.next()){
+                Sessions sess = new Sessions();
+                timeTakenInSecond = rs1.getLong(3);
+                Duration duration = Duration.ofSeconds(timeTakenInSecond);
+                LocalTime lt = LocalTime.of(duration.toHoursPart(), duration.toMinutesPart(), duration.toSecondsPart());
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");
+                sess.setTimeTaken(lt.format(dtf));
+                sess.setSessionId(rs1.getString(1));
+                sess.setCandidateEmail(rs1.getString(2));
+                sess.setTimeTakenInSecond(rs1.getLong(3));
+                sess.setStartTime(rs1.getString(4));
+                sess.setEndTime(rs1.getString(5));
+                sess.setPercentage(Double.toString(rs1.getDouble(6)));
+                someSessions.add(sess);
+            }
+
+        }catch(Exception e){
+            AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e),
+                    "DuckyEmulator");
+        }
+        return someSessions;
+    }
+
+    //Since all sessions object in the table view in the history page is mostly incomplete (missing SessionInput TreeMap), we have to
+    //query the data by hand
+    public static void selectASession(Sessions session){
+        String sqlSelectSessionData = "SELECT * FROM Sessions AS JSessions " +
+                "JOIN Session_has_question AS J ON J.SessionId = JSessions.SessionId " +
+                "JOIN Questions AS Q ON Q.QuestionId = J.QuestionId " +
+                "WHERE JSessions.SessionId = ? AND JSessions.Deleted = 0";
+
+        String sqlRemarkTest = "SELECT * FROM Session_has_question AS JSession " +
+                "JOIN Questions AS Q ON JSession.QuestionId = Q.QuestionId WHERE SessionId = ? AND JSession.Deleted = 0;";
+        try(
+                Connection conn = MySQLService.getConnection();
+                PreparedStatement stmt1 = conn.prepareStatement(sqlSelectSessionData);
+                PreparedStatement stmt2 = conn.prepareStatement(sqlRemarkTest)
+                ){
+            stmt1.setString(1, session.sessionId.get());
+            ResultSet rs1 = stmt1.executeQuery();
+            ArrayList<Integer> allAssociatedQuestionIds = new ArrayList<>();
+            while(rs1.next()){
+                allAssociatedQuestionIds.add(rs1.getInt(11));
+            }
+            ArrayList<Questions> selectedQuestions = Questions.selectSomeQuestions(allAssociatedQuestionIds);
+            stmt2.setString(1, session.sessionId.get());
+            ResultSet rs2 = stmt2.executeQuery();
+            int questionNum = 1;
+            for(Questions q: selectedQuestions){
+                session.questionIdAndNumPair.put(q.getQuestionId(), questionNum);
+                session.questionNumAndIdPair.put(questionNum, q.getQuestionId());
+                questionNum++;
+            }
+
+            int questionIndex = 0;
+            int totalQuestions = allAssociatedQuestionIds.size();
+            int totalCorrectQuestions = 0;
+            while(rs2.next()){
+                String isAnsweredAsString = "❗";
+                boolean isAnswered = false;
+                if(rs2.getString(3) != null){
+                    isAnsweredAsString = "✅";
+                    isAnswered = true;
+                    totalCorrectQuestions++;
+                }
+                SessionInput si = new SessionInput(session.questionIdAndNumPair.get(rs2.getInt(2)), isAnsweredAsString);
+                si.setAnswered(isAnswered);
+                si.setUserAnswer(rs2.getString(3));
+
+                boolean isCorrect = false;
+                String isCorrectAsString = "❌";
+                if(rs2.getString(3) != null &&
+                    rs2.getString(3).equals(rs2.getString(10))){
+                    isCorrect = true;
+                    isCorrectAsString = "✅";
+                }
+
+                ArrayList<String> associatedTopicNames = new ArrayList<>() ;
+                for(Topics t: Topics.findingTopics(selectedQuestions.get(questionIndex).getForeignKeyTopicId())){
+                    associatedTopicNames.add(t.getTopicName());
+                }
+                String associatedTopicsAsString = associatedTopicNames.toString();
+                associatedTopicsAsString = associatedTopicsAsString.substring(1, associatedTopicsAsString.length() - 1);
+
+                SessionResult sr = new SessionResult(si,
+                        selectedQuestions.get(questionIndex), isCorrect, associatedTopicsAsString, isCorrectAsString);
+                session.testResult.add(sr);
+                questionIndex++;
+            }
+            session.setTotalQuestions(totalQuestions);
+            session.setTotalCorrectQuestions(totalCorrectQuestions);
+            Sessions.setCurrentSession(session);
+        }catch(Exception e){
+            AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e),
+                    "DuckyEmulator");
+        }
+    }
 }
