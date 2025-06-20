@@ -61,10 +61,10 @@ CREATE TABLE IF NOT EXISTS QTRelationship(
     FOREIGN KEY (QuestionId) REFERENCES Questions(QuestionId),
     TopicId INT NOT NULL,
     FOREIGN KEY (TopicId) REFERENCES Topics(TopicId),
-    PRIMARY KEY(QuestionId, TopicId),
     Deleted BOOLEAN DEFAULT 0,
-    DeletedAt VARCHAR(100),
-    DeletedBy VARCHAR(50)
+    DeletedAt VARCHAR(100) DEFAULT '',
+    DeletedBy VARCHAR(50) DEFAULT '',
+    PRIMARY KEY(QuestionId, TopicId, Deleted, DeletedAt, DeletedBy)
 );
 
 CREATE TABLE IF NOT EXISTS Users(
@@ -91,32 +91,16 @@ CREATE TABLE IF NOT EXISTS Sessions(
 CREATE TABLE IF NOT EXISTS Session_has_question(
     SessionId TIMESTAMP NOT NULL,
     QuestionId INT NOT NULL,
-    PRIMARY KEY(SessionId, QuestionId),
     FOREIGN KEY (SessionId) REFERENCES Sessions(SessionId),
     FOREIGN KEY (QuestionId) REFERENCES Questions(QuestionId),
     UserAnswer VARCHAR(512),
     Deleted BOOLEAN DEFAULT 0,
-    DeletedAt VARCHAR(100),
-    DeletedBy VARCHAR(50)
+    DeletedAt VARCHAR(100) DEFAULT '',
+    DeletedBy VARCHAR(50) DEFAULT '',
+    PRIMARY KEY(SessionId, QuestionId, Deleted, DeletedAt, DeletedBy)
 );
 INSERT INTO Users(UserEmail, UserName, UserPassword, UserType)
 VALUES('admin@example.com', 'vinh', 'a', 'Admin'),
 ('user@example.com', 'hoang', 'a', 'User');
 -- FOR TESTING AND DEBUGGING PURPOSES
 -- DROP DATABASE DuckyEmulator_QuestionDB;
-
-SELECT *
-FROM Sessions AS JSessions
-JOIN Session_has_question AS JQuestions ON JQuestions.SessionId = JSessions.SessionId
-JOIN Questions AS Q ON Q.QuestionId = JQuestions.QuestionId;
-
-SELECT *
-FROM Sessions AS JSessions
-JOIN Session_has_question AS J ON J.SessionId = JSessions.SessionId
-JOIN Questions AS Q ON Q.QuestionId = J.QuestionId
-WHERE JSessions.Deleted = 0 AND JSessions.SessionId = '2025-06-19 01:16:07';
-
-SELECT * FROM Sessions WHERE Deleted = 0 ORDER BY SessionId LIMIT 10 OFFSET 0;
-
-SELECT * FROM Session_has_question AS JSession
-JOIN Questions AS Q ON JSession.QuestionId = Q.QuestionId WHERE SessionId = '2025-06-19 11:53:09' AND JSession.Deleted = 0;
