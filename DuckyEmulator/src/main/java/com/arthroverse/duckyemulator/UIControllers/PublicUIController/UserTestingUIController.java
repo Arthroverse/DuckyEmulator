@@ -7,6 +7,7 @@ import com.arthroverse.duckyemulator.UIs.Navigator;
 import com.arthroverse.duckyemulator.Utilities.FileHandler.FileHandler;
 import com.arthroverse.duckyemulator.Utilities.PromptAlert.AlertUtil;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import io.github.palexdev.materialfx.controls.MFXScrollPane;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -17,7 +18,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.net.URL;
@@ -66,7 +66,7 @@ public class UserTestingUIController implements Initializable{
     private TableView<SessionInput> tableViewQuestNav;
 
     @FXML
-    private VBox vBoxQuestNav;
+    private MFXScrollPane mfxScrollPaneQuestNav;
 
     @FXML
     private MFXButton btnNextQuestion;
@@ -146,11 +146,12 @@ public class UserTestingUIController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources){
+        currentQuestionNum = 1;
         timeline = new Timeline(new KeyFrame(javafx.util.Duration.millis(1000), ae -> incrementTime()));
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
-        vBoxQuestNav.setVisible(false); //automatically hide the quest navigator for user to have more space
-        vBoxQuestNav.setManaged(false); //hiding isn't enough, so we have to make sure that they don't occupy any space
+        mfxScrollPaneQuestNav.setVisible(false); //automatically hide the quest navigator for user to have more space
+        mfxScrollPaneQuestNav.setManaged(false); //hiding isn't enough, so we have to make sure that they don't occupy any space
         deployQuestion();
         btnPreviousQuestion.disableProperty().set(true);
         imageViewQuestImg.setPreserveRatio(true);
@@ -210,12 +211,12 @@ public class UserTestingUIController implements Initializable{
 
     @FXML
     public void btnPrimaryQuestCounterClick(){
-        if(vBoxQuestNav.isManaged() && vBoxQuestNav.isVisible()){
-            vBoxQuestNav.setVisible(false);
-            vBoxQuestNav.setManaged(false);
+        if(mfxScrollPaneQuestNav.isManaged() && mfxScrollPaneQuestNav.isVisible()){
+            mfxScrollPaneQuestNav.setVisible(false);
+            mfxScrollPaneQuestNav.setManaged(false);
         }else{
-            vBoxQuestNav.setVisible(true);
-            vBoxQuestNav.setManaged(true);
+            mfxScrollPaneQuestNav.setVisible(true);
+            mfxScrollPaneQuestNav.setManaged(true);
         }
     }
 
