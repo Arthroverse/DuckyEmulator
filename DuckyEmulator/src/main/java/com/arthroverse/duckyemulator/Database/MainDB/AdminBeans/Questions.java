@@ -381,7 +381,7 @@ public class Questions{
                     "JOIN QTRelationship AS QT ON Q.QuestionId = QT.QuestionId " +
                     "JOIN Topics AS T ON T.TopicId = QT.TopicId " +
                     "JOIN Classifications AS C ON C.ClassificationId = Q.ClassificationId " +
-                    "WHERE Q.QuestionId IN ( " + qIdListString + " ) " +
+                    "WHERE QT.Deleted = 0 AND Q.QuestionId IN ( " + qIdListString + " ) " +
                     "ORDER BY Q.QuestionId; ";
 
             try(
@@ -555,7 +555,7 @@ public class Questions{
                 "JOIN QTRelationship AS QT ON Q.QuestionId = QT.QuestionId " +
                 "JOIN Topics AS T ON T.TopicId = QT.TopicId " +
                 "JOIN Classifications AS C ON C.ClassificationId = Q.ClassificationId " +
-                "WHERE Q.QuestionId IN ( " + selectedIds + " )" +
+                "WHERE QT.Deleted = 0 AND Q.QuestionId IN ( " + selectedIds + " )" +
                 "ORDER BY Q.QuestionId;";
 
         try(
@@ -646,7 +646,7 @@ public class Questions{
                     "JOIN QTRelationship AS QT ON Q.QuestionId = QT.QuestionId " +
                     "JOIN Topics AS T ON T.TopicId = QT.TopicId " +
                     "JOIN Classifications AS C ON C.ClassificationId = Q.ClassificationId " +
-                    "WHERE Q.QuestionId IN ( " + qIdListString + " )" +
+                    "WHERE QT.Deleted = 0 AND Q.QuestionId IN ( " + qIdListString + " )" +
                     "ORDER BY Q.QuestionId; ";
 
             try(
