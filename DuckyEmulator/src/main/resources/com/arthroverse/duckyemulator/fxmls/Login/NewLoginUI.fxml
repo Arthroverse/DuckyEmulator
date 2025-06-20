@@ -29,7 +29,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane prefHeight="700.0" prefWidth="1200.0" styleClass="background_color" stylesheets="@../../css/Login.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.arthroverse.duckyemulator.UIControllers.LoginController.LoginUIController">
+<BorderPane prefHeight="700.0" prefWidth="1200.0" styleClass="background_color" stylesheets="@../../css/LoginCss/Login.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.arthroverse.duckyemulator.UIControllers.LoginController.LoginUIController">
     <center>
         <HBox alignment="CENTER" spacing="0.0" BorderPane.alignment="CENTER">
             <children>
