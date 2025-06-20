@@ -54,7 +54,7 @@ public class Navigator {
 
     private static final String QBANK_UPDATE = "/com/arthroverse/duckyemulator/fxmls/AdminUIs/QBankUpdateUI.fxml";
 
-    private static final String TOPICS_CLASS_INDEX = "/com/arthroverse/duckyemulator/fxmls/AdminUIs/TopicsClassIndexUI.fxml";
+    private static final String TOPICS_CLASS_INDEX = "/com/arthroverse/duckyemulator/fxmls/AdminUIs/NewTopicsClassIndexUI.fxml";
 
     private static final String TOPICS_INDEX_ADD = "/com/arthroverse/duckyemulator/fxmls/AdminUIs/TopicsAddUI.fxml";
 
