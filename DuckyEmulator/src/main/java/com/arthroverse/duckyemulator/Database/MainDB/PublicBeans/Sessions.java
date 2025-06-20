@@ -17,6 +17,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.time.Duration;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -414,7 +415,7 @@ public class Sessions {
         return someSessions;
     }
 
-    //Since all sessions object in the table view in the history page is mostly incomplete (missing SessionInput TreeMap), we have to
+    //Since all sessions object in the table view in the history page is mostly incomplete (missing SessionInput TreeMap and SessionResult ArrayList), we have to
     //query the data by hand
     public static void selectASession(Sessions session){
         String sqlSelectSessionData = "SELECT * FROM Sessions AS JSessions " +
@@ -483,6 +484,29 @@ public class Sessions {
             session.setTotalQuestions(totalQuestions);
             session.setTotalCorrectQuestions(totalCorrectQuestions);
             Sessions.setCurrentSession(session);
+        }catch(Exception e){
+            AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e),
+                    "DuckyEmulator");
+        }
+    }
+
+    public static void delete(Sessions session){
+        String sqlDeleteSession = "UPDATE Sessions SET Deleted = 1, DeletedBy = ?, DeletedAt = ? WHERE SessionId = ?;";
+        String sqlDeleteSessionRelationship = "UPDATE Session_has_question SET Deleted = 1, DeletedBy = ?, DeletedAt = ? WHERE SessionId = ?;";
+        try(
+              Connection conn = MySQLService.getConnection();
+              PreparedStatement stmt1 = conn.prepareStatement(sqlDeleteSession);
+              PreparedStatement stmt2 = conn.prepareStatement(sqlDeleteSessionRelationship);
+                ){
+            stmt1.setString(1, Users.getCurrentUserEmailInActiveSession());
+            stmt1.setString(2, LocalDateTime.now().toString());
+            stmt1.setString(3, session.sessionId.get());
+            stmt1.executeUpdate();
+
+            stmt2.setString(1, Users.getCurrentUserEmailInActiveSession());
+            stmt2.setString(2, LocalDateTime.now().toString());
+            stmt2.setString(3, session.sessionId.get());
+            stmt2.executeUpdate();
         }catch(Exception e){
             AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e),
                     "DuckyEmulator");
