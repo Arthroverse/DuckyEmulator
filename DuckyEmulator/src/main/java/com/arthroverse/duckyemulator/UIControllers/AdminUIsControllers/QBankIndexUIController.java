@@ -22,6 +22,7 @@
  */
 package com.arthroverse.duckyemulator.UIControllers.AdminUIsControllers;
 
+import com.arthroverse.duckyemulator.Database.MainDB.AdminBeans.Classifications;
 import com.arthroverse.duckyemulator.Database.MainDB.AdminBeans.Questions;
 import com.arthroverse.duckyemulator.Database.MainDB.CredentialBeans.Users;
 import com.arthroverse.duckyemulator.UIs.Navigator;
@@ -38,6 +39,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.arthroverse.duckyemulator.Utilities.PromptAlert.AlertUtil;
+import javafx.scene.input.MouseEvent;
+import javafx.util.Callback;
 
 public class QBankIndexUIController implements Initializable {
 
@@ -190,6 +193,37 @@ public class QBankIndexUIController implements Initializable {
                     currentPageIndex = pageIndex;
                     deploy(pageIndex);
                 });
+
+        btnTableDelete.disableProperty().set(true);
+        btnTableUpdate.disableProperty().set(true);
+        tableBankView.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldSelected, newSelected) -> {
+                    if(tableBankView.getSelectionModel().getSelectedItem() != null){
+                        btnTableDelete.disableProperty().set(false);
+                        btnTableUpdate.disableProperty().set(false);
+                    }else{
+                        btnTableDelete.disableProperty().set(true);
+                        btnTableUpdate.disableProperty().set(true);
+                    }
+                }
+        );
+
+        tableBankView.setRowFactory(new Callback<TableView<Questions>, TableRow<Questions>>() {
+            @Override
+            public TableRow<Questions> call(TableView<Questions> tableView2) {
+                final TableRow<Questions> row = new TableRow<>();
+                row.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
+                    final int index = row.getIndex();
+                    if (index >= 0 && index < tableBankView.getItems().size() && tableBankView.getSelectionModel().isSelected(index)  ) {
+                        btnTableDelete.disableProperty().set(true);
+                        btnTableUpdate.disableProperty().set(true);
+                        tableBankView.getSelectionModel().clearSelection(index);
+                        event.consume();
+                    }
+                });
+                return row;
+            }
+        });
     }
 
     @FXML
