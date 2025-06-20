@@ -7,7 +7,6 @@ import com.arthroverse.duckyemulator.Utilities.Constant.Reusable;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -73,8 +72,10 @@ public class UserSessionHistoriesPageUIController implements Initializable{
     }
 
     @FXML
-    void btnDeleteSelectedSession(ActionEvent event) {
-
+    void btnDeleteSelectedSession(ActionEvent event) throws IOException {
+        Sessions s = tableViewSessionHis.getSelectionModel().getSelectedItem();
+        Sessions.delete(s);
+        Navigator.getInstance().goToUserSessionHistories();
     }
 
     @FXML
@@ -118,8 +119,13 @@ public class UserSessionHistoriesPageUIController implements Initializable{
         mfxButtonDeleteSession.disableProperty().set(true);
         tableViewSessionHis.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> {
-                    mfxButtonViewResult.disableProperty().set(false);
-                    mfxButtonDeleteSession.disableProperty().set(false);
+                    if(tableViewSessionHis.getSelectionModel().getSelectedItem() != null){
+                        mfxButtonViewResult.disableProperty().set(false);
+                        mfxButtonDeleteSession.disableProperty().set(false);
+                    }else{
+                        mfxButtonViewResult.disableProperty().set(true);
+                        mfxButtonDeleteSession.disableProperty().set(true);
+                    }
                 }
         );
 
