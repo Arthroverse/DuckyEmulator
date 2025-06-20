@@ -28,10 +28,14 @@ import com.arthroverse.duckyemulator.Database.MainDB.CredentialBeans.Users;
 import com.arthroverse.duckyemulator.UIs.Navigator;
 import com.arthroverse.duckyemulator.Utilities.Constant.Reusable;
 import com.arthroverse.duckyemulator.Utilities.PromptAlert.AlertUtil;
+import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.StackPane;
+import javafx.util.Callback;
 
 import java.io.IOException;
 import java.net.URL;
@@ -52,16 +56,16 @@ public class TopicsClassIndexUIController implements Initializable{
     private Button tableClassViewUpdate;
 
     @FXML
-    private Button btnMenuHome;
+    private MFXButton btnMenuHome;
 
     @FXML
-    private Button btnMenuQuestBank;
+    private MFXButton btnMenuQuestBank;
 
     @FXML
-    private Button btnTopicViewDelete;
+    private MFXButton btnTopicViewDelete;
 
     @FXML
-    private Button tableClassViewAdd;
+    private MFXButton tableClassViewAdd;
 
     @FXML
     private TableColumn<Classifications, String> tableClassificationCol;
@@ -73,13 +77,13 @@ public class TopicsClassIndexUIController implements Initializable{
     private TableView<Classifications> tableClassView;
 
     @FXML
-    private Button btnMenuTopicClass;
+    private MFXButton btnMenuTopicClass;
 
     @FXML
-    private Button btnTopicViewAdd;
+    private MFXButton btnTopicViewAdd;
 
     @FXML
-    private Button tableClassViewDelete;
+    private MFXButton tableClassViewDelete;
 
     @FXML
     private Pagination tableViewClassPagination;
@@ -91,10 +95,16 @@ public class TopicsClassIndexUIController implements Initializable{
     private TableColumn<Classifications, String> tableClassificationDesc;
 
     @FXML
-    private Button btnLogout;
+    private MFXButton btnLogout;
 
     @FXML
     private Label greetingLabel;
+
+    @FXML
+    private StackPane stackPaneTopic;
+
+    @FXML
+    private StackPane stackPaneClassification;
 
     private static int topicsMaxPageNum;
 
@@ -245,22 +255,61 @@ public class TopicsClassIndexUIController implements Initializable{
 
         tableTopicView.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldSelected, newSelected) -> {
-                    if(newSelected != null){
+                    if(tableTopicView.getSelectionModel().getSelectedItem() != null){
                         btnTopicViewDelete.disableProperty().set(false);
                         btnTopicViewUpdate.disableProperty().set(false);
-
+                    }else{
+                        btnTopicViewDelete.disableProperty().set(true);
+                        btnTopicViewUpdate.disableProperty().set(true);
                     }
                 }
         );
 
         tableClassView.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldSelected, newSelected) -> {
-                    if(newSelected != null){
+                    if(tableClassView.getSelectionModel().getSelectedItem() != null){
                         tableClassViewDelete.disableProperty().set(false);
                         tableClassViewUpdate.disableProperty().set(false);
+                    }else{
+                        tableClassViewDelete.disableProperty().set(true);
+                        tableClassViewUpdate.disableProperty().set(true);
                     }
                 }
         );
+
+        tableClassView.setRowFactory(new Callback<TableView<Classifications>, TableRow<Classifications>>() {
+            @Override
+            public TableRow<Classifications> call(TableView<Classifications> tableView2) {
+                final TableRow<Classifications> row = new TableRow<>();
+                row.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
+                    final int index = row.getIndex();
+                    if (index >= 0 && index < tableClassView.getItems().size() && tableClassView.getSelectionModel().isSelected(index)  ) {
+                        tableClassViewUpdate.disableProperty().set(true);
+                        tableClassViewDelete.disableProperty().set(true);
+                        tableClassView.getSelectionModel().clearSelection(index);
+                        event.consume();
+                    }
+                });
+                return row;
+            }
+        });
+
+        tableTopicView.setRowFactory(new Callback<TableView<Topics>, TableRow<Topics>>() {
+            @Override
+            public TableRow<Topics> call(TableView<Topics> tableView2) {
+                final TableRow<Topics> row = new TableRow<>();
+                row.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
+                    final int index = row.getIndex();
+                    if (index >= 0 && index < tableTopicView.getItems().size() && tableTopicView.getSelectionModel().isSelected(index)  ) {
+                        btnTopicViewUpdate.disableProperty().set(true);
+                        btnTopicViewDelete.disableProperty().set(true);
+                        tableTopicView.getSelectionModel().clearSelection(index);
+                        event.consume();
+                    }
+                });
+                return row;
+            }
+        });
     }
 
     private void topicViewInitialize(int pageIndex){
@@ -295,5 +344,28 @@ public class TopicsClassIndexUIController implements Initializable{
 
     private void classInitialDeployment(int currentPageIndex){
         this.classViewInitalize(currentPageIndex);
+    }
+
+    @FXML
+    public void btnTopicRetract(){
+        if(stackPaneTopic.isManaged() && stackPaneTopic.isVisible()){
+            stackPaneTopic.setVisible(false);
+            stackPaneTopic.setManaged(false);
+        }else{
+            stackPaneTopic.setVisible(true);
+            stackPaneTopic.setManaged(true);
+
+        }
+    }
+
+    @FXML
+    public void btnClassificationRetract(){
+        if(stackPaneClassification.isManaged() && stackPaneClassification.isVisible()){
+            stackPaneClassification.setVisible(false);
+            stackPaneClassification.setManaged(false);
+        }else{
+            stackPaneClassification.setVisible(true);
+            stackPaneClassification.setManaged(true);
+        }
     }
 }
