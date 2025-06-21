@@ -140,7 +140,7 @@
                                           <Font name="Segoe UI" size="14.0" />
                                        </font>
                                     </Label>
-                                    <Label styleClass="other_text_bold" text="Pause Time:" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                    <Label styleClass="other_text_bold" text="End Time:" GridPane.columnIndex="2" GridPane.rowIndex="2">
                                        <font>
                                           <Font name="Segoe UI Semibold" size="14.0" />
                                        </font>
