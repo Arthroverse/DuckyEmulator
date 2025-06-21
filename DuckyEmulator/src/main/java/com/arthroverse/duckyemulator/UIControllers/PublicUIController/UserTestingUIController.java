@@ -132,12 +132,9 @@ public class UserTestingUIController implements Initializable{
                                 , totalUnansweredQuestions))) || totalUnansweredQuestions == 0){
             timeline.stop();
             endTime = LocalDateTime.now();
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             Sessions.getCurrentSession().setEndTime(endTime.format(dtf));
             Sessions.getCurrentSession().setTimeTaken(labelElapsedTime.getText());
-            Duration timeTaken = Duration.between(UserHomePageUIController.getStartTime(), endTime);
-            timeTakenInSeconds = timeTaken.getSeconds();
-            Sessions.getCurrentSession().setTimeTakenInSecond(timeTakenInSeconds);
             Sessions.saveUserAnswerToDb(Sessions.getCurrentSession());
             Sessions.markTest(Sessions.getCurrentSession());
             Navigator.getInstance().goToResultPage();
