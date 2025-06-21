@@ -42,3 +42,30 @@
 .mfx-scroll-pane{
     -fx-background-insets: 0; /*DO NOT DELETE THIS ONE. THIS LINE FIXED ALL OF THE BUGS ASSOCIATED WITH SCROLL PANE FOCUSING ISSUE. THIS BUG ALSO RELATED TO FONT ISSUE*/
 }
+
+.table-view .table-cell {
+    -fx-font-family: 'JetBrains Mono Regular';
+}
+
+/* Target all pagination page numbers */
+.pagination-control .number-button {
+    -fx-font-family: 'JetBrains Mono Regular';
+    -fx-text-fill: #333333;
+}
+
+/* Target selected/current page number */
+.pagination-control .number-button.selected {
+    -fx-font-family: 'JetBrains Mono Regular';
+    -fx-text-fill: #ffffff;
+}
+
+/* Target pagination arrows (previous/next) if needed */
+.pagination-control .left-arrow-button .left-arrow,
+.pagination-control .right-arrow-button .right-arrow {
+    -fx-font-family: "JetBrains Mono Regular";
+}
+
+.pagination-control .page-information {
+    -fx-font-family: "JetBrains Mono Regular";
+    -fx-text-fill: #2c3e50;
+}
