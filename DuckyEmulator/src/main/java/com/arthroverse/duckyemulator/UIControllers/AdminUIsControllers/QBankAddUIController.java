@@ -33,38 +33,41 @@ import com.arthroverse.duckyemulator.Utilities.Constant.WarningMessage;
 import com.arthroverse.duckyemulator.Utilities.Constant.WarningTitle;
 import com.arthroverse.duckyemulator.Utilities.FileHandler.FileHandler;
 import com.arthroverse.duckyemulator.Utilities.PromptAlert.AlertUtil;
+import io.github.palexdev.materialfx.controls.MFXButton;
+import io.github.palexdev.materialfx.controls.MFXComboBox;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
+import javafx.util.Callback;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.ResourceBundle;
 
 public class QBankAddUIController implements Initializable {
 
     @FXML
-    private ChoiceBox<String> choiceBoxSelectTopic;
+    private MFXComboBox<String> choiceBoxSelectTopic;
 
     @FXML
-    private ChoiceBox<String> choiceBoxCorrectAns;
+    private MFXComboBox<String> choiceBoxCorrectAns;
 
     @FXML
-    private Button btnChooseImagePath;
+    private MFXButton btnChooseImagePath;
 
     @FXML
     private TextField txtFieldImagePath;
 
     @FXML
-    private ChoiceBox<String> choiceBoxSelectClass;
+    private MFXComboBox<String> choiceBoxSelectClass;
 
     @FXML
     private TextArea txtAreaQChoice2;
@@ -73,7 +76,7 @@ public class QBankAddUIController implements Initializable {
     private TextArea txtAreaQChoice1;
 
     @FXML
-    private Button btnAddNewQuestion;
+    private MFXButton btnAddNewQuestion;
 
     @FXML
     private TextArea txtAreaQStatement;
@@ -85,13 +88,13 @@ public class QBankAddUIController implements Initializable {
     private TextArea txtAreaQChoice3;
 
     @FXML
-    private Button btnResetField;
+    private MFXButton btnResetField;
 
     @FXML
-    private Button btnAddTopic;
+    private MFXButton btnAddTopic;
 
     @FXML
-    private Button btnRemoveTopic;
+    private MFXButton btnRemoveTopic;
 
     @FXML
     private TableView<Topics> tableViewSelectedTopic;
@@ -103,31 +106,16 @@ public class QBankAddUIController implements Initializable {
 
     private static ArrayList<Topics> selectedTopics = new ArrayList<>();
 
-    private static String currentSelectedClassification;
-
-    private static String currentQuestionStatement;
-
-    private static String currentChoice1;
-
-    private static String currentChoice2;
-
-    private static String currentChoice3;
-
-    private static String currentChoice4;
-
-    private static String currentCorrectChoice;
-
-    private static String currentImagePath;
-
-    public static void resetAllDatas(){
-        currentSelectedClassification = null;
-        currentQuestionStatement = null;
-        currentChoice1 = null;
-        currentChoice2 = null;
-        currentChoice3 = null;
-        currentChoice4 = null;
-        currentCorrectChoice = null;
-        currentImagePath = null;
+    public void resetAllDatas(){
+        choiceBoxSelectTopic.clearSelection();
+        choiceBoxCorrectAns.clearSelection();
+        txtFieldImagePath.setText(null);
+        choiceBoxSelectClass.clearSelection();
+        txtAreaQChoice2.setText(null);
+        txtAreaQChoice1.setText(null);
+        txtAreaQStatement.setText(null);
+        txtAreaQChoice4.setText(null);
+        txtAreaQChoice3.setText(null);
         selectedTopics = new ArrayList<>();
     }
 
@@ -168,7 +156,6 @@ public class QBankAddUIController implements Initializable {
                 Navigator.getInstance().closeSecondStage();
                 Navigator.getInstance().goToQBankIndex();
                 selectedTopics = new ArrayList<>();
-                resetAllDatas();
             }
             errorMessage = new StringBuilder();
         }catch(Exception e){
@@ -191,6 +178,7 @@ public class QBankAddUIController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        selectedTopics = new ArrayList<>();
         choiceBoxSelectTopic.setItems(FXCollections.observableArrayList(
                 Topics.getSortedTopicNames()));
 
@@ -213,13 +201,33 @@ public class QBankAddUIController implements Initializable {
         tableViewSelectedTopic.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldSelection, newSelection) -> {
                     if(newSelection != null) btnRemoveTopic.disableProperty().set(false);
+                    else btnRemoveTopic.disableProperty().set(true);
                 }
         );
         choiceBoxSelectTopic.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldSelection, newSelection) -> {
                     if(newSelection != null) btnAddTopic.disableProperty().set(false);
+                    else btnAddTopic.disableProperty().set(true);
                 }
         );
+
+        tableViewSelectedTopic.setRowFactory(new Callback<TableView<Topics>, TableRow<Topics>>() {
+            @Override
+            public TableRow<Topics> call(TableView<Topics> tableView2) {
+                final TableRow<Topics> row = new TableRow<>();
+                row.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
+                    final int index = row.getIndex();
+                    if (index >= 0 && index < tableViewSelectedTopic.getItems().size() && tableViewSelectedTopic.getSelectionModel().isSelected(index)  ) {
+                        btnRemoveTopic.disableProperty().set(true);
+                        btnAddTopic.disableProperty().set(true);
+                        tableViewSelectedTopic.getSelectionModel().clearSelection(index);
+                        event.consume();
+                    }
+                });
+                return row;
+            }
+        });
+
         txtFieldImagePath.setEditable(false);
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(
@@ -273,6 +281,7 @@ public class QBankAddUIController implements Initializable {
                     FailedOperationType.QUEST_UI_CONTROLLER_ADD_TOPIC_FAILED.toString(),
                     ErrorMessage.QUEST_UI_CONTROLLER_ADD_TOPIC_FAILED.toString());
         }
+        choiceBoxSelectTopic.clearSelection();
     }
 
     @FXML
