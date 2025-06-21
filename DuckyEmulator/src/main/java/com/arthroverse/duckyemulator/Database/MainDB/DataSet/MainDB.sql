@@ -79,10 +79,10 @@ CREATE TABLE IF NOT EXISTS Sessions(
     SessionId TIMESTAMP PRIMARY KEY NOT NULL,
     UserEmail VARCHAR(50) NOT NULL,
     FOREIGN KEY (UserEmail) REFERENCES Users(UserEmail),
-    ElapsedTime BIGINT DEFAULT 0,
     StartTime TIMESTAMP,
     EndTime TIMESTAMP,
-    Percentage DOUBLE,
+    TotalQuestions INT,
+    TotalCorrectQuestions INT,
     Deleted BOOLEAN DEFAULT 0,
     DeletedAt VARCHAR(100),
     DeletedBy VARCHAR(50)
@@ -104,3 +104,6 @@ VALUES('admin@example.com', 'vinh', 'a', 'Admin'),
 ('user@example.com', 'hoang', 'a', 'User');
 -- FOR TESTING AND DEBUGGING PURPOSES
 -- DROP DATABASE DuckyEmulator_QuestionDB;
+
+SELECT * FROM Sessions WHERE Deleted = 0
+ORDER BY SessionId LIMIT 10 OFFSET 0
