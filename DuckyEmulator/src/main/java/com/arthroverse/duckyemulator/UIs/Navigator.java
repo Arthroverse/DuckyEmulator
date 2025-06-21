@@ -50,19 +50,19 @@ public class Navigator {
 
     private static final String QBANK_INDEX = "/com/arthroverse/duckyemulator/fxmls/AdminUIs/NewQBankIndexUI.fxml";
 
-    private static final String QBANK_ADD = "/com/arthroverse/duckyemulator/fxmls/AdminUIs/QBankAddUI.fxml";
+    private static final String QBANK_ADD = "/com/arthroverse/duckyemulator/fxmls/AdminUIs/NewQBankAddUI.fxml";
 
-    private static final String QBANK_UPDATE = "/com/arthroverse/duckyemulator/fxmls/AdminUIs/QBankUpdateUI.fxml";
+    private static final String QBANK_UPDATE = "/com/arthroverse/duckyemulator/fxmls/AdminUIs/NewQBankUpdateUI.fxml";
 
     private static final String TOPICS_CLASS_INDEX = "/com/arthroverse/duckyemulator/fxmls/AdminUIs/NewTopicsClassIndexUI.fxml";
 
-    private static final String TOPICS_INDEX_ADD = "/com/arthroverse/duckyemulator/fxmls/AdminUIs/TopicsAddUI.fxml";
+    private static final String TOPICS_INDEX_ADD = "/com/arthroverse/duckyemulator/fxmls/AdminUIs/NewTopicsAddUI.fxml";
 
-    private static final String TOPICS_INDEX_UPDATE = "/com/arthroverse/duckyemulator/fxmls/AdminUIs/TopicsUpdateUI.fxml";
+    private static final String TOPICS_INDEX_UPDATE = "/com/arthroverse/duckyemulator/fxmls/AdminUIs/NewTopicsUpdateUI.fxml";
 
-    private static final String CLASS_INDEX_ADD = "/com/arthroverse/duckyemulator/fxmls/AdminUIs/ClassificationsAddUI.fxml";
+    private static final String CLASS_INDEX_ADD = "/com/arthroverse/duckyemulator/fxmls/AdminUIs/NewClassificationsAddUI.fxml";
 
-    private static final String CLASS_INDEX_UPDATE = "/com/arthroverse/duckyemulator/fxmls/AdminUIs/ClassificationsUpdateUI.fxml";
+    private static final String CLASS_INDEX_UPDATE = "/com/arthroverse/duckyemulator/fxmls/AdminUIs/NewClassificationsUpdateUI.fxml";
 
     private static final String LOGIN_PAGE = "/com/arthroverse/duckyemulator/fxmls/Login/NewLoginUI.fxml";
 
@@ -195,11 +195,6 @@ public class Navigator {
             secondStage.initOwner(this.stage);
             if(secondStage != null) secondStage.requestFocus();
             secondStage.show();
-            if(fxml.equals(QBANK_ADD)){
-                secondStage.setOnCloseRequest(event -> {
-                    QBankAddUIController.resetAllDatas();
-                });
-            }
         }
    }
 
