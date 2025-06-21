@@ -168,7 +168,7 @@
                                                                     </cellValueFactory>
                                                                 </TableColumn>
 
-                                                                <TableColumn fx:id="tableColPauseTime" prefWidth="150.0" style="-fx-alignment: CENTER;" text="Pause Time">
+                                                                <TableColumn fx:id="tableColPauseTime" prefWidth="150.0" style="-fx-alignment: CENTER;" text="End Time">
                                                                     <cellValueFactory>
                                                                         <PropertyValueFactory property="pauseTime" />
                                                                     </cellValueFactory>
