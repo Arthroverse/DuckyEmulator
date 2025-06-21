@@ -1,0 +1,74 @@
+@import url('../../fonts/JetBrainsMono/JetBrainsMono.css');
+@import url('../../fonts/JetBrainsMonoNL/JetBrainsMonoNL.css');
+
+.main_label{
+    -fx-font-family: "JetBrains Mono Bold Italic";
+    -fx-font-size: 18;/*DO NOT DELETE THIS ONE. THIS LINE FIXED ALL OF THE BUGS ASSOCIATED WITH FONT SIZE*/
+    -fx-text-fill: #332d7b;
+}
+
+.sub_label{
+    -fx-font-family: "JetBrains Mono Bold Italic";
+    -fx-font-size: 14;/*DO NOT DELETE THIS ONE. THIS LINE FIXED ALL OF THE BUGS ASSOCIATED WITH FONT SIZE*/
+    -fx-text-fill: #5f6368;
+}
+
+.title{
+    -fx-font-family: "JetBrains Mono Bold Italic";
+    -fx-font-size: 28;/*DO NOT DELETE THIS ONE. THIS LINE FIXED ALL OF THE BUGS ASSOCIATED WITH FONT SIZE*/
+    -fx-text-fill: #FFFFFF;
+}
+
+.sub_title{
+    -fx-font-family: "JetBrains Mono Bold Italic";
+    -fx-font-size: 14;/*DO NOT DELETE THIS ONE. THIS LINE FIXED ALL OF THE BUGS ASSOCIATED WITH FONT SIZE*/
+    -fx-text-fill: #e3f2fd;
+}
+
+.all_button_small{
+    -fx-font-family: "JetBrains Mono Regular";
+    -fx-font-size: 12;/*DO NOT DELETE THIS ONE. THIS LINE FIXED ALL OF THE BUGS ASSOCIATED WITH FONT SIZE*/
+    -fx-text-fill: #FFFFFF;
+}
+
+.all_button_large{
+    -fx-font-family: "JetBrains Mono Bold Italic";
+    -fx-font-size: 16;/*DO NOT DELETE THIS ONE. THIS LINE FIXED ALL OF THE BUGS ASSOCIATED WITH FONT SIZE*/
+    -fx-text-fill: #FFFFFF;
+}
+
+.mfx-scroll-pane{
+    -fx-background-insets: 0;/*DO NOT DELETE THIS ONE. THIS LINE FIXED ALL OF THE BUGS ASSOCIATED WITH SCROLL PANE FOCUSING ISSUE. THIS BUG ALSO RELATED TO FONT ISSUE*/
+}
+
+.text-field{
+    -fx-font-family: "JetBrains Mono Bold";
+    -fx-font-size: 13;/*DO NOT DELETE THIS ONE. THIS LINE FIXED ALL OF THE BUGS ASSOCIATED WITH SCROLL PANE FOCUSING ISSUE. THIS BUG ALSO RELATED TO FONT ISSUE*/
+}
+
+.text-area{
+    -fx-font-family: "JetBrains Mono Bold";
+    -fx-font-size: 13;/*DO NOT DELETE THIS ONE. THIS LINE FIXED ALL OF THE BUGS ASSOCIATED WITH SCROLL PANE FOCUSING ISSUE. THIS BUG ALSO RELATED TO FONT ISSUE*/
+}
+
+.table-view .table-cell {
+    -fx-font-family: 'JetBrains Mono Regular';
+}
+
+.mfx-combo-box-cell .data-label {
+    -fx-font-family: "JetBrains Mono Regular";
+    -fx-text-fill: #3E59A0;
+    -fx-font-size: 13;
+}
+
+.mfx-combo-box .caret .mfx-ripple-generator {
+    -mfx-ripple-color: rgba(51, 45, 123, 1);
+    -mfx-ripple-radius: 14;
+}
+
+.mfx-combo-box{
+    -fx-font-family: "JetBrains Mono Regular";
+    -fx-text-fill: #3E59A0;
+    -fx-font-size: 13;
+    -fx-alignment: center-left;
+}
