@@ -35,7 +35,6 @@ public class Sessions {
     private ArrayList<SessionInput> isAnsweredStatForNav = new ArrayList<>();
 
     private String candidateEmail;
-    private long timeTakenInSecond;
     private TreeMap<Integer, Questions> selectedQuestions = new TreeMap<>();
     private TreeMap<Integer, Integer> questionNumAndIdPair = new TreeMap<>();
     private TreeMap<Integer, Integer> questionIdAndNumPair = new TreeMap<>();
@@ -103,10 +102,6 @@ public class Sessions {
 
     public String getCandidateEmail(){
         return this.candidateEmail;
-    }
-
-    public long getTimeTakenInSecond(){
-        return this.timeTakenInSecond;
     }
 
     public ArrayList<SessionInput> getIsAnsweredStatForNav(){
@@ -189,10 +184,6 @@ public class Sessions {
         this.candidateEmail = candidateEmail;
     }
 
-    public void setTimeTakenInSecond(long timeTakenInSecond){
-        this.timeTakenInSecond = timeTakenInSecond;
-    }
-
     public static void setCurrentSession(Sessions currentSession){
         Sessions.currentSession = currentSession;
     }
@@ -205,8 +196,6 @@ public class Sessions {
         this.percentage = new SimpleStringProperty();
         this.startTime = new SimpleStringProperty();
         this.endTime = new SimpleStringProperty();
-
-        this.timeTakenInSecond = 0;
     }
 
     public static void insert(Sessions s){
@@ -269,8 +258,8 @@ public class Sessions {
     public static void markTest(Sessions s){
         String sqlMarkTest = "SELECT * FROM Session_has_question AS JSession " +
                 "JOIN Questions AS Q ON JSession.QuestionId = Q.QuestionId WHERE SessionId = ? AND JSession.Deleted = 0;";
-        String sqlUpdateSession = "UPDATE Sessions SET ElapsedTime = ?, StartTime = ?," +
-                " EndTime = ?, Percentage = ? WHERE SessionId = ?;";
+        String sqlUpdateSession = "UPDATE Sessions SET TotalQuestions = ?, StartTime = ?," +
+                " EndTime = ?, TotalCorrectQuestions = ? WHERE SessionId = ?;";
         try(
                 Connection conn = MySQLService.getConnection();
                 PreparedStatement stmt1 = conn.prepareStatement(sqlMarkTest);
@@ -306,10 +295,10 @@ public class Sessions {
             s.totalCorrectQuestions.set((int)correctQuestionsCount);
             s.percentage.set(Double.toString(correctQuestionsCount / s.selectedQuestions.size() * 100));
 
-            stmt2.setLong(1, s.timeTakenInSecond);
+            stmt2.setLong(1, s.totalQuestions.get());
             stmt2.setString(2, s.getStartTime());
             stmt2.setString(3, s.getEndTime());
-            stmt2.setDouble(4, correctQuestionsCount / s.selectedQuestions.size() * 100);
+            stmt2.setDouble(4, correctQuestionsCount);
             stmt2.setString(5, s.getSessionId());
             stmt2.executeUpdate();
         }catch(Exception e){
@@ -391,20 +380,23 @@ public class Sessions {
                 ){
             stmt1.setInt(1, offset);
             ResultSet rs1 = stmt1.executeQuery();
-            long timeTakenInSecond = 0;
             while(rs1.next()){
                 Sessions sess = new Sessions();
-                timeTakenInSecond = rs1.getLong(3);
-                Duration duration = Duration.ofSeconds(timeTakenInSecond);
-                LocalTime lt = LocalTime.of(duration.toHoursPart(), duration.toMinutesPart(), duration.toSecondsPart());
-                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");
-                sess.setTimeTaken(lt.format(dtf));
                 sess.setSessionId(rs1.getString(1));
                 sess.setCandidateEmail(rs1.getString(2));
-                sess.setTimeTakenInSecond(rs1.getLong(3));
-                sess.setStartTime(rs1.getString(4));
-                sess.setEndTime(rs1.getString(5));
-                sess.setPercentage(Double.toString(rs1.getDouble(6)));
+                sess.setStartTime(rs1.getString(3));
+                sess.setEndTime(rs1.getString(4));
+                DateTimeFormatter dtf1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                Duration duration = Duration.between(LocalDateTime.parse(sess.startTime.get(), dtf1),
+                        LocalDateTime.parse(sess.endTime.get(), dtf1));
+                LocalTime lt = LocalTime.of(duration.toHoursPart(), duration.toMinutesPart(), duration.toSecondsPart());
+                DateTimeFormatter dtf2 = DateTimeFormatter.ofPattern("HH:mm:ss");
+                sess.setTimeTaken(lt.format(dtf2));
+                double totalQuestions = rs1.getInt(5);
+                double totalCorrectQuestions = rs1.getInt(6);
+                sess.setTotalQuestions((int)totalQuestions);
+                sess.setTotalCorrectQuestions((int)totalCorrectQuestions);
+                sess.setPercentage(Double.toString(totalCorrectQuestions/totalQuestions * 100));
                 someSessions.add(sess);
             }
 
@@ -447,15 +439,12 @@ public class Sessions {
             }
 
             int questionIndex = 0;
-            int totalQuestions = allAssociatedQuestionIds.size();
-            int totalCorrectQuestions = 0;
             while(rs2.next()){
                 String isAnsweredAsString = "❗";
                 boolean isAnswered = false;
                 if(rs2.getString(3) != null){
                     isAnsweredAsString = "✅";
                     isAnswered = true;
-                    totalCorrectQuestions++;
                 }
                 SessionInput si = new SessionInput(session.questionIdAndNumPair.get(rs2.getInt(2)), isAnsweredAsString);
                 si.setAnswered(isAnswered);
@@ -481,8 +470,6 @@ public class Sessions {
                 session.testResult.add(sr);
                 questionIndex++;
             }
-            session.setTotalQuestions(totalQuestions);
-            session.setTotalCorrectQuestions(totalCorrectQuestions);
             Sessions.setCurrentSession(session);
         }catch(Exception e){
             AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e),
