@@ -30,6 +30,7 @@ import com.arthroverse.duckyemulator.Utilities.Constant.FailedOperationType;
 import com.arthroverse.duckyemulator.Utilities.Constant.WarningMessage;
 import com.arthroverse.duckyemulator.Utilities.Constant.WarningTitle;
 import com.arthroverse.duckyemulator.Utilities.PromptAlert.AlertUtil;
+import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -50,10 +51,10 @@ public class ClassificationsAddUIController implements Initializable {
     private TextArea txtAreaClassificationDescription;
 
     @FXML
-    private Button btnResetField;
+    private MFXButton btnResetField;
 
     @FXML
-    private Button btnAddNewClassification;
+    private MFXButton btnAddNewClassification;
 
     private static StringBuilder errorMessage = new StringBuilder();
 
