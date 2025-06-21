@@ -5,32 +5,30 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a57d5096-8edd-4b4d-954e-07f711464abf" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/css/PublicCss/UserSessionHistoriesPage.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/Database/MainDB/AdminBeans/Questions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/Database/MainDB/AdminBeans/Questions.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/Database/MainDB/DataSet/MainDB.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/Database/MainDB/DataSet/MainDB.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/Database/MainDB/PublicBeans/Sessions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/Database/MainDB/PublicBeans/Sessions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIControllers/AdminUIsControllers/QBankIndexUIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIControllers/AdminUIsControllers/QBankIndexUIController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIControllers/AdminUIsControllers/ClassificationsAddUIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIControllers/AdminUIsControllers/ClassificationsAddUIController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIControllers/AdminUIsControllers/ClassificationsUpdateUIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIControllers/AdminUIsControllers/ClassificationsUpdateUIController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIControllers/AdminUIsControllers/QBankAddUIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIControllers/AdminUIsControllers/QBankAddUIController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIControllers/AdminUIsControllers/QBankUpdateUIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIControllers/AdminUIsControllers/QBankUpdateUIController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIControllers/AdminUIsControllers/TopicsAddUIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIControllers/AdminUIsControllers/TopicsAddUIController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIControllers/AdminUIsControllers/TopicsClassIndexUIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIControllers/AdminUIsControllers/TopicsClassIndexUIController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIControllers/AdminUIsControllers/TopicsUpdateUIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIControllers/AdminUIsControllers/TopicsUpdateUIController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIControllers/LoginController/LoginUIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIControllers/LoginController/LoginUIController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIControllers/PublicUIController/UserSessionHistoriesPageUIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIControllers/PublicUIController/UserSessionHistoriesPageUIController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIControllers/PublicUIController/UserTestingUIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIControllers/PublicUIController/UserTestingUIController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIs/Navigator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIs/Navigator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/css/HomePage.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/css/AdminCss/AdminHomePage.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/css/Login.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/css/LoginCss/Login.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/css/QBankIndexPage.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/css/AdminCss/QBankIndexPage.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/css/UserHomePage.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/css/PublicCss/UserHomePage.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/css/UserResultPage.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/css/PublicCss/UserResultPage.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/css/UserSessionHistoriesPage.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/css/UserTestingPage.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/css/PublicCss/UserTestingPage.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/AdminUIs/NewHomePageUI.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/AdminUIs/NewHomePageUI.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/AdminUIs/NewQBankIndexUI.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/AdminUIs/NewQBankIndexUI.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/AdminUIs/TopicsClassIndexUI.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/Login/NewLoginUI.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/Login/NewLoginUI.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/PublicUserUI/UserHomePage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/PublicUserUI/UserHomePage.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/css/PublicCss/UserResultPage.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/css/PublicCss/UserResultPage.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/css/PublicCss/UserSessionHistoriesPage.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/css/PublicCss/UserSessionHistoriesPage.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/AdminUIs/ClassificationsAddUI.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/AdminUIs/ClassificationsUpdateUI.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/AdminUIs/NewClassificationsUpdateUI.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/AdminUIs/QBankAddUI.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/AdminUIs/QBankUpdateUI.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/AdminUIs/TopicsAddUI.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/AdminUIs/TopicsUpdateUI.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/AdminUIs/NewTopicsUpdateUI.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/AdminUIs/test.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/AdminUIs/NewQBankUpdateUI.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/PublicUserUI/UserResultPage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/PublicUserUI/UserResultPage.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/PublicUserUI/UserSessionHistoriesPage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/PublicUserUI/UserSessionHistoriesPage.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/PublicUserUI/UserTestingUI.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/PublicUserUI/UserTestingUI.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,8 +40,8 @@
       <list>
         <option value="Enum" />
         <option value="Class" />
-        <option value="CSS File" />
         <option value="FxmlFile" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -248,6 +246,7 @@
       <workItem from="1750304781126" duration="17326000" />
       <workItem from="1750436686933" duration="10141000" />
       <workItem from="1750447393012" duration="10172000" />
+      <workItem from="1750526511024" duration="15712000" />
     </task>
     <servers />
   </component>
