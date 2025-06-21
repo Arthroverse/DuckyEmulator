@@ -30,6 +30,7 @@ import com.arthroverse.duckyemulator.Utilities.Constant.FailedOperationType;
 import com.arthroverse.duckyemulator.Utilities.Constant.WarningMessage;
 import com.arthroverse.duckyemulator.Utilities.Constant.WarningTitle;
 import com.arthroverse.duckyemulator.Utilities.PromptAlert.AlertUtil;
+import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -41,13 +42,13 @@ import java.io.IOException;
 public class TopicsUpdateUIController{
 
     @FXML
-    private Button btnUpdateTopic;
+    private MFXButton btnUpdateTopic;
 
     @FXML
     private TextArea txtAreaTopicDescription;
 
     @FXML
-    private Button btnResetField;
+    private MFXButton btnResetField;
 
     @FXML
     private TextField txtFieldTopicName;
