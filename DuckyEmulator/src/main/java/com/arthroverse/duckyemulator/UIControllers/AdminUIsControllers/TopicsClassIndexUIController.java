@@ -238,6 +238,20 @@ public class TopicsClassIndexUIController implements Initializable{
         btnTopicViewUpdate.disableProperty().set(true);
         tableClassViewDelete.disableProperty().set(true);
         tableClassViewUpdate.disableProperty().set(true);
+        if(stackPaneTopic.isManaged() && stackPaneTopic.isVisible()){
+            stackPaneTopic.setVisible(false);
+            stackPaneTopic.setManaged(false);
+        }else{
+            stackPaneTopic.setVisible(true);
+            stackPaneTopic.setManaged(true);
+        }
+        if(stackPaneClassification.isManaged() && stackPaneClassification.isVisible()){
+            stackPaneClassification.setVisible(false);
+            stackPaneClassification.setManaged(false);
+        }else{
+            stackPaneClassification.setVisible(true);
+            stackPaneClassification.setManaged(true);
+        }
         tableViewTopicPageination.currentPageIndexProperty().addListener(
                 (observable, oldIndex, newIndex) -> {
                     int pageIndex = newIndex.intValue();
@@ -354,7 +368,6 @@ public class TopicsClassIndexUIController implements Initializable{
         }else{
             stackPaneTopic.setVisible(true);
             stackPaneTopic.setManaged(true);
-
         }
     }
 
