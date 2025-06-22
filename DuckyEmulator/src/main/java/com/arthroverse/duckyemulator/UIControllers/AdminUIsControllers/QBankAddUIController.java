@@ -58,7 +58,16 @@ public class QBankAddUIController implements Initializable {
     private MFXComboBox<String> choiceBoxSelectTopic;
 
     @FXML
-    private MFXComboBox<String> choiceBoxCorrectAns;
+    private RadioButton radBtnCorrect1;
+
+    @FXML
+    private RadioButton radBtnCorrect2;
+
+    @FXML
+    private RadioButton radBtnCorrect3;
+
+    @FXML
+    private RadioButton radBtnCorrect4;
 
     @FXML
     private MFXButton btnChooseImagePath;
@@ -108,7 +117,10 @@ public class QBankAddUIController implements Initializable {
 
     public void resetAllDatas(){
         choiceBoxSelectTopic.clearSelection();
-        choiceBoxCorrectAns.clearSelection();
+        radBtnCorrect1.setSelected(false);
+        radBtnCorrect2.setSelected(false);
+        radBtnCorrect3.setSelected(false);
+        radBtnCorrect4.setSelected(false);
         txtFieldImagePath.setText(null);
         choiceBoxSelectClass.clearSelection();
         txtAreaQChoice2.setText(null);
@@ -145,7 +157,15 @@ public class QBankAddUIController implements Initializable {
                 quest.setChoice2(txtAreaQChoice2.getText());
                 quest.setChoice3(txtAreaQChoice3.getText());
                 quest.setChoice4(txtAreaQChoice4.getText());
-                quest.setCorrectAnswer(choiceBoxCorrectAns.getValue());
+                if(radBtnCorrect1.isSelected()){
+                    quest.setCorrectAnswer(txtAreaQChoice1.getText());
+                }else if(radBtnCorrect2.isSelected()){
+                    quest.setCorrectAnswer(txtAreaQChoice2.getText());
+                }else if(radBtnCorrect3.isSelected()){
+                    quest.setCorrectAnswer(txtAreaQChoice3.getText());
+                }else if(radBtnCorrect4.isSelected()){
+                    quest.setCorrectAnswer(txtAreaQChoice4.getText());
+                }
                 if(txtFieldImagePath.getText() == null){
                     txtFieldImagePath.setText("");
                 }
@@ -184,10 +204,6 @@ public class QBankAddUIController implements Initializable {
 
         choiceBoxSelectClass.setItems(FXCollections.observableArrayList(
                 Classifications.getSortedClassificationNames()));
-
-        choiceBoxCorrectAns.setItems(FXCollections.observableArrayList(
-                "Choice 1", "Choice 2", "Choice 3", "Choice 4"
-        ));
         tableViewSelectedTopic.setItems(
                 FXCollections.observableArrayList(selectedTopics)
         );
@@ -238,6 +254,12 @@ public class QBankAddUIController implements Initializable {
         btnChooseImagePath.setOnAction(event -> {
             txtFieldImagePath.setText(FileHandler.returnImgPath(fileChooser));
         });
+
+        ToggleGroup tg = new ToggleGroup();
+        radBtnCorrect1.setToggleGroup(tg);
+        radBtnCorrect2.setToggleGroup(tg);
+        radBtnCorrect3.setToggleGroup(tg);
+        radBtnCorrect4.setToggleGroup(tg);
     }
 
     private boolean inputValidation(){
@@ -248,8 +270,8 @@ public class QBankAddUIController implements Initializable {
         if(txtAreaQChoice1.getText() == null
         || txtAreaQChoice2.getText() == null|| txtAreaQChoice3.getText().isEmpty()
         || txtAreaQChoice4.getText() == null) errorMessage.append(ErrorMessage.QUEST_NO_CHOICE);
-        if(choiceBoxCorrectAns.getValue() == null) errorMessage.append(ErrorMessage.QUEST_NO_CORRECT_ANS);
-
+        if(radBtnCorrect1.isSelected() && radBtnCorrect2.isSelected() &&
+                radBtnCorrect3.isSelected() && radBtnCorrect4.isSelected()) errorMessage.append(ErrorMessage.QUEST_NO_CORRECT_ANS);
         if(!errorMessage.toString().isEmpty()){
             AlertUtil.generateErrorWindow(ErrorTitle.QUEST_UI_CONTROLLER_ADD_QUEST_FAILED.toString(),
                     FailedOperationType.QUEST_UI_CONTROLLER_ADD_QUESTION_FAILED.toString(),
