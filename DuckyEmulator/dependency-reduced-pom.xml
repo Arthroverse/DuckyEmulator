@@ -16,7 +16,6 @@
         </includes>
       </resource>
     </resources>
-    <finalName>DuckyEmulator-1.2-BETA</finalName>
     <plugins>
       <plugin>
         <groupId>org.openjfx</groupId>
