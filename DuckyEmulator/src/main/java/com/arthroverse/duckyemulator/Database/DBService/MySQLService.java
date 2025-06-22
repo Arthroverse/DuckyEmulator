@@ -48,4 +48,8 @@ public class MySQLService {
     public static Connection getConnection() throws SQLException{
         return DriverManager.getConnection(CONN_STRING, USERNAME, PASSWORD); //idk what this is, this is part of java convention
     }
+
+    public static Connection getFirstConnection() throws SQLException{
+        return DriverManager.getConnection("jdbc:mysql://localhost/", USERNAME, PASSWORD);
+    }
 }
