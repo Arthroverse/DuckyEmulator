@@ -372,13 +372,14 @@ public class Sessions {
 
     public static ArrayList<Sessions> selectSessions(int offset){
         ArrayList<Sessions> someSessions = new ArrayList<>();
-        String sqlSelectAllSessions = "SELECT * FROM Sessions WHERE Deleted = 0 " +
+        String sqlSelectAllSessions = "SELECT * FROM Sessions WHERE Deleted = 0 AND UserEmail = ? " +
                 "ORDER BY SessionId LIMIT 10 OFFSET ? ";
         try(
                 Connection conn = MySQLService.getConnection();
                 PreparedStatement stmt1 = conn.prepareStatement(sqlSelectAllSessions);
                 ){
-            stmt1.setInt(1, offset);
+            stmt1.setString(1, Users.getCurrentUserEmailInActiveSession());
+            stmt1.setInt(2, offset);
             ResultSet rs1 = stmt1.executeQuery();
             while(rs1.next()){
                 Sessions sess = new Sessions();
