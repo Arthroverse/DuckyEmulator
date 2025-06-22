@@ -1,0 +1,46 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="DuckyEmulator:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/DuckyEmulator_jar</output-path>
+    <root id="archive" name="DuckyEmulator.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="module-output" name="DuckyEmulator" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-web/22.0.2/javafx-web-22.0.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-web/22.0.2/javafx-web-22.0.2-mac-aarch64.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/io/github/palexdev/mfxeffects/11.3.0/mfxeffects-11.3.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/io/github/palexdev/virtualizedfx/11.9.6/virtualizedfx-11.9.6.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-media/22.0.2/javafx-media-22.0.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-fxml/22.0.2/javafx-fxml-22.0.2-mac-aarch64.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-graphics/22.0.2/javafx-graphics-22.0.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-swing/22.0.2/javafx-swing-22.0.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-fxml/22.0.2/javafx-fxml-22.0.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-base/22.0.2/javafx-base-22.0.2-mac-aarch64.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-base/22.0.2/javafx-base-22.0.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/google/protobuf/protobuf-java/3.25.1/protobuf-java-3.25.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-controls/22.0.2/javafx-controls-22.0.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-graphics/22.0.2/javafx-graphics-22.0.2-mac-aarch64.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/io/github/palexdev/mfxcore/11.8.0/mfxcore-11.8.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-controls/22.0.2/javafx-controls-22.0.2-mac-aarch64.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/io/github/palexdev/mfxlocalization/11.1.0/mfxlocalization-11.1.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/io/github/palexdev/materialfx/11.17.0/materialfx-11.17.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-media/22.0.2/javafx-media-22.0.2-mac-aarch64.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/mysql/mysql-connector-j/8.3.0/mysql-connector-j-8.3.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-swing/22.0.2/javafx-swing-22.0.2-mac-aarch64.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/io/github/palexdev/mfxresources/11.9.1/mfxresources-11.9.1.jar" path-in-jar="/" />
+      <element id="file-copy" path="$USER_HOME$/Downloads/javafx-sdk-22.0.2/lib/libdecora_sse.dylib" />
+      <element id="file-copy" path="$USER_HOME$/Downloads/javafx-sdk-22.0.2/lib/libfxplugins.dylib" />
+      <element id="file-copy" path="$USER_HOME$/Downloads/javafx-sdk-22.0.2/lib/libglass.dylib" />
+      <element id="file-copy" path="$USER_HOME$/Downloads/javafx-sdk-22.0.2/lib/libglib-lite.dylib" />
+      <element id="file-copy" path="$USER_HOME$/Downloads/javafx-sdk-22.0.2/lib/libgstreamer-lite.dylib" />
+      <element id="file-copy" path="$USER_HOME$/Downloads/javafx-sdk-22.0.2/lib/libjavafx_font.dylib" />
+      <element id="file-copy" path="$USER_HOME$/Downloads/javafx-sdk-22.0.2/lib/libjavafx_iio.dylib" />
+      <element id="file-copy" path="$USER_HOME$/Downloads/javafx-sdk-22.0.2/lib/libjfxmedia_avf.dylib" />
+      <element id="file-copy" path="$USER_HOME$/Downloads/javafx-sdk-22.0.2/lib/libjfxmedia.dylib" />
+      <element id="file-copy" path="$USER_HOME$/Downloads/javafx-sdk-22.0.2/lib/libjfxwebkit.dylib" />
+      <element id="file-copy" path="$USER_HOME$/Downloads/javafx-sdk-22.0.2/lib/libprism_common.dylib" />
+      <element id="file-copy" path="$USER_HOME$/Downloads/javafx-sdk-22.0.2/lib/libprism_es2.dylib" />
+      <element id="file-copy" path="$USER_HOME$/Downloads/javafx-sdk-22.0.2/lib/libprism_sw.dylib" />
+    </root>
+  </artifact>
+</component>
