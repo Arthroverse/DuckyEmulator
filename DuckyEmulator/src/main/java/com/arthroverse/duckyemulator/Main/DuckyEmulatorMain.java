@@ -25,6 +25,7 @@ package com.arthroverse.duckyemulator.Main;
 import com.arthroverse.duckyemulator.Database.MainDB.AdminBeans.Classifications;
 import com.arthroverse.duckyemulator.Database.MainDB.AdminBeans.Questions;
 import com.arthroverse.duckyemulator.Database.MainDB.AdminBeans.Topics;
+import com.arthroverse.duckyemulator.Database.MainDB.Initialization.DatabaseInitialization;
 import com.arthroverse.duckyemulator.UIs.Navigator;
 import com.arthroverse.duckyemulator.Utilities.FileHandler.FileHandler;
 import io.github.palexdev.materialfx.theming.JavaFXThemes;
@@ -58,6 +59,12 @@ public class DuckyEmulatorMain extends Application {
     static{
         //initialize necessary directories
         FileHandler.initialize();
+
+        //Initialize Database
+        DatabaseInitialization.initialize();
+
+        //Initalize dummy data for illustration.
+        DatabaseInitialization.insertSampleData();
 
         //Initialize all available question classifications for the user to edit any question
         Classifications.selectAll();
