@@ -171,7 +171,7 @@
                                           <Font name="Segoe UI Semibold" size="16.0" />
                                        </font>
                                     </MFXButton>
-                                    <MFXButton fx:id="btnTableUpdate" mnemonicParsing="false" onAction="#btnTableUpdateClick" prefHeight="45.0" prefWidth="120.0" style="-fx-background-color: linear-gradient(to right, #3b82f6, #1d4ed8); -fx-text-fill: white;" styleClass="all_button_normal" text="✏️ Update">
+                                    <MFXButton fx:id="btnTableUpdate" mnemonicParsing="false" onAction="#btnTableUpdateClick" prefHeight="45.0" prefWidth="138.0" style="-fx-background-color: linear-gradient(to right, #3b82f6, #1d4ed8); -fx-text-fill: white;" styleClass="all_button_normal" text="✏️ Update">
                                        <font>
                                           <Font name="Segoe UI Semibold" size="16.0" />
                                        </font>
