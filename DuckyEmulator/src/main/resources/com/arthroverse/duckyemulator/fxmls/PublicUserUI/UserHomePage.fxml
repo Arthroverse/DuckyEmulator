@@ -44,283 +44,283 @@
 <?import javafx.scene.text.Font?>
 
 <BorderPane stylesheets="@../../css/PublicCss/UserHomePage.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.arthroverse.duckyemulator.UIControllers.PublicUIController.UserHomePageUIController">
-    <top>
-        <!-- Header Section -->
-        <VBox style="-fx-background-color: linear-gradient(to right, #332D7B, #42A5F5); -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 4, 0, 0, 2);">
-            <children>
-                <HBox alignment="CENTER_LEFT" spacing="20.0">
-                    <children>
-                        <Label styleClass="user_welcome_message" text="DuckyEmulator" textFill="WHITE">
-                            <font>
-                                <Font name="Segoe UI" size="24.0" />
-                            </font>
+   <top>
+      <!-- Header Section -->
+      <VBox style="-fx-background-color: linear-gradient(to right, #332D7B, #42A5F5); -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 4, 0, 0, 2);">
+         <children>
+            <HBox alignment="CENTER_LEFT" spacing="20.0">
+               <children>
+                  <Label styleClass="user_welcome_message" text="DuckyEmulator" textFill="WHITE">
+                     <font>
+                        <Font name="Segoe UI" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label styleClass="user_welcome_sub_message" text="Home Page" textFill="#E3F2FD">
+                     <font>
+                        <Font name="Segoe UI Light" size="18.0" />
+                     </font>
+                  </Label>
+                  <Region HBox.hgrow="ALWAYS" />
+                  <Label fx:id="greetingLabel" styleClass="user_welcome_sub_message" text="Welcome, Student" textFill="WHITE">
+                     <font>
+                        <Font name="Segoe UI" size="16.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets bottom="15.0" left="30.0" right="30.0" top="15.0" />
+               </padding>
+            </HBox>
+         </children>
+      </VBox>
+   </top>
+   <center>
+      <!-- Main Content Area -->
+      <MFXScrollPane fx:id="scrollPaneMain" fitToWidth="true" hbarPolicy="NEVER" prefHeight="700.0" prefWidth="1500.0" style="-fx-background-color: #f8f9fa; -fx-background: #f8f9fa;">
+         <content>
+            <VBox fx:id="scrollPaneContentVBox" style="-fx-background-color: #f8f9fa;">
+               <children>
+                  <!-- Welcome Section -->
+                  <VBox spacing="15.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <Label styleClass="welcome_label_large" text="Exam Center" textFill="#202124" wrapText="true">
+                           <font>
+                              <Font name="Segoe UI" size="32.0" />
+                           </font>
                         </Label>
-                        <Label styleClass="user_welcome_sub_message" text="Home Page" textFill="#E3F2FD">
-                            <font>
-                                <Font name="Segoe UI Light" size="18.0" />
-                            </font>
+                        <Label styleClass="welcome_label_subtext" text="Read the exam rules carefully before starting your test" textFill="#5f6368" wrapText="true">
+                           <font>
+                              <Font name="Segoe UI" size="16.0" />
+                           </font>
                         </Label>
-                        <Region HBox.hgrow="ALWAYS" />
-                        <Label fx:id="greetingLabel" styleClass="user_welcome_sub_message" text="Welcome, Student" textFill="WHITE">
-                            <font>
-                                <Font name="Segoe UI" size="16.0" />
-                            </font>
-                        </Label>
-                    </children>
-                    <padding>
-                        <Insets bottom="15.0" left="30.0" right="30.0" top="15.0" />
-                    </padding>
-                </HBox>
-            </children>
-        </VBox>
-    </top>
-    <center>
-        <!-- Main Content Area -->
-        <MFXScrollPane fx:id="scrollPaneMain" fitToWidth="true" hbarPolicy="NEVER" prefHeight="700.0" prefWidth="1500.0" style="-fx-background-color: #f8f9fa; -fx-background: #f8f9fa;">
-            <content>
-                <VBox fx:id="scrollPaneContentVBox" style="-fx-background-color: #f8f9fa;">
-                    <children>
-                        <!-- Welcome Section -->
-                        <VBox spacing="15.0" VBox.vgrow="ALWAYS">
-                            <children>
-                                <Label styleClass="welcome_label_large" text="Exam Center" textFill="#202124" wrapText="true">
-                                    <font>
-                                        <Font name="Segoe UI" size="32.0" />
-                                    </font>
-                                </Label>
-                                <Label styleClass="welcome_label_subtext" text="Read the exam rules carefully before starting your test" textFill="#5f6368" wrapText="true">
-                                    <font>
-                                        <Font name="Segoe UI" size="16.0" />
-                                    </font>
-                                </Label>
-                            </children>
-                            <VBox.margin>
-                                <Insets bottom="20.0" left="40.0" right="40.0" top="40.0" />
-                            </VBox.margin>
-                        </VBox>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="20.0" left="40.0" right="40.0" top="40.0" />
+                     </VBox.margin>
+                  </VBox>
 
-                        <!-- Exam Rules Section -->
-                        <VBox spacing="20.0" VBox.vgrow="ALWAYS">
-                            <children>
-                                <!-- Rules Card -->
-                                <StackPane>
-                                    <children>
-                                        <!-- Card Background -->
-                                        <Pane prefWidth="800.0" style="-fx-background-color: white; -fx-background-radius: 12; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 12, 0, 0, 3); -fx-scale-x: 1.0; -fx-scale-y: 1.0;" styleClass="animated-card" />
+                  <!-- Exam Rules Section -->
+                  <VBox spacing="20.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <!-- Rules Card -->
+                        <StackPane>
+                           <children>
+                              <!-- Card Background -->
+                              <Pane prefWidth="800.0" style="-fx-background-color: white; -fx-background-radius: 12; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 12, 0, 0, 3); -fx-scale-x: 1.0; -fx-scale-y: 1.0;" styleClass="animated-card" />
                               <MFXScrollPane fitToWidth="true" prefHeight="700.0" prefWidth="1500.0">
                                  <content>
-      
-                                              <!-- Card Content -->
-                                              <VBox spacing="25.0">
-                                                  <children>
-                                                      <!-- Rules Header -->
-                                                      <HBox alignment="CENTER_LEFT" spacing="15.0">
-                                                          <children>
-                                                              <Label text="📋" textFill="#332D7B" HBox.hgrow="ALWAYS">
-                                                                  <font>
-                                                                      <Font size="36.0" />
-                                                                  </font>
-                                                              </Label>
-                                                              <Label styleClass="welcome_label" text="Examination Rules &amp; Guidelines" textFill="#202124" wrapText="true">
-                                                                  <font>
-                                                                      <Font name="Segoe UI Semibold" size="24.0" />
-                                                                  </font>
-                                                              </Label>
-                                                          </children>
-                                                      </HBox>
-      
-                                                      <!-- Rules Content -->
-                                                      <VBox spacing="18.0">
-                                                          <children>
-                                                              <!-- Rule 1 -->
-                                                              <HBox alignment="TOP_LEFT" spacing="12.0">
-                                                                  <children>
-                                                                      <Label style="-fx-text-fill: #332d7b;" styleClass="rule_num" text="1." textFill="#332D7B" wrapText="true">
-                                                                          <font>
-                                                                              <Font name="Segoe UI Semibold" size="16.0" />
-                                                                          </font>
-                                                                      </Label>
-                                                                      <VBox spacing="5.0">
-                                                                          <children>
-                                                                              <Label styleClass="rule_header" text="Time Management" textFill="#202124" wrapText="true">
-                                                                                  <font>
-                                                                                      <Font name="Segoe UI Semibold" size="16.0" />
-                                                                                  </font>
-                                                                              </Label>
-                                                                              <Label styleClass="rule_text" text="You have a limited time to complete the exam. The timer will be displayed at all times. Submit your answers before time expires." textFill="#5f6368" wrapText="true">
-                                                                                  <font>
-                                                                                      <Font name="Segoe UI" size="14.0" />
-                                                                                  </font>
-                                                                              </Label>
-                                                                          </children>
-                                                                      </VBox>
-                                                                  </children>
-                                                              </HBox>
-      
-                                                              <!-- Rule 2 -->
-                                                              <HBox alignment="TOP_LEFT" spacing="12.0">
-                                                                  <children>
-                                                                      <Label style="-fx-text-fill: #332d7b;" styleClass="rule_num" text="2." textFill="#332D7B" wrapText="true">
-                                                                          <font>
-                                                                              <Font name="Segoe UI Semibold" size="16.0" />
-                                                                          </font>
-                                                                      </Label>
-                                                                      <VBox spacing="5.0">
-                                                                          <children>
-                                                                              <Label styleClass="rule_header" text="Question Navigation" textFill="#202124" wrapText="true">
-                                                                                  <font>
-                                                                                      <Font name="Segoe UI Semibold" size="16.0" />
-                                                                                  </font>
-                                                                              </Label>
-                                                                              <Label styleClass="rule_text" text="You can navigate between questions freely. Use the question navigator to jump to specific questions. Unanswered questions will be highlighted." textFill="#5f6368" wrapText="true">
-                                                                                  <font>
-                                                                                      <Font name="Segoe UI" size="14.0" />
-                                                                                  </font>
-                                                                              </Label>
-                                                                          </children>
-                                                                      </VBox>
-                                                                  </children>
-                                                              </HBox>
-      
-                                                              <!-- Rule 3 -->
-                                                              <HBox alignment="TOP_LEFT" spacing="12.0">
-                                                                  <children>
-                                                                      <Label style="-fx-text-fill: #332d7b;" styleClass="rule_num" text="3." textFill="#332D7B" wrapText="true">
-                                                                          <font>
-                                                                              <Font name="Segoe UI Semibold" size="16.0" />
-                                                                          </font>
-                                                                      </Label>
-                                                                      <VBox spacing="5.0">
-                                                                          <children>
-                                                                              <Label styleClass="rule_header" text="Answer Selection" textFill="#202124" wrapText="true">
-                                                                                  <font>
-                                                                                      <Font name="Segoe UI Semibold" size="16.0" />
-                                                                                  </font>
-                                                                              </Label>
-                                                                              <Label styleClass="rule_text" text="Select only one answer per question unless specified otherwise. You can change your answers until you submit the exam." textFill="#5f6368" wrapText="true">
-                                                                                  <font>
-                                                                                      <Font name="Segoe UI" size="14.0" />
-                                                                                  </font>
-                                                                              </Label>
-                                                                          </children>
-                                                                      </VBox>
-                                                                  </children>
-                                                              </HBox>
-      
-                                                              <!-- Rule 4 -->
-                                                              <HBox alignment="TOP_LEFT" spacing="12.0">
-                                                                  <children>
-                                                                      <Label style="-fx-text-fill: #332d7b;" styleClass="rule_num" text="4." textFill="#332D7B" wrapText="true">
-                                                                          <font>
-                                                                              <Font name="Segoe UI Semibold" size="16.0" />
-                                                                          </font>
-                                                                      </Label>
-                                                                      <VBox spacing="5.0">
-                                                                          <children>
-                                                                              <Label styleClass="rule_header" text="Exam Submission" textFill="#202124" wrapText="true">
-                                                                                  <font>
-                                                                                      <Font name="Segoe UI Semibold" size="16.0" />
-                                                                                  </font>
-                                                                              </Label>
-                                                                              <Label styleClass="rule_text" text="Review your answers before final submission. Once submitted, you cannot make changes. The exam will auto-submit when time expires." textFill="#5f6368" wrapText="true">
-                                                                                  <font>
-                                                                                      <Font name="Segoe UI" size="14.0" />
-                                                                                  </font>
-                                                                              </Label>
-                                                                          </children>
-                                                                      </VBox>
-                                                                  </children>
-                                                              </HBox>
-      
-                                                              <!-- Rule 5 -->
-                                                              <HBox alignment="TOP_LEFT" spacing="12.0">
-                                                                  <children>
-                                                                      <Label style="-fx-text-fill: #332d7b;" styleClass="rule_num" text="5." textFill="#332D7B" wrapText="true">
-                                                                          <font>
-                                                                              <Font name="Segoe UI Semibold" size="16.0" />
-                                                                          </font>
-                                                                      </Label>
-                                                                      <VBox spacing="5.0">
-                                                                          <children>
-                                                                              <Label styleClass="rule_header" text="Technical Requirements" textFill="#202124" wrapText="true">
-                                                                                  <font>
-                                                                                      <Font name="Segoe UI Semibold" size="16.0" />
-                                                                                  </font>
-                                                                              </Label>
-                                                                              <Label styleClass="rule_text" text="Ensure stable internet connection. Do not refresh the page or close the browser during the exam. Contact support if you encounter technical issues." textFill="#5f6368" wrapText="true">
-                                                                                  <font>
-                                                                                      <Font name="Segoe UI" size="14.0" />
-                                                                                  </font>
-                                                                              </Label>
-                                                                          </children>
-                                                                      </VBox>
-                                                                  </children>
-                                                              </HBox>
-      
-                                                              <!-- Important Note -->
-                                                              <VBox prefWidth="700.0" spacing="10.0" style="-fx-background-color: #fff3e0; -fx-background-radius: 8; -fx-border-color: #ff9800; -fx-border-width: 1; -fx-border-radius: 8;">
-                                                                  <children>
-                                                                      <HBox alignment="CENTER_LEFT" spacing="10.0">
-                                                                          <children>
-                                                                              <Label style="-fx-text-fill: #e65100;" text="⚠️" textFill="#e65100" wrapText="true">
-                                                                                  <font>
-                                                                                      <Font size="20.0" />
-                                                                                  </font>
-                                                                              </Label>
-                                                                              <Label style="-fx-text-fill: #e65100;" styleClass="important_notice" text="Important Notice" textFill="#e65100" wrapText="true">
-                                                                                  <font>
-                                                                                      <Font name="Segoe UI Semibold" size="16.0" />
-                                                                                  </font>
-                                                                              </Label>
-                                                                          </children>
-                                                                      </HBox>
-                                                                      <Label style="-fx-text-fill: #bf360c;" styleClass="rule_text" text="By clicking 'Start New Test', you acknowledge that you have read and understood all the examination rules. Academic integrity policies apply to all examinations." textFill="#bf360c" wrapText="true">
-                                                                          <font>
-                                                                              <Font name="Segoe UI" size="14.0" />
-                                                                          </font>
-                                                                      </Label>
-                                                                  </children>
-                                                                  <padding>
-                                                                      <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                                                                  </padding>
-                                                              </VBox>
-                                                          </children>
+
+                                    <!-- Card Content -->
+                                    <VBox spacing="25.0">
+                                       <children>
+                                          <!-- Rules Header -->
+                                          <HBox alignment="CENTER_LEFT" spacing="15.0">
+                                             <children>
+                                                <Label text="📋" textFill="#332D7B" HBox.hgrow="ALWAYS">
+                                                   <font>
+                                                      <Font size="36.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label styleClass="welcome_label" text="Examination Rules &amp; Guidelines" textFill="#202124" wrapText="true">
+                                                   <font>
+                                                      <Font name="Segoe UI Semibold" size="24.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+
+                                          <!-- Rules Content -->
+                                          <VBox spacing="18.0">
+                                             <children>
+                                                <!-- Rule 1 -->
+                                                <HBox alignment="TOP_LEFT" spacing="12.0">
+                                                   <children>
+                                                      <Label style="-fx-text-fill: #332d7b;" styleClass="rule_num" text="1." textFill="#332D7B" wrapText="true">
+                                                         <font>
+                                                            <Font name="Segoe UI Semibold" size="16.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <VBox spacing="5.0">
+                                                         <children>
+                                                            <Label styleClass="rule_header" text="Time Management" textFill="#202124" wrapText="true">
+                                                               <font>
+                                                                  <Font name="Segoe UI Semibold" size="16.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <Label styleClass="rule_text" text="You have a limited time to complete the exam. The timer will be displayed at all times. Submit your answers before time expires." textFill="#5f6368" wrapText="true">
+                                                               <font>
+                                                                  <Font name="Segoe UI" size="14.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
                                                       </VBox>
-                                                  </children>
-                                                  <padding>
-                                                      <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
-                                                  </padding>
-                                              </VBox>
+                                                   </children>
+                                                </HBox>
+
+                                                <!-- Rule 2 -->
+                                                <HBox alignment="TOP_LEFT" spacing="12.0">
+                                                   <children>
+                                                      <Label style="-fx-text-fill: #332d7b;" styleClass="rule_num" text="2." textFill="#332D7B" wrapText="true">
+                                                         <font>
+                                                            <Font name="Segoe UI Semibold" size="16.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <VBox spacing="5.0">
+                                                         <children>
+                                                            <Label styleClass="rule_header" text="Question Navigation" textFill="#202124" wrapText="true">
+                                                               <font>
+                                                                  <Font name="Segoe UI Semibold" size="16.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <Label styleClass="rule_text" text="You can navigate between questions freely. Use the question navigator to jump to specific questions. Unanswered questions will be highlighted." textFill="#5f6368" wrapText="true">
+                                                               <font>
+                                                                  <Font name="Segoe UI" size="14.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </VBox>
+                                                   </children>
+                                                </HBox>
+
+                                                <!-- Rule 3 -->
+                                                <HBox alignment="TOP_LEFT" spacing="12.0">
+                                                   <children>
+                                                      <Label style="-fx-text-fill: #332d7b;" styleClass="rule_num" text="3." textFill="#332D7B" wrapText="true">
+                                                         <font>
+                                                            <Font name="Segoe UI Semibold" size="16.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <VBox spacing="5.0">
+                                                         <children>
+                                                            <Label styleClass="rule_header" text="Answer Selection" textFill="#202124" wrapText="true">
+                                                               <font>
+                                                                  <Font name="Segoe UI Semibold" size="16.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <Label styleClass="rule_text" text="Select only one answer per question unless specified otherwise. You can change your answers until you submit the exam." textFill="#5f6368" wrapText="true">
+                                                               <font>
+                                                                  <Font name="Segoe UI" size="14.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </VBox>
+                                                   </children>
+                                                </HBox>
+
+                                                <!-- Rule 4 -->
+                                                <HBox alignment="TOP_LEFT" spacing="12.0">
+                                                   <children>
+                                                      <Label style="-fx-text-fill: #332d7b;" styleClass="rule_num" text="4." textFill="#332D7B" wrapText="true">
+                                                         <font>
+                                                            <Font name="Segoe UI Semibold" size="16.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <VBox spacing="5.0">
+                                                         <children>
+                                                            <Label styleClass="rule_header" text="Exam Submission" textFill="#202124" wrapText="true">
+                                                               <font>
+                                                                  <Font name="Segoe UI Semibold" size="16.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <Label styleClass="rule_text" text="Review your answers before final submission. Once submitted, you cannot make changes. The exam will auto-submit when time expires." textFill="#5f6368" wrapText="true">
+                                                               <font>
+                                                                  <Font name="Segoe UI" size="14.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </VBox>
+                                                   </children>
+                                                </HBox>
+
+                                                <!-- Rule 5 -->
+                                                <HBox alignment="TOP_LEFT" spacing="12.0">
+                                                   <children>
+                                                      <Label style="-fx-text-fill: #332d7b;" styleClass="rule_num" text="5." textFill="#332D7B" wrapText="true">
+                                                         <font>
+                                                            <Font name="Segoe UI Semibold" size="16.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <VBox spacing="5.0">
+                                                         <children>
+                                                            <Label styleClass="rule_header" text="Technical Requirements" textFill="#202124" wrapText="true">
+                                                               <font>
+                                                                  <Font name="Segoe UI Semibold" size="16.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <Label styleClass="rule_text" text="Ensure stable internet connection. Do not refresh the page or close the browser during the exam. Contact support if you encounter technical issues." textFill="#5f6368" wrapText="true">
+                                                               <font>
+                                                                  <Font name="Segoe UI" size="14.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </VBox>
+                                                   </children>
+                                                </HBox>
+
+                                                <!-- Important Note -->
+                                                <VBox prefWidth="700.0" spacing="10.0" style="-fx-background-color: #fff3e0; -fx-background-radius: 8; -fx-border-color: #ff9800; -fx-border-width: 1; -fx-border-radius: 8;">
+                                                   <children>
+                                                      <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                                         <children>
+                                                            <Label style="-fx-text-fill: #e65100;" text="⚠️" textFill="#e65100" wrapText="true">
+                                                               <font>
+                                                                  <Font size="20.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <Label style="-fx-text-fill: #e65100;" styleClass="important_notice" text="Important Notice" textFill="#e65100" wrapText="true">
+                                                               <font>
+                                                                  <Font name="Segoe UI Semibold" size="16.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </HBox>
+                                                      <Label style="-fx-text-fill: #bf360c;" styleClass="rule_text" text="By clicking 'Start New Test', you acknowledge that you have read and understood all the examination rules. Academic integrity policies apply to all examinations." textFill="#bf360c" wrapText="true">
+                                                         <font>
+                                                            <Font name="Segoe UI" size="14.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                   <padding>
+                                                      <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                                   </padding>
+                                                </VBox>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+                                       </padding>
+                                    </VBox>
                                  </content>
                               </MFXScrollPane>
-                                    </children>
-                                </StackPane>
+                           </children>
+                        </StackPane>
 
-                                <!-- Start Test Button Section -->
-                                <VBox alignment="CENTER" spacing="20.0">
-                                    <children>
-                                        <MFXButton mnemonicParsing="false" onAction="#btnStartSession" prefHeight="70.0" prefWidth="400.0" style="-fx-background-color: linear-gradient(to right, #332D7B, #42A5F5); -fx-background-radius: 35; -fx-text-fill: white; -fx-effect: dropshadow(gaussian, rgba(51,45,123,0.4), 15, 0, 0, 5); -fx-cursor: hand;" styleClass="all_button_large" text="🚀  Start New Test">
-                                            <font>
-                                                <Font name="Segoe UI Semibold" size="24.0" />
-                                            </font>
-                                        </MFXButton>
-                                        <Label styleClass="welcome_label_subtext" text="Click the button above when you're ready to begin your examination" textFill="#5f6368" wrapText="true">
-                                            <font>
-                                                <Font name="Segoe UI" size="14.0" />
-                                            </font>
-                                        </Label>
-                                    </children>
-                                </VBox>
-                            </children>
-                            <VBox.margin>
-                                <Insets bottom="50.0" left="40.0" right="40.0" />
-                            </VBox.margin>
+                        <!-- Start Test Button Section -->
+                        <VBox alignment="CENTER" spacing="20.0">
+                           <children>
+                              <MFXButton mnemonicParsing="false" onAction="#btnStartSession" prefHeight="70.0" prefWidth="400.0" style="-fx-background-color: linear-gradient(to right, #332D7B, #42A5F5); -fx-background-radius: 35; -fx-text-fill: white; -fx-effect: dropshadow(gaussian, rgba(51,45,123,0.4), 15, 0, 0, 5); -fx-cursor: hand;" styleClass="all_button_large" text="🚀  Start New Test">
+                                 <font>
+                                    <Font name="Segoe UI Semibold" size="24.0" />
+                                 </font>
+                              </MFXButton>
+                              <Label styleClass="welcome_label_subtext" text="Click the button above when you're ready to begin your examination" textFill="#5f6368" wrapText="true">
+                                 <font>
+                                    <Font name="Segoe UI" size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
                         </VBox>
-                    </children>
-                </VBox>
-            </content>
-        </MFXScrollPane>
-    </center>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="50.0" left="40.0" right="40.0" />
+                     </VBox.margin>
+                  </VBox>
+               </children>
+            </VBox>
+         </content>
+      </MFXScrollPane>
+   </center>
    <left>
       <MFXScrollPane fitToHeight="true" fitToWidth="true" BorderPane.alignment="CENTER">
          <content>
