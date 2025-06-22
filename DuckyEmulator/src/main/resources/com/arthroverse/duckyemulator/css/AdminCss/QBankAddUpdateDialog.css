@@ -72,3 +72,9 @@
     -fx-font-size: 13;
     -fx-alignment: center-left;
 }
+
+.radio-button{
+    -fx-font-family: 'JetBrains Mono Regular';
+    -fx-text-fill: #000000;
+    -fx-font-size: 14; /*DO NOT DELETE THIS ONE. THIS LINE FIXED ALL OF THE BUGS ASSOCIATED WITH FONT SIZE*/
+}
