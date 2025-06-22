@@ -36,8 +36,7 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
-
+import javafx.scene.layout.Pane;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -56,6 +55,12 @@ public class LoginUIController implements Initializable {
     @FXML
     private MFXTextField txtUsrNameEmail;
 
+    @FXML
+    private Pane paneBackground;
+
+    @FXML
+    private Pane paneColorLayer;
+
     private static StringBuilder errorMessage;
 
     @FXML
@@ -64,20 +69,29 @@ public class LoginUIController implements Initializable {
             Users u = new Users();
             u.setUserEmail(txtUsrNameEmail.getText());
             u.setUserPassword(passwordFieldUsrPw.getText());
-            u.setUserType(choiceBoxUserType.getValue());
             if(Users.checkCredential(u)){
-                if(u.getUserType().equals("Admin")){
-                    Navigator.getInstance().closeSecondStage();
-                    Navigator.getInstance().goToAdminHomePage();
-                }else if(u.getUserType().equals("User")){
-                    Navigator.getInstance().closeSecondStage();
-                    Navigator.getInstance().goToUserHomePage();
+                if(u.getAdminPrivileged()){
+                    if(choiceBoxUserType.getText().equals("Admin")){
+                        Navigator.getInstance().closeSecondStage();
+                        Navigator.getInstance().goToAdminHomePage();
+                    }else if(choiceBoxUserType.getText().equals("User")){
+                        Navigator.getInstance().closeSecondStage();
+                        Navigator.getInstance().goToUserHomePage();
+                    }
+                }else{
+                    if(choiceBoxUserType.getText().equals("User")){
+                        Navigator.getInstance().closeSecondStage();
+                        Navigator.getInstance().goToUserHomePage();
+                    }else AlertUtil.generateErrorWindow(
+                            ErrorTitle.LOGIN_UI_CONTROLLER_LOGIN_FAILED.toString(),
+                            FailedOperationType.LOGIN_UI_CONTROLLER_LOGIN_FAILED.toString(),
+                            ErrorMessage.LOGIN_UI_CONTROLLER_INVALID_CREDENTIAL.toString());
                 }
-            }
-            else AlertUtil.generateErrorWindow(
+            }else AlertUtil.generateErrorWindow(
                     ErrorTitle.LOGIN_UI_CONTROLLER_LOGIN_FAILED.toString(),
                     FailedOperationType.LOGIN_UI_CONTROLLER_LOGIN_FAILED.toString(),
                     ErrorMessage.LOGIN_UI_CONTROLLER_INVALID_CREDENTIAL.toString());
+
         }
         errorMessage = new StringBuilder();
     }
@@ -91,18 +105,11 @@ public class LoginUIController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         choiceBoxUserType.setItems(FXCollections.observableArrayList("User", "Admin"));
         errorMessage = new StringBuilder();
-
-
-        //for user testing, since it takes too much time to type all of ts in
-        choiceBoxUserType.setValue("User");
-        txtUsrNameEmail.setText("user@example.com");
-        passwordFieldUsrPw.setText("a");
-
-          //for admin testing, since it takes too much time to type all of ts in
-//        choiceBoxUserType.setValue("Admin");
-//        txtUsrNameEmail.setText("admin@example.com");
-//        passwordFieldUsrPw.setText("a");
-
+        final int[] colorFileCode = {1,2,3,4,5,6,40,46,49,53,5,4,55,56,58,59};
+        paneBackground.setStyle(
+                String.format("-fx-background-image: url('/com/arthroverse/duckyemulator/images/loginbg/game_bg_%d_001-uhd.png');", colorFileCode[(int)(Math.random() * colorFileCode.length)])
+        );
+        paneColorLayer.setStyle("-fx-background-color: linear-gradient(to bottom, #332D7B 0%, #3D4B9F 25%, #4984C4 100%);" + "-fx-opacity: 70%");
     }
 
     private boolean inputValidation(){
@@ -123,5 +130,11 @@ public class LoginUIController implements Initializable {
             return false;
         }
         return true;
+    }
+
+    @FXML
+    public void btnCreateAccount() throws IOException {
+        Navigator.getInstance().closeSecondStage();
+        Navigator.getInstance().goToUserCreateAccount();
     }
 }
