@@ -66,6 +66,8 @@ public class Navigator {
 
     private static final String LOGIN_PAGE = "/com/arthroverse/duckyemulator/fxmls/Login/NewLoginUI.fxml";
 
+    private static final String CREATE_ACCOUNT = "/com/arthroverse/duckyemulator/fxmls/CreateAccount/NewCreateAccountDialog.fxml";
+
     private static final String USER_HOME_PAGE = "/com/arthroverse/duckyemulator/fxmls/PublicUserUI/UserHomePage.fxml";
 
     private static final String USER_TESTING_PAGE = "/com/arthroverse/duckyemulator/fxmls/PublicUserUI/UserTestingUI.fxml";
@@ -94,6 +96,10 @@ public class Navigator {
 
     public Stage getStage() {
         return this.stage;
+    }
+
+    public Stage getSecondStage(){
+        return this.secondStage;
     }
 
    public FXMLLoader getLoader(){
@@ -164,7 +170,7 @@ public class Navigator {
         if(!fxml.equals(QBANK_ADD) & !fxml.equals(QBANK_UPDATE)
                 & !fxml.equals(TOPICS_INDEX_ADD) & !fxml.equals(TOPICS_INDEX_UPDATE)
                 & !fxml.equals(CLASS_INDEX_ADD) & !fxml.equals(CLASS_INDEX_UPDATE)
-                & !fxml.equals(LOGIN_PAGE)){
+                & !fxml.equals(LOGIN_PAGE) & !fxml.equals(CREATE_ACCOUNT)){
             this.loader = new FXMLLoader();
             loader.setLocation((getClass().getResource(fxml)));
             Parent root = loader.load();
@@ -188,6 +194,9 @@ public class Navigator {
                 this.loader.setLocation(getClass().getResource(CLASS_INDEX_UPDATE));
             else if(fxml.equals(LOGIN_PAGE))
                 this.loader.setLocation(getClass().getResource(LOGIN_PAGE));
+            else if(fxml.equals(CREATE_ACCOUNT)){
+                this.loader.setLocation(getClass().getResource(CREATE_ACCOUNT));
+            }
             Parent secondRoot = this.loader.load();
             Scene qBankAddScene = new Scene(secondRoot);
             secondStage.setScene(qBankAddScene);
@@ -269,5 +278,9 @@ public class Navigator {
 
     public void goToUserSessionHistories() throws IOException{
        this.goTo(USER_SESSION_HISTORIES_PAGE);
+    }
+
+    public void goToUserCreateAccount() throws IOException{
+       this.goTo(CREATE_ACCOUNT);
     }
 }
