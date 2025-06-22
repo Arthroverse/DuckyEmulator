@@ -26,15 +26,6 @@
     -fx-text-fill: #FFFFFF;
 }
 
-.background_color{
-    -fx-background-color: linear-gradient(
-            to right,
-            #332D7B 0%,
-            #3D4B9F 25%,
-            #4984C4 100%
-    );
-}
-
 .mfx-text-field {
     -mfx-main: rgba(51, 45, 123, 1);
     -fx-font-family: "JetBrains Mono Regular";
