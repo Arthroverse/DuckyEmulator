@@ -28,6 +28,7 @@
 <?import io.github.palexdev.materialfx.controls.MFXScrollPane?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
@@ -201,11 +202,16 @@
                                             <children>
                                                 <VBox spacing="5.0">
                                                     <children>
-                                                        <Label styleClass="sub_label" text="Choice 1" textFill="#5f6368">
-                                                            <font>
-                                                                <Font name="Segoe UI Semibold" size="14.0" />
-                                                            </font>
-                                                        </Label>
+                                          <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="498.0" spacing="30.0">
+                                             <children>
+                                                              <Label styleClass="sub_label" text="Choice 1" textFill="#5f6368">
+                                                                  <font>
+                                                                      <Font name="Segoe UI Semibold" size="14.0" />
+                                                                  </font>
+                                                              </Label>
+                                                <RadioButton fx:id="radBtnCorrect1" mnemonicParsing="false" text="Correct answer ?" />
+                                             </children>
+                                          </HBox>
                                                         <TextArea fx:id="txtAreaQChoice1" minHeight="200.0" promptText="Enter choice 1..." style="-fx-background-color: white; -fx-border-color: #e5e7eb; -fx-border-radius: 6; -fx-padding: 8;" wrapText="true" VBox.vgrow="SOMETIMES">
                                                             <font>
                                                                 <Font name="Segoe UI" size="13.0" />
@@ -215,11 +221,16 @@
                                                 </VBox>
                                                 <VBox spacing="5.0">
                                                     <children>
-                                                        <Label styleClass="sub_label" text="Choice 2" textFill="#5f6368">
-                                                            <font>
-                                                                <Font name="Segoe UI Semibold" size="14.0" />
-                                                            </font>
-                                                        </Label>
+                                          <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="498.0" spacing="30.0">
+                                             <children>
+                                                <Label styleClass="sub_label" text="Choice 1" textFill="#5f6368">
+                                                   <font>
+                                                      <Font name="Segoe UI Semibold" size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <RadioButton fx:id="radBtnCorrect2" mnemonicParsing="false" text="Correct answer ?" />
+                                             </children>
+                                          </HBox>
                                                         <TextArea fx:id="txtAreaQChoice2" minHeight="200.0" promptText="Enter choice 2..." style="-fx-background-color: white; -fx-border-color: #e5e7eb; -fx-border-radius: 6; -fx-padding: 8;" wrapText="true" VBox.vgrow="SOMETIMES">
                                                             <font>
                                                                 <Font name="Segoe UI" size="13.0" />
@@ -229,11 +240,16 @@
                                                 </VBox>
                                                 <VBox spacing="5.0">
                                                     <children>
-                                                        <Label styleClass="sub_label" text="Choice 3" textFill="#5f6368">
-                                                            <font>
-                                                                <Font name="Segoe UI Semibold" size="14.0" />
-                                                            </font>
-                                                        </Label>
+                                          <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="498.0" spacing="30.0">
+                                             <children>
+                                                <Label styleClass="sub_label" text="Choice 1" textFill="#5f6368">
+                                                   <font>
+                                                      <Font name="Segoe UI Semibold" size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <RadioButton fx:id="radBtnCorrect3" mnemonicParsing="false" text="Correct answer ?" />
+                                             </children>
+                                          </HBox>
                                                         <TextArea fx:id="txtAreaQChoice3" minHeight="200.0" promptText="Enter choice 3..." style="-fx-background-color: white; -fx-border-color: #e5e7eb; -fx-border-radius: 6; -fx-padding: 8;" wrapText="true" VBox.vgrow="SOMETIMES">
                                                             <font>
                                                                 <Font name="Segoe UI" size="13.0" />
@@ -243,11 +259,16 @@
                                                 </VBox>
                                                 <VBox spacing="5.0">
                                                     <children>
-                                                        <Label styleClass="sub_label" text="Choice 4" textFill="#5f6368">
-                                                            <font>
-                                                                <Font name="Segoe UI Semibold" size="14.0" />
-                                                            </font>
-                                                        </Label>
+                                          <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="498.0" spacing="30.0">
+                                             <children>
+                                                <Label styleClass="sub_label" text="Choice 1" textFill="#5f6368">
+                                                   <font>
+                                                      <Font name="Segoe UI Semibold" size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <RadioButton fx:id="radBtnCorrect4" mnemonicParsing="false" text="Correct answer ?" />
+                                             </children>
+                                          </HBox>
                                                         <TextArea fx:id="txtAreaQChoice4" minHeight="200.0" promptText="Enter choice 4..." style="-fx-background-color: white; -fx-border-color: #e5e7eb; -fx-border-radius: 6; -fx-padding: 8;" wrapText="true" VBox.vgrow="SOMETIMES">
                                                             <font>
                                                                 <Font name="Segoe UI" size="13.0" />
@@ -259,18 +280,6 @@
                                         </VBox>
                                     </children>
                                 </VBox>
-
-                                <!-- Correct Answer Section -->
-                                <VBox spacing="10.0">
-                                    <children>
-                                        <Label styleClass="main_label" text="✅ Correct Answer" textFill="#332D7B">
-                                            <font>
-                                                <Font name="Segoe UI Semibold" size="16.0" />
-                                            </font>
-                                        </Label>
-                                    </children>
-                                </VBox>
-                                <MFXComboBox fx:id="choiceBoxCorrectAns" maxWidth="Infinity" minWidth="498.0" prefHeight="35.0" style="-fx-background-color: white; -fx-border-color: #e5e7eb; -fx-background-radius: 6;" />
 
                                 <!-- Action Buttons -->
                                 <HBox alignment="CENTER" spacing="40.0">
