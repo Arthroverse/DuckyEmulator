@@ -67,4 +67,11 @@ public abstract interface AlertUtil {
         t.printStackTrace(pw);
         return sw.toString();
     }
+
+    public static void generateInformationDialog(String informationMessage){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("DuckyEmulator");
+        alert.setHeaderText(informationMessage);
+        Optional<ButtonType> confirmationResponse = alert.showAndWait();
+    }
 }
