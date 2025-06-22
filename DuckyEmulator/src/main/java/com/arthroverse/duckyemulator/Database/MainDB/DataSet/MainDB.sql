@@ -72,7 +72,7 @@ CREATE TABLE IF NOT EXISTS Users(
     PRIMARY KEY(UserEmail),
     UserName VARCHAR(50) NOT NULL,
     UserPassword VARCHAR(150) NOT NULL,
-    UserType VARCHAR(10) NOT NULL
+    IsAdminPrivilged BOOLEAN DEFAULT 0
 );
 
 CREATE TABLE IF NOT EXISTS Sessions(
@@ -99,11 +99,13 @@ CREATE TABLE IF NOT EXISTS Session_has_question(
     DeletedBy VARCHAR(50) DEFAULT '',
     PRIMARY KEY(SessionId, QuestionId, Deleted, DeletedAt, DeletedBy)
 );
-INSERT INTO Users(UserEmail, UserName, UserPassword, UserType)
-VALUES('admin@example.com', 'vinh', 'a', 'Admin'),
-('user@example.com', 'hoang', 'a', 'User');
+INSERT INTO Users(UserEmail, UserName, UserPassword, IsAdminPrivilged)
+VALUES('admin@example.com', 'vinh', 'a', True),
+('user@example.com', 'hoang', 'a', False);
 -- FOR TESTING AND DEBUGGING PURPOSES
 -- DROP DATABASE DuckyEmulator_QuestionDB;
 
 SELECT * FROM Sessions WHERE Deleted = 0
-ORDER BY SessionId LIMIT 10 OFFSET 0
+ORDER BY SessionId LIMIT 10 OFFSET 0;
+
+SELECT * FROM Sessions WHERE Deleted = 0 AND UserEmail = 'admin@example.com'ORDER BY SessionId LIMIT 10 OFFSET 0;
