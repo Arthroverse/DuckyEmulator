@@ -94,7 +94,7 @@ public class DuckyEmulatorMain extends Application {
 
             if (taskbar.isSupported(Taskbar.Feature.ICON_IMAGE)) {
                 final Toolkit defaultToolkit = Toolkit.getDefaultToolkit();
-                Image dockIcon = defaultToolkit.getImage(getClass().getResource("/com/arthroverse/duckyemulator/images/macos_icons/duckyemulator.png"));
+                Image dockIcon = defaultToolkit.getImage(getClass().getResource("/com/arthroverse/duckyemulator/images/icons/duckyemulator.png"));
                 taskbar.setIconImage(dockIcon);
             }
         }
