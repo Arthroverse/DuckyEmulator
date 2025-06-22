@@ -23,7 +23,9 @@
 package com.arthroverse.duckyemulator.Database.MainDB.CredentialBeans;
 
 import com.arthroverse.duckyemulator.Database.DBService.MySQLService;
+import com.arthroverse.duckyemulator.Utilities.Constant.ErrorMessage;
 import com.arthroverse.duckyemulator.Utilities.Constant.ErrorTitle;
+import com.arthroverse.duckyemulator.Utilities.Constant.FailedOperationType;
 import com.arthroverse.duckyemulator.Utilities.PromptAlert.AlertUtil;
 
 import java.sql.Connection;
@@ -37,7 +39,8 @@ public class Users {
     private static String currentUserNameInActiveSession; //STATIC DE PHUC VU CHO SESSION DANG LOGIN HIEN TAI
     private static String currentUserEmailInActiveSession;
     private String userPassword;
-    private String userType;
+    private boolean isAdminPrivileged;
+    private String userName;
 
     private static final String EMAIL_REGEX_PATTERN =
             "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
@@ -75,12 +78,20 @@ public class Users {
         this.userPassword = userPassword;
     }
 
-    public String getUserType() {
-        return userType;
+    public boolean getAdminPrivileged() {
+        return isAdminPrivileged;
     }
 
-    public void setUserType(String userType) {
-        this.userType = userType;
+    public void setAdminPrivileged(boolean adminPrivileged) {
+        this.isAdminPrivileged = adminPrivileged;
+    }
+
+    public String getUserObjectName(){
+        return this.userName;
+    }
+
+    public void setUserObjectName(String name){
+        this.userName = name;
     }
 
     public static boolean checkValidEmail(String email){
@@ -101,8 +112,8 @@ public class Users {
     }
 
     public static boolean checkCredential(Users user){
-        String sqlQuery = "SELECT COUNT(UserEmail) FROM Users WHERE " +
-                "UserEmail = ? AND UserPassword = ? AND UserType = ?;";
+        String sqlQuery = "SELECT COUNT(UserEmail), IsAdminPrivilged FROM Users WHERE " +
+                "UserEmail = ? AND UserPassword = ?;";
         try(
                 Connection conn = MySQLService.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sqlQuery)
@@ -110,12 +121,12 @@ public class Users {
             ResultSet rs = null;
             stmt.setString(1, user.getUserEmail());
             stmt.setString(2, user.getUserPassword());
-            stmt.setString(3, user.getUserType());
             rs = stmt.executeQuery();
             rs.next();
             if(rs.getInt(1) != 1){
                 return false;
             }
+            user.setAdminPrivileged(rs.getBoolean(2));
             setUserName(fetchUserName(user));
             setCurrentUserEmailInActiveSession(user.getUserEmail());
             return true;
@@ -141,5 +152,37 @@ public class Users {
                     ErrorTitle.SQL_USER_LOAD_USERNAME_FAILED.toString());
             return null;
         }
+    }
+
+    public static boolean insert(Users u){
+        String sqlFindDuplicateEmail = "SELECT COUNT(UserEmail) FROM Users WHERE UserEmail = ?;";
+        String sqlQuery = "INSERT INTO Users(UserEmail, UserName, UserPassword, IsAdminPrivilged) " +
+                "VALUES(?, ?, ?, ?);";
+        try(
+                Connection conn = MySQLService.getConnection();
+                PreparedStatement stmt1 = conn.prepareStatement(sqlFindDuplicateEmail);
+                PreparedStatement stmt2 = conn.prepareStatement(sqlQuery, Statement.RETURN_GENERATED_KEYS);
+                ){
+            stmt1.setString(1,u.userEmail);
+            ResultSet rs = stmt1.executeQuery();
+            rs.next();
+            if(rs.getInt(1) == 0){
+                stmt2.setString(1, u.getUserEmail());
+                stmt2.setString(2, u.userName);
+                stmt2.setString(3, u.userPassword);
+                stmt2.setBoolean(4, u.isAdminPrivileged);
+                if (stmt2.executeUpdate() == 1) {
+                    return true;
+                }
+            }else{
+                AlertUtil.generateErrorWindow("DuckyEmulator",
+                        FailedOperationType.SQL_CREATE_NEW_ACCOUNT_FAILED.toString(), ErrorMessage.CREATE_ACCOUNT_DUPLICATE_EMAIL.toString());
+                return false;
+            }
+        }catch(Exception e){
+            AlertUtil.generateExceptionViewer(AlertUtil.generateExceptionString(e),
+                    "Duckyemulator");
+        }
+        return false;
     }
 }
