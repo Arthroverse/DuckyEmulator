@@ -58,7 +58,16 @@ public class QBankUpdateUIController implements Initializable {
     private MFXComboBox<String> choiceBoxSelectTopic;
 
     @FXML
-    private MFXComboBox<String> choiceBoxCorrectAns;
+    private RadioButton radBtnCorrect1;
+
+    @FXML
+    private RadioButton radBtnCorrect2;
+
+    @FXML
+    private RadioButton radBtnCorrect3;
+
+    @FXML
+    private RadioButton radBtnCorrect4;
 
     @FXML
     private MFXButton btnChooseImagePath;
@@ -133,7 +142,15 @@ public class QBankUpdateUIController implements Initializable {
                 originalQuestion.setChoice2(txtAreaQChoice2.getText());
                 originalQuestion.setChoice3(txtAreaQChoice3.getText());
                 originalQuestion.setChoice4(txtAreaQChoice4.getText());
-                originalQuestion.setCorrectAnswer(choiceBoxCorrectAns.getValue());
+                if(radBtnCorrect1.isSelected()){
+                    originalQuestion.setCorrectAnswer(txtAreaQChoice1.getText());
+                }else if(radBtnCorrect2.isSelected()){
+                    originalQuestion.setCorrectAnswer(txtAreaQChoice2.getText());
+                }else if(radBtnCorrect3.isSelected()){
+                    originalQuestion.setCorrectAnswer(txtAreaQChoice3.getText());
+                }else if(radBtnCorrect4.isSelected()){
+                    originalQuestion.setCorrectAnswer(txtAreaQChoice4.getText());
+                }
                 originalQuestion.setImagePath(txtFieldImagePath.getText());
                 Questions.update(originalQuestion);
             }
@@ -168,10 +185,6 @@ public class QBankUpdateUIController implements Initializable {
 
         choiceBoxSelectClass.setItems(FXCollections.observableArrayList(
                 Classifications.getSortedClassificationNames()));
-
-        choiceBoxCorrectAns.setItems(FXCollections.observableArrayList(
-                "Choice 1", "Choice 2", "Choice 3", "Choice 4"
-        ));
         txtFieldImagePath.setEditable(false);
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(
@@ -201,6 +214,12 @@ public class QBankUpdateUIController implements Initializable {
                 return row;
             }
         });
+
+        ToggleGroup tg = new ToggleGroup();
+        radBtnCorrect1.setToggleGroup(tg);
+        radBtnCorrect2.setToggleGroup(tg);
+        radBtnCorrect3.setToggleGroup(tg);
+        radBtnCorrect4.setToggleGroup(tg);
     }
 
     public void initialize(Questions q){
@@ -244,7 +263,15 @@ public class QBankUpdateUIController implements Initializable {
         txtAreaQChoice2.setText(q.getChoice2());
         txtAreaQChoice3.setText(q.getChoice3());
         txtAreaQChoice4.setText(q.getChoice4());
-        choiceBoxCorrectAns.setValue(q.getCorrectAnswer());
+        if(originalQuestion.getCorrectAnswer().equals(originalQuestion.getChoice1())){
+            radBtnCorrect1.setSelected(true);
+        }else if(originalQuestion.getCorrectAnswer().equals(originalQuestion.getChoice2())){
+            radBtnCorrect2.setSelected(true);
+        }else if(originalQuestion.getCorrectAnswer().equals(originalQuestion.getChoice3())){
+            radBtnCorrect3.setSelected(true);
+        }else if(originalQuestion.getCorrectAnswer().equals(originalQuestion.getChoice4())){
+            radBtnCorrect4.setSelected(true);
+        }
         txtFieldImagePath.setText(q.getImagePath());
     }
 
@@ -256,7 +283,8 @@ public class QBankUpdateUIController implements Initializable {
         if(txtAreaQChoice1.getText() == null
                 || txtAreaQChoice2.getText() == null || txtAreaQChoice3.getText().isEmpty()
                 || txtAreaQChoice4.getText() == null) errorMessage.append(ErrorMessage.QUEST_NO_CHOICE);
-        if(choiceBoxCorrectAns.getValue() == null) errorMessage.append(ErrorMessage.QUEST_NO_CORRECT_ANS);
+        if(radBtnCorrect1.isSelected() && radBtnCorrect2.isSelected() &&
+                radBtnCorrect3.isSelected() && radBtnCorrect4.isSelected()) errorMessage.append(ErrorMessage.QUEST_NO_CORRECT_ANS);
         if(txtFieldImagePath.getText() == null) txtFieldImagePath.setText("");
 
         if(!errorMessage.toString().isEmpty()){
@@ -314,7 +342,15 @@ public class QBankUpdateUIController implements Initializable {
         txtAreaQChoice2.setText(originalQuestion.getChoice2());
         txtAreaQChoice3.setText(originalQuestion.getChoice3());
         txtAreaQChoice4.setText(originalQuestion.getChoice4());
-        choiceBoxCorrectAns.setValue(originalQuestion.getCorrectAnswer());
+        if(originalQuestion.getCorrectAnswer().equals(originalQuestion.getChoice1())){
+            radBtnCorrect1.setSelected(true);
+        }else if(originalQuestion.getCorrectAnswer().equals(originalQuestion.getChoice2())){
+            radBtnCorrect2.setSelected(true);
+        }else if(originalQuestion.getCorrectAnswer().equals(originalQuestion.getChoice3())){
+            radBtnCorrect3.setSelected(true);
+        }else if(originalQuestion.getCorrectAnswer().equals(originalQuestion.getChoice4())){
+            radBtnCorrect4.setSelected(true);
+        }
         txtFieldImagePath.setText(originalQuestion.getImagePath());
     }
 }
