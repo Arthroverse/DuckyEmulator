@@ -29,6 +29,7 @@ import com.arthroverse.duckyemulator.UIs.Navigator;
 import com.arthroverse.duckyemulator.Utilities.Constant.ErrorMessage;
 import com.arthroverse.duckyemulator.Utilities.Constant.ErrorTitle;
 import com.arthroverse.duckyemulator.Utilities.Constant.Reusable;
+import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -97,6 +98,9 @@ public class QBankIndexUIController implements Initializable {
 
     @FXML
     private Button btnLogout;
+
+    @FXML
+    private MFXButton btnCredits;
 
     private static int offset;
 
@@ -265,5 +269,10 @@ public class QBankIndexUIController implements Initializable {
         tableImagePath.setCellValueFactory((questions) -> {
             return questions.getValue().getImagePathProperty();
         });
+    }
+
+    @FXML
+    public void btnCreditsClick(ActionEvent event) throws IOException{
+        Navigator.getInstance().goToCredit();
     }
 }
