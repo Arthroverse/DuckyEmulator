@@ -10,15 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a57d5096-8edd-4b4d-954e-07f711464abf" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/Main/DuckyEmulatorMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/Main/DuckyEmulatorMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIControllers/LoginController/LoginUIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIControllers/LoginController/LoginUIController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIControllers/RegisterController/RegisterUIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIControllers/RegisterController/RegisterUIController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIs/Navigator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIs/Navigator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/Utilities/Constant/Reusable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/Utilities/Constant/Reusable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/css/LoginCss/Login.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/css/LoginCss/Login.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/CreateAccount/NewCreateAccountDialog.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/CreateAccount/NewCreateAccountDialog.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/Login/NewLoginUI.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/Login/NewLoginUI.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,92 +48,92 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.DuckyEmulatorMain.executor": "Run",
-    "Attach to process.localhost:5005.executor": "ProcessAttachDebug",
-    "Attach to process.localhost:51310.executor": "ProcessAttachDebug",
-    "Attach to process.localhost:51359.executor": "ProcessAttachDebug",
-    "Attach to process.localhost:51377.executor": "ProcessAttachDebug",
-    "Attach to process.localhost:51396.executor": "ProcessAttachDebug",
-    "Attach to process.localhost:51414.executor": "ProcessAttachDebug",
-    "Attach to process.localhost:51432.executor": "ProcessAttachDebug",
-    "Attach to process.localhost:51447.executor": "ProcessAttachDebug",
-    "Attach to process.localhost:51470.executor": "ProcessAttachDebug",
-    "Attach to process.localhost:51485.executor": "ProcessAttachDebug",
-    "Attach to process.localhost:51569.executor": "ProcessAttachDebug",
-    "Attach to process.localhost:51583.executor": "ProcessAttachDebug",
-    "Attach to process.localhost:51609.executor": "ProcessAttachDebug",
-    "Attach to process.localhost:51630.executor": "ProcessAttachDebug",
-    "Attach to process.localhost:51806.executor": "ProcessAttachDebug",
-    "Attach to process.localhost:51815.executor": "ProcessAttachDebug",
-    "Attach to process.localhost:51927.executor": "ProcessAttachDebug",
-    "Attach to process.localhost:64464.executor": "ProcessAttachDebug",
-    "Attach to process.localhost:64503.executor": "ProcessAttachDebug",
-    "Attach to process.localhost:64611.executor": "ProcessAttachDebug",
-    "Attach to process.localhost:64659.executor": "ProcessAttachDebug",
-    "Attach to process.localhost:64706.executor": "ProcessAttachDebug",
-    "Attach to process.localhost:64967.executor": "ProcessAttachDebug",
-    "Attach to process.localhost:8000.executor": "ProcessAttachDebug",
-    "JAR Application.DuckyEmulator.jar.executor": "Run",
-    "Maven.Debug.executor": "Run",
-    "Maven.DuckyEmulator [--debug].executor": "Run",
-    "Maven.DuckyEmulator [-Dmaven.surefire.debug...].executor": "Run",
-    "Maven.DuckyEmulator [-Dmaven.surefire.debug=\"-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=localhost:8000\"...].executor": "Run",
-    "Maven.DuckyEmulator [-Dmaven.surefire.debug=-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005...].executor": "Run",
-    "Maven.DuckyEmulator [clean,install].executor": "Run",
-    "Maven.DuckyEmulator [clean].executor": "Run",
-    "Maven.DuckyEmulator [compile].executor": "Run",
-    "Maven.DuckyEmulator [javafx:run...].executor": "Debug",
-    "Maven.DuckyEmulator [javafx:run].executor": "Run",
-    "Maven.DuckyEmulator [mvn,clean,compile...].executor": "Run",
-    "Maven.DuckyEmulator [mvn,clean,package].executor": "Run",
-    "Maven.DuckyEmulator [mvn,exec:java...].executor": "Debug",
-    "Maven.DuckyEmulator [mvn...].executor": "Run",
-    "Maven.DuckyEmulator [mvnDebug...].executor": "Debug",
-    "Maven.DuckyEmulator [org.apache.maven.plugins:maven-assembly-plugin:3.7.1:help].executor": "Run",
-    "Maven.DuckyEmulator [org.apache.maven.plugins:maven-assembly-plugin:3.7.1:single].executor": "Run",
-    "Maven.DuckyEmulator [org.apache.maven.plugins:maven-clean-plugin:3.2.0:clean].executor": "Run",
-    "Maven.DuckyEmulator [org.apache.maven.plugins:maven-compiler-plugin:3.13.0:compile].executor": "Run",
-    "Maven.DuckyEmulator [org.apache.maven.plugins:maven-surefire-plugin:3.2.5:help].executor": "Run",
-    "Maven.DuckyEmulator [org.apache.maven.plugins:maven-surefire-plugin:3.2.5:test].executor": "Run",
-    "Maven.DuckyEmulator [package].executor": "Run",
-    "Maven.DuckyEmulator [validate].executor": "Run",
-    "Maven.DuckyEmulator [verify].executor": "Run",
-    "Maven.DuckyEmulatorDebug.executor": "Run",
-    "Maven.DuckyEmulatorExec.executor": "Run",
-    "Maven.Exec.executor": "Run",
-    "Maven.fuck.executor": "Run",
-    "Remote JVM Debug.Unnamed.executor": "Debug",
-    "Remote JVM Debug.mvnDebug.executor": "Debug",
-    "RunOnceActivity.OpenDatabaseViewOnStart": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "2025-5-23",
-    "junie.onboarding.icon.badge.shown": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/ducksabervn/DATA/coding/DuckyEmulator/DuckyEmulator/src/main/resources/com/arthroverse/duckyemulator/images/loginbg",
-    "list.type.of.created.stylesheet": "CSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "onboarding.tips.debug.path": "/Users/ducksabervn/DATA/coding/DuckyEmulator/DuckyEmulator/src/main/java/org/example/Main.java",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "MavenSettings",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.DuckyEmulatorMain.executor&quot;: &quot;Run&quot;,
+    &quot;Attach to process.localhost:5005.executor&quot;: &quot;ProcessAttachDebug&quot;,
+    &quot;Attach to process.localhost:51310.executor&quot;: &quot;ProcessAttachDebug&quot;,
+    &quot;Attach to process.localhost:51359.executor&quot;: &quot;ProcessAttachDebug&quot;,
+    &quot;Attach to process.localhost:51377.executor&quot;: &quot;ProcessAttachDebug&quot;,
+    &quot;Attach to process.localhost:51396.executor&quot;: &quot;ProcessAttachDebug&quot;,
+    &quot;Attach to process.localhost:51414.executor&quot;: &quot;ProcessAttachDebug&quot;,
+    &quot;Attach to process.localhost:51432.executor&quot;: &quot;ProcessAttachDebug&quot;,
+    &quot;Attach to process.localhost:51447.executor&quot;: &quot;ProcessAttachDebug&quot;,
+    &quot;Attach to process.localhost:51470.executor&quot;: &quot;ProcessAttachDebug&quot;,
+    &quot;Attach to process.localhost:51485.executor&quot;: &quot;ProcessAttachDebug&quot;,
+    &quot;Attach to process.localhost:51569.executor&quot;: &quot;ProcessAttachDebug&quot;,
+    &quot;Attach to process.localhost:51583.executor&quot;: &quot;ProcessAttachDebug&quot;,
+    &quot;Attach to process.localhost:51609.executor&quot;: &quot;ProcessAttachDebug&quot;,
+    &quot;Attach to process.localhost:51630.executor&quot;: &quot;ProcessAttachDebug&quot;,
+    &quot;Attach to process.localhost:51806.executor&quot;: &quot;ProcessAttachDebug&quot;,
+    &quot;Attach to process.localhost:51815.executor&quot;: &quot;ProcessAttachDebug&quot;,
+    &quot;Attach to process.localhost:51927.executor&quot;: &quot;ProcessAttachDebug&quot;,
+    &quot;Attach to process.localhost:64464.executor&quot;: &quot;ProcessAttachDebug&quot;,
+    &quot;Attach to process.localhost:64503.executor&quot;: &quot;ProcessAttachDebug&quot;,
+    &quot;Attach to process.localhost:64611.executor&quot;: &quot;ProcessAttachDebug&quot;,
+    &quot;Attach to process.localhost:64659.executor&quot;: &quot;ProcessAttachDebug&quot;,
+    &quot;Attach to process.localhost:64706.executor&quot;: &quot;ProcessAttachDebug&quot;,
+    &quot;Attach to process.localhost:64967.executor&quot;: &quot;ProcessAttachDebug&quot;,
+    &quot;Attach to process.localhost:8000.executor&quot;: &quot;ProcessAttachDebug&quot;,
+    &quot;JAR Application.DuckyEmulator.jar.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Debug.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.DuckyEmulator [--debug].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.DuckyEmulator [-Dmaven.surefire.debug...].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.DuckyEmulator [-Dmaven.surefire.debug=\&quot;-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=localhost:8000\&quot;...].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.DuckyEmulator [-Dmaven.surefire.debug=-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005...].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.DuckyEmulator [clean,install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.DuckyEmulator [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.DuckyEmulator [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.DuckyEmulator [javafx:run...].executor&quot;: &quot;Debug&quot;,
+    &quot;Maven.DuckyEmulator [javafx:run].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.DuckyEmulator [mvn,clean,compile...].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.DuckyEmulator [mvn,clean,package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.DuckyEmulator [mvn,exec:java...].executor&quot;: &quot;Debug&quot;,
+    &quot;Maven.DuckyEmulator [mvn...].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.DuckyEmulator [mvnDebug...].executor&quot;: &quot;Debug&quot;,
+    &quot;Maven.DuckyEmulator [org.apache.maven.plugins:maven-assembly-plugin:3.7.1:help].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.DuckyEmulator [org.apache.maven.plugins:maven-assembly-plugin:3.7.1:single].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.DuckyEmulator [org.apache.maven.plugins:maven-clean-plugin:3.2.0:clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.DuckyEmulator [org.apache.maven.plugins:maven-compiler-plugin:3.13.0:compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.DuckyEmulator [org.apache.maven.plugins:maven-surefire-plugin:3.2.5:help].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.DuckyEmulator [org.apache.maven.plugins:maven-surefire-plugin:3.2.5:test].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.DuckyEmulator [package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.DuckyEmulator [validate].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.DuckyEmulator [verify].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.DuckyEmulatorDebug.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.DuckyEmulatorExec.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Exec.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.fuck.executor&quot;: &quot;Run&quot;,
+    &quot;Remote JVM Debug.Unnamed.executor&quot;: &quot;Debug&quot;,
+    &quot;Remote JVM Debug.mvnDebug.executor&quot;: &quot;Debug&quot;,
+    &quot;RunOnceActivity.OpenDatabaseViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;2025-5-23&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/ducksabervn/DATA/coding/DuckyEmulator/DuckyEmulator/src/main/resources/com/arthroverse/duckyemulator/images/loginbg&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;/Users/ducksabervn/DATA/coding/DuckyEmulator/DuckyEmulator/src/main/java/org/example/Main.java&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;MavenSettings&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql",
-      "redshift"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;,
+      &quot;redshift&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/images/loginbg" />
@@ -283,6 +275,7 @@
       <workItem from="1750635976963" duration="947000" />
       <workItem from="1750636942214" duration="39000" />
       <workItem from="1750636984004" duration="5844000" />
+      <workItem from="1750642964908" duration="155000" />
     </task>
     <servers />
   </component>
