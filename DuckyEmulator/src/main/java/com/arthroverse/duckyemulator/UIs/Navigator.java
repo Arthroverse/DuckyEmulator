@@ -35,6 +35,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -83,6 +84,8 @@ public class Navigator {
     private static Navigator nav = null;
 
     private FXMLLoader loader;
+
+    private Image fxIcons;
 
     private Navigator(){}
 
@@ -179,6 +182,7 @@ public class Navigator {
             this.stage.show();
         }else{
             this.secondStage = new Stage();
+            this.secondStage.getIcons().add(fxIcons);
             this.loader = new FXMLLoader();
             if(fxml.equals(QBANK_ADD))
                 this.loader.setLocation(getClass().getResource(QBANK_ADD));
@@ -202,7 +206,9 @@ public class Navigator {
             secondStage.setScene(qBankAddScene);
             secondStage.initModality(Modality.WINDOW_MODAL);
             secondStage.initOwner(this.stage);
-            if(secondStage != null) secondStage.requestFocus();
+            if(secondStage != null){
+                secondStage.requestFocus();
+            }
             secondStage.show();
         }
    }
@@ -215,6 +221,10 @@ public class Navigator {
    public void closeSecondStage(){
         this.secondStage.close();
         this.secondStage = null;
+   }
+
+   public void setIcons(Image fxIcon){
+       this.fxIcons = fxIcon;
    }
 
    public void goToAdminHomePage() throws IOException {
