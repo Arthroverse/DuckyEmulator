@@ -140,7 +140,7 @@
             </HBox>
          </center>
       </BorderPane>
-      <MFXButton fx:id="btnCredits" onAction="#btnCreditsClick" prefHeight="35.0" prefWidth="80.0" style="-fx-background-color: rgba(51,45,123,0.8); -fx-background-radius: 17; -fx-text-fill: white; -fx-cursor: hand;" styleClass="all_button_small" text="ℹ️ Credits" StackPane.alignment="TOP_RIGHT">
+      <MFXButton fx:id="btnCredits" onAction="#btnCreditsClick" prefHeight="35.0" prefWidth="110.0" style="-fx-background-color: rgba(51,45,123,0.8); -fx-background-radius: 17; -fx-text-fill: white; -fx-cursor: hand;" styleClass="all_button_small" text="ℹ️ Credits" StackPane.alignment="TOP_RIGHT">
          <font>
             <Font name="Segoe UI" size="11.0" />
          </font>
