@@ -25,6 +25,7 @@ import com.arthroverse.duckyemulator.Database.MainDB.CredentialBeans.Users;
 import com.arthroverse.duckyemulator.Database.MainDB.PublicBeans.Sessions;
 import com.arthroverse.duckyemulator.UIs.Navigator;
 import com.arthroverse.duckyemulator.Utilities.Constant.Reusable;
+import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXScrollPane;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -55,6 +56,9 @@ public class UserHomePageUIController implements Initializable {
 
     @FXML
     private VBox scrollPaneContentVBox;
+
+    @FXML
+    private MFXButton btnCredits;
 
     private static LocalDateTime startTime;
 
@@ -94,5 +98,10 @@ public class UserHomePageUIController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         greetingLabel.setText(String.format(Reusable.DEFAULT_GREETING.toString(),
                 Users.getUserName()));
+    }
+
+    @FXML
+    public void btnCreditsClick(ActionEvent event) throws IOException{
+        Navigator.getInstance().goToCredit();
     }
 }
