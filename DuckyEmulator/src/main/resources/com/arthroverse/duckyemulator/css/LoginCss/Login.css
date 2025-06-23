@@ -56,6 +56,7 @@
     -fx-text-fill: #ffffff;
     -fx-cursor: hand;
     -fx-font-family: 'JetBrains Mono Bold Italic';
+    -fx-font-size: 14;
 }
 
 .link_button:hover{
