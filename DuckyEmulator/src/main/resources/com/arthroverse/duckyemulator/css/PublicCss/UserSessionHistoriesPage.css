@@ -103,3 +103,9 @@
     -fx-font-family: "JetBrains Mono Regular";
     -fx-text-fill: #2c3e50;
 }
+
+.all_button_small{
+    -fx-font-family: 'JetBrains Mono Bold';
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 11; /*DO NOT DELETE THIS ONE. THIS LINE FIXED ALL OF THE BUGS ASSOCIATED WITH FONT SIZE*/
+}
