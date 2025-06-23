@@ -66,6 +66,14 @@
                         <Font name="Segoe UI" size="16.0" />
                      </font>
                   </Label>
+                  <MFXButton fx:id="btnCredits" onAction="#btnCreditsClick" prefHeight="35.0" prefWidth="80.0" style="-fx-background-color: rgba(255,255,255,0.2); -fx-background-radius: 17; -fx-text-fill: white; -fx-cursor: hand;" styleClass="all_button_small" text="ℹ️ Credits">
+                     <font>
+                        <Font name="Segoe UI" size="11.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </MFXButton>
                </children>
                <padding>
                   <Insets bottom="15.0" left="30.0" right="30.0" top="15.0" />
