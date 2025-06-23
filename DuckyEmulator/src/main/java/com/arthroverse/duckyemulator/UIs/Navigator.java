@@ -77,9 +77,13 @@ public class Navigator {
 
     private static final String USER_SESSION_HISTORIES_PAGE = "/com/arthroverse/duckyemulator/fxmls/PublicUserUI/UserSessionHistoriesPage.fxml";
 
+    private static final String CREDITS = "/com/arthroverse/duckyemulator/fxmls/CreditDialog/CreditDialogUI.fxml";
+
     private Stage stage;
 
     private Stage secondStage = new Stage();
+
+    private Stage thirdStage = new Stage();
 
     private static Navigator nav = null;
 
@@ -103,6 +107,10 @@ public class Navigator {
 
     public Stage getSecondStage(){
         return this.secondStage;
+    }
+
+    public Stage getThirdStage(){
+        return this.thirdStage;
     }
 
    public FXMLLoader getLoader(){
@@ -173,13 +181,27 @@ public class Navigator {
         if(!fxml.equals(QBANK_ADD) & !fxml.equals(QBANK_UPDATE)
                 & !fxml.equals(TOPICS_INDEX_ADD) & !fxml.equals(TOPICS_INDEX_UPDATE)
                 & !fxml.equals(CLASS_INDEX_ADD) & !fxml.equals(CLASS_INDEX_UPDATE)
-                & !fxml.equals(LOGIN_PAGE) & !fxml.equals(CREATE_ACCOUNT)){
+                & !fxml.equals(LOGIN_PAGE) & !fxml.equals(CREATE_ACCOUNT) & !fxml.equals(CREDITS)){
             this.loader = new FXMLLoader();
             loader.setLocation((getClass().getResource(fxml)));
             Parent root = loader.load();
             Scene currentScene = new Scene(root);
             this.stage.setScene(currentScene);
             this.stage.show();
+        }else if(fxml.equals(CREDITS)){
+           this.thirdStage = new Stage();
+           this.thirdStage.getIcons().add(fxIcons);
+           this.loader = new FXMLLoader();
+           this.loader.setLocation(getClass().getResource(CREDITS));
+            Parent thirdRoot = this.loader.load();
+            Scene qBankAddScene = new Scene(thirdRoot);
+            thirdStage.setScene(qBankAddScene);
+            thirdStage.initModality(Modality.WINDOW_MODAL);
+            thirdStage.initOwner(this.stage);
+            if(thirdStage != null){
+                thirdStage.requestFocus();
+            }
+            thirdStage.show();
         }else{
             this.secondStage = new Stage();
             this.secondStage.getIcons().add(fxIcons);
@@ -222,6 +244,11 @@ public class Navigator {
         this.secondStage.close();
         this.secondStage = null;
    }
+
+    public void closeThirdStage(){
+        this.thirdStage.close();
+        this.thirdStage = null;
+    }
 
    public void setIcons(Image fxIcon){
        this.fxIcons = fxIcon;
@@ -292,5 +319,9 @@ public class Navigator {
 
     public void goToUserCreateAccount() throws IOException{
        this.goTo(CREATE_ACCOUNT);
+    }
+
+    public void goToCredit() throws IOException{
+       this.goTo(CREDITS);
     }
 }
