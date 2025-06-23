@@ -37,36 +37,44 @@
 <?import javafx.scene.text.Font?>
 
 <BorderPane stylesheets="@../../css/AdminCss/AdminHomePage.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.arthroverse.duckyemulator.UIControllers.AdminUIsControllers.HomePageUIController">
-    <top>
-        <!-- Header Section -->
-        <VBox style="-fx-background-color: linear-gradient(to right, #332D7B, #42A5F5); -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 4, 0, 0, 2);">
-            <children>
-                <HBox alignment="CENTER_LEFT" spacing="20.0">
-                    <children>
-                        <Label styleClass="user_welcome_message" text="DuckyEmulator" textFill="WHITE">
-                            <font>
-                                <Font name="Segoe UI" size="24.0" />
-                            </font>
-                        </Label>
-                        <Label styleClass="user_welcome_sub_message" text="Admin Console" textFill="#E3F2FD">
-                            <font>
-                                <Font name="Segoe UI Light" size="18.0" />
-                            </font>
-                        </Label>
-                        <Region HBox.hgrow="ALWAYS" />
-                        <Label fx:id="greetingLabel" styleClass="welcome_label_subtext" text="Welcome, Admin" textFill="WHITE">
-                            <font>
-                                <Font name="Segoe UI" size="16.0" />
-                            </font>
-                        </Label>
-                    </children>
-                    <padding>
-                        <Insets bottom="15.0" left="30.0" right="30.0" top="15.0" />
-                    </padding>
-                </HBox>
-            </children>
-        </VBox>
-    </top>
+   <top>
+      <!-- Header Section -->
+      <VBox style="-fx-background-color: linear-gradient(to right, #332D7B, #42A5F5); -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 4, 0, 0, 2);">
+         <children>
+            <HBox alignment="CENTER_LEFT" spacing="20.0">
+               <children>
+                  <Label styleClass="user_welcome_message" text="DuckyEmulator" textFill="WHITE">
+                     <font>
+                        <Font name="Segoe UI" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label styleClass="user_welcome_sub_message" text="Admin Console" textFill="#E3F2FD">
+                     <font>
+                        <Font name="Segoe UI Light" size="18.0" />
+                     </font>
+                  </Label>
+                  <Region HBox.hgrow="ALWAYS" />
+                  <Label fx:id="greetingLabel" styleClass="welcome_label_subtext" text="Welcome, Admin" textFill="WHITE">
+                     <font>
+                        <Font name="Segoe UI" size="16.0" />
+                     </font>
+                  </Label>
+                  <MFXButton fx:id="btnCredits" onAction="#btnCreditsClick" prefHeight="35.0" prefWidth="80.0" style="-fx-background-color: rgba(255,255,255,0.2); -fx-background-radius: 17; -fx-text-fill: white; -fx-cursor: hand;" styleClass="all_button_small" text="ℹ️ Credits">
+                     <font>
+                        <Font name="Segoe UI" size="11.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </MFXButton>
+               </children>
+               <padding>
+                  <Insets bottom="15.0" left="30.0" right="30.0" top="15.0" />
+               </padding>
+            </HBox>
+         </children>
+      </VBox>
+   </top>
    <center>
       <MFXScrollPane fitToHeight="true" fitToWidth="true" BorderPane.alignment="CENTER">
          <content>
