@@ -11,9 +11,14 @@
   <component name="ChangeListManager">
     <list default="true" id="a57d5096-8edd-4b4d-954e-07f711464abf" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependency-reduced-pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/dependency-reduced-pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/Main/DuckyEmulatorMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/Main/DuckyEmulatorMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIControllers/LoginController/LoginUIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIControllers/LoginController/LoginUIController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIControllers/RegisterController/RegisterUIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIControllers/RegisterController/RegisterUIController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIs/Navigator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/UIs/Navigator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/Utilities/Constant/Reusable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/Utilities/Constant/Reusable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/css/LoginCss/Login.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/css/LoginCss/Login.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/CreateAccount/NewCreateAccountDialog.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/CreateAccount/NewCreateAccountDialog.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/Login/NewLoginUI.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/Login/NewLoginUI.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,6 +60,22 @@
   "keyToString": {
     "Application.DuckyEmulatorMain.executor": "Run",
     "Attach to process.localhost:5005.executor": "ProcessAttachDebug",
+    "Attach to process.localhost:51310.executor": "ProcessAttachDebug",
+    "Attach to process.localhost:51359.executor": "ProcessAttachDebug",
+    "Attach to process.localhost:51377.executor": "ProcessAttachDebug",
+    "Attach to process.localhost:51396.executor": "ProcessAttachDebug",
+    "Attach to process.localhost:51414.executor": "ProcessAttachDebug",
+    "Attach to process.localhost:51432.executor": "ProcessAttachDebug",
+    "Attach to process.localhost:51447.executor": "ProcessAttachDebug",
+    "Attach to process.localhost:51470.executor": "ProcessAttachDebug",
+    "Attach to process.localhost:51485.executor": "ProcessAttachDebug",
+    "Attach to process.localhost:51569.executor": "ProcessAttachDebug",
+    "Attach to process.localhost:51583.executor": "ProcessAttachDebug",
+    "Attach to process.localhost:51609.executor": "ProcessAttachDebug",
+    "Attach to process.localhost:51630.executor": "ProcessAttachDebug",
+    "Attach to process.localhost:51806.executor": "ProcessAttachDebug",
+    "Attach to process.localhost:51815.executor": "ProcessAttachDebug",
+    "Attach to process.localhost:51927.executor": "ProcessAttachDebug",
     "Attach to process.localhost:64464.executor": "ProcessAttachDebug",
     "Attach to process.localhost:64503.executor": "ProcessAttachDebug",
     "Attach to process.localhost:64611.executor": "ProcessAttachDebug",
@@ -261,7 +282,7 @@
       <workItem from="1750629478118" duration="6170000" />
       <workItem from="1750635976963" duration="947000" />
       <workItem from="1750636942214" duration="39000" />
-      <workItem from="1750636984004" duration="952000" />
+      <workItem from="1750636984004" duration="5844000" />
     </task>
     <servers />
   </component>
