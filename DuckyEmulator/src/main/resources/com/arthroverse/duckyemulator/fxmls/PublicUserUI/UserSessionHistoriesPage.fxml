@@ -70,6 +70,14 @@
                                 <Font name="Segoe UI" size="16.0" />
                             </font>
                         </Label>
+                        <MFXButton fx:id="btnCredits" onAction="#btnCreditsClick" prefHeight="35.0" prefWidth="80.0" style="-fx-background-color: rgba(255,255,255,0.2); -fx-background-radius: 17; -fx-text-fill: white; -fx-cursor: hand;" styleClass="all_button_small" text="ℹ️ Credits">
+                            <font>
+                                <Font name="Segoe UI" size="11.0" />
+                            </font>
+                            <HBox.margin>
+                                <Insets left="10.0" />
+                            </HBox.margin>
+                        </MFXButton>
                     </children>
                     <padding>
                         <Insets bottom="15.0" left="30.0" right="30.0" top="15.0" />
@@ -208,52 +216,52 @@
             </content>
         </MFXScrollPane>
     </center>
-   <left>
-      <MFXScrollPane fitToHeight="true" fitToWidth="true" BorderPane.alignment="CENTER">
-         <content>
-            <VBox prefWidth="280.0" style="-fx-background-color: #fafafa; -fx-border-color: #e0e0e0; -fx-border-width: 0 1 0 0;">
-               <children>
-                  <VBox spacing="8.0">
-                     <children>
-                        <Label styleClass="welcome_label_subtext" text="Navigation" textFill="#5f6368">
-                           <font>
-                              <Font name="Segoe UI Semibold" size="14.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets bottom="10.0" left="5.0" top="20.0" />
-                           </VBox.margin>
-                        </Label>
-                        <MFXButton mnemonicParsing="false" onAction="#btnGoToHome" prefHeight="48.0" prefWidth="260.0" style="-fx-background-color: transparent; -fx-background-radius: 24; -fx-border-radius: 24; -fx-text-fill: #5f6368; -fx-border-color: linear-gradient(to right, #332D7B, #42A5F5); -fx-border-width: 1.5; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 4, 0, 0, 1); -fx-cursor: hand;" styleClass="all_button_normal" text="🏠  Home">
-                           <font>
-                              <Font name="Segoe UI" size="18.0" />
-                           </font>
-                        </MFXButton>
-                        <MFXButton mnemonicParsing="false" onAction="#btnGoToTestHistory" prefHeight="48.0" prefWidth="260.0" style="-fx-background-color: linear-gradient(to right, #332D7B, #42A5F5); -fx-background-radius: 24; -fx-border-radius: 24; -fx-text-fill: white; -fx-effect: dropshadow(gaussian, rgba(51,45,123,0.4), 8, 0, 0, 3); -fx-cursor: hand;" styleClass="all_button_normal" text="📊  Test History">
-                           <font>
-                              <Font name="Segoe UI" size="18.0" />
-                           </font>
-                        </MFXButton>
-                        <Separator>
-                           <VBox.margin>
-                              <Insets left="10.0" right="10.0" top="20.0" />
-                           </VBox.margin>
-                        </Separator>
-                        <MFXButton mnemonicParsing="false" onAction="#btnLogout" prefHeight="48.0" prefWidth="260.0" style="-fx-background-color: transparent; -fx-background-radius: 24; -fx-border-radius: 24; -fx-text-fill: #d93025; -fx-effect: dropshadow(gaussian, rgba(217,48,37,0.2), 4, 0, 0, 1); -fx-cursor: hand;" styleClass="all_button_normal" text="🚪  Logout">
-                           <font>
-                              <Font name="Segoe UI" size="18.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets top="10.0" />
-                           </VBox.margin>
-                        </MFXButton>
-                     </children>
-                     <padding>
-                        <Insets left="10.0" right="10.0" />
-                     </padding>
-                  </VBox>
-               </children>
-            </VBox>
-         </content>
-      </MFXScrollPane>
-   </left>
+    <left>
+        <MFXScrollPane fitToHeight="true" fitToWidth="true" BorderPane.alignment="CENTER">
+            <content>
+                <VBox prefWidth="280.0" style="-fx-background-color: #fafafa; -fx-border-color: #e0e0e0; -fx-border-width: 0 1 0 0;">
+                    <children>
+                        <VBox spacing="8.0">
+                            <children>
+                                <Label styleClass="welcome_label_subtext" text="Navigation" textFill="#5f6368">
+                                    <font>
+                                        <Font name="Segoe UI Semibold" size="14.0" />
+                                    </font>
+                                    <VBox.margin>
+                                        <Insets bottom="10.0" left="5.0" top="20.0" />
+                                    </VBox.margin>
+                                </Label>
+                                <MFXButton mnemonicParsing="false" onAction="#btnGoToHome" prefHeight="48.0" prefWidth="260.0" style="-fx-background-color: transparent; -fx-background-radius: 24; -fx-border-radius: 24; -fx-text-fill: #5f6368; -fx-border-color: linear-gradient(to right, #332D7B, #42A5F5); -fx-border-width: 1.5; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 4, 0, 0, 1); -fx-cursor: hand;" styleClass="all_button_normal" text="🏠  Home">
+                                    <font>
+                                        <Font name="Segoe UI" size="18.0" />
+                                    </font>
+                                </MFXButton>
+                                <MFXButton mnemonicParsing="false" onAction="#btnGoToTestHistory" prefHeight="48.0" prefWidth="260.0" style="-fx-background-color: linear-gradient(to right, #332D7B, #42A5F5); -fx-background-radius: 24; -fx-border-radius: 24; -fx-text-fill: white; -fx-effect: dropshadow(gaussian, rgba(51,45,123,0.4), 8, 0, 0, 3); -fx-cursor: hand;" styleClass="all_button_normal" text="📊  Test History">
+                                    <font>
+                                        <Font name="Segoe UI" size="18.0" />
+                                    </font>
+                                </MFXButton>
+                                <Separator>
+                                    <VBox.margin>
+                                        <Insets left="10.0" right="10.0" top="20.0" />
+                                    </VBox.margin>
+                                </Separator>
+                                <MFXButton mnemonicParsing="false" onAction="#btnLogout" prefHeight="48.0" prefWidth="260.0" style="-fx-background-color: transparent; -fx-background-radius: 24; -fx-border-radius: 24; -fx-text-fill: #d93025; -fx-effect: dropshadow(gaussian, rgba(217,48,37,0.2), 4, 0, 0, 1); -fx-cursor: hand;" styleClass="all_button_normal" text="🚪  Logout">
+                                    <font>
+                                        <Font name="Segoe UI" size="18.0" />
+                                    </font>
+                                    <VBox.margin>
+                                        <Insets top="10.0" />
+                                    </VBox.margin>
+                                </MFXButton>
+                            </children>
+                            <padding>
+                                <Insets left="10.0" right="10.0" />
+                            </padding>
+                        </VBox>
+                    </children>
+                </VBox>
+            </content>
+        </MFXScrollPane>
+    </left>
 </BorderPane>
