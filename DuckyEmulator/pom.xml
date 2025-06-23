@@ -177,7 +177,7 @@
                         <configuration>
                             <mainClass>com.arthroverse.duckyemulator.Main.Main</mainClass>
                             <options>
-                                <option>-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=0.0.0.0:8000</option>
+                                <option>-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=127.0.0.1:0</option>
                             </options>
                         </configuration>
                     </plugin>
