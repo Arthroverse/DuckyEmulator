@@ -72,6 +72,14 @@
                                 <Font name="Segoe UI" size="16.0" />
                             </font>
                         </Label>
+                        <MFXButton fx:id="btnCredits" onAction="#btnCreditsClick" prefHeight="35.0" prefWidth="80.0" style="-fx-background-color: rgba(255,255,255,0.2); -fx-background-radius: 17; -fx-text-fill: white; -fx-cursor: hand;" styleClass="all_button_small" text="ℹ️ Credits">
+                            <font>
+                                <Font name="Segoe UI" size="11.0" />
+                            </font>
+                            <HBox.margin>
+                                <Insets left="10.0" />
+                            </HBox.margin>
+                        </MFXButton>
                     </children>
                     <padding>
                         <Insets bottom="15.0" left="30.0" right="30.0" top="15.0" />
@@ -155,18 +163,18 @@
                                 <Insets bottom="20.0" left="40.0" right="40.0" top="30.0" />
                             </VBox.margin>
                         </VBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="24.0" prefWidth="964.0">
-                     <children>
-                                    <MFXButton mnemonicParsing="false" onAction="#btnTopicRetract" prefHeight="45.0" style="-fx-background-color: linear-gradient(to right, #332D7B, #42A5F5); -fx-text-fill: white; -fx-background-radius: 12; -fx-border-radius: 12;" styleClass="all_button_normal" text="📋 Topic">
-                                        <font>
-                                            <Font name="Segoe UI Semibold" size="20.0" />
-                                        </font>
-                                    </MFXButton>
-                     </children>
-                     <padding>
-                        <Insets bottom="20.0" left="30.0" />
-                     </padding>
-                  </HBox>
+                        <HBox alignment="CENTER_LEFT" prefHeight="24.0" prefWidth="964.0">
+                            <children>
+                                <MFXButton mnemonicParsing="false" onAction="#btnTopicRetract" prefHeight="45.0" style="-fx-background-color: linear-gradient(to right, #332D7B, #42A5F5); -fx-text-fill: white; -fx-background-radius: 12; -fx-border-radius: 12;" styleClass="all_button_normal" text="📋 Topic">
+                                    <font>
+                                        <Font name="Segoe UI Semibold" size="20.0" />
+                                    </font>
+                                </MFXButton>
+                            </children>
+                            <padding>
+                                <Insets bottom="20.0" left="30.0" />
+                            </padding>
+                        </HBox>
 
                         <!-- Topics Section -->
                         <StackPane fx:id="stackPaneTopic" VBox.vgrow="ALWAYS">
@@ -244,18 +252,18 @@
                                 <Insets bottom="20.0" top="10.0" />
                             </VBox.margin>
                         </VBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="964.0">
-                     <children>
-                                    <MFXButton fx:id="" mnemonicParsing="false" onAction="#btnClassificationRetract" prefHeight="45.0" style="-fx-background-color: linear-gradient(to right, #332D7B, #42A5F5); -fx-text-fill: white; -fx-background-radius: 12; -fx-border-radius: 12;" styleClass="all_button_normal" text="🏷️ Classification">
-                                        <font>
-                                            <Font name="Segoe UI Semibold" size="20.0" />
-                                        </font>
-                                    </MFXButton>
-                     </children>
-                     <padding>
-                        <Insets bottom="20.0" left="30.0" />
-                     </padding>
-                  </HBox>
+                        <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="964.0">
+                            <children>
+                                <MFXButton fx:id="" mnemonicParsing="false" onAction="#btnClassificationRetract" prefHeight="45.0" style="-fx-background-color: linear-gradient(to right, #332D7B, #42A5F5); -fx-text-fill: white; -fx-background-radius: 12; -fx-border-radius: 12;" styleClass="all_button_normal" text="🏷️ Classification">
+                                    <font>
+                                        <Font name="Segoe UI Semibold" size="20.0" />
+                                    </font>
+                                </MFXButton>
+                            </children>
+                            <padding>
+                                <Insets bottom="20.0" left="30.0" />
+                            </padding>
+                        </HBox>
 
                         <!-- Classifications Section -->
                         <StackPane fx:id="stackPaneClassification" VBox.vgrow="ALWAYS">
