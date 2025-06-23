@@ -60,19 +60,9 @@
                                         </VBox>
                                         <VBox alignment="CENTER" spacing="16.0">
                                             <children>
-                                                <Label styleClass="welcome_label_subtext" text="Join the &quot;Quack&quot; Squad!">
+                                                <Label fx:id="welcomeLabel" rotate="-26.6" styleClass="animation_label" text="Hello!" translateX="180.0" translateY="-40.0">
                                                     <font>
                                                         <Font size="26.0" />
-                                                    </font>
-                                                </Label>
-                                                <Label styleClass="welcome_label_subtext" text="Create your account to start conquering tests!">
-                                                    <font>
-                                                        <Font size="18.0" />
-                                                    </font>
-                                                </Label>
-                                                <Label styleClass="welcome_label_subtext" text="Your journey to test mastery begins now">
-                                                    <font>
-                                                        <Font size="18.0" />
                                                     </font>
                                                 </Label>
                                             </children>
