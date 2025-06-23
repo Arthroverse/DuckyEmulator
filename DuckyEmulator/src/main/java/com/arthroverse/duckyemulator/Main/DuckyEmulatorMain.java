@@ -105,6 +105,11 @@ public class DuckyEmulatorMain extends Application {
                 taskbar.setIconImage(dockIcon);
             }
         }
+        javafx.scene.image.Image fxIcon = new javafx.scene.image.Image(
+                getClass().getResourceAsStream("/com/arthroverse/duckyemulator/images/icons/duckyemulator.png")
+        );
+        primaryStage.getIcons().add(fxIcon);
+        Navigator.getInstance().getSecondStage().getIcons().add(fxIcon);
     }
 
     /**
