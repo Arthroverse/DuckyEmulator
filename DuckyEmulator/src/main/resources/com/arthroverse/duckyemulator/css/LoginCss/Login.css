@@ -61,3 +61,9 @@
 .link_button:hover{
     -fx-underline: true;
 }
+
+.animation_label{
+    -fx-font-family: 'JetBrains Mono Regular';
+    -fx-text-fill: yellow;
+    -fx-font-size: 20;
+}
