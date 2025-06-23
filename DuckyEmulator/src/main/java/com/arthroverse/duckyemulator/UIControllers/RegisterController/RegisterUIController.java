@@ -46,6 +46,9 @@ public class RegisterUIController implements Initializable {
     @FXML
     private Label welcomeLabel;
 
+    @FXML
+    private MFXButton btnCredits;
+
     private static StringBuilder errorMessage;
 
     @FXML
@@ -125,5 +128,10 @@ public class RegisterUIController implements Initializable {
                 textNode.setScaleY(scale);
             }
         };
+    }
+
+    @FXML
+    public void btnCreditsClick(ActionEvent event) throws IOException{
+        Navigator.getInstance().goToCredit();
     }
 }
