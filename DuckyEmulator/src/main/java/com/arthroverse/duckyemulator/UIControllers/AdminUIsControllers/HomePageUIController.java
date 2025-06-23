@@ -25,6 +25,7 @@ package com.arthroverse.duckyemulator.UIControllers.AdminUIsControllers;
 import com.arthroverse.duckyemulator.Database.MainDB.CredentialBeans.Users;
 import com.arthroverse.duckyemulator.UIs.Navigator;
 import com.arthroverse.duckyemulator.Utilities.Constant.Reusable;
+import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -57,6 +58,9 @@ public class HomePageUIController implements Initializable{
 
     @FXML
     private Label greetingLabel;
+
+    @FXML
+    private MFXButton btnCredits;
 
     @FXML
     void btnHomeQuestionClick(ActionEvent event) throws IOException {
@@ -92,5 +96,10 @@ public class HomePageUIController implements Initializable{
     @FXML
     void btnLogoutClick(ActionEvent event) throws IOException {
         Navigator.getInstance().goToLoginPage();
+    }
+
+    @FXML
+    public void btnCreditsClick(ActionEvent event) throws IOException{
+        Navigator.getInstance().goToCredit();
     }
 }
