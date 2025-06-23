@@ -76,3 +76,9 @@
 .scroll-pane:focused{
     -fx-background-insets: 0; /*DO NOT DELETE THIS ONE. THIS LINE FIXED ALL OF THE BUGS ASSOCIATED WITH SCROLL PANE FOCUSING ISSUE. THIS BUG ALSO RELATED TO FONT ISSUE*/
 }
+
+.all_button_small{
+    -fx-font-family: 'JetBrains Mono Bold';
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 11; /*DO NOT DELETE THIS ONE. THIS LINE FIXED ALL OF THE BUGS ASSOCIATED WITH FONT SIZE*/
+}
