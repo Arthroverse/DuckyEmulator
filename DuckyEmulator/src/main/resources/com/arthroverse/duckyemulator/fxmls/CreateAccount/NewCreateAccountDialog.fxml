@@ -37,11 +37,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.arthroverse.duckyemulator.UIControllers.RegisterController.RegisterUIController">
+<StackPane stylesheets="@../../css/LoginCss/Login.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.arthroverse.duckyemulator.UIControllers.RegisterController.RegisterUIController">
     <children>
         <Pane fx:id="paneBackground" prefHeight="200.0" prefWidth="200.0" />
         <Pane fx:id="paneColorLayer" prefHeight="200.0" prefWidth="200.0" />
-        <BorderPane prefHeight="700.0" prefWidth="1200.0" styleClass="background_color" stylesheets="@../../css/LoginCss/Login.css">
+        <BorderPane prefHeight="700.0" prefWidth="1200.0" styleClass="background_color">
             <center>
                 <HBox alignment="CENTER" spacing="0.0" BorderPane.alignment="CENTER">
                     <children>
@@ -149,5 +149,13 @@
                 </HBox>
             </center>
         </BorderPane>
+        <MFXButton fx:id="btnCredits" onAction="#btnCreditsClick" prefHeight="35.0" prefWidth="80.0" style="-fx-background-color: rgba(51,45,123,0.8); -fx-background-radius: 17; -fx-text-fill: white; -fx-cursor: hand;" styleClass="all_button_small" text="ℹ️ Credits" StackPane.alignment="TOP_RIGHT">
+            <font>
+                <Font name="Segoe UI" size="11.0" />
+            </font>
+            <StackPane.margin>
+                <Insets right="15.0" top="15.0" />
+            </StackPane.margin>
+        </MFXButton>
     </children>
 </StackPane>
