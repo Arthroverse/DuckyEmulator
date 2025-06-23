@@ -106,6 +106,9 @@ public class TopicsClassIndexUIController implements Initializable{
     @FXML
     private StackPane stackPaneClassification;
 
+    @FXML
+    private MFXButton btnCredits;
+
     private static int topicsMaxPageNum;
 
     private static int classessMaxPageNum;
@@ -380,5 +383,10 @@ public class TopicsClassIndexUIController implements Initializable{
             stackPaneClassification.setVisible(true);
             stackPaneClassification.setManaged(true);
         }
+    }
+
+    @FXML
+    public void btnCreditsClick(ActionEvent event) throws IOException{
+        Navigator.getInstance().goToCredit();
     }
 }
