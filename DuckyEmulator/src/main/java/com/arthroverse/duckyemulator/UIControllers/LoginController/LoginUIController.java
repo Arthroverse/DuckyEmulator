@@ -27,15 +27,19 @@ import com.arthroverse.duckyemulator.UIs.Navigator;
 import com.arthroverse.duckyemulator.Utilities.Constant.ErrorMessage;
 import com.arthroverse.duckyemulator.Utilities.Constant.ErrorTitle;
 import com.arthroverse.duckyemulator.Utilities.Constant.FailedOperationType;
+import com.arthroverse.duckyemulator.Utilities.Constant.Reusable;
 import com.arthroverse.duckyemulator.Utilities.PromptAlert.AlertUtil;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXPasswordField;
 import io.github.palexdev.materialfx.controls.MFXTextField;
+import javafx.animation.AnimationTimer;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import java.io.IOException;
 import java.net.URL;
@@ -60,6 +64,9 @@ public class LoginUIController implements Initializable {
 
     @FXML
     private Pane paneColorLayer;
+
+    @FXML
+    private Label welcomeLabel;
 
     private static StringBuilder errorMessage;
 
@@ -103,6 +110,12 @@ public class LoginUIController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        String welcomeText = Reusable.WELCOME_LABEL_TEXT.getAllWelcomeTexts().get((int)(Math.random() *
+                Reusable.WELCOME_LABEL_TEXT.getAllWelcomeTexts().size()));
+        welcomeLabel.setText(welcomeText);
+        AnimationTimer animation = createSplashAnimation(welcomeLabel);
+        animation.start();
+
         choiceBoxUserType.setItems(FXCollections.observableArrayList("User", "Admin"));
         errorMessage = new StringBuilder();
         final int[] colorFileCode = {1,2,3,4,5,6,40,46,49,53,5,4,55,56,58,59};
@@ -136,5 +149,22 @@ public class LoginUIController implements Initializable {
     public void btnCreateAccount() throws IOException {
         Navigator.getInstance().closeSecondStage();
         Navigator.getInstance().goToUserCreateAccount();
+    }
+
+    public AnimationTimer createSplashAnimation(Node textNode) {
+        return new AnimationTimer() {
+            private long startTime = -1;
+
+            @Override
+            public void handle(long now) {
+                if (startTime == -1) startTime = now;
+
+                double elapsed = (now - startTime) / 1_000_000_000.0;
+                double scale = 1.0 + 0.08 * Math.sin(elapsed * 5);
+
+                textNode.setScaleX(scale);
+                textNode.setScaleY(scale);
+            }
+        };
     }
 }
