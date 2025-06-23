@@ -49,6 +49,9 @@ public class UserSessionHistoriesPageUIController implements Initializable{
     @FXML
     private MFXButton mfxButtonDeleteSession;
 
+    @FXML
+    private MFXButton btnCredits;
+
     private static int offset;
 
     private static int maxPageNum;
@@ -171,5 +174,10 @@ public class UserSessionHistoriesPageUIController implements Initializable{
         tableColTimeTaken.setCellValueFactory((session) -> {
             return session.getValue().getTimeTakenProperty();
         });
+    }
+
+    @FXML
+    public void btnCreditsClick(ActionEvent event) throws IOException{
+        Navigator.getInstance().goToCredit();
     }
 }
