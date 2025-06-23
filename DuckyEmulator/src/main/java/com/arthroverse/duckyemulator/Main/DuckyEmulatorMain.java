@@ -84,7 +84,11 @@ public class DuckyEmulatorMain extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("DuckyEmulator"); //Set up the name for the emulator windows
-        Navigator.getInstance().setStage(primaryStage); //Set up the main stage where all emulator scenes will be loaded
+        Navigator.getInstance().setStage(primaryStage);
+        javafx.scene.image.Image fxIcon = new javafx.scene.image.Image(
+                getClass().getResourceAsStream("/com/arthroverse/duckyemulator/images/icons/duckyemulator.png")
+        );
+        Navigator.getInstance().setIcons(fxIcon);//Set up the main stage where all emulator scenes will be loaded
         Navigator.getInstance().goToLoginPage();
         
         UserAgentBuilder.builder()
@@ -105,11 +109,7 @@ public class DuckyEmulatorMain extends Application {
                 taskbar.setIconImage(dockIcon);
             }
         }
-        javafx.scene.image.Image fxIcon = new javafx.scene.image.Image(
-                getClass().getResourceAsStream("/com/arthroverse/duckyemulator/images/icons/duckyemulator.png")
-        );
         primaryStage.getIcons().add(fxIcon);
-        Navigator.getInstance().getSecondStage().getIcons().add(fxIcon);
     }
 
     /**
