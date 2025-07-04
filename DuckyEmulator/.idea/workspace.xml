@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="DuckyEmulator:jar" />
+    </artifacts-to-build>
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a57d5096-8edd-4b4d-954e-07f711464abf" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ducksabervn/duckyemulator/Database/MainDB/AdminBeans/Questions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ducksabervn/duckyemulator/Database/MainDB/AdminBeans/Questions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/css/LoginCss/Login.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/css/LoginCss/Login.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/AdminUIs/NewHomePageUI.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/AdminUIs/NewHomePageUI.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/AdminUIs/NewQBankIndexUI.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/AdminUIs/NewQBankIndexUI.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/AdminUIs/NewTopicsClassIndexUI.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/AdminUIs/NewTopicsClassIndexUI.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/CreateAccount/NewCreateAccountDialog.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/CreateAccount/NewCreateAccountDialog.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/Login/NewLoginUI.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/Login/NewLoginUI.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/PublicUserUI/UserHomePage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/PublicUserUI/UserHomePage.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/PublicUserUI/UserSessionHistoriesPage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/PublicUserUI/UserSessionHistoriesPage.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,7 +28,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="CSS File" />
         <option value="Enum" />
+        <option value="FxmlFile" />
         <option value="Class" />
       </list>
     </option>
@@ -28,10 +42,16 @@
   <component name="KubernetesApiProvider">{
   &quot;isMigrated&quot;: true
 }</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="DEPENDENCY_CHECKER_PROBLEMS_TAB" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
 }</component>
   <component name="ProjectId" id="2tU8VnjPQYjORHrPdEgBpQzn4oD" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -40,20 +60,54 @@
   &quot;keyToString&quot;: {
     &quot;Application.DuckyEmulatorMain.executor&quot;: &quot;Run&quot;,
     &quot;Attach to process.localhost:5005.executor&quot;: &quot;ProcessAttachDebug&quot;,
+    &quot;Attach to process.localhost:51310.executor&quot;: &quot;ProcessAttachDebug&quot;,
+    &quot;Attach to process.localhost:51359.executor&quot;: &quot;ProcessAttachDebug&quot;,
+    &quot;Attach to process.localhost:51377.executor&quot;: &quot;ProcessAttachDebug&quot;,
+    &quot;Attach to process.localhost:51396.executor&quot;: &quot;ProcessAttachDebug&quot;,
+    &quot;Attach to process.localhost:51414.executor&quot;: &quot;ProcessAttachDebug&quot;,
+    &quot;Attach to process.localhost:51432.executor&quot;: &quot;ProcessAttachDebug&quot;,
+    &quot;Attach to process.localhost:51447.executor&quot;: &quot;ProcessAttachDebug&quot;,
+    &quot;Attach to process.localhost:51470.executor&quot;: &quot;ProcessAttachDebug&quot;,
+    &quot;Attach to process.localhost:51485.executor&quot;: &quot;ProcessAttachDebug&quot;,
+    &quot;Attach to process.localhost:51569.executor&quot;: &quot;ProcessAttachDebug&quot;,
+    &quot;Attach to process.localhost:51583.executor&quot;: &quot;ProcessAttachDebug&quot;,
+    &quot;Attach to process.localhost:51609.executor&quot;: &quot;ProcessAttachDebug&quot;,
+    &quot;Attach to process.localhost:51630.executor&quot;: &quot;ProcessAttachDebug&quot;,
+    &quot;Attach to process.localhost:51806.executor&quot;: &quot;ProcessAttachDebug&quot;,
+    &quot;Attach to process.localhost:51815.executor&quot;: &quot;ProcessAttachDebug&quot;,
+    &quot;Attach to process.localhost:51927.executor&quot;: &quot;ProcessAttachDebug&quot;,
+    &quot;Attach to process.localhost:64464.executor&quot;: &quot;ProcessAttachDebug&quot;,
+    &quot;Attach to process.localhost:64503.executor&quot;: &quot;ProcessAttachDebug&quot;,
+    &quot;Attach to process.localhost:64611.executor&quot;: &quot;ProcessAttachDebug&quot;,
+    &quot;Attach to process.localhost:64659.executor&quot;: &quot;ProcessAttachDebug&quot;,
+    &quot;Attach to process.localhost:64706.executor&quot;: &quot;ProcessAttachDebug&quot;,
+    &quot;Attach to process.localhost:64967.executor&quot;: &quot;ProcessAttachDebug&quot;,
     &quot;Attach to process.localhost:8000.executor&quot;: &quot;ProcessAttachDebug&quot;,
+    &quot;JAR Application.DuckyEmulator.jar.executor&quot;: &quot;Run&quot;,
     &quot;Maven.Debug.executor&quot;: &quot;Run&quot;,
     &quot;Maven.DuckyEmulator [--debug].executor&quot;: &quot;Run&quot;,
     &quot;Maven.DuckyEmulator [-Dmaven.surefire.debug...].executor&quot;: &quot;Run&quot;,
     &quot;Maven.DuckyEmulator [-Dmaven.surefire.debug=\&quot;-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=localhost:8000\&quot;...].executor&quot;: &quot;Run&quot;,
     &quot;Maven.DuckyEmulator [-Dmaven.surefire.debug=-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005...].executor&quot;: &quot;Run&quot;,
     &quot;Maven.DuckyEmulator [clean,install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.DuckyEmulator [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.DuckyEmulator [compile].executor&quot;: &quot;Run&quot;,
     &quot;Maven.DuckyEmulator [javafx:run...].executor&quot;: &quot;Debug&quot;,
     &quot;Maven.DuckyEmulator [javafx:run].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.DuckyEmulator [mvn,clean,compile...].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.DuckyEmulator [mvn,clean,package].executor&quot;: &quot;Run&quot;,
     &quot;Maven.DuckyEmulator [mvn,exec:java...].executor&quot;: &quot;Debug&quot;,
     &quot;Maven.DuckyEmulator [mvn...].executor&quot;: &quot;Run&quot;,
     &quot;Maven.DuckyEmulator [mvnDebug...].executor&quot;: &quot;Debug&quot;,
+    &quot;Maven.DuckyEmulator [org.apache.maven.plugins:maven-assembly-plugin:3.7.1:help].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.DuckyEmulator [org.apache.maven.plugins:maven-assembly-plugin:3.7.1:single].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.DuckyEmulator [org.apache.maven.plugins:maven-clean-plugin:3.2.0:clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.DuckyEmulator [org.apache.maven.plugins:maven-compiler-plugin:3.13.0:compile].executor&quot;: &quot;Run&quot;,
     &quot;Maven.DuckyEmulator [org.apache.maven.plugins:maven-surefire-plugin:3.2.5:help].executor&quot;: &quot;Run&quot;,
     &quot;Maven.DuckyEmulator [org.apache.maven.plugins:maven-surefire-plugin:3.2.5:test].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.DuckyEmulator [package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.DuckyEmulator [validate].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.DuckyEmulator [verify].executor&quot;: &quot;Run&quot;,
     &quot;Maven.DuckyEmulatorDebug.executor&quot;: &quot;Run&quot;,
     &quot;Maven.DuckyEmulatorExec.executor&quot;: &quot;Run&quot;,
     &quot;Maven.Exec.executor&quot;: &quot;Run&quot;,
@@ -64,9 +118,11 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;2-26-2025&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;2025-5-23&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/ducksabervn&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/ducksabervn/DATA/coding/DuckyEmulator/DuckyEmulator/src/main/resources/com/arthroverse/duckyemulator/images/loginbg&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -74,23 +130,35 @@
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;onboarding.tips.debug.path&quot;: &quot;/Users/ducksabervn/DATA/coding/DuckyEmulator/DuckyEmulator/src/main/java/org/example/Main.java&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;settings.sync&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;MavenSettings&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
   &quot;keyToStringList&quot;: {
     &quot;DatabaseDriversLRU&quot;: [
-      &quot;redshift&quot;,
-      &quot;mysql&quot;
+      &quot;mysql&quot;,
+      &quot;redshift&quot;
     ]
   }
 }</component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/images/loginbg" />
+      <recent name="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/PublicUserUI" />
+      <recent name="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/css" />
+      <recent name="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/images/macos_icons" />
+      <recent name="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/main/java/com/ducksabervn/duckyemulator/UIs" />
-      <recent name="$PROJECT_DIR$/src/main/resources/UIs" />
-      <recent name="$PROJECT_DIR$/src/main/java/com/ducksabervn/duckyemulator" />
+      <recent name="D:\VinhDev\DuckyEmulator\DuckyEmulator\src\main\resources\com\arthroverse\duckyemulator\images\icons" />
+      <recent name="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/images/loginbg" />
+      <recent name="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/fxmls/PublicUserUI" />
+      <recent name="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/css/AdminCss" />
+      <recent name="$PROJECT_DIR$/src/main/resources/com/arthroverse/duckyemulator/css/PublicCss" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.arthroverse.duckyemulator.UIControllers.PublicUIController" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -108,11 +176,17 @@
       <command value="mvnDebug" />
     </option>
   </component>
+  <component name="RunManager" selected="Maven.Exec">
+    <list>
+      <item itemvalue="Maven.Debug" />
+      <item itemvalue="Maven.Exec" />
+    </list>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-125ca727e0f0-intellij.indexing.shared.core-IU-243.24978.46" />
-        <option value="bundled-js-predefined-d6986cc7102b-76f8388c3a79-JavaScript-IU-243.24978.46" />
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.26094.121" />
+        <option value="bundled-js-predefined-d6986cc7102b-b26f3e71634d-JavaScript-IU-251.26094.121" />
       </set>
     </attachedChunks>
   </component>
@@ -131,11 +205,117 @@
       <workItem from="1740449496214" duration="151000" />
       <workItem from="1740480781844" duration="25244000" />
       <workItem from="1740556879543" duration="3410000" />
+      <workItem from="1740789010355" duration="48000" />
+      <workItem from="1741004875003" duration="960000" />
+      <workItem from="1741583423500" duration="3908000" />
+      <workItem from="1743147254771" duration="263000" />
+      <workItem from="1743523316168" duration="669000" />
+      <workItem from="1744037607009" duration="1603000" />
+      <workItem from="1744099197649" duration="1883000" />
+      <workItem from="1745285879580" duration="1219000" />
+      <workItem from="1745940092236" duration="842000" />
+      <workItem from="1746010153419" duration="636000" />
+      <workItem from="1746448611025" duration="1499000" />
+      <workItem from="1746512665914" duration="3429000" />
+      <workItem from="1746898872181" duration="144000" />
+      <workItem from="1747537231939" duration="141000" />
+      <workItem from="1747990717495" duration="31506000" />
+      <workItem from="1748105399120" duration="3789000" />
+      <workItem from="1748109203492" duration="6724000" />
+      <workItem from="1748117667139" duration="145000" />
+      <workItem from="1748118120475" duration="5000" />
+      <workItem from="1748169979423" duration="1373000" />
+      <workItem from="1748171358967" duration="40000" />
+      <workItem from="1748171410133" duration="29000" />
+      <workItem from="1748171449947" duration="74000" />
+      <workItem from="1748171535463" duration="15182000" />
+      <workItem from="1748197770769" duration="56000" />
+      <workItem from="1748222912673" duration="3833000" />
+      <workItem from="1748270799599" duration="38162000" />
+      <workItem from="1748376264080" duration="241000" />
+      <workItem from="1748376535823" duration="2787000" />
+      <workItem from="1748379365539" duration="707000" />
+      <workItem from="1748380120813" duration="1341000" />
+      <workItem from="1748381469118" duration="33000" />
+      <workItem from="1748412650247" duration="1415000" />
+      <workItem from="1748441339781" duration="9113000" />
+      <workItem from="1748450798909" duration="1904000" />
+      <workItem from="1748452718700" duration="96000" />
+      <workItem from="1748452841546" duration="193000" />
+      <workItem from="1748453119660" duration="5626000" />
+      <workItem from="1748500453906" duration="2761000" />
+      <workItem from="1748703600900" duration="2593000" />
+      <workItem from="1748736860134" duration="36832000" />
+      <workItem from="1748847819440" duration="6330000" />
+      <workItem from="1748972113921" duration="13379000" />
+      <workItem from="1748987186645" duration="1161000" />
+      <workItem from="1749107082219" duration="4719000" />
+      <workItem from="1749115517131" duration="6564000" />
+      <workItem from="1749278188063" duration="343000" />
+      <workItem from="1749284681911" duration="1261000" />
+      <workItem from="1749357191740" duration="17941000" />
+      <workItem from="1749378002985" duration="12273000" />
+      <workItem from="1749438277971" duration="80000" />
+      <workItem from="1749446703422" duration="248000" />
+      <workItem from="1749447478641" duration="1697000" />
+      <workItem from="1749720978116" duration="18156000" />
+      <workItem from="1749747974649" duration="7797000" />
+      <workItem from="1749756130195" duration="110000" />
+      <workItem from="1749793788066" duration="10590000" />
+      <workItem from="1749876368968" duration="40000" />
+      <workItem from="1750140363448" duration="2783000" />
+      <workItem from="1750171860983" duration="12250000" />
+      <workItem from="1750240742217" duration="29048000" />
+      <workItem from="1750299997199" duration="3280000" />
+      <workItem from="1750304038858" duration="468000" />
+      <workItem from="1750304781126" duration="17326000" />
+      <workItem from="1750436686933" duration="10141000" />
+      <workItem from="1750447393012" duration="10172000" />
+      <workItem from="1750526511024" duration="15712000" />
+      <workItem from="1750542634099" duration="8528000" />
+      <workItem from="1750555279086" duration="4872000" />
+      <workItem from="1750561741791" duration="611000" />
+      <workItem from="1750562396995" duration="17140000" />
+      <workItem from="1750615194773" duration="380000" />
+      <workItem from="1750621599064" duration="11000" />
+      <workItem from="1750622925625" duration="24000" />
+      <workItem from="1750629478118" duration="6170000" />
+      <workItem from="1750635976963" duration="947000" />
+      <workItem from="1750636942214" duration="39000" />
+      <workItem from="1750636984004" duration="5844000" />
+      <workItem from="1750642964908" duration="155000" />
+      <workItem from="1750643264380" duration="5402000" />
+      <workItem from="1750648835274" duration="27000" />
+      <workItem from="1750648874432" duration="69000" />
+      <workItem from="1750649234745" duration="514000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="2-4-2025" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

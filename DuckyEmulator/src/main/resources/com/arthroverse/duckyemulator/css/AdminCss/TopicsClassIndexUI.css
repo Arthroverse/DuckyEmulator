@@ -1,0 +1,86 @@
+@import url('../../fonts/JetBrainsMono/JetBrainsMono.css');
+@import url('../../fonts/JetBrainsMonoNL/JetBrainsMonoNL.css');
+
+.welcome_label{
+    -fx-font-family: 'JetBrains Mono Bold Italic';
+    -fx-text-fill: #5f6368;
+    -fx-font-size: 32; /*DO NOT DELETE THIS ONE. THIS LINE FIXED ALL OF THE BUGS ASSOCIATED WITH FONT SIZE*/
+}
+
+.welcome_label_subtext{
+    -fx-font-family: 'JetBrains Mono Regular';
+    -fx-text-fill: #5f6368;
+    -fx-font-size: 16; /*DO NOT DELETE THIS ONE. THIS LINE FIXED ALL OF THE BUGS ASSOCIATED WITH FONT SIZE*/
+}
+
+.admin_welcome_sub_message{
+    -fx-font-family: 'JetBrains Mono Regular';
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 18; /*DO NOT DELETE THIS ONE. THIS LINE FIXED ALL OF THE BUGS ASSOCIATED WITH FONT SIZE*/
+}
+
+.admin_welcome_message{
+    -fx-font-family: 'JetBrains Mono Bold Italic';
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 24; /*DO NOT DELETE THIS ONE. THIS LINE FIXED ALL OF THE BUGS ASSOCIATED WITH FONT SIZE*/
+}
+
+.mfx-button{
+    -fx-font-family: 'JetBrains Mono Bold';
+    -fx-text-fill: #FFFFFF;
+}
+
+.table-view .table-cell {
+    -fx-font-family: 'JetBrains Mono Regular';
+}
+
+/* Target all pagination page numbers */
+.pagination-control .number-button {
+    -fx-font-family: 'JetBrains Mono Regular';
+    -fx-text-fill: #333333;
+}
+
+/* Target selected/current page number */
+.pagination-control .number-button.selected {
+    -fx-font-family: 'JetBrains Mono Regular';
+    -fx-text-fill: #ffffff;
+}
+
+/* Target pagination arrows (previous/next) if needed */
+.pagination-control .left-arrow-button .left-arrow,
+.pagination-control .right-arrow-button .right-arrow {
+    -fx-font-family: "JetBrains Mono Regular";
+}
+
+.pagination-control .page-information {
+    -fx-font-family: "JetBrains Mono Regular";
+    -fx-text-fill: #2c3e50;
+}
+
+.all_button_normal{
+    -fx-font-family: 'JetBrains Mono Bold';
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 19; /*DO NOT DELETE THIS ONE. THIS LINE FIXED ALL OF THE BUGS ASSOCIATED WITH FONT SIZE*/
+}
+
+.button_small{
+    -fx-font-family: 'JetBrains Mono Bold';
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 14; /*DO NOT DELETE THIS ONE. THIS LINE FIXED ALL OF THE BUGS ASSOCIATED WITH FONT SIZE*/
+}
+
+.all_button_large{
+    -fx-font-family: 'JetBrains Mono Bold';
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 24; /*DO NOT DELETE THIS ONE. THIS LINE FIXED ALL OF THE BUGS ASSOCIATED WITH FONT SIZE*/
+}
+
+.scroll-pane:focused{
+    -fx-background-insets: 0; /*DO NOT DELETE THIS ONE. THIS LINE FIXED ALL OF THE BUGS ASSOCIATED WITH SCROLL PANE FOCUSING ISSUE. THIS BUG ALSO RELATED TO FONT ISSUE*/
+}
+
+.all_button_small{
+    -fx-font-family: 'JetBrains Mono Bold';
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 11; /*DO NOT DELETE THIS ONE. THIS LINE FIXED ALL OF THE BUGS ASSOCIATED WITH FONT SIZE*/
+}

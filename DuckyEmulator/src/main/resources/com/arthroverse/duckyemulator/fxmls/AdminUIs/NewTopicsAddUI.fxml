@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ Copyright (c) 2025 Arthroverse Laboratory
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  ~
+  ~ Organization: Arthroverse Laboratory
+  ~ Author: Vinh Dinh Mai
+  ~ Contact: business@arthroverse.com
+  ~
+  ~
+  ~ @author ducksabervn
+  -->
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXScrollPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane minHeight="600.0" prefWidth="550.0" style="-fx-background-color: #f8f9fa;" stylesheets="@../../css/AdminCss/TopicClassAddUpdateUI.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.arthroverse.duckyemulator.UIControllers.AdminUIsControllers.TopicsAddUIController">
+    <top>
+        <!-- Header Section -->
+        <VBox style="-fx-background-color: linear-gradient(to right, #332D7B, #42A5F5); -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 4, 0, 0, 2);" BorderPane.alignment="CENTER">
+            <children>
+                <VBox alignment="CENTER" spacing="5.0">
+                    <children>
+                        <Label styleClass="title" text="Add new topic" textFill="WHITE">
+                            <font>
+                                <Font name="Segoe UI Semibold" size="28.0" />
+                            </font>
+                        </Label>
+                        <Label styleClass="sub_title" text="Create a new topic for your question bank" textFill="#E3F2FD">
+                            <font>
+                                <Font name="Segoe UI Light" size="14.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </VBox>
+            </children>
+            <padding>
+                <Insets bottom="20.0" left="30.0" right="30.0" top="20.0" />
+            </padding>
+        </VBox>
+    </top>
+    <center>
+        <MFXScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" BorderPane.alignment="CENTER">
+            <content>
+                <StackPane>
+                    <children>
+                        <Pane style="-fx-background-color: white; -fx-background-radius: 12; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0, 0, 2);">
+                            <StackPane.margin>
+                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                            </StackPane.margin>
+                        </Pane>
+                        <VBox spacing="25.0">
+                            <children>
+                                <!-- Topic Name Section -->
+                                <VBox spacing="15.0" style="-fx-background-color: #f8f9fa; -fx-background-radius: 8; -fx-padding: 15;">
+                                    <children>
+                                        <Label styleClass="main_label" text="📋 Topic Details" textFill="#332D7B">
+                                            <font>
+                                                <Font name="Segoe UI Semibold" size="18.0" />
+                                            </font>
+                                        </Label>
+                                        <VBox spacing="10.0">
+                                            <children>
+                                                <Label styleClass="sub_label" text="Topic name" textFill="#5f6368">
+                                                    <font>
+                                                        <Font name="Segoe UI Semibold" size="14.0" />
+                                                    </font>
+                                                </Label>
+                                                <TextField fx:id="txtFieldTopicName" prefHeight="35.0" promptText="Enter new topic here" style="-fx-background-color: white; -fx-border-color: #e5e7eb; -fx-border-radius: 6; -fx-padding: 8;">
+                                                    <font>
+                                                        <Font name="Segoe UI" size="14.0" />
+                                                    </font>
+                                                </TextField>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </VBox>
+
+                                <!-- Description Section -->
+                                <VBox spacing="10.0">
+                                    <children>
+                                        <Label styleClass="main_label" text="📝 Description" textFill="#332D7B">
+                                            <font>
+                                                <Font name="Segoe UI Semibold" size="16.0" />
+                                            </font>
+                                        </Label>
+                                        <TextArea fx:id="txtAreaTopicDescription" minHeight="120.0" promptText="Enter topic description here" style="-fx-background-color: white; -fx-border-color: #e5e7eb; -fx-border-radius: 6; -fx-padding: 10;" wrapText="true" VBox.vgrow="SOMETIMES">
+                                            <font>
+                                                <Font name="Segoe UI" size="14.0" />
+                                            </font>
+                                        </TextArea>
+                                    </children>
+                                </VBox>
+
+                                <!-- Action Buttons -->
+                                <HBox alignment="CENTER" spacing="40.0">
+                                    <children>
+                                        <MFXButton fx:id="btnAddNewTopic" mnemonicParsing="false" onAction="#btnAddNewTopicClick" prefHeight="32.0" prefWidth="156.0" style="-fx-background-color: linear-gradient(to right, #10b981, #059669); -fx-text-fill: white; -fx-background-radius: 8;" styleClass="all_button_large" text="➕ Add Topic">
+                                            <font>
+                                                <Font name="Segoe UI Semibold" size="16.0" />
+                                            </font>
+                                        </MFXButton>
+                                        <MFXButton fx:id="btnResetField" mnemonicParsing="false" onAction="#btnResetFieldClick" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: linear-gradient(to right, #6b7280, #4b5563); -fx-text-fill: white; -fx-background-radius: 8;" styleClass="all_button_large" text="🔄 Reset">
+                                            <font>
+                                                <Font name="Segoe UI Semibold" size="16.0" />
+                                            </font>
+                                        </MFXButton>
+                                    </children>
+                                    <VBox.margin>
+                                        <Insets top="10.0" />
+                                    </VBox.margin>
+                                </HBox>
+                            </children>
+                            <padding>
+                                <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+                            </padding>
+                            <StackPane.margin>
+                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                            </StackPane.margin>
+                        </VBox>
+                    </children>
+                </StackPane>
+            </content>
+        </MFXScrollPane>
+    </center>
+</BorderPane>

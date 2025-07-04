@@ -1,0 +1,81 @@
+/* JetBrains Mono NL (No Ligatures) Font Family */
+
+@font-face {
+    font-family: 'JetBrains Mono NL Thin';
+    src: url('JetBrainsMonoNL-Thin.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'JetBrains Mono NL Thin Italic';
+    src: url('JetBrainsMonoNL-ThinItalic.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'JetBrains Mono NL Extra Light';
+    src: url('JetBrainsMonoNL-ExtraLight.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'JetBrains Mono NL Extra Light Italic';
+    src: url('JetBrainsMonoNL-ExtraLightItalic.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'JetBrains Mono NL Light';
+    src: url('JetBrainsMonoNL-Light.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'JetBrains Mono NL Light Italic';
+    src: url('JetBrainsMonoNL-LightItalic.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'JetBrains Mono NL Regular';
+    src: url('JetBrainsMonoNL-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'JetBrains Mono NL Italic';
+    src: url('JetBrainsMonoNL-Italic.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'JetBrains Mono NL Medium';
+    src: url('JetBrainsMonoNL-Medium.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'JetBrains Mono NL Medium Italic';
+    src: url('JetBrainsMonoNL-MediumItalic.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'JetBrains Mono NL SemiBold';
+    src: url('JetBrainsMonoNL-SemiBold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'JetBrains Mono NL Semi Bold Italic';
+    src: url('JetBrainsMonoNL-SemiBoldItalic.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'JetBrains Mono NL Bold';
+    src: url('JetBrainsMonoNL-Bold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'JetBrains Mono NL Bold Italic';
+    src: url('JetBrainsMonoNL-BoldItalic.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'JetBrains Mono NL Extra Bold';
+    src: url('JetBrainsMonoNL-ExtraBold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'JetBrains Mono NL Extra Bold Italic';
+    src: url('JetBrainsMonoNL-ExtraBoldItalic.ttf') format('truetype');
+}

@@ -1,0 +1,81 @@
+/* JetBrains Mono NL (No Ligatures) Font Family */
+
+@font-face {
+    font-family: 'JetBrains Mono Thin';
+    src: url('JetBrainsMono-Thin.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'JetBrains Mono Thin Italic';
+    src: url('JetBrainsMono-ThinItalic.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'JetBrains Mono Extra Light';
+    src: url('JetBrainsMono-ExtraLight.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'JetBrains Mono Extra Light Italic';
+    src: url('JetBrainsMono-ExtraLightItalic.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'JetBrains Mono Light';
+    src: url('JetBrainsMono-Light.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'JetBrains Mono Light Italic';
+    src: url('JetBrainsMono-LightItalic.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'JetBrains Mono Regular';
+    src: url('JetBrainsMono-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'JetBrains Mono Italic';
+    src: url('JetBrainsMono-Italic.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'JetBrains Mono Medium';
+    src: url('JetBrainsMono-Medium.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'JetBrains Mono Medium Italic';
+    src: url('JetBrainsMono-MediumItalic.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'JetBrains Mono SemiBold';
+    src: url('JetBrainsMono-SemiBold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'JetBrains Mono Semi Bold Italic';
+    src: url('JetBrainsMono-SemiBoldItalic.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'JetBrains Mono Bold';
+    src: url('JetBrainsMono-Bold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'JetBrains Mono Bold Italic';
+    src: url('JetBrainsMono-BoldItalic.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'JetBrains Mono Extra Bold';
+    src: url('JetBrainsMono-ExtraBold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'JetBrains Mono Extra Bold Italic';
+    src: url('JetBrainsMono-ExtraBoldItalic.ttf') format('truetype');
+}
