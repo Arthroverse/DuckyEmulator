@@ -102,7 +102,10 @@ public class LoginUIController implements Initializable {
                     FailedOperationType.LOGIN_UI_CONTROLLER_LOGIN_FAILED.toString(),
                     ErrorMessage.LOGIN_UI_CONTROLLER_INVALID_CREDENTIAL.toString());
 
-        }
+        }else AlertUtil.generateErrorWindow(
+                ErrorTitle.LOGIN_UI_CONTROLLER_LOGIN_FAILED.toString(),
+                FailedOperationType.LOGIN_UI_CONTROLLER_LOGIN_FAILED.toString(),
+                ErrorMessage.LOGIN_UI_CONTROLLER_INVALID_CREDENTIAL.toString());
         errorMessage = new StringBuilder();
     }
 
@@ -129,12 +132,12 @@ public class LoginUIController implements Initializable {
     }
 
     private boolean inputValidation(){
-        if(txtUsrNameEmail.getText() == null)
+        if(txtUsrNameEmail.getText().isEmpty())
             errorMessage.append(ErrorMessage.LOGIN_UI_CONTROLLER_NO_USERNAME_INPUTTED);
         else
             if(!(Users.checkValidEmail(txtUsrNameEmail.getText())))
                 errorMessage.append(ErrorMessage.LOGIN_UI_CONTROLLER_INVALID_EMAIL);
-        if(passwordFieldUsrPw.getText() == null)
+        if(passwordFieldUsrPw.getText().isEmpty())
             errorMessage.append(ErrorMessage.LOGIN_UI_CONTROLLER_NO_PASSWORD_INPUTTED);
         if(choiceBoxUserType.getValue() == null)
             errorMessage.append(ErrorMessage.LOGIN_UI_CONTROLLER_NO_USERTYPE_CHOOSEN);
