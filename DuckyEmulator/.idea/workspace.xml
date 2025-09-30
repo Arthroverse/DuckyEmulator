@@ -10,6 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a57d5096-8edd-4b4d-954e-07f711464abf" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../README.md" afterDir="false" />
     </list>
@@ -70,7 +71,9 @@
     "Attach to process.localhost:51806.executor": "ProcessAttachDebug",
     "Attach to process.localhost:51815.executor": "ProcessAttachDebug",
     "Attach to process.localhost:51927.executor": "ProcessAttachDebug",
-    "Attach to process.localhost:53228.executor": "ProcessAttachDebug",
+    "Attach to process.localhost:53228.executor": "ProcessAttachDebug",=
+    "Attach to process.localhost:54399.executor": "ProcessAttachDebug",
+    "Attach to process.localhost:54436.executor": "ProcessAttachDebug",
     "Attach to process.localhost:64464.executor": "ProcessAttachDebug",
     "Attach to process.localhost:64503.executor": "ProcessAttachDebug",
     "Attach to process.localhost:64611.executor": "ProcessAttachDebug",
@@ -118,6 +121,12 @@
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/Users/ducksabervn/DATA/coding/DuckyEmulator/DuckyEmulator/src/main/resources/com/arthroverse/duckyemulator/images/loginbg",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "junie.onboarding.icon.badge.shown": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "E:/VinhDev/DuckyEmulator/DuckyEmulator",
     "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -129,6 +138,10 @@
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "preferences.pluginManager",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.editor",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -183,6 +196,8 @@
       <set>
         <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.26199.169" />
         <option value="bundled-js-predefined-d6986cc7102b-9c94529fcfe0-JavaScript-IU-252.26199.169" />
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.26927.53" />
+        <option value="bundled-js-predefined-d6986cc7102b-09060db00ec0-JavaScript-IU-251.26927.53" />
       </set>
     </attachedChunks>
   </component>
@@ -303,6 +318,12 @@
       <workItem from="1759053854996" duration="10000" />
       <workItem from="1759053872696" duration="2247000" />
       <workItem from="1759057745811" duration="7266000" />
+      <workItem from="1752158810377" duration="1634000" />
+      <workItem from="1752435113016" duration="49000" />
+      <workItem from="1752435168154" duration="561000" />
+      <workItem from="1752436626866" duration="211000" />
+      <workItem from="1752437217094" duration="74000" />
+      <workItem from="1752524206828" duration="3590000" />
     </task>
     <servers />
   </component>

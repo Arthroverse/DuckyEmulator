@@ -18,7 +18,8 @@
 - **📈 Detailed Analytics**: Comprehensive test results and session history
 - **🔒 Secure Authentication**: Robust user management with role-based access
 
-![DuckyEmulator Screenshot](https://raw.githubusercontent.com/username/DuckyEmulator/main/docs/screenshots/main-interface.png)
+![DuckyEmulator Screenshot](https://raw.githubusercontent.com/Arthroverse/DuckyEmulator/refs/heads/2025-9-28/DevelopmentDocs/v0.1/README/Screenshot%202025-09-28%20at%2018.14.55.png)
+![DuckyEmulator Screenshot](https://raw.githubusercontent.com/Arthroverse/DuckyEmulator/refs/heads/2025-9-28/DevelopmentDocs/v0.1/README/Screenshot%202025-09-28%20at%2018.15.23.png)
 
 ## ✨ Features
 
@@ -63,22 +64,6 @@
    ```bash
    java -jar DuckyEmulator.jar
    ```
-
-### Database Setup
-1. **Create MySQL Database**:
-   ```sql
-   CREATE DATABASE duckyemulator_questions;
-   ```
-
-2. **Configure Connection**: Update database credentials in `src/main/resources/config.properties`
-   ```properties
-   db.url=jdbc:mysql://localhost/duckyemulator_questions
-   db.username=your_username
-   db.password=your_password
-   ```
-
-3. **Initialize Tables**: The application will automatically create required tables on first run
-
 ### First Launch
 1. Launch DuckyEmulator
 2. Create admin account on first startup

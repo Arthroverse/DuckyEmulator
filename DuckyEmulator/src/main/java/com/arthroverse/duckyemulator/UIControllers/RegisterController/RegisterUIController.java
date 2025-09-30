@@ -88,12 +88,12 @@ public class RegisterUIController implements Initializable {
     }
 
     private boolean inputValidation(){
-        if(txtUserEmail.getText() == null || txtUserName.getText() == null)
+        if(txtUserEmail.getText().isEmpty() || txtUserName.getText().isEmpty())
             errorMessage.append(ErrorMessage.LOGIN_UI_CONTROLLER_NO_USERNAME_INPUTTED);
         else
             if(!(Users.checkValidEmail(txtUserEmail.getText())))
                 errorMessage.append(ErrorMessage.LOGIN_UI_CONTROLLER_INVALID_EMAIL);
-        if(passwordFieldUsrPw.getText() == null)
+        if(passwordFieldUsrPw.getText().isEmpty())
             errorMessage.append(ErrorMessage.LOGIN_UI_CONTROLLER_NO_PASSWORD_INPUTTED);
         if(choiceBoxUserType.getValue() == null)
             errorMessage.append(ErrorMessage.LOGIN_UI_CONTROLLER_NO_USERTYPE_CHOOSEN);

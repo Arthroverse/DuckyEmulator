@@ -266,12 +266,12 @@ public class QBankAddUIController implements Initializable {
         ObservableList<Topics> temp = tableViewSelectedTopic.getItems();
         if(temp.size() == 0) errorMessage.append(ErrorMessage.QUEST_NO_TOPIC_ASSOCIATED);
         if(choiceBoxSelectClass.getValue() == null) errorMessage.append(ErrorMessage.QUEST_NO_CLASSIFICATION_ASSOCIATED);
-        if(txtAreaQStatement.getText() == null) errorMessage.append(ErrorMessage.QUEST_NO_QUESTION_STATEMENT);
-        if(txtAreaQChoice1.getText() == null
-        || txtAreaQChoice2.getText() == null|| txtAreaQChoice3.getText().isEmpty()
-        || txtAreaQChoice4.getText() == null) errorMessage.append(ErrorMessage.QUEST_NO_CHOICE);
-        if(radBtnCorrect1.isSelected() && radBtnCorrect2.isSelected() &&
-                radBtnCorrect3.isSelected() && radBtnCorrect4.isSelected()) errorMessage.append(ErrorMessage.QUEST_NO_CORRECT_ANS);
+        if(txtAreaQStatement.getText().isEmpty()) errorMessage.append(ErrorMessage.QUEST_NO_QUESTION_STATEMENT);
+        if(txtAreaQChoice1.getText().isEmpty()
+        || txtAreaQChoice2.getText().isEmpty() || txtAreaQChoice3.getText().isEmpty()
+        || txtAreaQChoice4.getText().isEmpty()) errorMessage.append(ErrorMessage.QUEST_NO_CHOICE);
+        if(!radBtnCorrect1.isSelected() && !radBtnCorrect2.isSelected() &&
+                !radBtnCorrect3.isSelected() && !radBtnCorrect4.isSelected()) errorMessage.append(ErrorMessage.QUEST_NO_CORRECT_ANS);
         if(!errorMessage.toString().isEmpty()){
             AlertUtil.generateErrorWindow(ErrorTitle.QUEST_UI_CONTROLLER_ADD_QUEST_FAILED.toString(),
                     FailedOperationType.QUEST_UI_CONTROLLER_ADD_QUESTION_FAILED.toString(),

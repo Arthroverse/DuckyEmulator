@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/Database/MainDB/AdminBeans/Questions.java" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/Database/MainDB/DataSet/DataSeeding(MultipleTopics).sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/Database/MainDB/DataSet/MainDB.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/arthroverse/duckyemulator/Database/MainDB/Initialization/DatabaseInitialization.java" dialect="MySQL" />
+    <file url="PROJECT" dialect="MySQL" />
   </component>
 </project>
